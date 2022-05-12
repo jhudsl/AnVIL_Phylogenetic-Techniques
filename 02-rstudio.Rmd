@@ -1,0 +1,9 @@
+# (PART\*) RUNNING RSTUDIO {-}
+
+```{r, echo = FALSE, results='asis'}
+cow::borrow_chapter(
+  doc_path = "04-RStudio.Rmd",
+  repo_name = "jhudsl/GDSCN_Book_Statistics_for_Genomics_Differential_Expression"
+)
+```
+
