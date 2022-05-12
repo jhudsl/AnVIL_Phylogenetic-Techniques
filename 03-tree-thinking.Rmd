@@ -135,6 +135,6 @@ _tip.label_: the tip names (the taxa)
 
 
 ```{r}
-session_info()
+sessionInfo()
 ```
 
