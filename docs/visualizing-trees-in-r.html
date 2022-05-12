@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Visualizing trees in R | Molecular Phylogenetic Techniques</title>
+  <meta name="description" content="Description about Course/Book." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Visualizing trees in R | Molecular Phylogenetic Techniques" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Description about Course/Book." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Visualizing trees in R | Molecular Phylogenetic Techniques" />
+  
+  <meta name="twitter:description" content="Description about Course/Book." />
+  
+
+
+
+<meta name="date" content="2022-05-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
+<link rel="prev" href="phylogenetics-basics.html"/>
+<link rel="next" href="about-the-authors.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="assets/AnVIL_style/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://anvilproject.org/" target="_blank"><img src="assets/AnVIL_style/logo-anvil.png" style="width: 80%; padding-left: 15px; padding-top: 8px;"</a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Book</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#anvil-collection"><i class="fa fa-check"></i>AnVIL Collection</a></li>
+</ul></li>
+<li class="part"><span><b>BOOK OVERVIEW</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#motivation"><i class="fa fa-check"></i><b>1.1</b> Motivation</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#target-audience"><i class="fa fa-check"></i><b>1.2</b> Target Audience</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#curriculum"><i class="fa fa-check"></i><b>1.3</b> Curriculum</a></li>
+</ul></li>
+<li class="part"><span><b>RUNNING RSTUDIO</b></span></li>
+<li class="chapter" data-level="2" data-path="rstudio.html"><a href="rstudio.html"><i class="fa fa-check"></i><b>2</b> Working in RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="rstudio.html"><a href="rstudio.html#launch-rstudio-cloud-environment"><i class="fa fa-check"></i><b>2.1</b> Launch RStudio Cloud Environment</a></li>
+<li class="chapter" data-level="2.2" data-path="rstudio.html"><a href="rstudio.html#tour-rstudio"><i class="fa fa-check"></i><b>2.2</b> Tour RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="rstudio.html"><a href="rstudio.html#more-practice-with-isee"><i class="fa fa-check"></i><b>2.3</b> More Practice with <code>iSEE</code></a></li>
+<li class="chapter" data-level="2.4" data-path="rstudio.html"><a href="rstudio.html#stopping"><i class="fa fa-check"></i><b>2.4</b> Pause RStudio</a></li>
+<li class="chapter" data-level="2.5" data-path="rstudio.html"><a href="rstudio.html#delete-rstudio-cloud-environment"><i class="fa fa-check"></i><b>2.5</b> Delete RStudio Cloud Environment</a></li>
+<li class="chapter" data-level="2.6" data-path="rstudio.html"><a href="rstudio.html#video-guide"><i class="fa fa-check"></i><b>2.6</b> Video Guide</a></li>
+</ul></li>
+<li class="part"><span><b>TREE THINKING</b></span></li>
+<li class="chapter" data-level="3" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html"><i class="fa fa-check"></i><b>3</b> Phylogenetics basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#how-to-read-a-phylogenetic-tree"><i class="fa fa-check"></i><b>3.1</b> How to read a phylogenetic tree</a></li>
+<li class="chapter" data-level="3.2" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#branch-lengths"><i class="fa fa-check"></i><b>3.2</b> Branch lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html"><i class="fa fa-check"></i><b>4</b> Visualizing trees in R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#creating-a-newick-object"><i class="fa fa-check"></i><b>4.1</b> Creating a Newick object</a></li>
+<li class="chapter" data-level="4.2" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#drawing-trees"><i class="fa fa-check"></i><b>4.2</b> Drawing trees</a></li>
+<li class="chapter" data-level="4.3" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#the-phylo-class"><i class="fa fa-check"></i><b>4.3</b> The <code>phylo</code> class</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
+<li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
+<li class="divider"></li>
+<p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
+<p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
+<a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
+<p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Molecular Phylogenetic Techniques</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<head>
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=10.0,initial-scale=1.0">
+  <!--script src="https://kit.fontawesome.com/6a26f47516.js"></script-->
+  <!--<script src="assets/hideOutput.js"></script>-->
+  <link href="assets/AnvIL_style/style.css" rel="stylesheet">
+</head>
+        
+
+
+<div class="hero-image-container"> 
+  <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
+</div>
+<div id="visualizing-trees-in-r" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Visualizing trees in R</h1>
+<div id="creating-a-newick-object" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Creating a Newick object</h2>
+<p>Computer programs use the Newick tree format for phylogenetic trees. This format uses a series of parentheses, commas, and colons to store information about evolutionary relationships.</p>
+<ul>
+<li>(A,B) indicates a pair of taxa that form their own group, or <em>clade</em></li>
+<li>((A,B),C) indicates the next most closely related taxon to the A-B clade is taxon C</li>
+<li>(A:5,B:7) tells the program (and us!) the length of the branch connecting each taxon to the node. In this case, the branch length between the node and A is 5 and the branch length for B is 7. The total distance between A and B is 5+7, or 12.</li>
+<li>((A,B),C)); tells the program the tree is complete. If the semicolon is missing at the end, the program will keep looking for information on another taxon.</li>
+</ul>
+<p>For this exercise, we are going to create an R object in Newick formula that illustrates the relationships among several species of mammals.</p>
+<pre><code>## Installing package into &#39;/usr/local/lib/R/site-library&#39;
+## (as &#39;lib&#39; is unspecified)
+## Installing package into &#39;/usr/local/lib/R/site-library&#39;
+## (as &#39;lib&#39; is unspecified)</code></pre>
+<pre><code>## also installing the dependencies &#39;tmvnsim&#39;, &#39;quadprog&#39;, &#39;fastmatch&#39;, &#39;maps&#39;, &#39;clusterGeneration&#39;, &#39;coda&#39;, &#39;combinat&#39;, &#39;expm&#39;, &#39;gtools&#39;, &#39;mnormt&#39;, &#39;numDeriv&#39;, &#39;phangorn&#39;, &#39;plotrix&#39;, &#39;scatterplot3d&#39;</code></pre>
+<pre><code>## Installing package into &#39;/usr/local/lib/R/site-library&#39;
+## (as &#39;lib&#39; is unspecified)</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="visualizing-trees-in-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ANVIL:install(&#39;ape&#39;)</span></span>
+<span id="cb4-2"><a href="visualizing-trees-in-r.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ANVIL:install(&#39;nlme&#39;)</span></span>
+<span id="cb4-3"><a href="visualizing-trees-in-r.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb4-4"><a href="visualizing-trees-in-r.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb4-5"><a href="visualizing-trees-in-r.html#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="visualizing-trees-in-r.html#cb4-6" aria-hidden="true" tabindex="-1"></a>mammal <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">&quot;((raccoon:19.19959,bear:6.80041):0.84600,((sea_lion:11.99700, seal:12.00300):7.52973,((monkey:100.85930,cat:47.14069):20.59201, weasel:18.87953):2.09460):3.87382,dog:25.46154);&quot;</span>)</span>
+<span id="cb4-7"><a href="visualizing-trees-in-r.html#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="visualizing-trees-in-r.html#cb4-8" aria-hidden="true" tabindex="-1"></a>mammal</span></code></pre></div>
+<pre><code>## 
+## Phylogenetic tree with 8 tips and 6 internal nodes.
+## 
+## Tip labels:
+##   raccoon, bear, sea_lion, seal, monkey, cat, ...
+## 
+## Unrooted; includes branch lengths.</code></pre>
+<p>We now have a phylogenetic tree loaded into R.</p>
+<div class="fyi">
+<p>Why is it called Newick format?</p>
+<p>This is what Joe Felsenstein, one of the giants of the phylogenetic field, says:
+“The Newick Standard was adopted 26 June 1986 by an informal committee meeting convened by me during the Society for the Study of Evolution meetings in Durham, New Hampshire and consisting of James Archie, William H.E. Day, Wayne Maddison, Christopher Meacham, F. James Rohlf, David Swofford, and myself. (The committee was not an activity of the SSE nor endorsed by it). The reason for the name is that the second and final session of the committee met at Newick’s restaurant in Dover, New Hampshire, and we enjoyed the meal of lobsters. The tree representation was a generalization of one developed by Christopher Meacham in 1984 for the tree plotting programs that he wrote for the PHYLIP package while visiting Seattle. His visit was a sabbatical leave from the University of Georgia, which thus indirectly partly funded that work.”</p>
+</div>
+</div>
+<div id="drawing-trees" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Drawing trees</h2>
+<p>It is quite difficult for humans to quickly interpret the relationships and branch lengths in the Newick format. Luckily, R (and other phylogenetics programs) can convert Newick formats into a more understandable form.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="visualizing-trees-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal, <span class="at">type=</span><span class="st">&quot;unrooted&quot;</span>)</span></code></pre></div>
+<p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="visualizing-trees-in-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#this can also be written as plot(mammal, &quot;u&quot;)</span></span></code></pre></div>
+<p>You’ve inferred an unrooted tree. It probably looks a bit different than trees you’ve seen before (including the one in the previous section); most trees are displayed in a rooted form. We can do that by declaring an outgroup and specifying that we want to draw a phylogram.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="visualizing-trees-in-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a>mammal.rooted <span class="ot">&lt;-</span> <span class="fu">root</span>(mammal, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;monkey&#39;</span>,<span class="st">&#39;cat&#39;</span>))</span>
+<span id="cb8-2"><a href="visualizing-trees-in-r.html#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="visualizing-trees-in-r.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal.rooted, <span class="at">type=</span><span class="st">&quot;phylogram&quot;</span>)</span></code></pre></div>
+<p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="visualizing-trees-in-r.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#alternatively, you can use the command: plot(plot(mammal_rooted), as phylogram is the default type</span></span></code></pre></div>
+<p>Now the tree looks more like the Ursidae tree we examined earlier. The order of the tips is partly determined by the order in which we wrote the taxa in our Newick format. We can change the order of the tips and still have the same tree.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="visualizing-trees-in-r.html#cb10-1" aria-hidden="true" tabindex="-1"></a>mammal_B <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">&quot;(dog:25.46154,(raccoon:19.19959,bear:6.80041):0.84600,((seal:12.00300,sea_lion:11.99700):7.52973,((monkey:100.85930,cat:47.14069):20.59201, weasel:18.87953):2.09460):3.87382);&quot;</span>)</span>
+<span id="cb10-2"><a href="visualizing-trees-in-r.html#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="visualizing-trees-in-r.html#cb10-3" aria-hidden="true" tabindex="-1"></a>mammal_B.r <span class="ot">&lt;-</span> <span class="fu">root</span>(mammal_B, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;monkey&#39;</span>,<span class="st">&#39;cat&#39;</span>))</span>
+<span id="cb10-4"><a href="visualizing-trees-in-r.html#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="visualizing-trees-in-r.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal_B.r, <span class="at">type=</span><span class="st">&quot;phylogram&quot;</span>)</span></code></pre></div>
+<p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Clades can rotate freely around nodes without changing the relationships among the tips. Although the “dog” label is closer to “sea lion” in our first tree, the evolutionary distance between the two is the same, because we trace through the same nodes to find their common ancestor.</p>
+<div class="fyi">
+<p>QUESTIONS</p>
+<ol style="list-style-type: decimal">
+<li><p>Based on the unrooted tree, why did we use “cat” and “monkey” as our outgroups for the rooted tree?</p></li>
+<li><p>What is the total branch length between “sea lion” and “seal”? (You will need to look at the tree in Newick format.)</p></li>
+<li><p>Does “raccoon” share a more common recent ancestor with “weasel” or with “sea lion”?</p></li>
+<li><p>Which nodes on the first tree (<code>mammal.rooted</code>) were rotated to create the second tree (<code>mammal_B.r</code>)?</p></li>
+</ol>
+</div>
+</div>
+<div id="the-phylo-class" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> The <code>phylo</code> class</h2>
+<p>When we use the <code>ape</code> package, R converts a tree in Newick format to an object of the <code>phylo</code> class. This is basically a list of four dataframes.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="visualizing-trees-in-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mammal.rooted)</span></code></pre></div>
+<pre><code>## List of 4
+##  $ edge       : int [1:13, 1:2] 9 14 12 10 11 11 10 12 13 13 ...
+##  $ edge.length: num [1:13] 20.592 2.095 3.874 0.846 19.2 ...
+##  $ Nnode      : int 6
+##  $ tip.label  : chr [1:8] &quot;raccoon&quot; &quot;bear&quot; &quot;sea_lion&quot; &quot;seal&quot; ...
+##  - attr(*, &quot;class&quot;)= chr &quot;phylo&quot;
+##  - attr(*, &quot;order&quot;)= chr &quot;cladewise&quot;</code></pre>
+<p>Each dataframe holds information about some part of the tree.</p>
+<p><em>edge</em>: the number of steps needed to connect two tips. It’s easiest to think of each branch as an edge.</p>
+<p><em>edge.length</em>: the length of each corresponding edge, or branch</p>
+<p><em>Nnode</em>: the number of nodes in the tree</p>
+<p><em>tip.label</em>: the tip names (the taxa)</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="visualizing-trees-in-r.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.3 LTS
+## 
+## Matrix products: default
+## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] nlme_3.1-149 ape_5.4-1   
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.8      knitr_1.33      magrittr_2.0.2  hms_0.5.3      
+##  [5] lattice_0.20-41 R6_2.4.1        rlang_0.4.10    highr_0.8      
+##  [9] stringr_1.4.0   tools_4.0.2     parallel_4.0.2  grid_4.0.2     
+## [13] xfun_0.26       jquerylib_0.1.4 htmltools_0.5.0 ellipsis_0.3.1 
+## [17] ottrpal_0.1.2   yaml_2.2.1      digest_0.6.25   tibble_3.0.3   
+## [21] lifecycle_1.0.0 crayon_1.3.4    bookdown_0.24   readr_1.4.0    
+## [25] vctrs_0.3.4     fs_1.5.0        evaluate_0.14   rmarkdown_2.10 
+## [29] stringi_1.5.3   compiler_4.0.2  pillar_1.4.6    pkgconfig_2.0.3</code></pre>
+
+</div>
+</div>
+<hr>
+<center> 
+  <div class="footer">
+      All illustrations <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY. </a>
+      <br>
+      All other materials <a href= "https://creativecommons.org/licenses/by/4.0/"> CC-BY </a> unless noted otherwise.
+  </div>
+</center>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="phylogenetics-basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="about-the-authors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
