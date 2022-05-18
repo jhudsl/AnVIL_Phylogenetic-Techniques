@@ -8,13 +8,14 @@ ottrpal::set_knitr_image_path()
 
 ## How to read a phylogenetic tree
 
-A phylogeny, or phylogenetic tree, is a diagram that shows the evolutionary history and relationships among or within groups of organisms. Phylogenetics was traditionally a somewhat obscure field in which systematists (biologists concerned with arranging organisms into a tree that showed their ancestral relatedness) arranged related living organisms at the “tips” or “leaves” of the tree, and made “branches” to connect different organisms back to putative ancestral organisms.
+A **phylogeny**, or **phylogenetic tree**, is a diagram that shows the evolutionary history and relationships among or within groups of organisms. Phylogenetics was traditionally a somewhat obscure field in which systematists (biologists concerned with arranging organisms into a tree that showed their ancestral relatedness) arranged related living organisms at the **tips** (or “leaves” of the tree), and made **branches** to connect different organisms back to putative ancestral organisms.
 
 Here's a phylogeny of the family Ursidae (the bears).
 
 <img src="resources/images/03-bear_phylogeny.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
 
-In this tree, all the extant (or currently living species) are at the tips on the far right side of the phylogeny. Inferences about how the bear species are related become apparent as you move away from the tips down the branches. When two branches meet at a node (as they do at point A), you can assume the species at the tips of those branches share a common ancestor. For example, this phylogeny of the Ursidae indicates that American black bears and Asian black bears share a common ancestor (indicated by the node at point A). However, we don’t _know_ what the common ancestor is for certain, we are just inferring based on similarities between the species that exist today.
+
+In this tree, all the extant species (or currently living species) are at the tips on the far right side of the phylogeny. Inferences about how the bear species are related become apparent as you move away from the tips down the branches. When two branches meet at a **node** (as they do at point A), you can assume the species at the tips of those branches share a common ancestor. For example, this phylogeny of the Ursidae indicates that American black bears and Asian black bears share a common ancestor (indicated by the node at point A). However, we don’t _know_ what the common ancestor is for certain, we are just inferring based on similarities between the species that exist today.
 
 Nodes that are closer to the tips indicate species that are more closely related (and thus indicate a more recent common ancestor than nodes farther away from the tips). American black bears are more closely related to Asian black bears than to sun bears, because the American black bear branch connects to a node shared by the Asian black bear branch before it connects to a node shared with the sun bear branch. According to this phylogeny, the evolutionary distance between the American black bear and the sun bear _is the same_ as the evolutionary distance between the Asian black bear and the sun bear, even though the American black bear label is closer to sun bear than the Asian black bear label is. **In phylogenetic trees, relatedness is expressed by the distance to a common node between two species, NOT by whether the labels are near each other.**
 
@@ -77,8 +78,7 @@ This is what Joe Felsenstein, one of the giants of the phylogenetic field, says:
 It is quite difficult for humans to quickly interpret the relationships and branch lengths in the Newick format. Luckily, R (and other phylogenetics programs) can convert Newick formats into a more understandable form.
 
 ```{r}
-plot(mammal, type="unrooted")
-#this can also be written as plot(mammal, "u")
+plot(mammal, type="unrooted")#this can also be written as plot(mammal, "u")
 ```
 
 You've inferred an unrooted tree. It probably looks a bit different than trees you've seen before (including the one in the previous section); most trees are displayed in a rooted form. We can do that by declaring an outgroup and specifying that we want to draw a phylogram.
@@ -86,15 +86,16 @@ You've inferred an unrooted tree. It probably looks a bit different than trees y
 ```{r}
 mammal.rooted <- root(mammal, outgroup = c('monkey','cat'))
 
-plot(mammal.rooted, type="phylogram")
 #alternatively, you can use the command: plot(plot(mammal_rooted), as phylogram is the default type
+plot(mammal.rooted, type="phylogram")
 ```
 
 Now the tree looks more like the Ursidae tree we examined earlier. The order of the tips is partly determined by the order in which we wrote the taxa in our Newick format. We can change the order of the tips and still have the same tree.
 
 
 ```{r}
-mammal_B <- read.tree(text = "(dog:25.46154,(raccoon:19.19959,bear:6.80041):0.84600,((seal:12.00300,sea_lion:11.99700):7.52973,((monkey:100.85930,cat:47.14069):20.59201, weasel:18.87953):2.09460):3.87382);")
+mammal_B <- read.tree(text = "(dog:25.46154,(raccoon:19.19959,bear:6.80041):0.84600,((seal:12.00300,sea_lion:11.99700):7.52973,
+            ((monkey:100.85930,cat:47.14069):20.59201, weasel:18.87953):2.09460):3.87382);")
 
 mammal_B.r <- root(mammal_B, outgroup = c('monkey','cat'))
 
