@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-05-12" />
+<meta name="date" content="2022-05-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -248,21 +248,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="drawing-trees" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Drawing trees</h2>
 <p>It is quite difficult for humans to quickly interpret the relationships and branch lengths in the Newick format. Luckily, R (and other phylogenetics programs) can convert Newick formats into a more understandable form.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="visualizing-trees-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal, <span class="at">type=</span><span class="st">&quot;unrooted&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="visualizing-trees-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal, <span class="at">type=</span><span class="st">&quot;unrooted&quot;</span>)<span class="co">#this can also be written as plot(mammal, &quot;u&quot;)</span></span></code></pre></div>
 <p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="visualizing-trees-in-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#this can also be written as plot(mammal, &quot;u&quot;)</span></span></code></pre></div>
 <p>You’ve inferred an unrooted tree. It probably looks a bit different than trees you’ve seen before (including the one in the previous section); most trees are displayed in a rooted form. We can do that by declaring an outgroup and specifying that we want to draw a phylogram.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="visualizing-trees-in-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a>mammal.rooted <span class="ot">&lt;-</span> <span class="fu">root</span>(mammal, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;monkey&#39;</span>,<span class="st">&#39;cat&#39;</span>))</span>
-<span id="cb8-2"><a href="visualizing-trees-in-r.html#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="visualizing-trees-in-r.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal.rooted, <span class="at">type=</span><span class="st">&quot;phylogram&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="visualizing-trees-in-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a>mammal.rooted <span class="ot">&lt;-</span> <span class="fu">root</span>(mammal, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;monkey&#39;</span>,<span class="st">&#39;cat&#39;</span>))</span>
+<span id="cb7-2"><a href="visualizing-trees-in-r.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="visualizing-trees-in-r.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#alternatively, you can use the command: plot(plot(mammal_rooted), as phylogram is the default type</span></span>
+<span id="cb7-4"><a href="visualizing-trees-in-r.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal.rooted, <span class="at">type=</span><span class="st">&quot;phylogram&quot;</span>)</span></code></pre></div>
 <p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="visualizing-trees-in-r.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#alternatively, you can use the command: plot(plot(mammal_rooted), as phylogram is the default type</span></span></code></pre></div>
 <p>Now the tree looks more like the Ursidae tree we examined earlier. The order of the tips is partly determined by the order in which we wrote the taxa in our Newick format. We can change the order of the tips and still have the same tree.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="visualizing-trees-in-r.html#cb10-1" aria-hidden="true" tabindex="-1"></a>mammal_B <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">&quot;(dog:25.46154,(raccoon:19.19959,bear:6.80041):0.84600,((seal:12.00300,sea_lion:11.99700):7.52973,((monkey:100.85930,cat:47.14069):20.59201, weasel:18.87953):2.09460):3.87382);&quot;</span>)</span>
-<span id="cb10-2"><a href="visualizing-trees-in-r.html#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="visualizing-trees-in-r.html#cb10-3" aria-hidden="true" tabindex="-1"></a>mammal_B.r <span class="ot">&lt;-</span> <span class="fu">root</span>(mammal_B, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;monkey&#39;</span>,<span class="st">&#39;cat&#39;</span>))</span>
-<span id="cb10-4"><a href="visualizing-trees-in-r.html#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="visualizing-trees-in-r.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal_B.r, <span class="at">type=</span><span class="st">&quot;phylogram&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="visualizing-trees-in-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a>mammal_B <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">&quot;(dog:25.46154,(raccoon:19.19959,bear:6.80041):0.84600,((seal:12.00300,sea_lion:11.99700):7.52973,</span></span>
+<span id="cb8-2"><a href="visualizing-trees-in-r.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">            ((monkey:100.85930,cat:47.14069):20.59201, weasel:18.87953):2.09460):3.87382);&quot;</span>)</span>
+<span id="cb8-3"><a href="visualizing-trees-in-r.html#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="visualizing-trees-in-r.html#cb8-4" aria-hidden="true" tabindex="-1"></a>mammal_B.r <span class="ot">&lt;-</span> <span class="fu">root</span>(mammal_B, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;monkey&#39;</span>,<span class="st">&#39;cat&#39;</span>))</span>
+<span id="cb8-5"><a href="visualizing-trees-in-r.html#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="visualizing-trees-in-r.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal_B.r, <span class="at">type=</span><span class="st">&quot;phylogram&quot;</span>)</span></code></pre></div>
 <p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Clades can rotate freely around nodes without changing the relationships among the tips. Although the “dog” label is closer to “sea lion” in our first tree, the evolutionary distance between the two is the same, because we trace through the same nodes to find their common ancestor.</p>
 <div class="fyi">
@@ -278,7 +278,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-phylo-class" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> The <code>phylo</code> class</h2>
 <p>When we use the <code>ape</code> package, R converts a tree in Newick format to an object of the <code>phylo</code> class. This is basically a list of four dataframes.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="visualizing-trees-in-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mammal.rooted)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="visualizing-trees-in-r.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mammal.rooted)</span></code></pre></div>
 <pre><code>## List of 4
 ##  $ edge       : int [1:13, 1:2] 9 14 12 10 11 11 10 12 13 13 ...
 ##  $ edge.length: num [1:13] 20.592 2.095 3.874 0.846 19.2 ...
@@ -291,7 +291,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><em>edge.length</em>: the length of each corresponding edge, or branch</p>
 <p><em>Nnode</em>: the number of nodes in the tree</p>
 <p><em>tip.label</em>: the tip names (the taxa)</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="visualizing-trees-in-r.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="visualizing-trees-in-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.0.2 (2020-06-22)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.3 LTS

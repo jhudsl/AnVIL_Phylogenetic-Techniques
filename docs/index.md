@@ -1,6 +1,6 @@
 ---
 title: "Molecular Phylogenetic Techniques"
-date: "May 12, 2022"
+date: "May 18, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: book.bib
@@ -56,8 +56,8 @@ Please check out our full collection of AnVIL and related resources below!
    <td style="text-align:left;"> https://jhudatascience.org/GDSCN_Book_Statistics_for_Genomics_RNA-seq </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> GDSCN: Statistics for Genomics SCRNA-seq </td>
-   <td style="text-align:left;"> https://jhudatascience.org/GDSCN_Book_Statistics_for_Genomics_SCRNA-seq </td>
+   <td style="text-align:left;"> GDSCN: Statistics for Genomics scRNA-seq </td>
+   <td style="text-align:left;"> https://jhudatascience.org/GDSCN_Book_Statistics_for_Genomics_scRNA-seq </td>
   </tr>
 </tbody>
 </table>
