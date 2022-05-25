@@ -56,21 +56,23 @@ Computer programs use the Newick tree format for phylogenetic trees. This format
 
 For this exercise, we are going to create an R object in Newick formula that illustrates the relationships among several species of mammals.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning = FALSE, message = FALSE}
 install.packages('ape')
 install.packages('phytools')
 install.packages('nlme')
 ```
 
-```{r}
-#ANVIL:install('ape')
-#ANVIL:install('nlme')
-library(ape)
-library(nlme)
+```{r, warning = FALSE, message = FALSE}
+#ANVIL:install('ape') #this installs the ape package
+#ANVIL:install('nlme') #this installs the nlme package
+library(ape) #this opens the ape package
+library(nlme) #this opens the nlme package
 
+#we first create an object that stores the tree information
 mammal.1 <-  read.tree(text = "((((raccoon:19.19959,bear:6.80041):0.84600,
              weasel:18.87953):2.09460):3.87382,dog:25.46154);")
 
+#typing the name of the object means R will tell us about it
 mammal.1
 ```
 
@@ -88,6 +90,9 @@ This is what Joe Felsenstein, one of the giants of the phylogenetic field, says:
 It is quite difficult for humans to quickly interpret the relationships and branch lengths in the Newick format. Luckily, R (and other phylogenetics programs) can convert Newick formats into a more understandable form.
 
 ```{r}
+#plot is the command we use to create trees with the ape package
+#one of the options is the type of tree the command draws
+
 #this can also be written as plot(mammal.1, "u")
 plot(mammal.1, type="unrooted")
 ```
@@ -95,6 +100,8 @@ plot(mammal.1, type="unrooted")
 You've inferred an unrooted tree. It probably looks a bit different than trees you've seen before (including the one in the previous section); most trees are displayed in a rooted form. We can do that by specifying that we want to draw a phylogram. If you don't declare an outgroup first, R will choose to root the phylogram halfway between the two longest branches (this is called midpoint rooting).
 
 ```{r}
+#here we draw a phylogram
+
 #alternatively, you can use the command: 
 #plot(plot(mammal.1), as phylogram is the default type
 plot(mammal.1, type="phylogram")
@@ -107,6 +114,8 @@ Now the tree looks more like the Ursidae tree we examined earlier. The order of 
 mammal.2 <- read.tree(text = "((((bear:6.80041,raccoon:19.19959):0.84600,
              weasel:18.87953):2.09460):3.87382,dog:25.46154);")
 
+#this bit of code here tells R to put the trees in side-by-side in
+#a single row (1 row, 2 columns)
 par(mfrow=c(1,2))
 plot(mammal.1)
 plot(mammal.2)
@@ -129,17 +138,17 @@ mammal.3
 We've now added an additional 5 taxa to our tree of mammalian species. Let's first take a look at the unrooted tree.
 
 ```{r}
-plot(mammal.3, type="u")
+plot(mammal.3, type="u")#"u" is short for "unrooted"
 ```
 
 Even with the unrooted tree, we can see that some species are definitely more closely related than others. In fact, it looks like both "cat" and "monkey" are pretty distantly related to the others, since the branches connecting these taxa are much longer than any other branch. Given this information, we will define these two taxa as our outgroup and redraw our tree, this time as a rooted phylogram.
 
 ```{r}
+#this command tells R that monkey and cat are outgroups
 mammal.3.root <- root(mammal.3, outgroup = c('monkey','cat'))
 
 par(mfrow=c(1,2))
-plot(mammal.3, type="u")
-plot(mammal.3.root, type="p")
+plot(mammal.3.root, type="p")#"p" is short for "phylogram"
 ```
 
 ## Drawing trees multiple ways
@@ -149,6 +158,8 @@ So far you've drawn trees in two ways - unrooted, and as a phylogram. For both o
 There are two other common ways of drawing trees. The radial tree (sometimes called the fan tree) arranges all the branches in a circle. This is a popular way to draw a phylogeny with many tips that would otherwise take up a lot of space.
 
 ```{r}
+#now we're looking at three different trees next to each other
+#basically, figures are in 1 row and 3 columns
 par(mfrow=c(1,3))
 plot(mammal.3, type="u")
 plot(mammal.3.root, type="p")
