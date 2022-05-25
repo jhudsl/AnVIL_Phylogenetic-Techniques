@@ -22,7 +22,9 @@ Nodes that are closer to the tips indicate species that are more closely related
 
 Another unusual thing about phylogenies is we can change the order of the taxa on the tips without actually changing the topology of the tree.
 
+
 <img src="resources/images/03-bear_phylogeny_v1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
 
 These two trees are the same, even though we have changed the position of the labels of American black bear and Asian black bear. **In phylogenetic trees, relatedness is expressed by the distance to a common node between two species, NOT by whether the labels are near each other.** Branches can rotate freely around nodes without changing the tree.
 
@@ -147,7 +149,6 @@ Even with the unrooted tree, we can see that some species are definitely more cl
 #this command tells R that monkey and cat are outgroups
 mammal.3.root <- root(mammal.3, outgroup = c('monkey','cat'))
 
-par(mfrow=c(1,2))
 plot(mammal.3.root, type="p")#"p" is short for "phylogram"
 ```
 
