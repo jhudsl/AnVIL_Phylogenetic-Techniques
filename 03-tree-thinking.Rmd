@@ -186,7 +186,7 @@ QUESTIONS
 When we use the `ape` package, R converts a tree in Newick format to an object of the `phylo` class. This is basically a list of four dataframes.
 
 ```{r}
-str(mammal.rooted)
+str(mammal.3.root)
 ```
 
 Each dataframe holds information about some part of the tree.
