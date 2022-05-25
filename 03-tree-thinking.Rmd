@@ -17,15 +17,24 @@ Here's a phylogeny of the family Ursidae (the bears).
 
 In this tree, all the extant species (or currently living species) are at the tips on the far right side of the phylogeny. Inferences about how the bear species are related become apparent as you move away from the tips down the branches. When two branches meet at a **node** (as they do at point A), you can assume the species at the tips of those branches share a common ancestor. For example, this phylogeny of the Ursidae indicates that American black bears and Asian black bears share a common ancestor (indicated by the node at point A). However, we don’t _know_ what the common ancestor is for certain, we are just inferring based on similarities between the species that exist today.
 
-Nodes that are closer to the tips indicate species that are more closely related (and thus indicate a more recent common ancestor than nodes farther away from the tips). American black bears are more closely related to Asian black bears than to sun bears, because the American black bear branch connects to a node shared by the Asian black bear branch before it connects to a node shared with the sun bear branch. According to this phylogeny, the evolutionary distance between the American black bear and the sun bear _is the same_ as the evolutionary distance between the Asian black bear and the sun bear, even though the American black bear label is closer to sun bear than the Asian black bear label is. **In phylogenetic trees, relatedness is expressed by the distance to a common node between two species, NOT by whether the labels are near each other.**
+Nodes that are closer to the tips indicate species that are more closely related (and thus indicate a more recent common ancestor than nodes farther away from the tips). American black bears are more closely related to Asian black bears than to American black bears are to giant pandas, because the American black bear branch connects to a node shared by the Asian black bear branch (point A) before it connects to a node shared with the giant panda branch (point B). 
 
-Although this is a phylogeny of the Ursidae, you might have noticed there are two branches belonging to the gray wolf and the spotted seal, neither of which is a bear. These two species are included as outgroups. Outgroups are taxa that are only distantly related to the group of interest and serves as reference points for determining evolutionary changes.
+
+Another unusual thing about phylogenies is we can change the order of the taxa on the tips without actually changing the topology of the tree.
+
+<img src="resources/images/03-bear_phylogeny_v1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+These two trees are the same, even though we have changed the position of the labels of American black bear and Asian black bear. **In phylogenetic trees, relatedness is expressed by the distance to a common node between two species, NOT by whether the labels are near each other.** Branches can rotate freely around nodes without changing the tree.
+
+## Outgroups
+
+Although this is a phylogeny of the Ursidae, you might have noticed there are two branches belonging to the gray wolf and the spotted seal, neither of which is a bear. These two species are included as outgroups. Outgroups are taxa that are only distantly related to the group of interest and serve as reference points for determining evolutionary changes.
 
 ## Branch lengths
 
-Branch lengths (the distance between two nodes, or between a node and a tip), may or may not be indicative of the passage of a particular amount of unit time. It depends on how the tree was inferred (we infer phylogenetic trees, we don't make them). If the tree is created by parsimony or neighbor-joining methods, the branches simply indicate that there was one (or more) change from the ancestor to the descendant.  If the tree was created using maximum likelihood methods, the branch lengths represent how many genetic changes occurred over time.
+Branch lengths (the distance between two nodes, or between a node and a tip), may or may not be indicative of the passage of a particular amount of time. It depends on how the tree was inferred (we infer phylogenetic trees, we don't make them). If the tree is created by parsimony or neighbor-joining methods, the branches simply indicate that there was one (or more) change from the ancestor to the descendant.  If the tree was created using maximum likelihood methods, the branch lengths represent how many genetic changes occurred over time. 
 
-Regardless of how the trees are constructed, they are estimates of what we think happened historically.  Each estimate contains within it implicit assumptions about rates of mutation accumulating, likelihood of different types of changes being more common (transitions vs. transversions, for example), and so on.  The tree is our best guess as to the history of the organisms on it, but it is only a guess.
+Regardless of how the trees are constructed, they are estimates of what we think happened historically.  Each estimate contains within it implicit assumptions about rates of mutation accumulating, likelihood of different types of changes being more common (transitions vs. transversions, for example), and so on.  The tree is our best hypothesis as to the history of the organisms on it, but it is only a hypothesis.
 
 
 ::: {.fyi}
@@ -59,9 +68,10 @@ install.packages('nlme')
 library(ape)
 library(nlme)
 
-mammal <- read.tree(text = "((raccoon:19.19959,bear:6.80041):0.84600,((sea_lion:11.99700, seal:12.00300):7.52973,((monkey:100.85930,cat:47.14069):20.59201, weasel:18.87953):2.09460):3.87382,dog:25.46154);")
+mammal.1 <-  read.tree(text = "((((raccoon:19.19959,bear:6.80041):0.84600,
+             weasel:18.87953):2.09460):3.87382,dog:25.46154);")
 
-mammal
+mammal.1
 ```
 
 We now have a phylogenetic tree loaded into R. 
@@ -78,42 +88,97 @@ This is what Joe Felsenstein, one of the giants of the phylogenetic field, says:
 It is quite difficult for humans to quickly interpret the relationships and branch lengths in the Newick format. Luckily, R (and other phylogenetics programs) can convert Newick formats into a more understandable form.
 
 ```{r}
-plot(mammal, type="unrooted")#this can also be written as plot(mammal, "u")
+#this can also be written as plot(mammal.1, "u")
+plot(mammal.1, type="unrooted")
 ```
 
-You've inferred an unrooted tree. It probably looks a bit different than trees you've seen before (including the one in the previous section); most trees are displayed in a rooted form. We can do that by declaring an outgroup and specifying that we want to draw a phylogram.
+You've inferred an unrooted tree. It probably looks a bit different than trees you've seen before (including the one in the previous section); most trees are displayed in a rooted form. We can do that by specifying that we want to draw a phylogram. If you don't declare an outgroup first, R will choose to root the phylogram halfway between the two longest branches (this is called midpoint rooting).
 
 ```{r}
-mammal.rooted <- root(mammal, outgroup = c('monkey','cat'))
-
-#alternatively, you can use the command: plot(plot(mammal_rooted), as phylogram is the default type
-plot(mammal.rooted, type="phylogram")
+#alternatively, you can use the command: 
+#plot(plot(mammal.1), as phylogram is the default type
+plot(mammal.1, type="phylogram")
 ```
 
 Now the tree looks more like the Ursidae tree we examined earlier. The order of the tips is partly determined by the order in which we wrote the taxa in our Newick format. We can change the order of the tips and still have the same tree.
 
 
 ```{r}
-mammal_B <- read.tree(text = "(dog:25.46154,(raccoon:19.19959,bear:6.80041):0.84600,((seal:12.00300,sea_lion:11.99700):7.52973,
-            ((monkey:100.85930,cat:47.14069):20.59201, weasel:18.87953):2.09460):3.87382);")
+mammal.2 <- read.tree(text = "((((bear:6.80041,raccoon:19.19959):0.84600,
+             weasel:18.87953):2.09460):3.87382,dog:25.46154);")
 
-mammal_B.r <- root(mammal_B, outgroup = c('monkey','cat'))
-
-plot(mammal_B.r, type="phylogram")
+par(mfrow=c(1,2))
+plot(mammal.1)
+plot(mammal.2)
 ```
 
-Clades can rotate freely around nodes without changing the relationships among the tips. Although the "dog" label is closer to "sea lion" in our first tree, the evolutionary distance between the two is the same, because we trace through the same nodes to find their common ancestor.
+Clades can rotate freely around nodes without changing the relationships among the tips. Although the "weasel" label is closer to "bear" in our first tree than it is in the second tree, the evolutionary distance between the two is the same in both trees, because we trace through the same nodes to find their common ancestor. **Both of these trees are exactly the same, in a phylogenetic sense.**
+
+## Adding outgroups
+
+Let's add some more taxa to our tree!
+
+```{r}
+mammal.3 <- read.tree(text = "((raccoon:19.19959,bear:6.80041):0.84600,((sea_lion:11.99700,
+            seal:12.00300):7.52973,((monkey:100.85930,cat:47.14069):20.59201,
+            weasel:18.87953):2.09460):3.87382,dog:25.46154);")
+
+mammal.3
+```
+
+We've now added an additional 5 taxa to our tree of mammalian species. Let's first take a look at the unrooted tree.
+
+```{r}
+plot(mammal.3, type="u")
+```
+
+Even with the unrooted tree, we can see that some species are definitely more closely related than others. In fact, it looks like both "cat" and "monkey" are pretty distantly related to the others, since the branches connecting these taxa are much longer than any other branch. Given this information, we will define these two taxa as our outgroup and redraw our tree, this time as a rooted phylogram.
+
+```{r}
+mammal.3.root <- root(mammal.3, outgroup = c('monkey','cat'))
+
+par(mfrow=c(1,2))
+plot(mammal.3, type="u")
+plot(mammal.3.root, type="p")
+```
+
+## Drawing trees multiple ways
+
+So far you've drawn trees in two ways - unrooted, and as a phylogram. For both of these tree types, the branch lengths are scaled to indicate evolutionary distance (or how many changes have occurred). As a result, the tips aren't all even with each other.
+
+There are two other common ways of drawing trees. The radial tree (sometimes called the fan tree) arranges all the branches in a circle. This is a popular way to draw a phylogeny with many tips that would otherwise take up a lot of space.
+
+```{r}
+par(mfrow=c(1,3))
+plot(mammal.3, type="u")
+plot(mammal.3.root, type="p")
+plot(mammal.3.root, type="f")#f is short for "fan"
+```
+
+All three of these trees show exactly the same information. 
+
+The last common way to draw trees is as a cladogram. Cladograms are a little different than the others, because the branches are not scaled to evolutionary distance. Instead, the tree is drawn so that all the tips (taxa) are lined up. It is often easier to see relationships in a cladogram, particularly if the internode distances (the distance between two internal nodes of a tree) are small.
+
+To properly draw a cladogram, we will rewrite our tree in Newick formula so that it doesn't include branch lengths.
+
+```{r}
+mammal.4 <- read.tree(text = "(dog,(raccoon,bear),((seal,sea_lion),
+            ((monkey,cat), weasel)));")
+mammal.4.root <- root(mammal.4, outgroup = c('monkey','cat'))
+
+par(mfrow=c(1,2))
+plot(mammal.3.root, type="p")
+plot(mammal.4.root, type="c")#c is short for "cladogram"
+```
 
 ::: {.fyi}
 QUESTIONS
 
-1. Based on the unrooted tree, why did we use "cat" and "monkey" as our outgroups for the rooted tree?
+1. What is the total branch length between "bear" and "raccoon"? (You will need to look at the tree in Newick format.)
 
-2. What is the total branch length between "sea lion" and "seal"? (You will need to look at the tree in Newick format.)
+2. Does "weasel" share a more common recent ancestor with "seal" or with "sea lion"?
 
-3. Does "raccoon" share a more common recent ancestor with "weasel" or with "sea lion"?
-
-4. Which nodes on the first tree (`mammal.rooted`) were rotated to create the second tree (`mammal_B.r`)?
+3. Why does it look like "weasel" is more closely related to "bear" in the tree with four taxa, but it looks like "dog" is more closely related to "bear" in the tree with eight taxa? (HINT: Think about the purpose of an outgroup, and whether we specified one for the four-taxa tree.)
 :::
 
 ## The `phylo` class
