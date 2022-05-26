@@ -169,8 +169,6 @@ grass <- read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
       "FJ481575.1","EF204545.1","AJ314771.1","FJ481569.1",
       "DQ073533.1","AY804128.1","AY303125.2","KF887414.1",
       "D82941.1","JX276655.1"), as.character=T)
-
-attr(grass, "species")
 ```
 
 We even have the species information for each sample saved. This will be helpful when drawing our tree.
