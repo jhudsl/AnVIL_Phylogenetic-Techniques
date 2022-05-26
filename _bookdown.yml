@@ -5,6 +5,7 @@ rmd_files: ["index.Rmd",
             "01-intro.Rmd",
             "02-rstudio.Rmd",
             "03-tree-thinking.Rmd",
+            "04-choosing-sequences.Rmd",
             "About.Rmd",
             "References.Rmd"]
 new_session: yes
