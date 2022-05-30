@@ -6,7 +6,7 @@ ottrpal::set_knitr_image_path()
 
 # Working in RStudio {#rstudio}
 
-Once you have [created a Workspace](creating-a-workspace.html#workspace), you can create an RStudio cloud environment. This will allow you to interface with data and perform genomics-based analyses with add on packages from the Bioconductor community.
+Once you have created a Workspace, you can create an RStudio cloud environment. This will allow you to interface with data and perform genomics-based analyses with add on packages from the Bioconductor community.
 
 ## Launch RStudio Cloud Environment
 
