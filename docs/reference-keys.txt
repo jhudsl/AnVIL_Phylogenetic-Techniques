@@ -2,10 +2,11 @@ introduction
 motivation
 target-audience
 curriculum
+sign-in
+create-a-workspace
 rstudio
 launch-rstudio-cloud-environment
 tour-rstudio
-more-practice-with-isee
 stopping
 delete-rstudio-cloud-environment
 video-guide

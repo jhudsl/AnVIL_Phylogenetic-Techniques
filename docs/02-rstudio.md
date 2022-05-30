@@ -1,9 +1,10 @@
 # (PART\*) RUNNING RSTUDIO {-}
 
 
+
 # Working in RStudio {#rstudio}
 
-Now that you have [created a Workspace](creating-a-workspace.html#workspace), you can create an RStudio cloud environment. This will allow you to interface with data and perform genomics-based analyses with add on packages from the Bioconductor community.
+Once you have created a Workspace, you can create an RStudio cloud environment. This will allow you to interface with data and perform genomics-based analyses with add on packages from the Bioconductor community.
 
 ## Launch RStudio Cloud Environment
 
@@ -52,24 +53,39 @@ Next, we will be using RStudio and the package `Glimma` to create interactive pl
 1. The Bioconductor team has created a very useful package to programmatically interact with Terra and Google Cloud. Install the `AnVIL` package. It will make some steps easier as we go along.
 
     
+    ```r
+    BiocManager::install("AnVIL")
+    ```
 
     <img src="resources/images/02-rstudio_files/figure-html//1BLTCaogA04bbeSD1tR1Wt-mVceQA6FHXa8FmFzIARrg_g11f12bc99af_0_49.png" title="Screenshot of the RStudio environment interface. Code has been typed in the console and is highlighted." alt="Screenshot of the RStudio environment interface. Code has been typed in the console and is highlighted." width="480" />
 
-1. You can now quickly install precompiled binaries using the AnVIL package’s `install()` function. We will use it to install the `Glimma` package and the `airway` package. The `airway` package contains a `SummarizedExperiment` data class. This data describes an RNA-Seq experiment on four human airway smooth muscle cell lines treated with dexamethasone. We will learn more about SummarizedExperiments in [following chapters](the-summarizedexperiment-class.html#summarizedexperiment).
+1. You can now quickly install precompiled binaries using the AnVIL package’s `install()` function. We will use it to install the `Glimma` package and the `airway` package. The `airway` package contains a `SummarizedExperiment` data class. This data describes an RNA-Seq experiment on four human airway smooth muscle cell lines treated with dexamethasone. 
+
+{Note: for some of the packages in this class, you will have to install packaged from the CRAN repository, using the install.packages() function. The examples will show you which install method to use.}
 
     
+    ```r
+    AnVIL::install(c("Glimma", "airway"))
+    ```
 
     <img src="resources/images/02-rstudio_files/figure-html//1BLTCaogA04bbeSD1tR1Wt-mVceQA6FHXa8FmFzIARrg_g11f12bc99af_0_56.png" title="Screenshot of the RStudio environment interface. Code has been typed in the console and is highlighted." alt="Screenshot of the RStudio environment interface. Code has been typed in the console and is highlighted." width="480" />
 
 1. Load the example data.
 
     
+    ```r
+    library(airway)
+    data(airway)
+    ```
 
     <img src="resources/images/02-rstudio_files/figure-html//1BLTCaogA04bbeSD1tR1Wt-mVceQA6FHXa8FmFzIARrg_g11f12bc99af_0_56.png" title="Screenshot of the RStudio environment interface. Code has been typed in the console and is highlighted." alt="Screenshot of the RStudio environment interface. Code has been typed in the console and is highlighted." width="480" />
 
 1. The multidimensional scaling (MDS) plot is frequently used to explore differences in samples. When this data is MDS transformed, the first two dimensions explain the greatest variance between samples, and the amount of variance decreases monotonically with increasing dimension. The following code will launch a new window where you can interact with the MDS plot.
 
     
+    ```r
+    Glimma::glimmaMDS(assay(airway), group = colData(airway)$dex)
+    ```
 
     <img src="resources/images/02-rstudio_files/figure-html//1BLTCaogA04bbeSD1tR1Wt-mVceQA6FHXa8FmFzIARrg_g11f12bc99af_0_70.png" title="Screenshot of the Glimma popout showing the data in an MDS plot. All data points are blue." alt="Screenshot of the Glimma popout showing the data in an MDS plot. All data points are blue." width="480" />
 
@@ -84,6 +100,9 @@ Next, we will be using RStudio and the package `Glimma` to create interactive pl
 1. You can also download plots and other files created directly in RStudio. To download the following plot, click on "Export" and save in your preferred format to the default directory. This saves the file in your cloud environment.
 
     
+    ```r
+    limma::plotMDS(airway)
+    ```
 
     <img src="resources/images/02-rstudio_files/figure-html//1BLTCaogA04bbeSD1tR1Wt-mVceQA6FHXa8FmFzIARrg_g1204ed6da7f_0_12.png" title="Screenshot of the RStudio interface. A plot has been created. The Export menu has been highlighted." alt="Screenshot of the RStudio interface. A plot has been created. The Export menu has been highlighted." width="480" />
 
@@ -99,19 +118,6 @@ Next, we will be using RStudio and the package `Glimma` to create interactive pl
 
     <img src="resources/images/02-rstudio_files/figure-html//1BLTCaogA04bbeSD1tR1Wt-mVceQA6FHXa8FmFzIARrg_g1204ed6db6a_0_8.png" title="Screenshot of the RStudio interface. The popup to download the selected file has been highlighted," alt="Screenshot of the RStudio interface. The popup to download the selected file has been highlighted," width="480" />
 
-## More Practice with `iSEE`
-
-`iSEE` is a Bioconductor package that provides an interactive Shiny-based graphical user interface for exploring data stored in SummarizedExperiment objects [@RueAlbrecht2018]. Run the following.
-
-
-
-<img src="resources/images/02-rstudio_files/figure-html//1BLTCaogA04bbeSD1tR1Wt-mVceQA6FHXa8FmFzIARrg_g11f12bc99af_0_56.png" title="Screenshot of the RStudio environment interface. Code has been typed in the console and is highlighted." alt="Screenshot of the RStudio environment interface. Code has been typed in the console and is highlighted." width="480" />
-    
-The Shiny app will allow you to explore genes and samples.
-
-<img src="resources/images/02-rstudio_files/figure-html//1BLTCaogA04bbeSD1tR1Wt-mVceQA6FHXa8FmFzIARrg_g1204ed6db6a_1_12.png" title="Screenshot of the iSEE popout. The gene related windows are shown." alt="Screenshot of the iSEE popout. The gene related windows are shown." width="480" />
-
-<img src="resources/images/02-rstudio_files/figure-html//1BLTCaogA04bbeSD1tR1Wt-mVceQA6FHXa8FmFzIARrg_g1204ed6db6a_1_19.png" title="Screenshot of the iSEE popout. The sample related windows are shown." alt="Screenshot of the iSEE popout. The sample related windows are shown." width="480" />
 
 ## Pause RStudio {#stopping}
 
@@ -149,35 +155,37 @@ In addition to the steps above, you can review this video guide on how to launch
 
 The slides for this tutorial are are located [here](https://docs.google.com/presentation/d/1eypYLLqD11-NwHLs4adGpcuSB07dYEJfAaALSMvgzqw).
 
-R version 4.0.2 (2020-06-22)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 20.04.3 LTS
 
-Matrix products: default
-BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+```r
+sessionInfo()
+```
 
-locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8        highr_0.8         pillar_1.4.6      compiler_4.0.2   
- [5] jquerylib_0.1.4   tools_4.0.2       digest_0.6.25     udpipe_0.8.3     
- [9] evaluate_0.14     lifecycle_1.0.0   tibble_3.0.3      lattice_0.20-41  
-[13] png_0.1-7         pkgconfig_2.0.3   rlang_0.4.10      Matrix_1.2-18    
-[17] igraph_1.2.6      curl_4.3          yaml_2.2.1        xfun_0.26        
-[21] dplyr_1.0.2       stringr_1.4.0     httr_1.4.2        knitr_1.33       
-[25] hms_0.5.3         generics_0.0.2    vctrs_0.3.4       fs_1.5.0         
-[29] gitcreds_0.1.1    rprojroot_2.0.2   grid_4.0.2        tidyselect_1.1.0 
-[33] glue_1.6.1        data.table_1.13.0 R6_2.4.1          cow_0.0.0.9000   
-[37] textrank_0.3.0    ottrpal_0.1.2     rmarkdown_2.10    bookdown_0.24    
-[41] purrr_0.3.4       readr_1.4.0       magrittr_2.0.2    ellipsis_0.3.1   
-[45] htmltools_0.5.0   stringi_1.5.3     crayon_1.3.4     
-
+```
+## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.3 LTS
+## 
+## Matrix products: default
+## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## loaded via a namespace (and not attached):
+##  [1] knitr_1.33      magrittr_2.0.2  hms_0.5.3       R6_2.4.1       
+##  [5] rlang_0.4.10    highr_0.8       stringr_1.4.0   httr_1.4.2     
+##  [9] tools_4.0.2     xfun_0.26       png_0.1-7       jquerylib_0.1.4
+## [13] htmltools_0.5.0 ellipsis_0.3.1  ottrpal_0.1.2   yaml_2.2.1     
+## [17] digest_0.6.25   tibble_3.0.3    lifecycle_1.0.0 crayon_1.3.4   
+## [21] bookdown_0.24   readr_1.4.0     vctrs_0.3.4     fs_1.5.0       
+## [25] curl_4.3        evaluate_0.14   rmarkdown_2.10  stringi_1.5.3  
+## [29] compiler_4.0.2  pillar_1.4.6    pkgconfig_2.0.3
+```
