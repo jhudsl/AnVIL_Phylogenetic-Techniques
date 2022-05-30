@@ -60,8 +60,8 @@ For this exercise, we are going to create an R object in Newick formula that ill
 
 
 ```r
-#ANVIL:install('ape') #this installs the ape package
-#ANVIL:install('nlme') #this installs the nlme package
+#install.packages('ape') #this installs the ape package
+#install.packages('nlme') #this installs the nlme package
 library(ape) #this opens the ape package
 library(nlme) #this opens the nlme package
 
