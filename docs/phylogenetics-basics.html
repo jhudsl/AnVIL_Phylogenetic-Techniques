@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-05-18" />
+<meta name="date" content="2022-05-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,13 +160,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html"><i class="fa fa-check"></i><b>3</b> Phylogenetics basics</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#how-to-read-a-phylogenetic-tree"><i class="fa fa-check"></i><b>3.1</b> How to read a phylogenetic tree</a></li>
-<li class="chapter" data-level="3.2" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#branch-lengths"><i class="fa fa-check"></i><b>3.2</b> Branch lengths</a></li>
+<li class="chapter" data-level="3.2" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#outgroups"><i class="fa fa-check"></i><b>3.2</b> Outgroups</a></li>
+<li class="chapter" data-level="3.3" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#branch-lengths"><i class="fa fa-check"></i><b>3.3</b> Branch lengths</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html"><i class="fa fa-check"></i><b>4</b> Visualizing trees in R</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#creating-a-newick-object"><i class="fa fa-check"></i><b>4.1</b> Creating a Newick object</a></li>
 <li class="chapter" data-level="4.2" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#drawing-trees"><i class="fa fa-check"></i><b>4.2</b> Drawing trees</a></li>
-<li class="chapter" data-level="4.3" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#the-phylo-class"><i class="fa fa-check"></i><b>4.3</b> The <code>phylo</code> class</a></li>
+<li class="chapter" data-level="4.3" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#adding-outgroups"><i class="fa fa-check"></i><b>4.3</b> Adding outgroups</a></li>
+<li class="chapter" data-level="4.4" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#drawing-trees-multiple-ways"><i class="fa fa-check"></i><b>4.4</b> Drawing trees multiple ways</a></li>
+<li class="chapter" data-level="4.5" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#the-phylo-class"><i class="fa fa-check"></i><b>4.5</b> The <code>phylo</code> class</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
@@ -212,13 +215,19 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Here’s a phylogeny of the family Ursidae (the bears).</p>
 <p><img src="resources/images/03-bear_phylogeny.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
 <p>In this tree, all the extant species (or currently living species) are at the tips on the far right side of the phylogeny. Inferences about how the bear species are related become apparent as you move away from the tips down the branches. When two branches meet at a <strong>node</strong> (as they do at point A), you can assume the species at the tips of those branches share a common ancestor. For example, this phylogeny of the Ursidae indicates that American black bears and Asian black bears share a common ancestor (indicated by the node at point A). However, we don’t <em>know</em> what the common ancestor is for certain, we are just inferring based on similarities between the species that exist today.</p>
-<p>Nodes that are closer to the tips indicate species that are more closely related (and thus indicate a more recent common ancestor than nodes farther away from the tips). American black bears are more closely related to Asian black bears than to sun bears, because the American black bear branch connects to a node shared by the Asian black bear branch before it connects to a node shared with the sun bear branch. According to this phylogeny, the evolutionary distance between the American black bear and the sun bear <em>is the same</em> as the evolutionary distance between the Asian black bear and the sun bear, even though the American black bear label is closer to sun bear than the Asian black bear label is. <strong>In phylogenetic trees, relatedness is expressed by the distance to a common node between two species, NOT by whether the labels are near each other.</strong></p>
-<p>Although this is a phylogeny of the Ursidae, you might have noticed there are two branches belonging to the gray wolf and the spotted seal, neither of which is a bear. These two species are included as outgroups. Outgroups are taxa that are only distantly related to the group of interest and serves as reference points for determining evolutionary changes.</p>
+<p>Nodes that are closer to the tips indicate species that are more closely related (and thus indicate a more recent common ancestor than nodes farther away from the tips). American black bears are more closely related to Asian black bears than to American black bears are to giant pandas, because the American black bear branch connects to a node shared by the Asian black bear branch (point A) before it connects to a node shared with the giant panda branch (point B).</p>
+<p>Another unusual thing about phylogenies is we can change the order of the taxa on the tips without actually changing the topology of the tree.</p>
+<p><img src="resources/images/03-bear_phylogeny_v1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>These two trees are the same, even though we have changed the position of the labels of American black bear and Asian black bear. <strong>In phylogenetic trees, relatedness is expressed by the distance to a common node between two species, NOT by whether the labels are near each other.</strong> Branches can rotate freely around nodes without changing the tree.</p>
 </div>
-<div id="branch-lengths" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Branch lengths</h2>
-<p>Branch lengths (the distance between two nodes, or between a node and a tip), may or may not be indicative of the passage of a particular amount of unit time. It depends on how the tree was inferred (we infer phylogenetic trees, we don’t make them). If the tree is created by parsimony or neighbor-joining methods, the branches simply indicate that there was one (or more) change from the ancestor to the descendant. If the tree was created using maximum likelihood methods, the branch lengths represent how many genetic changes occurred over time.</p>
-<p>Regardless of how the trees are constructed, they are estimates of what we think happened historically. Each estimate contains within it implicit assumptions about rates of mutation accumulating, likelihood of different types of changes being more common (transitions vs. transversions, for example), and so on. The tree is our best guess as to the history of the organisms on it, but it is only a guess.</p>
+<div id="outgroups" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Outgroups</h2>
+<p>Although this is a phylogeny of the Ursidae, you might have noticed there are two branches belonging to the gray wolf and the spotted seal, neither of which is a bear. These two species are included as outgroups. Outgroups are taxa that are only distantly related to the group of interest and serve as reference points for determining evolutionary changes.</p>
+</div>
+<div id="branch-lengths" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Branch lengths</h2>
+<p>Branch lengths (the distance between two nodes, or between a node and a tip), may or may not be indicative of the passage of a particular amount of time. It depends on how the tree was inferred (we infer phylogenetic trees, we don’t make them). If the tree is created by parsimony or neighbor-joining methods, the branches simply indicate that there was one (or more) change from the ancestor to the descendant. If the tree was created using maximum likelihood methods, the branch lengths represent how many genetic changes occurred over time.</p>
+<p>Regardless of how the trees are constructed, they are estimates of what we think happened historically. Each estimate contains within it implicit assumptions about rates of mutation accumulating, likelihood of different types of changes being more common (transitions vs. transversions, for example), and so on. The tree is our best hypothesis as to the history of the organisms on it, but it is only a hypothesis.</p>
 <div class="fyi">
 <p>At one time, only morphological data could be used to make these trees. Thus, phylogenetic trees might have been based on similarities of bone structures, or fur types, or other gross physiological features. Even though the trees were called “phylogenetic” trees, they were not based on genetic data.</p>
 <p>Now, phylogenetic trees are generally based on DNA sequence (for closely related species) or amino acid sequences (for more distantly related species). Furthermore, the trees are generally based on several genetic loci, rather than on the whole genome. This is changing, with next generation sequencing and advances in computing power. Nevertheless, at present most phylogenetic trees are “gene trees” rather than “species trees,” and it is important to remember that selection or drift on a particular locus can influence a tree so that it reflects the history of the gene, but NOT the history of the species</p>

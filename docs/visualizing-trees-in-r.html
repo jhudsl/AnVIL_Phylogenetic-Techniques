@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-05-18" />
+<meta name="date" content="2022-05-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,13 +160,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html"><i class="fa fa-check"></i><b>3</b> Phylogenetics basics</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#how-to-read-a-phylogenetic-tree"><i class="fa fa-check"></i><b>3.1</b> How to read a phylogenetic tree</a></li>
-<li class="chapter" data-level="3.2" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#branch-lengths"><i class="fa fa-check"></i><b>3.2</b> Branch lengths</a></li>
+<li class="chapter" data-level="3.2" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#outgroups"><i class="fa fa-check"></i><b>3.2</b> Outgroups</a></li>
+<li class="chapter" data-level="3.3" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#branch-lengths"><i class="fa fa-check"></i><b>3.3</b> Branch lengths</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html"><i class="fa fa-check"></i><b>4</b> Visualizing trees in R</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#creating-a-newick-object"><i class="fa fa-check"></i><b>4.1</b> Creating a Newick object</a></li>
 <li class="chapter" data-level="4.2" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#drawing-trees"><i class="fa fa-check"></i><b>4.2</b> Drawing trees</a></li>
-<li class="chapter" data-level="4.3" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#the-phylo-class"><i class="fa fa-check"></i><b>4.3</b> The <code>phylo</code> class</a></li>
+<li class="chapter" data-level="4.3" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#adding-outgroups"><i class="fa fa-check"></i><b>4.3</b> Adding outgroups</a></li>
+<li class="chapter" data-level="4.4" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#drawing-trees-multiple-ways"><i class="fa fa-check"></i><b>4.4</b> Drawing trees multiple ways</a></li>
+<li class="chapter" data-level="4.5" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#the-phylo-class"><i class="fa fa-check"></i><b>4.5</b> The <code>phylo</code> class</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
@@ -216,28 +219,25 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>((A,B),C)); tells the program the tree is complete. If the semicolon is missing at the end, the program will keep looking for information on another taxon.</li>
 </ul>
 <p>For this exercise, we are going to create an R object in Newick formula that illustrates the relationships among several species of mammals.</p>
-<pre><code>## Installing package into &#39;/usr/local/lib/R/site-library&#39;
-## (as &#39;lib&#39; is unspecified)
-## Installing package into &#39;/usr/local/lib/R/site-library&#39;
-## (as &#39;lib&#39; is unspecified)</code></pre>
-<pre><code>## also installing the dependencies &#39;tmvnsim&#39;, &#39;quadprog&#39;, &#39;fastmatch&#39;, &#39;maps&#39;, &#39;clusterGeneration&#39;, &#39;coda&#39;, &#39;combinat&#39;, &#39;expm&#39;, &#39;gtools&#39;, &#39;mnormt&#39;, &#39;numDeriv&#39;, &#39;phangorn&#39;, &#39;plotrix&#39;, &#39;scatterplot3d&#39;</code></pre>
-<pre><code>## Installing package into &#39;/usr/local/lib/R/site-library&#39;
-## (as &#39;lib&#39; is unspecified)</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="visualizing-trees-in-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ANVIL:install(&#39;ape&#39;)</span></span>
-<span id="cb4-2"><a href="visualizing-trees-in-r.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ANVIL:install(&#39;nlme&#39;)</span></span>
-<span id="cb4-3"><a href="visualizing-trees-in-r.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
-<span id="cb4-4"><a href="visualizing-trees-in-r.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
-<span id="cb4-5"><a href="visualizing-trees-in-r.html#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="visualizing-trees-in-r.html#cb4-6" aria-hidden="true" tabindex="-1"></a>mammal <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">&quot;((raccoon:19.19959,bear:6.80041):0.84600,((sea_lion:11.99700, seal:12.00300):7.52973,((monkey:100.85930,cat:47.14069):20.59201, weasel:18.87953):2.09460):3.87382,dog:25.46154);&quot;</span>)</span>
-<span id="cb4-7"><a href="visualizing-trees-in-r.html#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="visualizing-trees-in-r.html#cb4-8" aria-hidden="true" tabindex="-1"></a>mammal</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="visualizing-trees-in-r.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ANVIL:install(&#39;ape&#39;) #this installs the ape package</span></span>
+<span id="cb1-2"><a href="visualizing-trees-in-r.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ANVIL:install(&#39;nlme&#39;) #this installs the nlme package</span></span>
+<span id="cb1-3"><a href="visualizing-trees-in-r.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape) <span class="co">#this opens the ape package</span></span>
+<span id="cb1-4"><a href="visualizing-trees-in-r.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme) <span class="co">#this opens the nlme package</span></span>
+<span id="cb1-5"><a href="visualizing-trees-in-r.html#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="visualizing-trees-in-r.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#we first create an object that stores the tree information</span></span>
+<span id="cb1-7"><a href="visualizing-trees-in-r.html#cb1-7" aria-hidden="true" tabindex="-1"></a>mammal<span class="fl">.1</span> <span class="ot">&lt;-</span>  <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">&quot;((((raccoon:19.19959,bear:6.80041):0.84600,</span></span>
+<span id="cb1-8"><a href="visualizing-trees-in-r.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="st">             weasel:18.87953):2.09460):3.87382,dog:25.46154);&quot;</span>)</span>
+<span id="cb1-9"><a href="visualizing-trees-in-r.html#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="visualizing-trees-in-r.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#typing the name of the object means R will tell us about it</span></span>
+<span id="cb1-11"><a href="visualizing-trees-in-r.html#cb1-11" aria-hidden="true" tabindex="-1"></a>mammal<span class="fl">.1</span></span></code></pre></div>
 <pre><code>## 
-## Phylogenetic tree with 8 tips and 6 internal nodes.
+## Phylogenetic tree with 4 tips and 4 internal nodes.
 ## 
 ## Tip labels:
-##   raccoon, bear, sea_lion, seal, monkey, cat, ...
+##   raccoon, bear, 
+## weasel, dog
 ## 
-## Unrooted; includes branch lengths.</code></pre>
+## Rooted; includes branch lengths.</code></pre>
 <p>We now have a phylogenetic tree loaded into R.</p>
 <div class="fyi">
 <p>Why is it called Newick format?</p>
@@ -248,42 +248,97 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="drawing-trees" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Drawing trees</h2>
 <p>It is quite difficult for humans to quickly interpret the relationships and branch lengths in the Newick format. Luckily, R (and other phylogenetics programs) can convert Newick formats into a more understandable form.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="visualizing-trees-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal, <span class="at">type=</span><span class="st">&quot;unrooted&quot;</span>)<span class="co">#this can also be written as plot(mammal, &quot;u&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="visualizing-trees-in-r.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plot is the command we use to create trees with the ape package</span></span>
+<span id="cb3-2"><a href="visualizing-trees-in-r.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#one of the options is the type of tree the command draws</span></span>
+<span id="cb3-3"><a href="visualizing-trees-in-r.html#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="visualizing-trees-in-r.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#this can also be written as plot(mammal.1, &quot;u&quot;)</span></span>
+<span id="cb3-5"><a href="visualizing-trees-in-r.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal<span class="fl">.1</span>, <span class="at">type=</span><span class="st">&quot;unrooted&quot;</span>)</span></code></pre></div>
 <p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>You’ve inferred an unrooted tree. It probably looks a bit different than trees you’ve seen before (including the one in the previous section); most trees are displayed in a rooted form. We can do that by declaring an outgroup and specifying that we want to draw a phylogram.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="visualizing-trees-in-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a>mammal.rooted <span class="ot">&lt;-</span> <span class="fu">root</span>(mammal, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;monkey&#39;</span>,<span class="st">&#39;cat&#39;</span>))</span>
-<span id="cb7-2"><a href="visualizing-trees-in-r.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="visualizing-trees-in-r.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#alternatively, you can use the command: plot(plot(mammal_rooted), as phylogram is the default type</span></span>
-<span id="cb7-4"><a href="visualizing-trees-in-r.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal.rooted, <span class="at">type=</span><span class="st">&quot;phylogram&quot;</span>)</span></code></pre></div>
+<p>You’ve inferred an unrooted tree. It probably looks a bit different than trees you’ve seen before (including the one in the previous section); most trees are displayed in a rooted form. We can do that by specifying that we want to draw a phylogram. If you don’t declare an outgroup first, R will choose to root the phylogram halfway between the two longest branches (this is called midpoint rooting).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="visualizing-trees-in-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#here we draw a phylogram</span></span>
+<span id="cb4-2"><a href="visualizing-trees-in-r.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="visualizing-trees-in-r.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#alternatively, you can use the command: </span></span>
+<span id="cb4-4"><a href="visualizing-trees-in-r.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(plot(mammal.1), as phylogram is the default type</span></span>
+<span id="cb4-5"><a href="visualizing-trees-in-r.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal<span class="fl">.1</span>, <span class="at">type=</span><span class="st">&quot;phylogram&quot;</span>)</span></code></pre></div>
 <p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Now the tree looks more like the Ursidae tree we examined earlier. The order of the tips is partly determined by the order in which we wrote the taxa in our Newick format. We can change the order of the tips and still have the same tree.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="visualizing-trees-in-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a>mammal_B <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">&quot;(dog:25.46154,(raccoon:19.19959,bear:6.80041):0.84600,((seal:12.00300,sea_lion:11.99700):7.52973,</span></span>
-<span id="cb8-2"><a href="visualizing-trees-in-r.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">            ((monkey:100.85930,cat:47.14069):20.59201, weasel:18.87953):2.09460):3.87382);&quot;</span>)</span>
-<span id="cb8-3"><a href="visualizing-trees-in-r.html#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="visualizing-trees-in-r.html#cb8-4" aria-hidden="true" tabindex="-1"></a>mammal_B.r <span class="ot">&lt;-</span> <span class="fu">root</span>(mammal_B, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;monkey&#39;</span>,<span class="st">&#39;cat&#39;</span>))</span>
-<span id="cb8-5"><a href="visualizing-trees-in-r.html#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="visualizing-trees-in-r.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal_B.r, <span class="at">type=</span><span class="st">&quot;phylogram&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="visualizing-trees-in-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a>mammal<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">&quot;((((bear:6.80041,raccoon:19.19959):0.84600,</span></span>
+<span id="cb5-2"><a href="visualizing-trees-in-r.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">             weasel:18.87953):2.09460):3.87382,dog:25.46154);&quot;</span>)</span>
+<span id="cb5-3"><a href="visualizing-trees-in-r.html#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="visualizing-trees-in-r.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#this bit of code here tells R to put the trees in side-by-side in</span></span>
+<span id="cb5-5"><a href="visualizing-trees-in-r.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#a single row (1 row, 2 columns)</span></span>
+<span id="cb5-6"><a href="visualizing-trees-in-r.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb5-7"><a href="visualizing-trees-in-r.html#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal<span class="fl">.1</span>)</span>
+<span id="cb5-8"><a href="visualizing-trees-in-r.html#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal<span class="fl">.2</span>)</span></code></pre></div>
 <p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Clades can rotate freely around nodes without changing the relationships among the tips. Although the “dog” label is closer to “sea lion” in our first tree, the evolutionary distance between the two is the same, because we trace through the same nodes to find their common ancestor.</p>
+<p>Clades can rotate freely around nodes without changing the relationships among the tips. Although the “weasel” label is closer to “bear” in our first tree than it is in the second tree, the evolutionary distance between the two is the same in both trees, because we trace through the same nodes to find their common ancestor. <strong>Both of these trees are exactly the same, in a phylogenetic sense.</strong></p>
+</div>
+<div id="adding-outgroups" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Adding outgroups</h2>
+<p>Let’s add some more taxa to our tree!</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="visualizing-trees-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a>mammal<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">&quot;((raccoon:19.19959,bear:6.80041):0.84600,((sea_lion:11.99700,</span></span>
+<span id="cb6-2"><a href="visualizing-trees-in-r.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="st">            seal:12.00300):7.52973,((monkey:100.85930,cat:47.14069):20.59201,</span></span>
+<span id="cb6-3"><a href="visualizing-trees-in-r.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">            weasel:18.87953):2.09460):3.87382,dog:25.46154);&quot;</span>)</span>
+<span id="cb6-4"><a href="visualizing-trees-in-r.html#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="visualizing-trees-in-r.html#cb6-5" aria-hidden="true" tabindex="-1"></a>mammal<span class="fl">.3</span></span></code></pre></div>
+<pre><code>## 
+## Phylogenetic tree with 8 tips and 6 internal nodes.
+## 
+## Tip labels:
+##   raccoon, bear, sea_lion, 
+## seal, monkey, cat, ...
+## 
+## Unrooted; includes branch lengths.</code></pre>
+<p>We’ve now added an additional 5 taxa to our tree of mammalian species. Let’s first take a look at the unrooted tree.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="visualizing-trees-in-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal<span class="fl">.3</span>, <span class="at">type=</span><span class="st">&quot;u&quot;</span>)<span class="co">#&quot;u&quot; is short for &quot;unrooted&quot;</span></span></code></pre></div>
+<p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Even with the unrooted tree, we can see that some species are definitely more closely related than others. In fact, it looks like both “cat” and “monkey” are pretty distantly related to the others, since the branches connecting these taxa are much longer than any other branch. Given this information, we will define these two taxa as our outgroup and redraw our tree, this time as a rooted phylogram.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="visualizing-trees-in-r.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#this command tells R that monkey and cat are outgroups</span></span>
+<span id="cb9-2"><a href="visualizing-trees-in-r.html#cb9-2" aria-hidden="true" tabindex="-1"></a>mammal.<span class="fl">3.</span>root <span class="ot">&lt;-</span> <span class="fu">root</span>(mammal<span class="fl">.3</span>, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;monkey&#39;</span>,<span class="st">&#39;cat&#39;</span>))</span>
+<span id="cb9-3"><a href="visualizing-trees-in-r.html#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="visualizing-trees-in-r.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal.<span class="fl">3.</span>root, <span class="at">type=</span><span class="st">&quot;p&quot;</span>)<span class="co">#&quot;p&quot; is short for &quot;phylogram&quot;</span></span></code></pre></div>
+<p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="drawing-trees-multiple-ways" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Drawing trees multiple ways</h2>
+<p>So far you’ve drawn trees in two ways - unrooted, and as a phylogram. For both of these tree types, the branch lengths are scaled to indicate evolutionary distance (or how many changes have occurred). As a result, the tips aren’t all even with each other.</p>
+<p>There are two other common ways of drawing trees. The radial tree (sometimes called the fan tree) arranges all the branches in a circle. This is a popular way to draw a phylogeny with many tips that would otherwise take up a lot of space.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="visualizing-trees-in-r.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#now we&#39;re looking at three different trees next to each other</span></span>
+<span id="cb10-2"><a href="visualizing-trees-in-r.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#basically, figures are in 1 row and 3 columns</span></span>
+<span id="cb10-3"><a href="visualizing-trees-in-r.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb10-4"><a href="visualizing-trees-in-r.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal<span class="fl">.3</span>, <span class="at">type=</span><span class="st">&quot;u&quot;</span>)</span>
+<span id="cb10-5"><a href="visualizing-trees-in-r.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal.<span class="fl">3.</span>root, <span class="at">type=</span><span class="st">&quot;p&quot;</span>)</span>
+<span id="cb10-6"><a href="visualizing-trees-in-r.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal.<span class="fl">3.</span>root, <span class="at">type=</span><span class="st">&quot;f&quot;</span>)<span class="co">#f is short for &quot;fan&quot;</span></span></code></pre></div>
+<p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>All three of these trees show exactly the same information.</p>
+<p>The last common way to draw trees is as a cladogram. Cladograms are a little different than the others, because the branches are not scaled to evolutionary distance. Instead, the tree is drawn so that all the tips (taxa) are lined up. It is often easier to see relationships in a cladogram, particularly if the internode distances (the distance between two internal nodes of a tree) are small.</p>
+<p>To properly draw a cladogram, we will rewrite our tree in Newick formula so that it doesn’t include branch lengths.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="visualizing-trees-in-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a>mammal<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="at">text =</span> <span class="st">&quot;(dog,(raccoon,bear),((seal,sea_lion),</span></span>
+<span id="cb11-2"><a href="visualizing-trees-in-r.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="st">            ((monkey,cat), weasel)));&quot;</span>)</span>
+<span id="cb11-3"><a href="visualizing-trees-in-r.html#cb11-3" aria-hidden="true" tabindex="-1"></a>mammal.<span class="fl">4.</span>root <span class="ot">&lt;-</span> <span class="fu">root</span>(mammal<span class="fl">.4</span>, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;monkey&#39;</span>,<span class="st">&#39;cat&#39;</span>))</span>
+<span id="cb11-4"><a href="visualizing-trees-in-r.html#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="visualizing-trees-in-r.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb11-6"><a href="visualizing-trees-in-r.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal.<span class="fl">3.</span>root, <span class="at">type=</span><span class="st">&quot;p&quot;</span>)</span>
+<span id="cb11-7"><a href="visualizing-trees-in-r.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mammal.<span class="fl">4.</span>root, <span class="at">type=</span><span class="st">&quot;c&quot;</span>)<span class="co">#c is short for &quot;cladogram&quot;</span></span></code></pre></div>
+<p><img src="resources/images/03-tree-thinking_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <div class="fyi">
 <p>QUESTIONS</p>
 <ol style="list-style-type: decimal">
-<li><p>Based on the unrooted tree, why did we use “cat” and “monkey” as our outgroups for the rooted tree?</p></li>
-<li><p>What is the total branch length between “sea lion” and “seal”? (You will need to look at the tree in Newick format.)</p></li>
-<li><p>Does “raccoon” share a more common recent ancestor with “weasel” or with “sea lion”?</p></li>
-<li><p>Which nodes on the first tree (<code>mammal.rooted</code>) were rotated to create the second tree (<code>mammal_B.r</code>)?</p></li>
+<li><p>What is the total branch length between “bear” and “raccoon”? (You will need to look at the tree in Newick format.)</p></li>
+<li><p>Does “weasel” share a more common recent ancestor with “seal” or with “sea lion”?</p></li>
+<li><p>Why does it look like “weasel” is more closely related to “bear” in the tree with four taxa, but it looks like “dog” is more closely related to “bear” in the tree with eight taxa? (HINT: Think about the purpose of an outgroup, and whether we specified one for the four-taxa tree.)</p></li>
 </ol>
 </div>
 </div>
-<div id="the-phylo-class" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> The <code>phylo</code> class</h2>
+<div id="the-phylo-class" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> The <code>phylo</code> class</h2>
 <p>When we use the <code>ape</code> package, R converts a tree in Newick format to an object of the <code>phylo</code> class. This is basically a list of four dataframes.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="visualizing-trees-in-r.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mammal.rooted)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="visualizing-trees-in-r.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mammal.<span class="fl">3.</span>root)</span></code></pre></div>
 <pre><code>## List of 4
 ##  $ edge       : int [1:13, 1:2] 9 14 12 10 11 11 10 12 13 13 ...
 ##  $ edge.length: num [1:13] 20.592 2.095 3.874 0.846 19.2 ...
 ##  $ Nnode      : int 6
-##  $ tip.label  : chr [1:8] &quot;raccoon&quot; &quot;bear&quot; &quot;sea_lion&quot; &quot;seal&quot; ...
+##  $ tip.label  : chr [1:8] &quot;raccoon&quot; &quot;bear&quot; &quot;sea_lion&quot; &quot;\nseal&quot; ...
 ##  - attr(*, &quot;class&quot;)= chr &quot;phylo&quot;
 ##  - attr(*, &quot;order&quot;)= chr &quot;cladewise&quot;</code></pre>
 <p>Each dataframe holds information about some part of the tree.</p>
@@ -291,7 +346,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><em>edge.length</em>: the length of each corresponding edge, or branch</p>
 <p><em>Nnode</em>: the number of nodes in the tree</p>
 <p><em>tip.label</em>: the tip names (the taxa)</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="visualizing-trees-in-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="visualizing-trees-in-r.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.0.2 (2020-06-22)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.3 LTS

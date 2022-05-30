@@ -11,9 +11,12 @@ delete-rstudio-cloud-environment
 video-guide
 phylogenetics-basics
 how-to-read-a-phylogenetic-tree
+outgroups
 branch-lengths
 visualizing-trees-in-r
 creating-a-newick-object
 drawing-trees
+adding-outgroups
+drawing-trees-multiple-ways
 the-phylo-class
 references
