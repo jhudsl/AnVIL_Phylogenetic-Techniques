@@ -1,0 +1,9 @@
+# (PART\*) BEFORE YOU START{-}
+
+```{r, echo = FALSE, results='asis'}
+cow::borrow_chapter(
+  doc_path = "03-workspace.Rmd",
+  repo_name = "jhudsl/GDSCN_Book_Statistics_for_Genomics_Differential_Expression"
+)
+```
+
