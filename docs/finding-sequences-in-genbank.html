@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 References | Molecular Phylogenetic Techniques</title>
+  <title>Chapter 8 Finding sequences in GenBank | Molecular Phylogenetic Techniques</title>
   <meta name="description" content="Description about Course/Book." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 References | Molecular Phylogenetic Techniques" />
+  <meta property="og:title" content="Chapter 8 Finding sequences in GenBank | Molecular Phylogenetic Techniques" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 References | Molecular Phylogenetic Techniques" />
+  <meta name="twitter:title" content="Chapter 8 Finding sequences in GenBank | Molecular Phylogenetic Techniques" />
   
   <meta name="twitter:description" content="Description about Course/Book." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
-<link rel="prev" href="about-the-authors.html"/>
-
+<link rel="prev" href="what-sequences-should-i-choose.html"/>
+<link rel="next" href="downloading-the-sequences-from-genbank.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -218,9 +218,72 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="hero-image-container"> 
   <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
 </div>
-<div id="references" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> References</h1>
-
+<div id="finding-sequences-in-genbank" class="section level1" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Finding sequences in GenBank</h1>
+<div id="identifying-a-query-sequence-on-genbank" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Identifying a query sequence on GenBank</h2>
+<p>For this book, we will use <em>Glu-1</em> sequences from a variety of species to infer our tree. <em>Glu-1</em> is a gene that encodes one of the subunits used to make gluten in plants like wheat. We will use this gene to reconstruct some of the deeper phylogenetic relationships among the grasses.</p>
+<p>We’re going to temporarily leave AnVIL and RStudio and head to <a href="https://www.ncbi.nlm.nih.gov/">NCBI’s</a> website.</p>
+<p><img src="resources/images/04-ncbi_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>We start by searching for <em>Glu-1</em> sequences in the NCBI nucleotide database. At the top of the website, use the pulldown menu to choose “Nucleotide” and enter “glu-1” in the search bar.</p>
+<p><img src="resources/images/04-ncbi_2.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>You might notice that this returns thousands upon thousands of possible sequences. While it’s nice having choices, having <em>too</em> many results makes it difficult to know where to start. Instead, we’re going to narrow down our sequence choices by specifying that we want <em>Glu-1</em> sequences from common wheat, or <em>Triticum aestivium</em>. This is a good starting point, since we know that common wheat plants make the gluten protein, so the genome should contain <em>Glu-1</em>.</p>
+<p><img src="resources/images/04-ncbi_3.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>The first hit (at least from when this guide was created) is exactly what we’re looking for - the complete coding sequence for the high molecular weight glutenin subunit, the <em>Glu-1</em> gene. If we click on the link at the top of the entry, we can go to the GenBank page for this particular entry.</p>
+<p><img src="resources/images/04-ncbi_4.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>This page contains a lot of information about the sequence, including which research group generated it, if the sequence was used in published research, and the full taxonomy of the sample. At the top, we also find the <em>accession number</em>, or the unique ID assigned to this particular sequence. Highlight and copy the accession number - this is what we will use for our next step, a BLAST search.</p>
+</div>
+<div id="blastn" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> blastn</h2>
+<p>NCBI created a tool that allows us to use the <strong>basic local alignment search tool</strong> (<strong>BLAST</strong>) algorithm to find sequences similar to our query sequence (in this case, the <em>Triticum aestivium</em> sequence we identified above). Here’s a link for NCBI’s web tool: <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;LINK_LOC=blasthome">BLAST</a>.</p>
+<p>There are many tutorials on how to use BLAST (including NCBI’s <a href="https://www.ncbi.nlm.nih.gov/Class/BLAST/blast_course.short.html">own</a>), so this section is going to focus primarily on the logic behind choosing sequences for phylogenetic analysis, not just the steps.</p>
+<p>Once you open the BLAST webpage, you have five options for searching (the tabs at the top of the page). Which method you choose depends on your query sequence. We’re going to work with two of them: <em>blastn</em>, which identifies DNA sequences that are most similar to the DNA (or nucleotide) query sequence; and <em>blastp</em>, which does the same for protein sequences.</p>
+<p><img src="resources/images/04-ncbi_5.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>For the blastn search, all we need to do is paste the accession code from earlier into the search box and change our program selection to somewhat similar sequences (blastn). Next, let’s go down to the bottom of the page to the algorithm parameters section.</p>
+<p><img src="resources/images/04-ncbi_6.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>We need to change the max number of target sequences (the maximum number of sequences for our search to return). Given how rapidly the size of the GenBank databases are growing, leaving this value at 100 means we will miss a lot of sequences that we might otherwise want to see. For now, we can leave the other parameters as the default settings. The click the BLAST button on the bottom left.</p>
+<p><img src="resources/images/04-ncbi_7.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>It can take a couple of minutes for the blastn search to finish. When it does, a webpage similar to the figure above will open. On the right side of the screen, we have the option of applying additional filters to our search. Because we are interested in looking at the deeper phylogenetic relationships among the grass family, we don’t necessarily want any additional <em>Triticum aestivium</em> sequences, so we will filter them out. That leaves us with over 2,000 other sequences from which to choose our taxa. (If you were interested in more shallow phylogenetic relationships, choosing multiple sequences from the same taxa, or <em>dense taxon sampling</em>, is a good decision.)</p>
+<p><img src="resources/images/04-ncbi_8.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>There are three quality-control statistics at which we want to look.
+<em><em>query cover</em>: the amount of overlap between our query sequence and the newly-aligned sequence; larger is better
+</em>_E value_ (expect value): the number of hits expected by chance; like <em>p</em>-values, a lower number is better
+*<em>per ident</em> (percent identity): the percent similarity between the two sequences; larger is better</p>
+<p>We can filter or sort on any of these statistics. At this point we need to really look at the aligned sequences and decide which ones we want to use.</p>
+<p>There are quite a few samples from a variety of grass species that show good overlap, low E values, and high percent identities. Since we have options, we will prioritize choosing samples with complete coding sequence whenever possible (and avoid any sample labeled “pseudogene”, since that isn’t the actual <em>Glu-1</em> gene sequence).</p>
+<p>We will focus on these 9 sequences (in addition to the common wheat sequence we identified earlier):</p>
+<ul>
+<li>EF105403.1, <em>Thinopyrum intermedium</em> (intermediate wheatgrass)</li>
+<li>DQ073553.1, <em>Leymus racemosus</em> (mammoth wild rye)</li>
+<li>EF204545.1, <em>Lophopyrum elongatum</em> (tall wheatgrass)</li>
+<li>AJ314771.1, <em>Secale cereale</em> (rye)</li>
+<li>FJ481569.1, <em>Henrardia</em> (a genus of Asiatic wheatgrass)</li>
+<li>DQ073533.1, <em>Agropyron cristatum</em> (crested wheatgrass)</li>
+<li>AY804128.1, <em>Aegilops tauschii</em> (Tausch’s goatgrass)</li>
+<li>AY303125.2, <em>Taeniathetum caput</em> (medusahead rye)</li>
+<li>KF887414.1, <em>Dasypyrum villosum</em> (mosquito grass)</li>
+</ul>
+<p>A quick check of the taxonomy confirms that all of these samples are from the grass family, family Poaceae.</p>
+</div>
+<div id="identifying-an-outgroup" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Identifying an outgroup</h2>
+<p>We have two approaches we could take for identifying an outgroup - we could use a more distantly related taxon, or we could use a homologous gene sequence from a more closely-related taxon. When we look up information about the <em>Poaceae</em>, we find there are three clades within the family - cereal grasses (like wheat), bamboos, and grasses (such as those species found in natural grasslands or cultivated for lawns and pastures). In the list of 10 related sequences above, we don’t have any sequences from the bamboos (subfamily Bambusoideae). <em>Glu-1</em> from a bamboo species might make a nice outgroup, if we can find a sequence for it.</p>
+<p>First, we’ll try another blastn search, this time setting the program selection to more dissimilar sequences (discontiguous megablast)</p>
+<p><img src="resources/images/04-ncbi_8.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>When we get those results back, we can filter for samples within the subfamily Bambusoideae. Alas, we have no sequences that match.</p>
+<p>The next thing we can try is a <em>blastp</em> search. These searches are nice for identifying more distantly related samples, because the protein sequence of a gene changes more slowly than the nucleotide sequence. In order to run a blastp search, we need a protein sequence for our query. Luckily, we chose a full coding sequence. When we look at the GenBank entry for JX915632, we can find the coding sequence translated into the amino acids at the bottom of the page.</p>
+<p><img src="resources/images/04-ncbi_9.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>We can copy this amino acid sequence and paste it into the query box on the blastp page.</p>
+<p><img src="resources/images/04-ncbi_10.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>After the blastp search finishes and we filter out <em>Triticum aestivium</em> results, we end up with several hundred matches. Great! …or is it?</p>
+<p><img src="resources/images/04-ncbi_11.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>Unfortunately, all of the samples that are returned have very poor query coverage (less than 25%). None of these samples are likely to work for our purposes. Instead, we will have to try a homologous gene from a closely-related taxon. In our first blastn search, samples labeled “D-hordein” showed up near the bottom of the results. A Google search suggests that D-hordein is a barley homolog to the wheat <em>Glu-1</em> gene product. This might serve nicely as an outgroup.</p>
+<p>We will add 2 additional sequences to our list, for a total of 11:</p>
+<ul>
+<li>D82941.1, <em>Hordeum vulgare</em> (barley) D-hordein</li>
+<li>JX276655.1, <em>Elymus sibiricus</em> (Siberian wild rye) D-hordein</li>
+</ul>
+</div>
 </div>
 <hr>
 <center> 
@@ -235,8 +298,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="about-the-authors.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="what-sequences-should-i-choose.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="downloading-the-sequences-from-genbank.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
