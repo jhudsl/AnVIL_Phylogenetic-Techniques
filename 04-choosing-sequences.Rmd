@@ -140,6 +140,8 @@ We will add 2 additional sequences to our list, for a total of 11:
 
 Now that we have identified the sequences for our tree, we need to download those sequences from GenBank into R. One option is to download the sequences directly from GenBank as a fasta file. If you are interested in this option, [here](http://jonathancrabtree.github.io/Circleator/tutorials/gb_annotation/gb_download.html) is a good tutorial on how to do it. This will work and the subsequent fasta file can be uploaded into R.
 
+## The DNA.bin object
+
 However, the library `ape` has a command that allows us to download sequences from GenBank directly into R and store the sequences as a `DNA.bin` object. 
 
 ```{r, echo = FALSE, warning=FALSE, message = FALSE}
@@ -173,6 +175,33 @@ grass <- read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
 
 We even have the species information for each sample saved. This will be helpful when drawing our tree.
 
+## The fasta format
+
+While `ape` and related R packages have no difficulty interpreting a `DNA.bin` object, other programs need the data in the fasta format. Fasta is a really common format for saving bioinformatic data (probably the most common format used!). 
+
+The format itself is quite simple and consists of two lines. The first line is the header line, which starts with >, immediately followed by a unique identifier. The sequence itself is on the second line. The sequence can either the standard [IUPAC](https://www.bioinformatics.org/sms/iupac.html) nucleic acid or amino acid codes, with additional characters for gaps (-), uracil (U), or translation stops (*).
+
+The first 60 nucleotides from the _Triticum aestivium_ sequence from above might look like this in fasta format:
+
+>JX915632_Triticum_aestivium
+atggctaagcggctggtcctctttgcagcagtagccgtcgccctcgtggctctcaccgcc
+
+We can convert and save our `DNA.bin` object in fasta format using a tool from the `ape` package.
+
+```{r, warning=FALSE, message = FALSE}
+#The first argument tells R the DNA.bin file to use
+#The second argument says what to name the new file
+#The third argument says what format to use for the new file
+write.dna( grass, file = 'grass.fasta', format = 'fasta' )
+```
+
+If you check your RStudio files, you should see a newly-created file called "grass.fasta". If you open it up, the file will look something like this:
+
+
+<img src="resources/images/04-fasta.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+Going forward, we will use both the `DNA.bin` object and the fasta file.
 
 ```{r}
 sessionInfo()
