@@ -10,7 +10,8 @@ on:
       repository:
         type: string
         required: true
-      token:
+    secrets:
+      gh_pat:
         required: true
 
 jobs:
@@ -22,10 +23,10 @@ jobs:
 
     steps:
       - name: Checkout files
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
         with:
-          token: ${{ inputs.token }}
           repository: ${{ inputs.repository }}
+          token: ${{ secrets.gh_pat }}
           fetch-depth: 0
 
       - name: Configure git
@@ -53,7 +54,7 @@ jobs:
       - name: Run AnVIL repo check
         id: anvil_repos
         env:
-          GH_PAT: ${{ inputs.token }}
+          GH_PAT: ${{ secrets.gh_pat }}
         run: |
           sudo apt-get install libcurl4-openssl-dev
 
@@ -70,7 +71,7 @@ jobs:
       - name: Commit AnVIL Repos file to main
         if: ${{ inputs.render-type == 'main' }}
         env:
-          GH_PAT: ${{ inputs.token }}
+          GH_PAT: ${{ secrets.gh_pat }}
         run: |
           git add --force resources/AnVIL_repos.tsv
           git commit -m 'add AnVIL repos' || echo "No changes to commit"

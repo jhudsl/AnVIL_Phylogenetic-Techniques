@@ -5,7 +5,7 @@ name: Pull Request
 on:
   pull_request:
     branches: [ main, staging ]
-    
+
 jobs:
 
   yaml-check:
@@ -61,12 +61,11 @@ jobs:
     name: Custom Workflow
     needs: yaml-check
     uses: ./.github/workflows/custom-workflow.yml
-    inputs:
-      token:
-        default: ${{ github.token }}
     with:
       render-type: 'preview'
       repository: '${{ github.event.repository.owner }}/${{ github.event.repository.name }}'
+    secrets:
+      gh_pat: ${{ secrets.GH_PAT }}
 
   spell-check:
     name: Check spelling
