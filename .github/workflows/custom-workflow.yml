@@ -20,14 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: jhudsl/course_template:main
+    token: ${{ secrets.gh_pat }}
 
     steps:
       - name: Checkout files
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
-          persist-credentials: false
           repository: ${{ inputs.repository }}
-          token: ${{ secrets.gh_pat }}
           fetch-depth: 0
 
       - name: Configure git
