@@ -4,6 +4,7 @@
 ottrpal::set_knitr_image_path()
 ```
 
+
 # What sequences should I choose?
 
 Phylogenies are only as good as the data used to infer them, so it's worth it to the spend some time carefully choosing the genomic regions and samples you will use. Good planning from the beginning will save you headaches further downstream. 
@@ -147,6 +148,9 @@ Now that we have identified the sequences for our tree, we need to download thos
 However, the library `ape` has a command that allows us to download sequences from GenBank directly into R and store the sequences as a `DNA.bin` object. This is a data structure that stores information like DNA sequence, how long each sequence is, information about the species identification of each sequence, and the total base percentages of all the sequences.
 
 The command we're using is `read.GenBank`, which takes an argument of the accession number we want to download from GenBank. Since we want to download multiple sequences, We use c("") to concatenate a string of accession numbers that read.Genbank will interpret. 
+```{r, include = FALSE}
+install.packages('ape')
+```
 
 
 ```{r, warning=FALSE, message = FALSE}
