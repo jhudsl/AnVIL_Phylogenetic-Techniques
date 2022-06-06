@@ -155,7 +155,7 @@ library(ape) #if you haven't previously loaded ape
 read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
       "FJ481575.1","EF204545.1","AJ314771.1","FJ481569.1",
       "DQ073533.1","AY804128.1","AY303125.2","KF887414.1",
-      "D82941.1","JX276655.1"))
+      "D82941.1","JX276655.1"), as.character = T)
 ```
 
 Now that you have seen what read.Genbank does, we will
@@ -166,7 +166,7 @@ save it as an object, and also specify that we want the sequences in ATGC form. 
 grass <- read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
       "FJ481575.1","EF204545.1","AJ314771.1","FJ481569.1",
       "DQ073533.1","AY804128.1","AY303125.2","KF887414.1",
-      "D82941.1","JX276655.1"), as.character=T)
+      "D82941.1","JX276655.1"), as.character = T)
 ```
 
 
