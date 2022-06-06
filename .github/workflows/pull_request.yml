@@ -5,6 +5,10 @@ name: Pull Request
 on:
   pull_request:
     branches: [ main, staging ]
+    
+inputs:
+  token:
+    default: ${{ github.token }}
 
 jobs:
 
@@ -65,7 +69,7 @@ jobs:
       render-type: 'preview'
       repository: '${{ github.event.repository.owner }}/${{ github.event.repository.name }}'
     secrets:
-      gh_pat: ${{ secrets.GH_PAT }}
+      gh_pat: ${{ github.token }}
 
   spell-check:
     name: Check spelling
