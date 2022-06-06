@@ -62,9 +62,9 @@ jobs:
     needs: yaml-check
     uses: ./.github/workflows/custom-workflow.yml
     with:
+      token: ${{ secrets.GH_PAT }}
       render-type: 'preview'
       repository: $GITHUB_REPOSITORY
-      token: ${{ secrets.GH_PAT }}
     secrets:
       gh_pat: ${{ secrets.GH_PAT }}
 
