@@ -25,9 +25,9 @@ jobs:
       - name: Checkout files
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
           token: ${{ secrets.gh_pat }}
           repository: ${{ inputs.repository }}
+          fetch-depth: 0
 
       - name: Configure git
         run: |
