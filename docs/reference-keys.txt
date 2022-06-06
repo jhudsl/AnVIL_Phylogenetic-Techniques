@@ -26,4 +26,6 @@ identifying-a-query-sequence-on-genbank
 blastn
 identifying-an-outgroup
 downloading-the-sequences-from-genbank
+the-dna.bin-object
+the-fasta-format
 references

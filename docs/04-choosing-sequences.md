@@ -2,13 +2,14 @@
 
 
 
+
 # What sequences should I choose?
 
-Phylogenies are only as good as the data used to infer them, so it's worth it to the spend some time carefully choosing the genomic regions and samples you will use. Good planning from the beginning will save you headaches farther downstream. 
+Phylogenies are only as good as the data used to infer them, so it's worth it to the spend some time carefully choosing the genomic regions and samples you will use. Good planning from the beginning will save you headaches further downstream. 
 
 First, you should ask yourself: **what information are you hoping to gain from the tree?** Are you hoping to reconstruct the history of organisms, or the history of a region of DNA, or the history of a protein? The answer will guide your choice of sequence and samples. 
 
-_For closely related species in which you might hope to deduce information about the divergence between the species_, including the timing of the divergence, you would use areas of the genome known to accumulate changes rapidly (non-coding regions that also do not have functionality, or whose functionality is not easily changed by changes in the DNA base sequence).   Some examples of rapidly changing genetic regions include the mitochondrial control region, the wobble base on mitochondrial coding regions, and nuclear introns. It is also important to use “dense taxon sampling” among closely related species because any small change can seem disproportionately important in a recent divergence. Having multiple individuals sampled from each phylogenetic unit of interest (could be species, subspecies, or populations) helps to compensate by showing the genetic divergence within a group. This within-group divergence can then be accurately compared to the genetic divergence between two groups.
+_For closely related species in which you might hope to figure out some sort of information about the divergence between the species_ (including the timing of the divergence), you would use areas of the genome known to accumulate changes rapidly (non-coding regions that also do not have functionality, or whose functionality is not easily changed by changes in the DNA base sequence).   Some examples of rapidly changing genetic regions include the mitochondrial control region, the wobble base on mitochondrial coding regions, and nuclear introns. It is also important to use “dense taxon sampling” among closely related species because any small change can seem disproportionately important in a recent divergence. Having multiple individuals sampled from each phylogenetic unit of interest (could be species, subspecies, or populations) helps to compensate by showing the genetic divergence within a group. This within-group divergence can then be accurately compared to the genetic divergence between two groups.
 
 _For more divergent species and comparisons_, you use areas of the genome that do not change as rapidly.  For example, if you wanted to do a survey of the placental mammals, you could choose a gene region that is under enough selection pressure that it mutates more slowly than the regions you would choose for closely related species. 
 
@@ -16,6 +17,8 @@ _If you are examining the relationships among deeply divergent species, or when 
 
 ::: {.fyi}
 To attempt a reconstruction of the evolutionary history of organisms, you really should use multiple lines of evidence and not rely solely on genomic data. For example to reconstruct primate evolution, one looks at the fossil record, molecular divergence, and also phylogeographic evidence (how these things map onto our understanding of the geography of the earth at various crucial time points along primate evolution). Examples of phylogeographic evidence include understanding when terrestrial (land-based) organisms might have been cut off from each other due to the formation of a river or lake, the eradication of a land bridge by melting glaciers and a rise in the earth’s temperature (which raises the sea level).
+
+Alas, for this book, we are limited to only using genomic data.
 :::
 
 
@@ -138,22 +141,22 @@ We will add 2 additional sequences to our list, for a total of 11:
 
 Now that we have identified the sequences for our tree, we need to download those sequences from GenBank into R. One option is to download the sequences directly from GenBank as a fasta file. If you are interested in this option, [here](http://jonathancrabtree.github.io/Circleator/tutorials/gb_annotation/gb_download.html) is a good tutorial on how to do it. This will work and the subsequent fasta file can be uploaded into R.
 
-However, the library `ape` has a command that allows us to download sequences from GenBank directly into R and store the sequences as a `DNA.bin` object. 
+## The DNA.bin object
+
+However, the library `ape` has a command that allows us to download sequences from GenBank directly into R and store the sequences as a `DNA.bin` object. This is a data structure that stores information like DNA sequence, how long each sequence is, information about the species identification of each sequence, and the total base percentages of all the sequences.
+
+The command we're using is `read.GenBank`, which takes an argument of the accession number we want to download from GenBank. Since we want to download multiple sequences, We use c("") to concatenate a string of accession numbers that read.Genbank will interpret. 
 
 
 
 
 ```r
-#library(ape) #if you haven't previously loaded ape
+library(ape) #if you haven't previously loaded ape
 
-#the first argument in the read.Genbank command is a vector
-#of all the accession numbers we are using. We use the c("")
-#to concatenate a string of characters that read.Genbank will
-#interpret. 
 read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
       "FJ481575.1","EF204545.1","AJ314771.1","FJ481569.1",
       "DQ073533.1","AY804128.1","AY303125.2","KF887414.1",
-      "D82941.1","JX276655.1"), as.character=F)
+      "D82941.1","JX276655.1"))
 ```
 
 ```
@@ -179,20 +182,68 @@ read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
 ```
 
 Now that you have seen what read.Genbank does, we will
-save it as an object, and also specify that we want the sequences in ATGC form (to make our lives easier downstream).
+save it as an object, and also specify that we want the sequences in ATGC form. When `as.character=TRUE` is not included (like above), `read.GenBank` saves all the sequence data in a binary format. Binary is great for computers, but harder for humans to quickly interpret.
 
 
 ```r
-#The as.characters=T argument tells R that 
-#the sequences should be saved in "A,T,C,G" form.
 grass <- read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
       "FJ481575.1","EF204545.1","AJ314771.1","FJ481569.1",
       "DQ073533.1","AY804128.1","AY303125.2","KF887414.1",
-      "D82941.1","JX276655.1"), as.character=T)
+      "D82941.1","JX276655.1"))
 ```
 
-We even have the species information for each sample saved. This will be helpful when drawing our tree.
 
+::: {.fyi}
+R BASICS
+
+In R, you can do two things with the output of a command. First, you can have the output displayed immediately. This is what you did in the first block of R code above. This can be really helpful if you want to immediately see what your command did, but it's less helpful if you want to do something with the output. In the first block of code, we managed to download sequences from GenBank and print them to the screen, but we don't have a way to build trees from the printed screen. (Print in this case refers to the display you see on the R console.)
+
+Second, you can tell R to save the output as an object. This is what we did second block of code with `grass <- read.GenBank`. The `<-` operator tells R to redirect the output from `read.GenBank` to an object (or data structure) named `grass`. Everything you saw printed on the screen from the first block of code is now saved to `grass`. 
+
+If we ever want to see what objects we have saved in our R session, we can do so by typing the command
+
+`ls()`
+
+This tells R to list objects. We can see what each object contains by either typing the name of the object or by using the `str` (structure) command. The syntax of the structure command is
+
+`str(object_name)`
+
+:::
+
+## The fasta format
+
+While `ape` and related R packages have no difficulty interpreting a `DNA.bin` object, other programs need the data in the fasta format. Fasta is a really common format for saving bioinformatic data (probably the most common format used!). 
+
+The format itself is quite simple and consists of two lines. The first line is the header line, which starts with >, immediately followed by a unique identifier. The sequence itself is on the second line. The sequence can either the standard [IUPAC](https://www.bioinformatics.org/sms/iupac.html) nucleic acid or amino acid codes, with additional characters for gaps (-), uracil (U), or translation stops (*).
+
+The first 60 nucleotides from the _Triticum aestivium_ sequence from above might look like this in fasta format:
+
+>JX915632_Triticum_aestivium
+atggctaagcggctggtcctctttgcagcagtagccgtcgccctcgtggctctcaccgcc
+
+We can convert and save our `DNA.bin` object in fasta format using a tool from the `ape` package. The `write.dna` commands takes three arguments: the first argument tells R the DNA.bin file to use, the second argument says what to name the new file, and the third argument says what format to use for the new file.
+
+
+```r
+write.dna( grass, file = 'grass.fasta', format = 'fasta' )
+```
+
+If you check your RStudio files (on the lower left side of the screen, you'll see a tab named Files), you should see a newly-created file called "grass.fasta". If you open it up, the file will look something like this:
+
+
+<img src="resources/images/04-fasta.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+Going forward, we will use both the `DNA.bin` object and the fasta file.
+
+::: {.fyi}
+R BASICS
+
+You might have noticed that we didn't save the output of `write.dna` to an object. That's because any of the `write` commands are automatically saving the output to a file on your computer (or, on AnVIL, to your persistent disk). The output is saved in what as known as your working directory. You can check what your current working directory is during any R session with the command
+
+`getwd()`
+
+:::
 
 
 ```r

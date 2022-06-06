@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-06-01" />
+<meta name="date" content="2022-06-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -181,7 +181,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html#blastn"><i class="fa fa-check"></i><b>8.2</b> blastn</a></li>
 <li class="chapter" data-level="8.3" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html#identifying-an-outgroup"><i class="fa fa-check"></i><b>8.3</b> Identifying an outgroup</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html"><i class="fa fa-check"></i><b>9</b> Downloading the sequences from GenBank</a></li>
+<li class="chapter" data-level="9" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html"><i class="fa fa-check"></i><b>9</b> Downloading the sequences from GenBank</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html#the-dna.bin-object"><i class="fa fa-check"></i><b>9.1</b> The DNA.bin object</a></li>
+<li class="chapter" data-level="9.2" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html#the-fasta-format"><i class="fa fa-check"></i><b>9.2</b> The fasta format</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
 <li class="divider"></li>
@@ -221,17 +225,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="downloading-the-sequences-from-genbank" class="section level1" number="9">
 <h1><span class="header-section-number">Chapter 9</span> Downloading the sequences from GenBank</h1>
 <p>Now that we have identified the sequences for our tree, we need to download those sequences from GenBank into R. One option is to download the sequences directly from GenBank as a fasta file. If you are interested in this option, <a href="http://jonathancrabtree.github.io/Circleator/tutorials/gb_annotation/gb_download.html">here</a> is a good tutorial on how to do it. This will work and the subsequent fasta file can be uploaded into R.</p>
-<p>However, the library <code>ape</code> has a command that allows us to download sequences from GenBank directly into R and store the sequences as a <code>DNA.bin</code> object.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="downloading-the-sequences-from-genbank.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(ape) #if you haven&#39;t previously loaded ape</span></span>
+<div id="the-dna.bin-object" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> The DNA.bin object</h2>
+<p>However, the library <code>ape</code> has a command that allows us to download sequences from GenBank directly into R and store the sequences as a <code>DNA.bin</code> object. This is a data structure that stores information like DNA sequence, how long each sequence is, information about the species identification of each sequence, and the total base percentages of all the sequences.</p>
+<p>The command we’re using is <code>read.GenBank</code>, which takes an argument of the accession number we want to download from GenBank. Since we want to download multiple sequences, We use c(““) to concatenate a string of accession numbers that read.Genbank will interpret.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="downloading-the-sequences-from-genbank.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape) <span class="co">#if you haven&#39;t previously loaded ape</span></span>
 <span id="cb23-2"><a href="downloading-the-sequences-from-genbank.html#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="downloading-the-sequences-from-genbank.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#the first argument in the read.Genbank command is a vector</span></span>
-<span id="cb23-4"><a href="downloading-the-sequences-from-genbank.html#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#of all the accession numbers we are using. We use the c(&quot;&quot;)</span></span>
-<span id="cb23-5"><a href="downloading-the-sequences-from-genbank.html#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#to concatenate a string of characters that read.Genbank will</span></span>
-<span id="cb23-6"><a href="downloading-the-sequences-from-genbank.html#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#interpret. </span></span>
-<span id="cb23-7"><a href="downloading-the-sequences-from-genbank.html#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">read.GenBank</span>(<span class="fu">c</span>(<span class="st">&quot;JX915632&quot;</span>,<span class="st">&quot;EF105403.1&quot;</span>,<span class="st">&quot;DQ073553.1&quot;</span>,</span>
-<span id="cb23-8"><a href="downloading-the-sequences-from-genbank.html#cb23-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;FJ481575.1&quot;</span>,<span class="st">&quot;EF204545.1&quot;</span>,<span class="st">&quot;AJ314771.1&quot;</span>,<span class="st">&quot;FJ481569.1&quot;</span>,</span>
-<span id="cb23-9"><a href="downloading-the-sequences-from-genbank.html#cb23-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;DQ073533.1&quot;</span>,<span class="st">&quot;AY804128.1&quot;</span>,<span class="st">&quot;AY303125.2&quot;</span>,<span class="st">&quot;KF887414.1&quot;</span>,</span>
-<span id="cb23-10"><a href="downloading-the-sequences-from-genbank.html#cb23-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;D82941.1&quot;</span>,<span class="st">&quot;JX276655.1&quot;</span>), <span class="at">as.character=</span>F)</span></code></pre></div>
+<span id="cb23-3"><a href="downloading-the-sequences-from-genbank.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read.GenBank</span>(<span class="fu">c</span>(<span class="st">&quot;JX915632&quot;</span>,<span class="st">&quot;EF105403.1&quot;</span>,<span class="st">&quot;DQ073553.1&quot;</span>,</span>
+<span id="cb23-4"><a href="downloading-the-sequences-from-genbank.html#cb23-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;FJ481575.1&quot;</span>,<span class="st">&quot;EF204545.1&quot;</span>,<span class="st">&quot;AJ314771.1&quot;</span>,<span class="st">&quot;FJ481569.1&quot;</span>,</span>
+<span id="cb23-5"><a href="downloading-the-sequences-from-genbank.html#cb23-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;DQ073533.1&quot;</span>,<span class="st">&quot;AY804128.1&quot;</span>,<span class="st">&quot;AY303125.2&quot;</span>,<span class="st">&quot;KF887414.1&quot;</span>,</span>
+<span id="cb23-6"><a href="downloading-the-sequences-from-genbank.html#cb23-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;D82941.1&quot;</span>,<span class="st">&quot;JX276655.1&quot;</span>))</span></code></pre></div>
 <pre><code>## 13 DNA sequences in binary format stored in a list.
 ## 
 ## Mean sequence length: 1814.385 
@@ -252,15 +255,41 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 0.310 0.303 0.271 0.115 
 ## (Total: 23.59 kb)</code></pre>
 <p>Now that you have seen what read.Genbank does, we will
-save it as an object, and also specify that we want the sequences in ATGC form (to make our lives easier downstream).</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="downloading-the-sequences-from-genbank.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The as.characters=T argument tells R that </span></span>
-<span id="cb25-2"><a href="downloading-the-sequences-from-genbank.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#the sequences should be saved in &quot;A,T,C,G&quot; form.</span></span>
-<span id="cb25-3"><a href="downloading-the-sequences-from-genbank.html#cb25-3" aria-hidden="true" tabindex="-1"></a>grass <span class="ot">&lt;-</span> <span class="fu">read.GenBank</span>(<span class="fu">c</span>(<span class="st">&quot;JX915632&quot;</span>,<span class="st">&quot;EF105403.1&quot;</span>,<span class="st">&quot;DQ073553.1&quot;</span>,</span>
-<span id="cb25-4"><a href="downloading-the-sequences-from-genbank.html#cb25-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;FJ481575.1&quot;</span>,<span class="st">&quot;EF204545.1&quot;</span>,<span class="st">&quot;AJ314771.1&quot;</span>,<span class="st">&quot;FJ481569.1&quot;</span>,</span>
-<span id="cb25-5"><a href="downloading-the-sequences-from-genbank.html#cb25-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;DQ073533.1&quot;</span>,<span class="st">&quot;AY804128.1&quot;</span>,<span class="st">&quot;AY303125.2&quot;</span>,<span class="st">&quot;KF887414.1&quot;</span>,</span>
-<span id="cb25-6"><a href="downloading-the-sequences-from-genbank.html#cb25-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;D82941.1&quot;</span>,<span class="st">&quot;JX276655.1&quot;</span>), <span class="at">as.character=</span>T)</span></code></pre></div>
-<p>We even have the species information for each sample saved. This will be helpful when drawing our tree.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="downloading-the-sequences-from-genbank.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+save it as an object, and also specify that we want the sequences in ATGC form. When <code>as.character=TRUE</code> is not included (like above), <code>read.GenBank</code> saves all the sequence data in a binary format. Binary is great for computers, but harder for humans to quickly interpret.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="downloading-the-sequences-from-genbank.html#cb25-1" aria-hidden="true" tabindex="-1"></a>grass <span class="ot">&lt;-</span> <span class="fu">read.GenBank</span>(<span class="fu">c</span>(<span class="st">&quot;JX915632&quot;</span>,<span class="st">&quot;EF105403.1&quot;</span>,<span class="st">&quot;DQ073553.1&quot;</span>,</span>
+<span id="cb25-2"><a href="downloading-the-sequences-from-genbank.html#cb25-2" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;FJ481575.1&quot;</span>,<span class="st">&quot;EF204545.1&quot;</span>,<span class="st">&quot;AJ314771.1&quot;</span>,<span class="st">&quot;FJ481569.1&quot;</span>,</span>
+<span id="cb25-3"><a href="downloading-the-sequences-from-genbank.html#cb25-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;DQ073533.1&quot;</span>,<span class="st">&quot;AY804128.1&quot;</span>,<span class="st">&quot;AY303125.2&quot;</span>,<span class="st">&quot;KF887414.1&quot;</span>,</span>
+<span id="cb25-4"><a href="downloading-the-sequences-from-genbank.html#cb25-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;D82941.1&quot;</span>,<span class="st">&quot;JX276655.1&quot;</span>))</span></code></pre></div>
+<div class="fyi">
+<p>R BASICS</p>
+<p>In R, you can do two things with the output of a command. First, you can have the output displayed immediately. This is what you did in the first block of R code above. This can be really helpful if you want to immediately see what your command did, but it’s less helpful if you want to do something with the output. In the first block of code, we managed to download sequences from GenBank and print them to the screen, but we don’t have a way to build trees from the printed screen. (Print in this case refers to the display you see on the R console.)</p>
+<p>Second, you can tell R to save the output as an object. This is what we did second block of code with <code>grass &lt;- read.GenBank</code>. The <code>&lt;-</code> operator tells R to redirect the output from <code>read.GenBank</code> to an object (or data structure) named <code>grass</code>. Everything you saw printed on the screen from the first block of code is now saved to <code>grass</code>.</p>
+<p>If we ever want to see what objects we have saved in our R session, we can do so by typing the command</p>
+<p><code>ls()</code></p>
+<p>This tells R to list objects. We can see what each object contains by either typing the name of the object or by using the <code>str</code> (structure) command. The syntax of the structure command is</p>
+<p><code>str(object_name)</code></p>
+</div>
+</div>
+<div id="the-fasta-format" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> The fasta format</h2>
+<p>While <code>ape</code> and related R packages have no difficulty interpreting a <code>DNA.bin</code> object, other programs need the data in the fasta format. Fasta is a really common format for saving bioinformatic data (probably the most common format used!).</p>
+<p>The format itself is quite simple and consists of two lines. The first line is the header line, which starts with &gt;, immediately followed by a unique identifier. The sequence itself is on the second line. The sequence can either the standard <a href="https://www.bioinformatics.org/sms/iupac.html">IUPAC</a> nucleic acid or amino acid codes, with additional characters for gaps (-), uracil (U), or translation stops (*).</p>
+<p>The first 60 nucleotides from the <em>Triticum aestivium</em> sequence from above might look like this in fasta format:</p>
+<blockquote>
+<p>JX915632_Triticum_aestivium
+atggctaagcggctggtcctctttgcagcagtagccgtcgccctcgtggctctcaccgcc</p>
+</blockquote>
+<p>We can convert and save our <code>DNA.bin</code> object in fasta format using a tool from the <code>ape</code> package. The <code>write.dna</code> commands takes three arguments: the first argument tells R the DNA.bin file to use, the second argument says what to name the new file, and the third argument says what format to use for the new file.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="downloading-the-sequences-from-genbank.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.dna</span>( grass, <span class="at">file =</span> <span class="st">&#39;grass.fasta&#39;</span>, <span class="at">format =</span> <span class="st">&#39;fasta&#39;</span> )</span></code></pre></div>
+<p>If you check your RStudio files (on the lower left side of the screen, you’ll see a tab named Files), you should see a newly-created file called “grass.fasta”. If you open it up, the file will look something like this:</p>
+<p><img src="resources/images/04-fasta.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>Going forward, we will use both the <code>DNA.bin</code> object and the fasta file.</p>
+<div class="fyi">
+<p>R BASICS</p>
+<p>You might have noticed that we didn’t save the output of <code>write.dna</code> to an object. That’s because any of the <code>write</code> commands are automatically saving the output to a file on your computer (or, on AnVIL, to your persistent disk). The output is saved in what as known as your working directory. You can check what your current working directory is during any R session with the command</p>
+<p><code>getwd()</code></p>
+</div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="downloading-the-sequences-from-genbank.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.0.2 (2020-06-22)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.3 LTS
@@ -292,6 +321,7 @@ save it as an object, and also specify that we want the sequences in ATGC form (
 ## [25] vctrs_0.3.4     fs_1.5.0        evaluate_0.14   rmarkdown_2.10 
 ## [29] stringi_1.5.3   compiler_4.0.2  pillar_1.4.6    pkgconfig_2.0.3</code></pre>
 
+</div>
 </div>
 <hr>
 <center> 
