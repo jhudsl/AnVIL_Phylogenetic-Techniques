@@ -65,7 +65,7 @@ jobs:
       render-type: 'preview'
       repository: '${{ github.event.repository.owner }}/${{ github.event.repository.name }}'
     secrets:
-      gh_pat: ${{ secrets.GH_PAT }}
+      gh_pat: $GITHUB_TOKEN
 
   spell-check:
     name: Check spelling
