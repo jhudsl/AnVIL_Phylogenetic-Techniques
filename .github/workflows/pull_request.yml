@@ -63,7 +63,7 @@ jobs:
     uses: ./.github/workflows/custom-workflow.yml
     with:
       render-type: 'preview'
-      repository: ${{ github.event.repository.name }}
+      repository: '${{ github.event.repository.owner }}/${{ github.event.repository.name }}'
     secrets:
       gh_pat: ${{ secrets.GH_PAT }}
 
