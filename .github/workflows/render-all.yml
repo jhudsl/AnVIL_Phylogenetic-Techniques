@@ -6,7 +6,7 @@ name: Render all output courses
 on:
   workflow_dispatch:
   push:
-    branches: [ main, staging ] 
+    branches: [ main, staging ]
     paths:
       - '**.Rmd'
       - assets/*
