@@ -24,6 +24,7 @@ read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
 
 
 ```{r}
-sessionInfo()
+sessionInfo()   
+
 ```
 
