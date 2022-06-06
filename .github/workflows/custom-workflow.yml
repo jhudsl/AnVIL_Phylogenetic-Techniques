@@ -24,11 +24,10 @@ jobs:
     steps:
       - name: Checkout files
         uses: actions/checkout@v2
-        env:
-          GH_PAT: ${{ secrets.gh_pat }}
         with:
           fetch-depth: 0
           token: ${{ secrets.gh_pat }}
+          repository: ${{ inputs.repository }}
 
       - name: Configure git
         run: |
