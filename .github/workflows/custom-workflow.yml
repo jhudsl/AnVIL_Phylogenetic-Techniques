@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: jhudsl/course_template:main
-    secrets:
+    env:
       gh_pat: ${{ secrets.GH_PAT }}
 
     steps:
