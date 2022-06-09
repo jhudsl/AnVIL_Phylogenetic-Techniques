@@ -13,53 +13,20 @@ As the samples become more distantly related from each other, the regions of sim
 
 All alignment programs will assign a "price" to each potential alignment the create, then return the least costly alignment as the final result. Most programs create potential alignments using an algorithm that assigns similarity scores to each pairwise comparison. The program then uses these scores to determine the final potential alignment. The algorithm also assigns penalties for alignments that include undesireable features. In general, an alignment algorithm can apply two major costs:
 
-<<<<<<< Updated upstream
-  * gap opening cost: we can choose to apply a penalty for opening (or starting) any gap (indicating an insertion or deletion event)
-  * gap extension cost: we can choose to apply a penalty for making a gap longer
-=======
-  * gap opening cost: we can apply a penalty for opening (or starting) any gap (indicating an insertion or deletion event)
-  * gap extension cost: we can apply a penalty for making a gap longer
->>>>>>> Stashed changes
+  - gap opening cost: we can apply a penalty for opening (or starting) any gap (indicating an insertion or deletion event)
+  - gap extension cost: we can apply a penalty for making a gap longer
+
 
 Alignments can be created using either the nucleotide sequence or the amino acid sequence. Amino acid sequences can be useful when dealing with more diverse samples where the nucleotide sequence includes lots of regions of dissimilarity and few regions of similarity. Because there are only 4 nucleotides, compared to 20 amino acids, amino acid sequence alignments tend to be less noisy than nucleotide sequence alignments. Amino acid sequences are also slower to change than nucleotide sequences due silent (or synonymous) nucleotide mutations that don't affect the amino acid sequence.
   
 Keep in mind that any alignment we use is still just a hypothesis - it may be a well-supported hypothesis that represents our best knowledge, but it may still not be correct. We may never know what the "true" alignment is.
 
-<<<<<<< Updated upstream
+
 ```{r, echo = FALSE, warning=FALSE, message = FALSE}
 grass <- read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
       "FJ481575.1","EF204545.1","AJ314771.1","FJ481569.1",
       "DQ073533.1","AY804128.1","AY303125.2","KF887414.1",
       "D82941.1","JX276655.1"), as.character=T)
-write.dna( grass, file = 'grass.fasta', format = 'fasta' )
-```
-
-
-# Creating a multiple sequence alignment
-
-There are several packages available now for performing alignments in R, include `ape` (which we have used before), `Biostrings`, and `mas`. Each of these have their own strengths, and all of them will produce a good alignment. There are also many non-R-based alignment programs. For this class, we will focus on how to use the `DECIPHER` package, which will allow us to create an alignment, as well as look at it.
-
-## Installing the `DECIPHER` package
-
-`DECIPHER` is available via Bioconductor, which means we can install it using the AnVIL::install command.
-
-```{r, warning=FALSE, message = FALSE}
-AnVIL::install('DECIPHER')
-
-###After the installation, we then open the package
-library(DECIPHER)
-```
-
-## Lo
-
-=======
->>>>>>> Stashed changes
-```{r, echo = FALSE, warning=FALSE, message = FALSE}
-library(ape)
-grass <- read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
-      "FJ481575.1","EF204545.1","AJ314771.1","FJ481569.1",
-      "DQ073533.1","AY804128.1","AY303125.2","KF887414.1",
-      "D82941.1","JX276655.1"))
 write.dna( grass, file = 'grass.fasta', format = 'fasta' )
 ```
 
@@ -174,6 +141,12 @@ But why did we need the `DNAbin` object to be a matrix? Simply put, having it as
 grass.align[,140:3373]
 
 The comma at the beginning of the bracket told R that we wanted to keep all the rows in the matrix `grass.align`. The 140:3373 told R to keep all the columns between column 140 and column 3372 (as well as those two columns).
+
+If we had chosen to remove one of our samples (let's say, the third sample), we could use the brackets to do so as well. The command for that would look like:
+
+kept.sequences <- grass.align[c(1:2,4:13),]
+
+The `c(1:2,4:13)` is telling R that we want to keep all the sequences between the 1st and 2nd rows, as well as all the sequences between the 4th and 13th row. We have to use the c() syntax because we have two sets of rows to keep.
 
 :::
 
