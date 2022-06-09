@@ -29,6 +29,9 @@ grass <- read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
       "DQ073533.1","AY804128.1","AY303125.2","KF887414.1",
       "D82941.1","JX276655.1"), as.character=T)
 write.dna( grass, file = 'grass.fasta', format = 'fasta' )
+
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
 ```
 
 
@@ -41,7 +44,7 @@ There are several packages available now for performing alignments in R, include
 `DECIPHER` is available via Bioconductor, which means we can install it using the AnVIL::install command. After we install the package, we can then open it via the `library()` command. (If you are prompted to update dependent packages, choose "all".)
 
 ```{r, warning=FALSE, message = FALSE}
-AnVIL::install('DECIPHER')
+BiocManager::install('DECIPHER')
 
 library(DECIPHER)
 ```
