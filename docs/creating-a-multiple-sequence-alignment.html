@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 Creating a multiple sequence alignment | Molecular Phylogenetic Techniques</title>
+  <meta name="description" content="Description about Course/Book." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 Creating a multiple sequence alignment | Molecular Phylogenetic Techniques" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Description about Course/Book." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Creating a multiple sequence alignment | Molecular Phylogenetic Techniques" />
+  
+  <meta name="twitter:description" content="Description about Course/Book." />
+  
+
+
+
+<meta name="date" content="2022-06-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
+<link rel="prev" href="why-do-we-align-sequences.html"/>
+<link rel="next" href="about-the-authors.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="assets/AnVIL_style/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://anvilproject.org/" target="_blank"><img src="assets/AnVIL_style/logo-anvil.png" style="width: 80%; padding-left: 15px; padding-top: 8px;"</a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Book</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#anvil-collection"><i class="fa fa-check"></i>AnVIL Collection</a></li>
+</ul></li>
+<li class="part"><span><b>BOOK OVERVIEW</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#motivation"><i class="fa fa-check"></i><b>1.1</b> Motivation</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#target-audience"><i class="fa fa-check"></i><b>1.2</b> Target Audience</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#curriculum"><i class="fa fa-check"></i><b>1.3</b> Curriculum</a></li>
+</ul></li>
+<li class="part"><span><b>BEFORE YOU START</b></span></li>
+<li class="chapter" data-level="2" data-path="sign-in.html"><a href="sign-in.html"><i class="fa fa-check"></i><b>2</b> Sign in</a></li>
+<li class="chapter" data-level="3" data-path="create-a-workspace.html"><a href="create-a-workspace.html"><i class="fa fa-check"></i><b>3</b> Create a workspace</a></li>
+<li class="part"><span><b>RUNNING RSTUDIO</b></span></li>
+<li class="chapter" data-level="4" data-path="rstudio.html"><a href="rstudio.html"><i class="fa fa-check"></i><b>4</b> Working in RStudio</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rstudio.html"><a href="rstudio.html#launch-rstudio-cloud-environment"><i class="fa fa-check"></i><b>4.1</b> Launch RStudio Cloud Environment</a></li>
+<li class="chapter" data-level="4.2" data-path="rstudio.html"><a href="rstudio.html#tour-rstudio"><i class="fa fa-check"></i><b>4.2</b> Tour RStudio</a></li>
+<li class="chapter" data-level="4.3" data-path="rstudio.html"><a href="rstudio.html#stopping"><i class="fa fa-check"></i><b>4.3</b> Pause RStudio</a></li>
+<li class="chapter" data-level="4.4" data-path="rstudio.html"><a href="rstudio.html#delete-rstudio-cloud-environment"><i class="fa fa-check"></i><b>4.4</b> Delete RStudio Cloud Environment</a></li>
+<li class="chapter" data-level="4.5" data-path="rstudio.html"><a href="rstudio.html#video-guide"><i class="fa fa-check"></i><b>4.5</b> Video Guide</a></li>
+</ul></li>
+<li class="part"><span><b>TREE THINKING</b></span></li>
+<li class="chapter" data-level="5" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html"><i class="fa fa-check"></i><b>5</b> Phylogenetics basics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#how-to-read-a-phylogenetic-tree"><i class="fa fa-check"></i><b>5.1</b> How to read a phylogenetic tree</a></li>
+<li class="chapter" data-level="5.2" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#outgroups"><i class="fa fa-check"></i><b>5.2</b> Outgroups</a></li>
+<li class="chapter" data-level="5.3" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#branch-lengths"><i class="fa fa-check"></i><b>5.3</b> Branch lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html"><i class="fa fa-check"></i><b>6</b> Visualizing trees in R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#creating-a-newick-object"><i class="fa fa-check"></i><b>6.1</b> Creating a Newick object</a></li>
+<li class="chapter" data-level="6.2" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#drawing-trees"><i class="fa fa-check"></i><b>6.2</b> Drawing trees</a></li>
+<li class="chapter" data-level="6.3" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#adding-outgroups"><i class="fa fa-check"></i><b>6.3</b> Adding outgroups</a></li>
+<li class="chapter" data-level="6.4" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#drawing-trees-multiple-ways"><i class="fa fa-check"></i><b>6.4</b> Drawing trees multiple ways</a></li>
+<li class="chapter" data-level="6.5" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#the-phylo-class"><i class="fa fa-check"></i><b>6.5</b> The <code>phylo</code> class</a></li>
+</ul></li>
+<li class="part"><span><b>GETTING SEQUENCES</b></span></li>
+<li class="chapter" data-level="7" data-path="what-sequences-should-i-choose.html"><a href="what-sequences-should-i-choose.html"><i class="fa fa-check"></i><b>7</b> What sequences should I choose?</a></li>
+<li class="chapter" data-level="8" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html"><i class="fa fa-check"></i><b>8</b> Finding sequences in GenBank</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html#identifying-a-query-sequence-on-genbank"><i class="fa fa-check"></i><b>8.1</b> Identifying a query sequence on GenBank</a></li>
+<li class="chapter" data-level="8.2" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html#blastn"><i class="fa fa-check"></i><b>8.2</b> blastn</a></li>
+<li class="chapter" data-level="8.3" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html#identifying-an-outgroup"><i class="fa fa-check"></i><b>8.3</b> Identifying an outgroup</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html"><i class="fa fa-check"></i><b>9</b> Downloading the sequences from GenBank</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html#the-dna.bin-object"><i class="fa fa-check"></i><b>9.1</b> The DNA.bin object</a></li>
+<li class="chapter" data-level="9.2" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html#the-fasta-format"><i class="fa fa-check"></i><b>9.2</b> The fasta format</a></li>
+</ul></li>
+<li class="part"><span><b>ALIGNMENT</b></span></li>
+<li class="chapter" data-level="10" data-path="why-do-we-align-sequences.html"><a href="why-do-we-align-sequences.html"><i class="fa fa-check"></i><b>10</b> Why do we align sequences?</a></li>
+<li class="chapter" data-level="11" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html"><i class="fa fa-check"></i><b>11</b> Creating a multiple sequence alignment</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html#installing-the-decipher-package"><i class="fa fa-check"></i><b>11.1</b> Installing the <code>DECIPHER</code> package</a></li>
+<li class="chapter" data-level="11.2" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html#loading-the-fasta-file"><i class="fa fa-check"></i><b>11.2</b> Loading the fasta file</a></li>
+<li class="chapter" data-level="11.3" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html#creating-an-alignment"><i class="fa fa-check"></i><b>11.3</b> Creating an alignment</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
+<li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+<li class="divider"></li>
+<p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
+<p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
+<a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
+<p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Molecular Phylogenetic Techniques</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<head>
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=10.0,initial-scale=1.0">
+  <!--script src="https://kit.fontawesome.com/6a26f47516.js"></script-->
+  <!--<script src="assets/hideOutput.js"></script>-->
+  <link href="assets/AnvIL_style/style.css" rel="stylesheet">
+</head>
+        
+
+
+<div class="hero-image-container"> 
+  <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
+</div>
+<div id="creating-a-multiple-sequence-alignment" class="section level1" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Creating a multiple sequence alignment</h1>
+<p>There are several packages available now for performing alignments in R, include <code>ape</code> (which we have used before), <code>Biostrings</code>, and <code>mas</code>. Each of these have their own strengths, and all of them will produce a good alignment. There are also many non-R-based alignment programs. For this class, we will focus on how to use the <code>DECIPHER</code> package, which will allow us to create an alignment, as well as look at it.</p>
+<p>If you would like to learn more about <code>DECIPHER</code>, you can find the manuals and specific examples (vignettes) <a href="http://bioconductor.org/packages/release/bioc/html/DECIPHER.html">here</a>, the the Documentation section.</p>
+<div id="installing-the-decipher-package" class="section level2" number="11.1">
+<h2><span class="header-section-number">11.1</span> Installing the <code>DECIPHER</code> package</h2>
+<p><code>DECIPHER</code> is available via Bioconductor, which means we can install it using the AnVIL::install command. After we install the package, we can then open it via the <code>library()</code> command. (If you are prompted to update dependent packages, choose “all”.)</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="creating-a-multiple-sequence-alignment.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#AnVIL::install(&#39;DECIPHER&#39;) #use this command to install the DECIPHER package</span></span>
+<span id="cb29-2"><a href="creating-a-multiple-sequence-alignment.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="creating-a-multiple-sequence-alignment.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DECIPHER)</span></code></pre></div>
+</div>
+<div id="loading-the-fasta-file" class="section level2" number="11.2">
+<h2><span class="header-section-number">11.2</span> Loading the fasta file</h2>
+<p>DECIPHER’s commands use a fasta file as their input. We could load the fasta file directly into one of the commands, or we could load the fasta file into an object that we then pass to the commands. The second option gives us more flexibility and ultimately ends up saving time - we can load the file once and use it for multiple calculations.</p>
+<p>We are loading the fasta object we created and saved in our working directory last time. If the fasta file isn’t in your working directory, that’s okay - you can replace “grass.fasta” with the path to the directory in which it’s saved, followed by the file name.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="creating-a-multiple-sequence-alignment.html#cb30-1" aria-hidden="true" tabindex="-1"></a>fas <span class="ot">&lt;-</span> <span class="st">&quot;grass.fasta&quot;</span></span></code></pre></div>
+</div>
+<div id="creating-an-alignment" class="section level2" number="11.3">
+<h2><span class="header-section-number">11.3</span> Creating an alignment</h2>
+<p>DECIPHER lets us create alignments in a couple of ways, since we downloaded sequence from a protein-coding gene (<em>Glu-1</em>). We can align the sequences directly, or we can have the program translate the DNA sequences into amino acid sequences, then align the amino acid sequences. If the sequences you want to align are not protein-coding, then you can only align the sequences directly.</p>
+<p>This part has a couple of steps. First, pass the fasta file into an object formatted as a DNAStringSet object using the command <code>readDNAStringSet</code>.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="creating-a-multiple-sequence-alignment.html#cb31-1" aria-hidden="true" tabindex="-1"></a>dna <span class="ot">&lt;-</span> <span class="fu">readDNAStringSet</span>(fas)</span>
+<span id="cb31-2"><a href="creating-a-multiple-sequence-alignment.html#cb31-2" aria-hidden="true" tabindex="-1"></a>dna</span></code></pre></div>
+<pre><code>## DNAStringSet object of length 13:
+##      width seq                                              names               
+##  [1]  1521 ATGGCTAAGCGGCTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG JX915632
+##  [2]  1506 ATGGCTAAGCGGTTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG EF105403.1
+##  [3]  1506 ATGGCTAAGCGGCTGGTCCTCTT...ATTGTCGGCTAGCCAGTGATAG DQ073553.1
+##  [4]  1749 ATGGCTAAGCGGTTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG FJ481575.1
+##  [5]  2100 ATGGCTAAGCGGTTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG EF204545.1
+##  ...   ... ...
+##  [9]  2052 ATGGCTAAGCGACTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG AY804128.1
+## [10]  1650 ATGGCTAAGCGGTTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG AY303125.2
+## [11]  1665 TCATCACCCACAACACCGAGCAC...CGCATTGTCGGCCAGCCAGTGA KF887414.1
+## [12]  2296 CAAAACTAGAGATCAATTCATTG...AAAACGGAAAGCTTCTCCATCC D82941.1
+## [13]  2046 ATGGCTAAGCAGCTGGTCCTCTT...CTCCCTGTCGGCCAGCCAGTAG JX276655.1</code></pre>
+<p>(You might have noticed a warning message about an invalid character type. Sometimes this happens when you download data from GenBank, because people may have made a mistake in the nucleotide sequence when they submitted their samples. Since it is only one base (and the sequences themselves are at least 1500 bp long), so excluding it is unlikely to bias our results.)</p>
+<p>Although it might look like the sequences are aligned in the DNAStringSet object, they really aren’t. To do so requires another command.</p>
+<p>First, let’s align our sequences using just the nucleotides.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="creating-a-multiple-sequence-alignment.html#cb33-1" aria-hidden="true" tabindex="-1"></a>DNA.no_trans <span class="ot">&lt;-</span> <span class="fu">AlignSeqs</span>(dna)</span></code></pre></div>
+<pre><code>## Determining distance matrix based on shared 10-mers:
+## ================================================================================
+## 
+## Time difference of 0.01 secs
+## 
+## Clustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0.01 secs
+## 
+## Aligning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.45 secs
+## 
+## Iteration 1 of 2:
+## 
+## Determining distance matrix based on alignment:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Reclustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Realigning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.64 secs
+## 
+## Iteration 2 of 2:
+## 
+## Determining distance matrix based on alignment:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Reclustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Realigning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.93 secs
+## 
+## Refining the alignment:
+## ================================================================================
+## 
+## Time difference of 0.75 secs</code></pre>
+<p>We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-a-multiple-sequence-alignment.html#cb35-1" aria-hidden="true" tabindex="-1"></a>DNA.trans <span class="ot">&lt;-</span> <span class="fu">AlignTranslation</span>(dna)</span></code></pre></div>
+<pre><code>## Determining distance matrix based on shared 5-mers:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Clustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Aligning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.24 secs
+## 
+## Iteration 1 of 2:
+## 
+## Determining distance matrix based on alignment:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Reclustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Realigning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.24 secs
+## 
+## Iteration 2 of 2:
+## 
+## Determining distance matrix based on alignment:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Reclustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Realigning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.24 secs</code></pre>
+<p>Translating the nucleotide sequences sped up the alignment process, although both were fast enough it isn’t a big deal to directly align the nucleotides. Your choice of which alignment procedure to use will largely come down to whether you are using coding sequence and how divergent your samples are. If you aren’t using coding sequence, you will need to align using the nucleotides. If you have samples from deeply divergent species (especially if they come from different phyla), you will generally get a better alignment if you let the program translate your nucleotide sequence to amino acids first.</p>
+<p>Now that we’ve created alignments, it would be helpful to visually check them. (This is possible if your sequences aren’t too long, but can become really hard once you start dealing with very long stretches of DNA!) The <code>BrowseSeqs</code> command opens a browser window with the aligned sequences. Just remember which window belongs to each alignment!</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-a-multiple-sequence-alignment.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans)</span>
+<span id="cb37-2"><a href="creating-a-multiple-sequence-alignment.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.trans)</span></code></pre></div>
+<p><img src="resources/images/05-alignment_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>You can scroll through the browser windows to see the full alignment. DECIPHER automatically color-codes the nucleotides, which makes it easier to pick out when a sequence doesn’t match the others. At the very bottom, DECIPHER displays a consensus sequence, which we can also look at to identify which bases have mutations (or gaps).</p>
+<p>The first thing that jumps out it how the two alignment methods resulted in alignments of different lengths. The alignment from the <code>AlignTranslation</code> method is longer than the alignment from the <code>AlignSeqs</code> method. How the gaps are inserted also differ quite a bit.</p>
+<p>At this point, the alignment we choose to use is basically a judgment call. You have to decide which alignment seems “better” to you. With the grass sequences, sample AJ314771.1 doesn’t quite seem to fit well with the <code>AlignTranslation</code> alignment. There are long stretches of the sequence that aren’t aligned with anything else. This doesn’t seem to be the case for the <code>AlignSeqs</code> alignment.</p>
+<p>If we chose to go ahead with the <code>AlignTranslation</code> alignment, it would make sense to remove sample AJ314771.1 from our fasta file. You may come across a situation where one (or more) sequences don’t seem to fit very well with the others. The best option going forward is to remove those sequences, as keeping them will cause issues when it comes time to infer the phylogeny.</p>
+<p>The <code>alignSeqs</code> command allows us to change the gap opening and gap extension penalties. The default setting (which we used above, since we did not specify anything in the <code>alignSeqs</code> or <code>alignTranslation</code> commands) is to assign a minimum and maximum cost for each. For gap opening, the cost is -18 for nearly identical sequences and -14 for sequences that are more distantly related. For gap extension, those costs are -3 and -2. Let’s see what happens when we change the costs.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="creating-a-multiple-sequence-alignment.html#cb38-1" aria-hidden="true" tabindex="-1"></a>DNA.no_trans<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">AlignSeqs</span>(dna, <span class="at">gapOpening =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="sc">-</span><span class="dv">10</span>), <span class="at">gapExtension =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="dv">1</span>))</span></code></pre></div>
+<pre><code>## Determining distance matrix based on shared 10-mers:
+## ================================================================================
+## 
+## Time difference of 0.01 secs
+## 
+## Clustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Aligning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.45 secs
+## 
+## Iteration 1 of 2:
+## 
+## Determining distance matrix based on alignment:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Reclustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Realigning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.61 secs
+## 
+## Iteration 2 of 2:
+## 
+## Determining distance matrix based on alignment:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Reclustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Realigning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.99 secs
+## 
+## Refining the alignment:
+## ================================================================================
+## 
+## Time difference of 0.83 secs</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="creating-a-multiple-sequence-alignment.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans<span class="fl">.1</span>)</span></code></pre></div>
+<p>Changing the gap opening and gap extension costs may or may not make a difference. In many cases, the default parameters will work just fine. However, it is always wise to check additional values!</p>
+<p>For the grass samples, it would be reasonable to use the alignment generated by the <code>AlignSeqs</code> method. This is a judgment call more than anything else - there are large sections of the alignment that include all the sequences with minimal changes. We’ll want to trim it to remove the ends with very little sequence coverage. We will keep everything between base 140 and 3373. To trim the sequences, we will write a new fasta file, then use it to create a new <code>DNAbin</code> object. If you haven’t already loaded the <code>ape</code> library in your R session, you should do so now using the <code>library(ape)</code> command.</p>
+<p><img src="resources/images/05-alignment_2.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p><img src="resources/images/05-alignment_3.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="creating-a-multiple-sequence-alignment.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">writeXStringSet</span>(DNA.no_trans, <span class="at">file=</span><span class="st">&quot;grass_aligned.fasta&quot;</span>)</span>
+<span id="cb41-2"><a href="creating-a-multiple-sequence-alignment.html#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="creating-a-multiple-sequence-alignment.html#cb41-3" aria-hidden="true" tabindex="-1"></a>grass.align <span class="ot">&lt;-</span> <span class="fu">read.dna</span>(<span class="st">&quot;grass_aligned.fasta&quot;</span>, <span class="at">format=</span><span class="st">&quot;fasta&quot;</span>, <span class="at">as.matrix=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>The trick for this step is that we specified the <code>grass.align</code> object be loaded as a matrix, not as a list. We can subset our sequences using brackets since <code>grass.align</code> is in matrix format.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="creating-a-multiple-sequence-alignment.html#cb42-1" aria-hidden="true" tabindex="-1"></a>grass.trimmed <span class="ot">&lt;-</span> grass.align[,<span class="dv">140</span><span class="sc">:</span><span class="dv">3373</span>]</span>
+<span id="cb42-2"><a href="creating-a-multiple-sequence-alignment.html#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="creating-a-multiple-sequence-alignment.html#cb42-3" aria-hidden="true" tabindex="-1"></a>grass.trimmed</span></code></pre></div>
+<pre><code>## 13 DNA sequences in binary format stored in a matrix.
+## 
+## All sequences of same length: 3234 
+## 
+## Labels:
+## JX915632
+## EF105403.1
+## DQ073553.1
+## FJ481575.1
+## EF204545.1
+## AJ314771.1
+## ...
+## 
+## Base composition:
+##     a     c     g     t 
+## 0.310 0.303 0.273 0.115 
+## (Total: 42.04 kb)</code></pre>
+<p>Congratulations! You now have a trimmed alignment, ready for inferring trees. To be on the safe side, we will save it as a fasta file.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="creating-a-multiple-sequence-alignment.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.dna</span>( grass.align, <span class="at">file =</span> <span class="st">&#39;grass_aligned.fasta&#39;</span>, <span class="at">format =</span> <span class="st">&#39;fasta&#39;</span> )</span></code></pre></div>
+<div class="fyi">
+<p><strong>R BASICS</strong></p>
+<p>R has both data types and data structures. Data types (like character (for letters) or numeric (for real or decimal numbers)) can be combined to form data structures. Some of the data structures include:</p>
+<ul>
+<li>vector</li>
+<li>list</li>
+<li>matrix</li>
+<li>data frame</li>
+</ul>
+<p>The data structures differ based on their size and what data types they can accept. A vector is a single dimension collection of one data type. You can have vectors made up of many character data types or many numerical data types, but you can’t have a vector of both character and numerical data types together.</p>
+<p>For example, a vector of numeric data might look like this:</p>
+<p>1 1 2 3 5</p>
+<p><code>DNAbin</code> objects are normally formatted as lists, which can be thought of as a multidimensional collection of vectors where each vector can be of a different type. (Within a vector everything is still a single character type.) In the code above, we specified the <code>DNAbin</code> object be formatted as a matrix. The matrix data structure is basically vectors in more than one dimensional, which means all the elements within a matrix must be the same data type (in this case, everything was a character).</p>
+<p>A matrix of numeric data like the vector example above might look like this:</p>
+<pre><code>  [,1]    [,2]    [,3]    [,4]    [,5]</code></pre>
+<p>[1,] 1 1 2 3 5
+[2,] 2 3 5 7 11</p>
+<p>In a matrix (as well as in a data frame, which we haven’t discussed), the position of an entry can be specificed using brackets. The first coordinate in the bracket indicates the row, while the second coordinate indicates the column. For the matrix above, [2,5] points to the number 11, which is the entry in the second row and fifth column. If we want to point to an entire row, we can leave off the second coordinate. [1,] points to the entire first row. If we want to point to an entire column, we have two choices. We could use either [,1] or just [1]. R will interpret both of those commands as pointing to column 1.</p>
+<p>By making the <code>DNAbin</code> object a matrix, we could subset it like a matrix. That’s what we did with the brackets.</p>
+<p>grass.align[,140:3373]</p>
+<p>The comma at the beginning of the bracket told R that we wanted to keep all the rows in the matrix <code>grass.align</code>. The 140:3373 told R to keep all the columns between column 140 and column 3372 (as well as those two columns).</p>
+<p>If we had chosen to remove one of our samples (let’s say, the third sample), we could use the brackets to do so as well. The command for that would look like:</p>
+<p>kept.sequences &lt;- grass.align[c(1:2,4:13),]</p>
+<p>The <code>c(1:2,4:13)</code> is telling R that we want to keep all the sequences between the 1st and 2nd rows, as well as all the sequences between the 4th and 13th row. We have to use the c() syntax because we have two sets of rows to keep.</p>
+</div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="creating-a-multiple-sequence-alignment.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.3 LTS
+## 
+## Matrix products: default
+## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats4    parallel  stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
+## 
+## other attached packages:
+## [1] DECIPHER_2.18.1     RSQLite_2.2.1       Biostrings_2.58.0  
+## [4] XVector_0.30.0      IRanges_2.24.1      S4Vectors_0.28.1   
+## [7] BiocGenerics_0.36.1 BiocManager_1.30.10 ape_5.4-1          
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_1.0.8      pillar_1.4.6    compiler_4.0.2  jquerylib_0.1.4
+##  [5] tools_4.0.2     zlibbioc_1.36.0 bit_4.0.4       digest_0.6.25  
+##  [9] memoise_1.1.0   evaluate_0.14   lifecycle_1.0.0 tibble_3.0.3   
+## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_0.4.10   
+## [17] DBI_1.1.0       yaml_2.2.1      xfun_0.26       stringr_1.4.0  
+## [21] knitr_1.33      fs_1.5.0        vctrs_0.3.4     hms_0.5.3      
+## [25] bit64_4.0.5     grid_4.0.2      R6_2.4.1        ottrpal_0.1.2  
+## [29] rmarkdown_2.10  bookdown_0.24   blob_1.2.1      readr_1.4.0    
+## [33] magrittr_2.0.2  ellipsis_0.3.1  htmltools_0.5.0 stringi_1.5.3  
+## [37] crayon_1.3.4</code></pre>
+
+</div>
+</div>
+<hr>
+<center> 
+  <div class="footer">
+      All illustrations <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY. </a>
+      <br>
+      All other materials <a href= "https://creativecommons.org/licenses/by/4.0/"> CC-BY </a> unless noted otherwise.
+  </div>
+</center>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="why-do-we-align-sequences.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="about-the-authors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

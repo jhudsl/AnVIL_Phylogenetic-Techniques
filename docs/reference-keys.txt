@@ -28,4 +28,9 @@ identifying-an-outgroup
 downloading-the-sequences-from-genbank
 the-dna.bin-object
 the-fasta-format
+why-do-we-align-sequences
+creating-a-multiple-sequence-alignment
+installing-the-decipher-package
+loading-the-fasta-file
+creating-an-alignment
 references
