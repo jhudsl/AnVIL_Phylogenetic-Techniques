@@ -1,9 +1,10 @@
-# (PART\*)  MAJOR METHODS OF TREE ESTIMATION: NEIGHBOR JOINING {-}
+# (PART\*) NEIGHBOR JOINING {-}
 
 ```{r, include = FALSE}
 ottrpal::set_knitr_image_path()
 ```
 
+# The neighbor joining method of tree estimation
 
 There are two basic types of tree estimation methods: distance methods (which includes neighbor joining, discussed here) and tree-searching methods (which we will cover in later sections). The first phylogenetic trees were built using distance methods. Strictly speaking, these methods can be considered phenetic methods, not phylogenetic methods, since these methods group taxa based on similarity instead of attempting to find the most likely tree. For all practical purposes, though, we can include neighbor joining in under the umbrella of phylogenetics.
 
