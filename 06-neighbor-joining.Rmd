@@ -1,26 +1,230 @@
-# (PART\*) GETTING SEQUENCES {-}
+# (PART\*) NEIGHBOR JOINING {-}
 
 ```{r, include = FALSE}
 ottrpal::set_knitr_image_path()
 ```
 
+# The neighbor joining method of tree estimation
+
+There are two basic types of tree estimation methods: distance methods (which includes neighbor joining, discussed here) and tree-searching methods (which we will cover in later sections). The first phylogenetic trees were built using distance methods. Strictly speaking, these methods can be considered phenetic methods, not phylogenetic methods, since these methods group taxa based on similarity instead of attempting to find the most likely tree. For all practical purposes, though, we can include neighbor joining in under the umbrella of phylogenetics.
+
+In distance-based methods like neighbor joining, the genetic data is converted into a distance matrix, which is used to group taxa based on the genetic distance between them. Neighbor joining specifically works via star decomposition. Let's take a look at an example (adapted from (Fred Opperdoes)[http://www.deduveinstitute.be/~opperd/private/neighbor.html]).
+
+We have 5 taxa (A,B,C,D, and E) for which we would like to infer a phylogeny. We've calculated the following distances among all the taxa:
+
+<img src="resources/images/06-distance_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+The shortest distance between any taxa is 13, which means that A and B are most closely related to each other and will form our first group. We begin with all the taxa forming a star shape, and then we add a branch that connects A and B.
+
+<img src="resources/images/06-nj_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+We keep grouping taxa until the entire star has been resolved into bifurcating branches (nodes that connect two, and only two, branches). For our example tree, we eventually end up with this tree:
+
+
+<img src="resources/images/06-nj_2.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+The neighbor joining method is very fast, requires very few computational resources, and is statistically consistent. It will also always result in only a single tree topology. Unfortunately, many people will become overly confident that the single neighbor joining tree is the true tree, which is not necessarily true. Nowadays, most researchers might start their analysis with a neighbor joining tree, but they generally go on to infer trees using one of the other methods. 
+
+::: {.fyi}
+
+There is another type of distance method you might hear about called UPGMA (unweighted pair group method with arithmetic mean). This is a hierarchical clustering method. However, the tree built using UPGMA depends greatly on the order in which the taxa are added, unlike the neighbor joining method (which will result in the same tree no matter what order the samples are added). As a result, the UPGMA method is almost never used in phylogenetics today.
+
+:::
+
+
+## Models of molecular evolution
+
+In the example above, we kind of glossed over the process of converting DNA sequence into genetic distances. In its simplest form, every mutation is given a value, and the total value of all mutations is then used to calculate a genetic distance. 
+
+But wait, you might be thinking. How do researchers decide what value to assign each mutation? Are all mutations given the same value, or do some changes "cost" more than others? Aren't some mutations considered more unlikely than others? These are all excellent questions that should be considered whenever dealing with phylogenetic analysis. Luckily, we don't have to answer all these questions ourselves. Instead, we can look at published _models of molecular evolution_ (also called substitution models) and decide which model fits our data the best.
+
+### JC69
+
+A model of molecular evolution is a set of rules that determines how much each mutation costs relative to all other mutations. One of the earliest published models is the JC69 model (sometimes written as JC), proposed by Jukes and Cantor in 1969. The JC69 model assumes equal base frequencies (that is, each nucleotide makes up 25% of the bases in the DNA sequence), as well as equal mutation rates. A mutation of an A to a T is the same as the mutation as a T to an A or an A to a C. As a result, the JC69 model has only 1 parameter - the mutation rate. 
+
+### K2P
+
+Many other models of molecular evolution have been published since JC69. One of the more popular ones is the Kimura two-parameter model (also called K80, or K2P). This model still assumes equal base frequencies, but allows for a distinct mutation rate for transitions (mutations between purines or pyrimidines) and a different mutation rate for tranversions (mutations from purine to pyrimidine, or vice versa). As you might have guessed from the name, this particular model has two parameters.
+
+### GTR
+
+One of the most complex models you might come across is the general time reversible model, or GTR. This model is extremely flexible but also parameter-heavy. There are no assumptions about base frequencies, and each possible mutation is given its own mutation rate. (A quick note: the mutation rate from A to G is the same as the mutation rate from G to A in this model.) As a result, this model has 9 parameters: 6 mutation rates + 3 base frequencies. (Because the sum of the 4 base frequencies must equal 1, we only have to describe 3 of them in order to calculate all 4. That's why we only need 3 parameters to model the base frequencies for GTR.)
+
+### Other parameters
+
+Sometimes you will run across a model that has "+ I" added to it (like GTR + I). The "I" refers to a invariant sites parameter. In these models, each base has a certain probability of being invariate, or unlikely to mutate. 
+
+Another option you might see is using a gamma distribution to estimate how many times any given base in a sequence might mutate. We often think of mutation as a one-and-done process, where a nucleotide might mutate only once. This isn't a bad assumption; in fact, given that mutation is so rare, it is extremely unlikely for a nucleotide to mutate multiple times, though it does happen (particularly as divergence times between taxa increase). A solution to this dilemma is to include a parameter that describes how many times a particular nucleotide has undergone mutation. A gamma distribution is used because the highest probability is found in the smallest values of x, with a low probability of larger values of x (which would be multiple mutation hits at the same nucleotide). A model using a gamma distribution with have a "+ G".
+
+Finally, some models with have a "+ SS" added to it. The SS indicates a site-specific variation parameter. These models will estimate different mutation rates for each codon position. Site-specific models are much less common than models that include invariate sites parameters or a \Gamma$ parameter.
+
+### How do I choose a model?
+
+There are enough substitution models out there that it can be a bit overwhelming to pick one for your phylogenetic analyses. (The models discussed above are in no way an exhaustive list.) Many researchers will have a favorite model they use, while others will rely model test programs to tell them which model of molecular evolution best fits their data. Although GTR + I + \Gamma$ might be the most biologically realistic model, it is also parameter-heavy and may not be the best choice when dealing with a sequence alignment that includes only a small number of phylogenetically-informative sites. 
 
 ```{r, echo = FALSE, warning=FALSE, message = FALSE}
 library(ape)
+grass <- read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
+                        "FJ481575.1","EF204545.1","AJ314771.1","FJ481569.1",
+                        "DQ073533.1","AY804128.1","AY303125.2","KF887414.1",
+                        "D82941.1","JX276655.1"), as.character=T)
+write.dna( grass, file = 'grass.fasta', format = 'fasta' )
+library(DECIPHER)
+fas <- "grass.fasta"
+dna <- readDNAStringSet(fas)
+DNA.no_trans <- AlignSeqs(dna)
+
+writeXStringSet(DNA.no_trans, file="grass_aligned.fasta")
+
+grass.align <- read.dna("grass_aligned.fasta", format="fasta", as.matrix=TRUE)
+grass.trimmed <- grass.align[,140:3373]
+write.dna( grass.align, file = 'grass_aligned.fasta', format = 'fasta' )
 ```
+
+
+# Building a neighbor joining tree
+
+We are finally ready to start building trees from our data. 
+
+For these analyses, we will use an R package called `phangorn`. If you'd like to learn more about it, you can find the manual [here](https://cran.r-project.org/web/packages/phangorn/phangorn.pdf).
+
+`phangorn` (Phylogenetic Reconstruction and Analysis) is stored in the CRAN repository, so we will use `install.packages` for the installation.
 
 ```{r, warning=FALSE, message = FALSE}
-#library(ape) #if you haven't previously loaded ape
+install.packages('phangorn')
 
-#the first argument in the read.Genbank command is a vector
-#of all the accession numbers we are using. We use the c("")
-#to concatenate a string of characters that read.Genbank will
-#interpret. 
-read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
-      "FJ481575.1","EF204545.1","AJ314771.1","FJ481569.1",
-      "DQ073533.1","AY804128.1","AY303125.2","KF887414.1",
-      "D82941.1","JX276655.1"), as.character=F)
+library(phangorn)
 ```
+
+## The phyDat object
+
+`phangorn` uses a data structure called phyDat to store information. You can either load the fasta file of your alignment into a phyDat object, or you can directly convert the DNAbin object of your alignment into a phyDat object. You will also want to make sure you have access to your DNAbin object, since we will need that for the model testing.
+
+```{r, warning=FALSE, message = FALSE, eval=FALSE}
+#Loading a fasta file
+
+grass.phy <- read.phyDat('grass_aligned.fasta', format = 'fasta', type = 'DNA')
+
+#Converting your DNAbin object
+
+grass.align <- read.dna('grass_aligned.fasta', format = 'fasta')
+
+grass.phy <- phyDat(grass.align)
+
+grass.phy
+ 
+```
+
+```{r, echo = FALSE, warning=FALSE, message = FALSE}
+grass.phy <- read.phyDat('grass_aligned.fasta', format = 'fasta', type = 'DNA')
+
+grass.phy
+```
+
+The phyDat object is remarkably similar to the DNAbin object - this isn't too surprising, since the same team wrote both `ape` and `phangorn`.
+
+::: {.fyi}
+**R BASICS**
+
+If you are pausing your R environment on AnVIL (or have not closed an R session), you may still have all the objects you created previously still available. To check this, you can use the `list` command.
+
+ls()
+
+R will print all the objects that are still stored in the workspace. If you see your aligned DNAbin object (which can also bee seen in the Environment tab in the upper right box of RStudio), you can directly convert it to a `phyDat` object instead of loading the fasta file first.
+:::
+
+## Choosing a substitution model
+
+`phangorn` can test our data against 24 different substitution models to determine which is the best fit. We first have to create a "guide" tree. (In future releases of `phangorn` creating this tree won't be necessary, but for now it doesn't take much extra time to create a tree.)
+
+```{r, warning=FALSE, message = FALSE}
+dist.matrix <- dist.dna(grass.align)
+
+dist.matrix
+str(dist.matrix)
+```
+
+The distance matrix stores all the distances in the lower half of the table to save space. This particular matrix used the K80 model (also known as the K2P model) to calculate the distances. When we use the `str(dist.matrix)` command, we can see the model used stored in the method attribute.
+
+Next, we make a very quick neighbor joining tree to act as the guide tree. We then run the model test command using our phyDat object and the guide tree.
+
+```{r, warning=FALSE, message = FALSE}
+tree.guide <- NJ(dist.matrix)
+
+mod.test <- modelTest(grass.phy, tree = tree.guide)
+```
+
+As the model test runs, R prints out most of the models being tested. For some reason, R doesn't print the basic models. The first three models listed are JC + I, JC + G, and JC + G + I. While these models are being tested, the program is _also_ testing the basic JC model.
+
+```{r, warning=FALSE, message = FALSE}
+mod.test
+```
+
+`phangorn` calculates multiple statistics that can be used to judge the fit of all the models. Which one you choose depends on what you prefer, although the field standard is generally to use the Akaike Information Criterion. This is a single number that combines how well the model fits the data (as determined by the log likelihood score) with a penalty for increasing model complexity. More complex models will almost always fit the data better, but in small datasets it can be difficult to get good estimates of every parameter when the model is complex. With AIC, we might find the GTR + G + I model fits the best, but we only have enough samples to estimates 2 parameters with any confidence. In this case, the AIC score might tell us to use the K80 (K2P) model.
+
+Smaller numbers are better when it comes to AIC. This is also the case for AICc (which is a "second generation" or updated calculate of AIC) and BIC (the Bayesian Information Criterion, a version of AIC that includes a stronger penalty for additional parameters). In RStudio, you canclick on "mod.test" in the Environment tab from the pane in the upper right corner. That will open the results of our model test analysis in a separate window. If we click on "AIC" or "AICc", we can order the models by the AIC values. When we do this, we see the lowest AIC and AICc values are for the GTR + G model, which is what we will use going forward.
+
+## Building the neighbor joining tree
+
+We've already calculated a distance matrix above, but this time we will specify the model we want to use. 
+
+```{r, warning=FALSE, message = FALSE, eval=FALSE}
+dist.matrix <- dist.dna(grass.align, model = "GTR + G")
+
+tree <- NJ(dist.matrix)
+tree
+```
+
+But wait, why are we getting an error message? As it turns out, the `modelTest` command might test 24 different models, but the `dist.dna` command can't use all of those models. This is frustrating but also not uncommon when doing phylogenetic analyses. Unfortunately, not every program supports every substitution model.
+
+`dist.dna` appears to support the following models: RAW, JC69, K80, F81, K81, F84, T92, TN93, GG95, LOGDET, BH87, PARALIN, N, TS, TV, INDEL, INDELBLOCK. We can check which of these models has the lowest AIC from our earlier model test. Surprisingly, it's the K80 model, which is what we used initially.
+
+```{r, warning=FALSE, message = FALSE}
+dist.matrix <- dist.dna(grass.align, model = "K80")
+
+tree <- NJ(dist.matrix)
+```
+
+## Visualizing the neighbor joining tree
+
+Let's take a look at the neighbor joining tree.
+
+```{r, warning=FALSE, message = FALSE}
+plot(tree, type = "unrooted")
+```
+
+While we have indeed generated a tree, it's not really the easiest to interpret at the moment. It's hard to see what the relationships among taxa are because the tips are labeled with GenBank accession numbers instead of taxa names. Also, we really ought to declare an outgroup.
+
+First let's change the tip labels. This is simply a matter of replacing each accession number with the taxon name. We do this by creating a vector of taxon names (matching the order of the accession numbers), then replacing the `tip.label` variable in our `tree` object. Because most of us are not plant experts, we'll use the common names for each sample, but it's also acceptable to use the scientific names.
+
+```{r, warning=FALSE, message = FALSE}
+tree$tip.label
+
+new.labels <- c('wheat', 'intermediate wheatgrass', 'mammoth wild rye', 'wheatgrass', 'tall wheatgrass', 'rye', 'Asiatic grass', 'crested wheatgrass', 'Tauschs goatgrass', 'medusahead rye', 'mosquito grass', 'barley_D-hordein', 'Siberian wild rye_D-hordein' )
+
+tree$tip.label <- new.labels
+```
+
+Next, we declare our outgroup (in this case, the two D-hordein samples) and root our tree. (Remember, we did this in our first exercise using R.)
+
+```{r, warning=FALSE, message = FALSE}
+tree.root <- root(tree, outgroup = c('barley_D-hordein','Siberian wild rye_D-hordein'))
+
+plot(tree.root, type = "phylogram", main = 'Neighbor Joining, Glu-1')
+```
+
+Now we have a tree that we can begin to make sense of. To an non-botanist, it seems interesting the samples with the common name "wheatgrass" don't appear to be clustering together. Common names can be misleading about phylogenetic relationships!
+
+## Saving your trees
+
+You want to be sure to save the rooted tree and model test results to the persistent disk.
+
+```{r, warning=FALSE, message = FALSE, eval=F}
+write.tree(tree.root, file = 'nj_grass.tre')
+write.table(mod.test, file = 'grass_model_test', quote=F, sep='\t')
+```
+
 
 
 ```{r}

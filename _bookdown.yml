@@ -8,6 +8,7 @@ rmd_files: ["index.Rmd",
             "03-tree-thinking.Rmd",
             "04-choosing-sequences.Rmd",
             "05-alignment.Rmd",
+            "06-neighbor-joining.Rmd",
             "About.Rmd",
             "References.Rmd"]
 new_session: yes
