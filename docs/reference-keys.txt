@@ -33,4 +33,17 @@ creating-a-multiple-sequence-alignment
 installing-the-decipher-package
 loading-the-fasta-file
 creating-an-alignment
+the-neighbor-joining-method-of-tree-estimation
+models-of-molecular-evolution
+jc69
+k2p
+gtr
+other-parameters
+how-do-i-choose-a-model
+building-a-neighbor-joining-tree
+the-phydat-object
+choosing-a-substitution-model
+building-the-neighbor-joining-tree
+visualizing-the-neighbor-joining-tree
+saving-your-trees
 references

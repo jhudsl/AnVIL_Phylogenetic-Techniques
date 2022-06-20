@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-06-13" />
+<meta name="date" content="2022-06-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
 <link rel="prev" href="why-do-we-align-sequences.html"/>
-<link rel="next" href="about-the-authors.html"/>
+<link rel="next" href="the-neighbor-joining-method-of-tree-estimation.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -194,8 +194,28 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.2" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html#loading-the-fasta-file"><i class="fa fa-check"></i><b>11.2</b> Loading the fasta file</a></li>
 <li class="chapter" data-level="11.3" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html#creating-an-alignment"><i class="fa fa-check"></i><b>11.3</b> Creating an alignment</a></li>
 </ul></li>
+<li class="part"><span><b>NEIGHBOR JOINING</b></span></li>
+<li class="chapter" data-level="12" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html"><i class="fa fa-check"></i><b>12</b> The neighbor joining method of tree estimation</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#models-of-molecular-evolution"><i class="fa fa-check"></i><b>12.1</b> Models of molecular evolution</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#jc69"><i class="fa fa-check"></i><b>12.1.1</b> JC69</a></li>
+<li class="chapter" data-level="12.1.2" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#k2p"><i class="fa fa-check"></i><b>12.1.2</b> K2P</a></li>
+<li class="chapter" data-level="12.1.3" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#gtr"><i class="fa fa-check"></i><b>12.1.3</b> GTR</a></li>
+<li class="chapter" data-level="12.1.4" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#other-parameters"><i class="fa fa-check"></i><b>12.1.4</b> Other parameters</a></li>
+<li class="chapter" data-level="12.1.5" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#how-do-i-choose-a-model"><i class="fa fa-check"></i><b>12.1.5</b> How do I choose a model?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html"><i class="fa fa-check"></i><b>13</b> Building a neighbor joining tree</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#the-phydat-object"><i class="fa fa-check"></i><b>13.1</b> The phyDat object</a></li>
+<li class="chapter" data-level="13.2" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#choosing-a-substitution-model"><i class="fa fa-check"></i><b>13.2</b> Choosing a substitution model</a></li>
+<li class="chapter" data-level="13.3" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#building-the-neighbor-joining-tree"><i class="fa fa-check"></i><b>13.3</b> Building the neighbor joining tree</a></li>
+<li class="chapter" data-level="13.4" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#visualizing-the-neighbor-joining-tree"><i class="fa fa-check"></i><b>13.4</b> Visualizing the neighbor joining tree</a></li>
+<li class="chapter" data-level="13.5" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#saving-your-trees"><i class="fa fa-check"></i><b>13.5</b> Saving your trees</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
-<li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
+<li class="chapter" data-level="14" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>14</b> References</a></li>
 <li class="divider"></li>
 <p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
@@ -283,7 +303,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.45 secs
+## Time difference of 0.56 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -300,7 +320,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.64 secs
+## Time difference of 0.8 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -317,28 +337,28 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.93 secs
+## Time difference of 1.12 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.75 secs</code></pre>
+## Time difference of 0.9 secs</code></pre>
 <p>We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-a-multiple-sequence-alignment.html#cb35-1" aria-hidden="true" tabindex="-1"></a>DNA.trans <span class="ot">&lt;-</span> <span class="fu">AlignTranslation</span>(dna)</span></code></pre></div>
 <pre><code>## Determining distance matrix based on shared 5-mers:
 ## ================================================================================
 ## 
-## Time difference of 0 secs
+## Time difference of 0.01 secs
 ## 
 ## Clustering into groups by similarity:
 ## ================================================================================
 ## 
-## Time difference of 0 secs
+## Time difference of 0.01 secs
 ## 
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.24 secs
+## Time difference of 0.3 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -355,7 +375,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.24 secs
+## Time difference of 0.3 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -372,7 +392,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.24 secs</code></pre>
+## Time difference of 0.3 secs</code></pre>
 <p>Translating the nucleotide sequences sped up the alignment process, although both were fast enough it isn’t a big deal to directly align the nucleotides. Your choice of which alignment procedure to use will largely come down to whether you are using coding sequence and how divergent your samples are. If you aren’t using coding sequence, you will need to align using the nucleotides. If you have samples from deeply divergent species (especially if they come from different phyla), you will generally get a better alignment if you let the program translate your nucleotide sequence to amino acids first.</p>
 <p>Now that we’ve created alignments, it would be helpful to visually check them. (This is possible if your sequences aren’t too long, but can become really hard once you start dealing with very long stretches of DNA!) The <code>BrowseSeqs</code> command opens a browser window with the aligned sequences. Just remember which window belongs to each alignment!</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-a-multiple-sequence-alignment.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans)</span>
@@ -397,7 +417,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.45 secs
+## Time difference of 0.56 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -414,7 +434,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.61 secs
+## Time difference of 0.75 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -431,12 +451,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.99 secs
+## Time difference of 1.23 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.83 secs</code></pre>
+## Time difference of 1.02 secs</code></pre>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="creating-a-multiple-sequence-alignment.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans<span class="fl">.1</span>)</span></code></pre></div>
 <p>Changing the gap opening and gap extension costs may or may not make a difference. In many cases, the default parameters will work just fine. However, it is always wise to check additional values!</p>
 <p>For the grass samples, it would be reasonable to use the alignment generated by the <code>AlignSeqs</code> method. This is a judgment call more than anything else - there are large sections of the alignment that include all the sequences with minimal changes. We’ll want to trim it to remove the ends with very little sequence coverage. We will keep everything between base 140 and 3373. To trim the sequences, we will write a new fasta file, then use it to create a new <code>DNAbin</code> object. If you haven’t already loaded the <code>ape</code> library in your R session, you should do so now using the <code>library(ape)</code> command.</p>
@@ -532,6 +552,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
+
+
+
 <hr>
 <center> 
   <div class="footer">
@@ -546,7 +569,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="why-do-we-align-sequences.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="about-the-authors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="the-neighbor-joining-method-of-tree-estimation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
