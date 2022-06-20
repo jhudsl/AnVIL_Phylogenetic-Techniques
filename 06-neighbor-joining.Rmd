@@ -1,4 +1,4 @@
-# (PART\*) MAJOR METHODS OF TREE ESTIMATION: NEIGHBOR JOINING {-}
+# (PART\*)  MAJOR METHODS OF TREE ESTIMATION: NEIGHBOR JOINING {-}
 
 ```{r, include = FALSE}
 ottrpal::set_knitr_image_path()
