@@ -148,7 +148,7 @@ The parsimony ratchet is an approach that was developed by KC Nixon in 1999. Thi
 
 This process is repeated until either the algorithm reaches the max number of iterations or the _k_ number is reached.
 
-```{r,  warning=FALSE, message = FALSE}
+```{r,  warning=FALSE, message = FALSE, eval=F}
 tree.SPR <- pratchet(g.align, maxit = 10000, minit = 100, k = 10,
                            all = T, rearrangements = 'SPR', trace = 0)
 
@@ -168,11 +168,15 @@ NNI.root <- root(tree.NNI,
 plot(SPR.root, main = 'Parsimony, SPR')
 ```
 
-```{r,  warning=FALSE, message = FALSE}
+```{r,  warning=FALSE, message = FALSE, eval=F}
 plot(NNI.root, main = 'Parsimony, NNI')
 ```
 
 Take a look at the topology of the trees created using the branch-and-bound (BAB), SPR, and NNI approaches. Do you see any differences?
+
+
+<img src="resources/images/07-parsimony_trees.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
 
 ## Parsimony scores
 
@@ -203,24 +207,20 @@ After all the bootstrapping replicates have been analyzed, each branch of the ac
 
 Luckily, the `pratchet` command automatically does bootstrapping, so we already have the bootstrap information saved. We can see the bootstrap values on the trees using the `plotBS` command.
 
-```{r,  warning=FALSE, message = FALSE}
+```{r,  warning=FALSE, message = FALSE, eval=F}
 plotBS(SPR.root, type = "p", main = 'Parsimony, SPR')
 ```
 
-```{r,  warning=FALSE, message = FALSE}
+```{r,  warning=FALSE, message = FALSE, eval=FALSE}
 plotBS(NNI.root, type = "p", main = 'Parsimony, NNI')
 ```
 
+
+<img src="resources/images/07-bootstrap_trees.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
 You may need to resize the Plots window in order to more easily read the bootstrap values for each branch.
 
-We can see the bootstrap values for each branch by examining the tree objects directly. 
-
-```{r,  warning=FALSE, message = FALSE}
-#bootstrap value of each node 
-SPR.root$node.label
-```
-
-This information can be helpful when a bootstrap value is difficult to read.
 
 ::: {.fyi}
 can we bootstrap our neighbor joining tree?
