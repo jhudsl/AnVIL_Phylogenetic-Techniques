@@ -137,8 +137,6 @@ To test both NNI and SPR approaches for parsimony trees, we will use the `pratch
   - trace: how much information to print after each iteration
   
   - all: whether to return all equally parsimonius trees, or just one
-  
-  - perturbation: whether to use "ratchet" or "stochastic" (NNI) shuffling when shuffling the trees
 
 The parsimony ratchet is an approach that was developed by KC Nixon in 1999. This approach is a more efficient way to find better trees than by just NNI or SPR rearrangements alone. `phangorn` implements it this way:
 
@@ -152,10 +150,10 @@ This process is repeated until either the algorithm reaches the max number of it
 
 ```{r,  warning=FALSE, message = FALSE}
 tree.SPR <- pratchet(g.align, maxit = 10000, minit = 100, k = 10,
-                           all = T, rearrangements = 'SPR', trace = 0, perturbation = 'ratchet')
+                           all = T, rearrangements = 'SPR', trace = 0)
 
 tree.NNI <- pratchet(g.align, maxit = 10000, minit = 100, k = 10,
-                           all = T, rearrangements = 'NNI', trace = 0, perturbation = 'stochastic')
+                           all = T, rearrangements = 'NNI', trace = 0)
 
 #We assign branch lengths to the tree equal to the number of changes
 
