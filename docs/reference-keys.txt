@@ -46,4 +46,17 @@ choosing-a-substitution-model
 building-the-neighbor-joining-tree
 visualizing-the-neighbor-joining-tree
 saving-your-trees
+the-parsimony-method-of-tree-estimation
+parsimony
+tree-searching-methods
+branch-and-bound
+nearest-neighbor-interchange-nni
+subtree-pruning-and-regrafting-spr
+star-decomposition
+building-a-parsimony-tree
+editing-the-fasta-file
+inferring-a-parsimony-tree
+parsimony-scores
+bootstrapping
+saving-files
 references

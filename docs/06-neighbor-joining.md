@@ -76,7 +76,7 @@ There are enough substitution models out there that it can be a bit overwhelming
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.56 secs
+## Time difference of 0.43 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -93,7 +93,7 @@ There are enough substitution models out there that it can be a bit overwhelming
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.78 secs
+## Time difference of 0.63 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -110,12 +110,12 @@ There are enough substitution models out there that it can be a bit overwhelming
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 1.12 secs
+## Time difference of 0.91 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.88 secs
+## Time difference of 0.72 secs
 ```
 
 

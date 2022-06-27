@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 15 Building a parsimony tree | Molecular Phylogenetic Techniques</title>
+  <meta name="description" content="Description about Course/Book." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 15 Building a parsimony tree | Molecular Phylogenetic Techniques" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Description about Course/Book." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 15 Building a parsimony tree | Molecular Phylogenetic Techniques" />
+  
+  <meta name="twitter:description" content="Description about Course/Book." />
+  
+
+
+
+<meta name="date" content="2022-06-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
+<link rel="prev" href="the-parsimony-method-of-tree-estimation.html"/>
+<link rel="next" href="about-the-authors.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="assets/AnVIL_style/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://anvilproject.org/" target="_blank"><img src="assets/AnVIL_style/logo-anvil.png" style="width: 80%; padding-left: 15px; padding-top: 8px;"</a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Book</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#anvil-collection"><i class="fa fa-check"></i>AnVIL Collection</a></li>
+</ul></li>
+<li class="part"><span><b>BOOK OVERVIEW</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#motivation"><i class="fa fa-check"></i><b>1.1</b> Motivation</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#target-audience"><i class="fa fa-check"></i><b>1.2</b> Target Audience</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#curriculum"><i class="fa fa-check"></i><b>1.3</b> Curriculum</a></li>
+</ul></li>
+<li class="part"><span><b>BEFORE YOU START</b></span></li>
+<li class="chapter" data-level="2" data-path="sign-in.html"><a href="sign-in.html"><i class="fa fa-check"></i><b>2</b> Sign in</a></li>
+<li class="chapter" data-level="3" data-path="create-a-workspace.html"><a href="create-a-workspace.html"><i class="fa fa-check"></i><b>3</b> Create a workspace</a></li>
+<li class="part"><span><b>RUNNING RSTUDIO</b></span></li>
+<li class="chapter" data-level="4" data-path="rstudio.html"><a href="rstudio.html"><i class="fa fa-check"></i><b>4</b> Working in RStudio</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rstudio.html"><a href="rstudio.html#launch-rstudio-cloud-environment"><i class="fa fa-check"></i><b>4.1</b> Launch RStudio Cloud Environment</a></li>
+<li class="chapter" data-level="4.2" data-path="rstudio.html"><a href="rstudio.html#tour-rstudio"><i class="fa fa-check"></i><b>4.2</b> Tour RStudio</a></li>
+<li class="chapter" data-level="4.3" data-path="rstudio.html"><a href="rstudio.html#stopping"><i class="fa fa-check"></i><b>4.3</b> Pause RStudio</a></li>
+<li class="chapter" data-level="4.4" data-path="rstudio.html"><a href="rstudio.html#delete-rstudio-cloud-environment"><i class="fa fa-check"></i><b>4.4</b> Delete RStudio Cloud Environment</a></li>
+<li class="chapter" data-level="4.5" data-path="rstudio.html"><a href="rstudio.html#video-guide"><i class="fa fa-check"></i><b>4.5</b> Video Guide</a></li>
+</ul></li>
+<li class="part"><span><b>TREE THINKING</b></span></li>
+<li class="chapter" data-level="5" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html"><i class="fa fa-check"></i><b>5</b> Phylogenetics basics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#how-to-read-a-phylogenetic-tree"><i class="fa fa-check"></i><b>5.1</b> How to read a phylogenetic tree</a></li>
+<li class="chapter" data-level="5.2" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#outgroups"><i class="fa fa-check"></i><b>5.2</b> Outgroups</a></li>
+<li class="chapter" data-level="5.3" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#branch-lengths"><i class="fa fa-check"></i><b>5.3</b> Branch lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html"><i class="fa fa-check"></i><b>6</b> Visualizing trees in R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#creating-a-newick-object"><i class="fa fa-check"></i><b>6.1</b> Creating a Newick object</a></li>
+<li class="chapter" data-level="6.2" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#drawing-trees"><i class="fa fa-check"></i><b>6.2</b> Drawing trees</a></li>
+<li class="chapter" data-level="6.3" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#adding-outgroups"><i class="fa fa-check"></i><b>6.3</b> Adding outgroups</a></li>
+<li class="chapter" data-level="6.4" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#drawing-trees-multiple-ways"><i class="fa fa-check"></i><b>6.4</b> Drawing trees multiple ways</a></li>
+<li class="chapter" data-level="6.5" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#the-phylo-class"><i class="fa fa-check"></i><b>6.5</b> The <code>phylo</code> class</a></li>
+</ul></li>
+<li class="part"><span><b>GETTING SEQUENCES</b></span></li>
+<li class="chapter" data-level="7" data-path="what-sequences-should-i-choose.html"><a href="what-sequences-should-i-choose.html"><i class="fa fa-check"></i><b>7</b> What sequences should I choose?</a></li>
+<li class="chapter" data-level="8" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html"><i class="fa fa-check"></i><b>8</b> Finding sequences in GenBank</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html#identifying-a-query-sequence-on-genbank"><i class="fa fa-check"></i><b>8.1</b> Identifying a query sequence on GenBank</a></li>
+<li class="chapter" data-level="8.2" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html#blastn"><i class="fa fa-check"></i><b>8.2</b> blastn</a></li>
+<li class="chapter" data-level="8.3" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html#identifying-an-outgroup"><i class="fa fa-check"></i><b>8.3</b> Identifying an outgroup</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html"><i class="fa fa-check"></i><b>9</b> Downloading the sequences from GenBank</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html#the-dna.bin-object"><i class="fa fa-check"></i><b>9.1</b> The DNA.bin object</a></li>
+<li class="chapter" data-level="9.2" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html#the-fasta-format"><i class="fa fa-check"></i><b>9.2</b> The fasta format</a></li>
+</ul></li>
+<li class="part"><span><b>ALIGNMENT</b></span></li>
+<li class="chapter" data-level="10" data-path="why-do-we-align-sequences.html"><a href="why-do-we-align-sequences.html"><i class="fa fa-check"></i><b>10</b> Why do we align sequences?</a></li>
+<li class="chapter" data-level="11" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html"><i class="fa fa-check"></i><b>11</b> Creating a multiple sequence alignment</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html#installing-the-decipher-package"><i class="fa fa-check"></i><b>11.1</b> Installing the <code>DECIPHER</code> package</a></li>
+<li class="chapter" data-level="11.2" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html#loading-the-fasta-file"><i class="fa fa-check"></i><b>11.2</b> Loading the fasta file</a></li>
+<li class="chapter" data-level="11.3" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html#creating-an-alignment"><i class="fa fa-check"></i><b>11.3</b> Creating an alignment</a></li>
+</ul></li>
+<li class="part"><span><b>NEIGHBOR JOINING</b></span></li>
+<li class="chapter" data-level="12" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html"><i class="fa fa-check"></i><b>12</b> The neighbor joining method of tree estimation</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#models-of-molecular-evolution"><i class="fa fa-check"></i><b>12.1</b> Models of molecular evolution</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#jc69"><i class="fa fa-check"></i><b>12.1.1</b> JC69</a></li>
+<li class="chapter" data-level="12.1.2" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#k2p"><i class="fa fa-check"></i><b>12.1.2</b> K2P</a></li>
+<li class="chapter" data-level="12.1.3" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#gtr"><i class="fa fa-check"></i><b>12.1.3</b> GTR</a></li>
+<li class="chapter" data-level="12.1.4" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#other-parameters"><i class="fa fa-check"></i><b>12.1.4</b> Other parameters</a></li>
+<li class="chapter" data-level="12.1.5" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#how-do-i-choose-a-model"><i class="fa fa-check"></i><b>12.1.5</b> How do I choose a model?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html"><i class="fa fa-check"></i><b>13</b> Building a neighbor joining tree</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#the-phydat-object"><i class="fa fa-check"></i><b>13.1</b> The phyDat object</a></li>
+<li class="chapter" data-level="13.2" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#choosing-a-substitution-model"><i class="fa fa-check"></i><b>13.2</b> Choosing a substitution model</a></li>
+<li class="chapter" data-level="13.3" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#building-the-neighbor-joining-tree"><i class="fa fa-check"></i><b>13.3</b> Building the neighbor joining tree</a></li>
+<li class="chapter" data-level="13.4" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#visualizing-the-neighbor-joining-tree"><i class="fa fa-check"></i><b>13.4</b> Visualizing the neighbor joining tree</a></li>
+<li class="chapter" data-level="13.5" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#saving-your-trees"><i class="fa fa-check"></i><b>13.5</b> Saving your trees</a></li>
+</ul></li>
+<li class="part"><span><b>PARSIMONY</b></span></li>
+<li class="chapter" data-level="14" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html"><i class="fa fa-check"></i><b>14</b> The parsimony method of tree estimation</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#parsimony"><i class="fa fa-check"></i><b>14.1</b> Parsimony</a></li>
+<li class="chapter" data-level="14.2" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#tree-searching-methods"><i class="fa fa-check"></i><b>14.2</b> Tree searching methods</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#branch-and-bound"><i class="fa fa-check"></i><b>14.2.1</b> Branch and bound</a></li>
+<li class="chapter" data-level="14.2.2" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#nearest-neighbor-interchange-nni"><i class="fa fa-check"></i><b>14.2.2</b> Nearest Neighbor Interchange (NNI)</a></li>
+<li class="chapter" data-level="14.2.3" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#subtree-pruning-and-regrafting-spr"><i class="fa fa-check"></i><b>14.2.3</b> Subtree Pruning and Regrafting (SPR)</a></li>
+<li class="chapter" data-level="14.2.4" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#star-decomposition"><i class="fa fa-check"></i><b>14.2.4</b> Star decomposition</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html"><i class="fa fa-check"></i><b>15</b> Building a parsimony tree</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#editing-the-fasta-file"><i class="fa fa-check"></i><b>15.1</b> Editing the fasta file</a></li>
+<li class="chapter" data-level="15.2" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#inferring-a-parsimony-tree"><i class="fa fa-check"></i><b>15.2</b> Inferring a parsimony tree</a></li>
+<li class="chapter" data-level="15.3" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#parsimony-scores"><i class="fa fa-check"></i><b>15.3</b> Parsimony scores</a></li>
+<li class="chapter" data-level="15.4" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#bootstrapping"><i class="fa fa-check"></i><b>15.4</b> Bootstrapping</a></li>
+<li class="chapter" data-level="15.5" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#saving-files"><i class="fa fa-check"></i><b>15.5</b> Saving files</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
+<li class="chapter" data-level="16" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>16</b> References</a></li>
+<li class="divider"></li>
+<p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
+<p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
+<a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
+<p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Molecular Phylogenetic Techniques</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<head>
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=10.0,initial-scale=1.0">
+  <!--script src="https://kit.fontawesome.com/6a26f47516.js"></script-->
+  <!--<script src="assets/hideOutput.js"></script>-->
+  <link href="assets/AnvIL_style/style.css" rel="stylesheet">
+</head>
+        
+
+
+<div class="hero-image-container"> 
+  <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
+</div>
+<div id="building-a-parsimony-tree" class="section level1" number="15">
+<h1><span class="header-section-number">Chapter 15</span> Building a parsimony tree</h1>
+<p>We will continue using the <code>phangorn</code> package for our parsimony analyses. We are also going to briefly use the <code>phytools</code> package to modify the fasta file. The manual for the <code>phytools</code> package is <a href="https://cran.r-project.org/web/packages/phytools/phytools.pdf">here</a>.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="building-a-parsimony-tree.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;phylotools&#39;</span>)</span>
+<span id="cb70-2"><a href="building-a-parsimony-tree.html#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-3"><a href="building-a-parsimony-tree.html#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phylotools)</span>
+<span id="cb70-4"><a href="building-a-parsimony-tree.html#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phangorn)</span></code></pre></div>
+<div id="editing-the-fasta-file" class="section level2" number="15.1">
+<h2><span class="header-section-number">15.1</span> Editing the fasta file</h2>
+<p>Last week we edited the tip labels of our neighbor joining tree so that the tree displayed the common names of our grass samples instead of the GenBank accession numbers. However, we’re going to be building multiple trees from the grass fasta file, so it makes sense to edit the fasta file directly so we don’t have to manually change the tip labels every time. <code>Phytools</code> allows us to edit fasta files using the <code>rename.fasta</code> command. Before we can use it, though, we need to create a dataframe with two columns: the first column contains the old sample names (the GenBank accession numbers), while the second column contains the new sample names (the common names for each sample).</p>
+<p>A dataframe in R is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column. We can create one by binding (or pasting) two vectors together. The vectors we are binding MUST have the information in the same order (that is, the order of GenBank accession numbers must be the same order as the common names).</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="building-a-parsimony-tree.html#cb71-1" aria-hidden="true" tabindex="-1"></a>old.labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;JX915632&quot;</span>, <span class="st">&quot;EF105403.1&quot;</span>, <span class="st">&quot;DQ073553.1&quot;</span>,</span>
+<span id="cb71-2"><a href="building-a-parsimony-tree.html#cb71-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;FJ481575.1&quot;</span>, <span class="st">&quot;EF204545.1&quot;</span>,<span class="st">&quot;AJ314771.1&quot;</span>,</span>
+<span id="cb71-3"><a href="building-a-parsimony-tree.html#cb71-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;FJ481569.1&quot;</span>, <span class="st">&quot;DQ073533.1&quot;</span>, <span class="st">&quot;AY804128.1&quot;</span>,</span>
+<span id="cb71-4"><a href="building-a-parsimony-tree.html#cb71-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;AY303125.2&quot;</span>, <span class="st">&quot;KF887414.1&quot;</span>, <span class="st">&quot;D82941.1&quot;</span>,</span>
+<span id="cb71-5"><a href="building-a-parsimony-tree.html#cb71-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;JX276655.1&quot;</span>)</span>
+<span id="cb71-6"><a href="building-a-parsimony-tree.html#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-7"><a href="building-a-parsimony-tree.html#cb71-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-8"><a href="building-a-parsimony-tree.html#cb71-8" aria-hidden="true" tabindex="-1"></a>new.labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;wheat&#39;</span>, <span class="st">&#39;intermediate wheatgrass&#39;</span>,</span>
+<span id="cb71-9"><a href="building-a-parsimony-tree.html#cb71-9" aria-hidden="true" tabindex="-1"></a>                <span class="st">&#39;mammoth wild rye&#39;</span>, <span class="st">&#39;wheatgrass&#39;</span>, </span>
+<span id="cb71-10"><a href="building-a-parsimony-tree.html#cb71-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">&#39;tall wheatgrass&#39;</span>, <span class="st">&#39;rye&#39;</span>, <span class="st">&#39;Asiatic grass&#39;</span>, </span>
+<span id="cb71-11"><a href="building-a-parsimony-tree.html#cb71-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">&#39;crested wheatgrass&#39;</span>, <span class="st">&#39;Tauschs goatgrass&#39;</span>, </span>
+<span id="cb71-12"><a href="building-a-parsimony-tree.html#cb71-12" aria-hidden="true" tabindex="-1"></a>                <span class="st">&#39;medusahead rye&#39;</span>, <span class="st">&#39;mosquito grass&#39;</span>,</span>
+<span id="cb71-13"><a href="building-a-parsimony-tree.html#cb71-13" aria-hidden="true" tabindex="-1"></a>                <span class="st">&#39;barley_D-hordein&#39;</span>, <span class="st">&#39;Siberian wild rye_D-hordein&#39;</span> )</span>
+<span id="cb71-14"><a href="building-a-parsimony-tree.html#cb71-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-15"><a href="building-a-parsimony-tree.html#cb71-15" aria-hidden="true" tabindex="-1"></a>sample.df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(old.labels, new.labels)</span>
+<span id="cb71-16"><a href="building-a-parsimony-tree.html#cb71-16" aria-hidden="true" tabindex="-1"></a>sample.df</span></code></pre></div>
+<pre><code>##       old.labels   new.labels                   
+##  [1,] &quot;JX915632&quot;   &quot;wheat&quot;                      
+##  [2,] &quot;EF105403.1&quot; &quot;intermediate wheatgrass&quot;    
+##  [3,] &quot;DQ073553.1&quot; &quot;mammoth wild rye&quot;           
+##  [4,] &quot;FJ481575.1&quot; &quot;wheatgrass&quot;                 
+##  [5,] &quot;EF204545.1&quot; &quot;tall wheatgrass&quot;            
+##  [6,] &quot;AJ314771.1&quot; &quot;rye&quot;                        
+##  [7,] &quot;FJ481569.1&quot; &quot;Asiatic grass&quot;              
+##  [8,] &quot;DQ073533.1&quot; &quot;crested wheatgrass&quot;         
+##  [9,] &quot;AY804128.1&quot; &quot;Tauschs goatgrass&quot;          
+## [10,] &quot;AY303125.2&quot; &quot;medusahead rye&quot;             
+## [11,] &quot;KF887414.1&quot; &quot;mosquito grass&quot;             
+## [12,] &quot;D82941.1&quot;   &quot;barley_D-hordein&quot;           
+## [13,] &quot;JX276655.1&quot; &quot;Siberian wild rye_D-hordein&quot;</code></pre>
+<p>In the dataframe <code>sample.df</code>, you can see that each row is a sample, with the accession number in column 1 and the common name in column 2.</p>
+<p>We can now use the <code>rename.fasta</code> command. This command requires three arguments. The first is the fasta file that is being edited, the second is the dataframe that contains both the old and new names, and the third is the name for the newly edited fasta file. The new fasta file will be saved in your working directory (on AnVIL, this is the persistent disk).</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="building-a-parsimony-tree.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rename.fasta</span>(<span class="st">&#39;grass_aligned.fasta&#39;</span>, sample.df, <span class="st">&#39;grass_aligned-renamed.fasta&#39;</span>)</span></code></pre></div>
+<pre><code>## grass_aligned-renamed.fasta has been saved to  /__w/phylogenetic-techniques/phylogenetic-techniques</code></pre>
+</div>
+<div id="inferring-a-parsimony-tree" class="section level2" number="15.2">
+<h2><span class="header-section-number">15.2</span> Inferring a parsimony tree</h2>
+<p>There are several options for inferring parsimony trees using <code>phangorn</code>. We can use the branch and bound tree rearrangement method with the <code>bab</code> command, or we can apply the nearest neighbor interchange (NNI) or subtree prunning and regrafting (SPR) approaches with either the <code>optim.parsimony</code> or <code>pratchet</code> (parsimony ratchet) commands. The branch and bound method can be very, very slow if you have more ~10 samples. Let’s take a look at the parsimony tree that results from a branch-and-bound search of the grass fasta file.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="building-a-parsimony-tree.html#cb75-1" aria-hidden="true" tabindex="-1"></a>g.align <span class="ot">&lt;-</span> <span class="fu">read.phyDat</span>(<span class="st">&quot;grass_aligned-renamed.fasta&quot;</span>, <span class="at">format=</span><span class="st">&#39;fasta&#39;</span>)</span>
+<span id="cb75-2"><a href="building-a-parsimony-tree.html#cb75-2" aria-hidden="true" tabindex="-1"></a>bab.tree <span class="ot">&lt;-</span> <span class="fu">bab</span>(g.align)</span></code></pre></div>
+<pre><code>## [1] &quot;lower bound: 1581&quot;
+## [1] &quot;upper bound: 1803&quot;</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="building-a-parsimony-tree.html#cb77-1" aria-hidden="true" tabindex="-1"></a>bab.root <span class="ot">&lt;-</span> <span class="fu">root</span>(bab.tree, </span>
+<span id="cb77-2"><a href="building-a-parsimony-tree.html#cb77-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>,<span class="st">&#39;Siberian wild rye_D-hordein&#39;</span>))</span>
+<span id="cb77-3"><a href="building-a-parsimony-tree.html#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bab.tree, <span class="at">main =</span> <span class="st">&#39;Parsimony, BAB&#39;</span>)</span></code></pre></div>
+<p><img src="resources/images/07-parsimony_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>To test both NNI and SPR approaches for parsimony trees, we will use the <code>pratchet</code> command. This particular command has lots of possible parameters we can change.</p>
+<ul>
+<li><p>maxit: maximum number of iterations</p></li>
+<li><p>minit: minimum number of iterations</p></li>
+<li><p><em>k</em>: number of rounds of no improvement after which the ratchet is stopped</p></li>
+<li><p>rearrangements: SPR or NNI rearrangements</p></li>
+<li><p>trace: how much information to print after each iteration</p></li>
+<li><p>all: whether to return all equally parsimonius trees, or just one</p></li>
+</ul>
+<p>The parsimony ratchet is an approach that was developed by KC Nixon in 1999. This approach is a more efficient way to find better trees than by just NNI or SPR rearrangements alone. <code>phangorn</code> implements it this way:</p>
+<ol style="list-style-type: decimal">
+<li><p>Create a bootstrapped dataset from the original dataset (more on bootstrapping later).</p></li>
+<li><p>Take the current best tree (or starting tree, for the first go-round) and perform tree rearrangements using the bootstrapped dataset, saving the best bootstrap tree.</p></li>
+<li><p>Use the best bootstrap tree and perform tree rearrangements using the original dataset. Compare the parsimony score (the smallest number of changes necessary to describe the data for a given tree) of the bootstrapped tree and the original best tree. Whichever tree is best (ie, has the lowest parsimony score) is then saved as the new “best” tree.</p></li>
+</ol>
+<p>This process is repeated until either the algorithm reaches the max number of iterations or the <em>k</em> number is reached.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="building-a-parsimony-tree.html#cb78-1" aria-hidden="true" tabindex="-1"></a>tree.SPR <span class="ot">&lt;-</span> <span class="fu">pratchet</span>(g.align, <span class="at">maxit =</span> <span class="dv">10000</span>, <span class="at">minit =</span> <span class="dv">100</span>, <span class="at">k =</span> <span class="dv">10</span>,</span>
+<span id="cb78-2"><a href="building-a-parsimony-tree.html#cb78-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">all =</span> T, <span class="at">rearrangements =</span> <span class="st">&#39;SPR&#39;</span>, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb78-3"><a href="building-a-parsimony-tree.html#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="building-a-parsimony-tree.html#cb78-4" aria-hidden="true" tabindex="-1"></a>tree.NNI <span class="ot">&lt;-</span> <span class="fu">pratchet</span>(g.align, <span class="at">maxit =</span> <span class="dv">10000</span>, <span class="at">minit =</span> <span class="dv">100</span>, <span class="at">k =</span> <span class="dv">10</span>,</span>
+<span id="cb78-5"><a href="building-a-parsimony-tree.html#cb78-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">all =</span> T, <span class="at">rearrangements =</span> <span class="st">&#39;NNI&#39;</span>, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb78-6"><a href="building-a-parsimony-tree.html#cb78-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-7"><a href="building-a-parsimony-tree.html#cb78-7" aria-hidden="true" tabindex="-1"></a><span class="co">#We assign branch lengths to the tree equal to the number of changes</span></span>
+<span id="cb78-8"><a href="building-a-parsimony-tree.html#cb78-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-9"><a href="building-a-parsimony-tree.html#cb78-9" aria-hidden="true" tabindex="-1"></a>tree.SPR <span class="ot">&lt;-</span> <span class="fu">acctran</span>(tree.SPR, g.align)</span>
+<span id="cb78-10"><a href="building-a-parsimony-tree.html#cb78-10" aria-hidden="true" tabindex="-1"></a>tree.NNI <span class="ot">&lt;-</span> <span class="fu">acctran</span>(tree.NNI, g.align)</span>
+<span id="cb78-11"><a href="building-a-parsimony-tree.html#cb78-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-12"><a href="building-a-parsimony-tree.html#cb78-12" aria-hidden="true" tabindex="-1"></a>SPR.root <span class="ot">&lt;-</span> <span class="fu">root</span>(tree.SPR, </span>
+<span id="cb78-13"><a href="building-a-parsimony-tree.html#cb78-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>,<span class="st">&#39;Siberian wild rye_D-hordein&#39;</span>))</span>
+<span id="cb78-14"><a href="building-a-parsimony-tree.html#cb78-14" aria-hidden="true" tabindex="-1"></a>NNI.root <span class="ot">&lt;-</span> <span class="fu">root</span>(tree.NNI, </span>
+<span id="cb78-15"><a href="building-a-parsimony-tree.html#cb78-15" aria-hidden="true" tabindex="-1"></a>                      <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>,<span class="st">&#39;Siberian wild rye_D-hordein&#39;</span>))</span>
+<span id="cb78-16"><a href="building-a-parsimony-tree.html#cb78-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-17"><a href="building-a-parsimony-tree.html#cb78-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(SPR.root, <span class="at">main =</span> <span class="st">&#39;Parsimony, SPR&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="building-a-parsimony-tree.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(NNI.root, <span class="at">main =</span> <span class="st">&#39;Parsimony, NNI&#39;</span>)</span></code></pre></div>
+<p>Take a look at the topology of the trees created using the branch-and-bound (BAB), SPR, and NNI approaches. Do you see any differences?</p>
+<p><img src="resources/images/07-parsimony_trees.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+</div>
+<div id="parsimony-scores" class="section level2" number="15.3">
+<h2><span class="header-section-number">15.3</span> Parsimony scores</h2>
+<p>We can compare parsimony trees directly by comparing their parsimony scores. As mentioned above, the parsimony score is just the minimum number of changes necessary to map a dataset onto a particular tree topology. A smaller number is better.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="building-a-parsimony-tree.html#cb80-1" aria-hidden="true" tabindex="-1"></a>tree.SPR <span class="ot">&lt;-</span> <span class="fu">pratchet</span>(g.align, <span class="at">maxit =</span> <span class="dv">10000</span>, <span class="at">minit =</span> <span class="dv">100</span>, <span class="at">k =</span> <span class="dv">10</span>,</span>
+<span id="cb80-2"><a href="building-a-parsimony-tree.html#cb80-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">all =</span> T, <span class="at">rearrangements =</span> <span class="st">&#39;SPR&#39;</span>, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb80-3"><a href="building-a-parsimony-tree.html#cb80-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-4"><a href="building-a-parsimony-tree.html#cb80-4" aria-hidden="true" tabindex="-1"></a>tree.NNI <span class="ot">&lt;-</span> <span class="fu">pratchet</span>(g.align, <span class="at">maxit =</span> <span class="dv">10000</span>, <span class="at">minit =</span> <span class="dv">100</span>, <span class="at">k =</span> <span class="dv">10</span>,</span>
+<span id="cb80-5"><a href="building-a-parsimony-tree.html#cb80-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">all =</span> T, <span class="at">rearrangements =</span> <span class="st">&#39;NNI&#39;</span>, <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb80-6"><a href="building-a-parsimony-tree.html#cb80-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-7"><a href="building-a-parsimony-tree.html#cb80-7" aria-hidden="true" tabindex="-1"></a><span class="co">#We assign branch lengths to the tree equal to the number of changes</span></span>
+<span id="cb80-8"><a href="building-a-parsimony-tree.html#cb80-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-9"><a href="building-a-parsimony-tree.html#cb80-9" aria-hidden="true" tabindex="-1"></a>tree.SPR <span class="ot">&lt;-</span> <span class="fu">acctran</span>(tree.SPR, g.align)</span>
+<span id="cb80-10"><a href="building-a-parsimony-tree.html#cb80-10" aria-hidden="true" tabindex="-1"></a>tree.NNI <span class="ot">&lt;-</span> <span class="fu">acctran</span>(tree.NNI, g.align)</span>
+<span id="cb80-11"><a href="building-a-parsimony-tree.html#cb80-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-12"><a href="building-a-parsimony-tree.html#cb80-12" aria-hidden="true" tabindex="-1"></a>SPR.root <span class="ot">&lt;-</span> <span class="fu">root</span>(tree.SPR, </span>
+<span id="cb80-13"><a href="building-a-parsimony-tree.html#cb80-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>,<span class="st">&#39;Siberian wild rye_D-hordein&#39;</span>))</span>
+<span id="cb80-14"><a href="building-a-parsimony-tree.html#cb80-14" aria-hidden="true" tabindex="-1"></a>NNI.root <span class="ot">&lt;-</span> <span class="fu">root</span>(tree.NNI, </span>
+<span id="cb80-15"><a href="building-a-parsimony-tree.html#cb80-15" aria-hidden="true" tabindex="-1"></a>                      <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>,<span class="st">&#39;Siberian wild rye_D-hordein&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="building-a-parsimony-tree.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for each parsimony command, we need to provide a tree and a phyDat object</span></span>
+<span id="cb81-2"><a href="building-a-parsimony-tree.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">parsimony</span>(bab.root, g.align)</span></code></pre></div>
+<pre><code>## [1] 1803</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="building-a-parsimony-tree.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parsimony</span>(SPR.root, g.align)</span></code></pre></div>
+<pre><code>## [1] 1803</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="building-a-parsimony-tree.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parsimony</span>(NNI.root, g.align)</span></code></pre></div>
+<pre><code>## [1] 1803</code></pre>
+<p>In the case of our grass dataset, all the parsimony scores are the same, so all of the methods performed equally well. We got lucky - this is not always true!</p>
+</div>
+<div id="bootstrapping" class="section level2" number="15.4">
+<h2><span class="header-section-number">15.4</span> Bootstrapping</h2>
+<p>It would be nice to have a way to measure the robustness of each individual branch and clade, not just the overall tree. In phylogenetics, the measurement of choice for determining the “strength” of a branch is the bootstrap value.</p>
+<p>Bootstrapping is a resampling method that attempts to use the original data as a way to judge the strength of phylogenetic inference. For each bootstrap replicate, the program will randomly select a number of sites to create a pseudoalignment. (For example, if the original alignment has 100 bases, the bootstrap algorithm will randomly choose 100 bases to create a new alignment. Some bases might be chosen multiple times, while other bases don’t get sampled.) After generating the pseudoalignment, a new tree is built and the relationships are stored. Here is a nice illustration of the process by <a href="https://www.analyticsvidhya.com/blog/2020/02/what-is-bootstrap-sampling-in-statistics-and-machine-learning/">www.analyticsvidhya.com</a></p>
+<p><img src="resources/images/07-bootstrap.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>After all the bootstrapping replicates have been analyzed, each branch of the actual tree will be labeled with a value that reflects how frequently that branch was seen among the replicate trees. Higher values mean the branch has more support. In general, researchers consider a branch with a bootstrap value &gt; 0.5 as well-supported.</p>
+<p>Luckily, the <code>pratchet</code> command automatically does bootstrapping, so we already have the bootstrap information saved. We can see the bootstrap values on the trees using the <code>plotBS</code> command.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="building-a-parsimony-tree.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotBS</span>(SPR.root, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, <span class="at">main =</span> <span class="st">&#39;Parsimony, SPR&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="building-a-parsimony-tree.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotBS</span>(NNI.root, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, <span class="at">main =</span> <span class="st">&#39;Parsimony, NNI&#39;</span>)</span></code></pre></div>
+<p><img src="resources/images/07-bootstrap_trees.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>You may need to resize the Plots window in order to more easily read the bootstrap values for each branch.</p>
+<div class="fyi">
+<p>can we bootstrap our neighbor joining tree?</p>
+<p>In short, yes, although we have to do a bit of R trickery, because neither <code>ape</code> nor <code>phangorn</code> have the option to bootstrap neighbor joining trees built in. We can get around this by writing our own function.</p>
+<p>Basically, we will write a function that creates a distance matrix using the <code>dist.ml</code> command. (This command is a more general form of the <code>dist.dna</code> command. As of this writing, using <code>dist.dna</code> in the function throws an error.) Then we can include both a phyDat object and our function in the <code>bootstrap.phyDat</code> command. R will take the phyDat object and pass it to our function, then use the distance matrix in a bootstrap analysis.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="building-a-parsimony-tree.html#cb89-1" aria-hidden="true" tabindex="-1"></a>fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">nj</span>(<span class="fu">dist.ml</span>(x))</span>
+<span id="cb89-2"><a href="building-a-parsimony-tree.html#cb89-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-3"><a href="building-a-parsimony-tree.html#cb89-3" aria-hidden="true" tabindex="-1"></a>bs_nj <span class="ot">&lt;-</span> <span class="fu">bootstrap.phyDat</span>(g.align,  fun)</span>
+<span id="cb89-4"><a href="building-a-parsimony-tree.html#cb89-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-5"><a href="building-a-parsimony-tree.html#cb89-5" aria-hidden="true" tabindex="-1"></a>dna_dist <span class="ot">&lt;-</span> <span class="fu">dist.ml</span>(g.align, <span class="at">model =</span> <span class="st">&#39;JC&#39;</span>)</span>
+<span id="cb89-6"><a href="building-a-parsimony-tree.html#cb89-6" aria-hidden="true" tabindex="-1"></a>nj.tre <span class="ot">&lt;-</span> <span class="fu">nj</span>(dna_dist)</span>
+<span id="cb89-7"><a href="building-a-parsimony-tree.html#cb89-7" aria-hidden="true" tabindex="-1"></a>nj.root <span class="ot">&lt;-</span> <span class="fu">root</span>(nj.tre, </span>
+<span id="cb89-8"><a href="building-a-parsimony-tree.html#cb89-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>,<span class="st">&#39;Siberian wild rye_D-hordein&#39;</span>))</span>
+<span id="cb89-9"><a href="building-a-parsimony-tree.html#cb89-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-10"><a href="building-a-parsimony-tree.html#cb89-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plotBS</span>(nj.root, bs_nj, <span class="st">&#39;p&#39;</span>, <span class="at">main =</span> <span class="st">&#39;Neighbor Joining&#39;</span>)</span></code></pre></div>
+<p><img src="resources/images/07-parsimony_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>This isn’t a perfect approach - for one thing, we can’t use the K80 substitution model for the <code>dist.ml</code> command. Instead, we simply used the JC model. Also, the bootstrapping values in this approach are from 1 to 100, not 0 to 1 as calculated by the <code>pratchet</code> command.</p>
+<p>How does the bootstrap support for the neighbor joining tree compare to the bootstrap support for the parsimony trees?</p>
+</div>
+</div>
+<div id="saving-files" class="section level2" number="15.5">
+<h2><span class="header-section-number">15.5</span> Saving files</h2>
+<p>Make sure to save at least one of the trees you built using the <code>pratchet</code> command to the persistent disk.</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="building-a-parsimony-tree.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.tree</span>(SPR.root, <span class="at">file =</span> <span class="st">&#39;spr_grass.tre&#39;</span>)</span>
+<span id="cb90-2"><a href="building-a-parsimony-tree.html#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.tree</span>(NNI.root, <span class="at">file =</span> <span class="st">&#39;nni_grass.tre&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="building-a-parsimony-tree.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.3 LTS
+## 
+## Matrix products: default
+## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] phangorn_2.5.5   phylotools_0.2.2 ape_5.4-1       
+## 
+## loaded via a namespace (and not attached):
+##  [1] igraph_1.2.6    Rcpp_1.0.8      knitr_1.33      magrittr_2.0.2 
+##  [5] hms_0.5.3       lattice_0.20-41 R6_2.4.1        quadprog_1.5-8 
+##  [9] rlang_0.4.10    fastmatch_1.1-0 highr_0.8       stringr_1.4.0  
+## [13] tools_4.0.2     parallel_4.0.2  grid_4.0.2      nlme_3.1-149   
+## [17] xfun_0.26       jquerylib_0.1.4 htmltools_0.5.0 ellipsis_0.3.1 
+## [21] ottrpal_0.1.2   yaml_2.2.1      digest_0.6.25   tibble_3.0.3   
+## [25] lifecycle_1.0.0 crayon_1.3.4    bookdown_0.24   Matrix_1.2-18  
+## [29] readr_1.4.0     vctrs_0.3.4     fs_1.5.0        evaluate_0.14  
+## [33] rmarkdown_2.10  stringi_1.5.3   compiler_4.0.2  pillar_1.4.6   
+## [37] pkgconfig_2.0.3</code></pre>
+
+</div>
+</div>
+<hr>
+<center> 
+  <div class="footer">
+      All illustrations <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY. </a>
+      <br>
+      All other materials <a href= "https://creativecommons.org/licenses/by/4.0/"> CC-BY </a> unless noted otherwise.
+  </div>
+</center>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="the-parsimony-method-of-tree-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="about-the-authors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

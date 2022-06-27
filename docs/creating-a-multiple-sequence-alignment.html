@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-06-20" />
+<meta name="date" content="2022-06-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -214,8 +214,28 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.4" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#visualizing-the-neighbor-joining-tree"><i class="fa fa-check"></i><b>13.4</b> Visualizing the neighbor joining tree</a></li>
 <li class="chapter" data-level="13.5" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#saving-your-trees"><i class="fa fa-check"></i><b>13.5</b> Saving your trees</a></li>
 </ul></li>
+<li class="part"><span><b>PARSIMONY</b></span></li>
+<li class="chapter" data-level="14" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html"><i class="fa fa-check"></i><b>14</b> The parsimony method of tree estimation</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#parsimony"><i class="fa fa-check"></i><b>14.1</b> Parsimony</a></li>
+<li class="chapter" data-level="14.2" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#tree-searching-methods"><i class="fa fa-check"></i><b>14.2</b> Tree searching methods</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#branch-and-bound"><i class="fa fa-check"></i><b>14.2.1</b> Branch and bound</a></li>
+<li class="chapter" data-level="14.2.2" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#nearest-neighbor-interchange-nni"><i class="fa fa-check"></i><b>14.2.2</b> Nearest Neighbor Interchange (NNI)</a></li>
+<li class="chapter" data-level="14.2.3" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#subtree-pruning-and-regrafting-spr"><i class="fa fa-check"></i><b>14.2.3</b> Subtree Pruning and Regrafting (SPR)</a></li>
+<li class="chapter" data-level="14.2.4" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#star-decomposition"><i class="fa fa-check"></i><b>14.2.4</b> Star decomposition</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html"><i class="fa fa-check"></i><b>15</b> Building a parsimony tree</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#editing-the-fasta-file"><i class="fa fa-check"></i><b>15.1</b> Editing the fasta file</a></li>
+<li class="chapter" data-level="15.2" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#inferring-a-parsimony-tree"><i class="fa fa-check"></i><b>15.2</b> Inferring a parsimony tree</a></li>
+<li class="chapter" data-level="15.3" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#parsimony-scores"><i class="fa fa-check"></i><b>15.3</b> Parsimony scores</a></li>
+<li class="chapter" data-level="15.4" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#bootstrapping"><i class="fa fa-check"></i><b>15.4</b> Bootstrapping</a></li>
+<li class="chapter" data-level="15.5" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#saving-files"><i class="fa fa-check"></i><b>15.5</b> Saving files</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
-<li class="chapter" data-level="14" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>14</b> References</a></li>
+<li class="chapter" data-level="16" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>16</b> References</a></li>
 <li class="divider"></li>
 <p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
@@ -303,7 +323,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.56 secs
+## Time difference of 0.44 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -320,7 +340,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.8 secs
+## Time difference of 0.62 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -337,28 +357,28 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 1.12 secs
+## Time difference of 0.89 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.9 secs</code></pre>
+## Time difference of 0.71 secs</code></pre>
 <p>We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-a-multiple-sequence-alignment.html#cb35-1" aria-hidden="true" tabindex="-1"></a>DNA.trans <span class="ot">&lt;-</span> <span class="fu">AlignTranslation</span>(dna)</span></code></pre></div>
 <pre><code>## Determining distance matrix based on shared 5-mers:
 ## ================================================================================
 ## 
-## Time difference of 0.01 secs
+## Time difference of 0 secs
 ## 
 ## Clustering into groups by similarity:
 ## ================================================================================
 ## 
-## Time difference of 0.01 secs
+## Time difference of 0 secs
 ## 
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.3 secs
+## Time difference of 0.23 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -375,7 +395,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.3 secs
+## Time difference of 0.24 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -392,7 +412,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.3 secs</code></pre>
+## Time difference of 0.23 secs</code></pre>
 <p>Translating the nucleotide sequences sped up the alignment process, although both were fast enough it isn’t a big deal to directly align the nucleotides. Your choice of which alignment procedure to use will largely come down to whether you are using coding sequence and how divergent your samples are. If you aren’t using coding sequence, you will need to align using the nucleotides. If you have samples from deeply divergent species (especially if they come from different phyla), you will generally get a better alignment if you let the program translate your nucleotide sequence to amino acids first.</p>
 <p>Now that we’ve created alignments, it would be helpful to visually check them. (This is possible if your sequences aren’t too long, but can become really hard once you start dealing with very long stretches of DNA!) The <code>BrowseSeqs</code> command opens a browser window with the aligned sequences. Just remember which window belongs to each alignment!</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-a-multiple-sequence-alignment.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans)</span>
@@ -417,7 +437,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.56 secs
+## Time difference of 0.44 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -434,7 +454,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.75 secs
+## Time difference of 0.58 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -451,12 +471,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 1.23 secs
+## Time difference of 0.93 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 1.02 secs</code></pre>
+## Time difference of 0.77 secs</code></pre>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="creating-a-multiple-sequence-alignment.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans<span class="fl">.1</span>)</span></code></pre></div>
 <p>Changing the gap opening and gap extension costs may or may not make a difference. In many cases, the default parameters will work just fine. However, it is always wise to check additional values!</p>
 <p>For the grass samples, it would be reasonable to use the alignment generated by the <code>AlignSeqs</code> method. This is a judgment call more than anything else - there are large sections of the alignment that include all the sequences with minimal changes. We’ll want to trim it to remove the ends with very little sequence coverage. We will keep everything between base 140 and 3373. To trim the sequences, we will write a new fasta file, then use it to create a new <code>DNAbin</code> object. If you haven’t already loaded the <code>ape</code> library in your R session, you should do so now using the <code>library(ape)</code> command.</p>

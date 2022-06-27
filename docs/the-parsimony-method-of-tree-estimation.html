@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 12 The neighbor joining method of tree estimation | Molecular Phylogenetic Techniques</title>
+  <title>Chapter 14 The parsimony method of tree estimation | Molecular Phylogenetic Techniques</title>
   <meta name="description" content="Description about Course/Book." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 12 The neighbor joining method of tree estimation | Molecular Phylogenetic Techniques" />
+  <meta property="og:title" content="Chapter 14 The parsimony method of tree estimation | Molecular Phylogenetic Techniques" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 12 The neighbor joining method of tree estimation | Molecular Phylogenetic Techniques" />
+  <meta name="twitter:title" content="Chapter 14 The parsimony method of tree estimation | Molecular Phylogenetic Techniques" />
   
   <meta name="twitter:description" content="Description about Course/Book." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
-<link rel="prev" href="creating-a-multiple-sequence-alignment.html"/>
-<link rel="next" href="building-a-neighbor-joining-tree.html"/>
+<link rel="prev" href="building-a-neighbor-joining-tree.html"/>
+<link rel="next" href="building-a-parsimony-tree.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -270,98 +270,36 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="hero-image-container"> 
   <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
 </div>
-<div id="the-neighbor-joining-method-of-tree-estimation" class="section level1" number="12">
-<h1><span class="header-section-number">Chapter 12</span> The neighbor joining method of tree estimation</h1>
-<p>There are two basic types of tree estimation methods: distance methods (which includes neighbor joining, discussed here) and tree-searching methods (which we will cover in later sections). The first phylogenetic trees were built using distance methods. Strictly speaking, these methods can be considered phenetic methods, not phylogenetic methods, since these methods group taxa based on similarity instead of attempting to find the most likely tree. For all practical purposes, though, we can include neighbor joining in under the umbrella of phylogenetics.</p>
-<p>In distance-based methods like neighbor joining, the genetic data is converted into a distance matrix, which is used to group taxa based on the genetic distance between them. Neighbor joining specifically works via star decomposition. Let’s take a look at an example (adapted from (Fred Opperdoes)[<a href="http://www.deduveinstitute.be/~opperd/private/neighbor.html" class="uri">http://www.deduveinstitute.be/~opperd/private/neighbor.html</a>]).</p>
-<p>We have 5 taxa (A,B,C,D, and E) for which we would like to infer a phylogeny. We’ve calculated the following distances among all the taxa:</p>
-<p><img src="resources/images/06-distance_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
-<p>The shortest distance between any taxa is 13, which means that A and B are most closely related to each other and will form our first group. We begin with all the taxa forming a star shape, and then we add a branch that connects A and B.</p>
-<p><img src="resources/images/06-nj_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
-<p>We keep grouping taxa until the entire star has been resolved into bifurcating branches (nodes that connect two, and only two, branches). For our example tree, we eventually end up with this tree:</p>
-<p><img src="resources/images/06-nj_2.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
-<p>The neighbor joining method is very fast, requires very few computational resources, and is statistically consistent. It will also always result in only a single tree topology. Unfortunately, many people will become overly confident that the single neighbor joining tree is the true tree, which is not necessarily true. Nowadays, most researchers might start their analysis with a neighbor joining tree, but they generally go on to infer trees using one of the other methods.</p>
-<div class="fyi">
-<p>There is another type of distance method you might hear about called UPGMA (unweighted pair group method with arithmetic mean). This is a hierarchical clustering method. However, the tree built using UPGMA depends greatly on the order in which the taxa are added, unlike the neighbor joining method (which will result in the same tree no matter what order the samples are added). As a result, the UPGMA method is almost never used in phylogenetics today.</p>
+<div id="the-parsimony-method-of-tree-estimation" class="section level1" number="14">
+<h1><span class="header-section-number">Chapter 14</span> The parsimony method of tree estimation</h1>
+<p>This week we begin examining the tree-searching methods of tree estimation. Specifically, we will focus on the parsimony method.</p>
+<div id="parsimony" class="section level2" number="14.1">
+<h2><span class="header-section-number">14.1</span> Parsimony</h2>
+<p>Parsimony operates on the assumption that the tree containing the fewest sequence changes is the most accurate estimation of what really occurred. Essentially, parsimony assumes that characteristics shared by taxa are shared as the result of common ancestry. Sometimes this assumption is not valid, but often it is, particularly when there is not too much homoplasy (when two or more sequences or structures resemble each other but don’t have a common ancestral origin) or variation in rates between sites. Often there will be multiple equally parsimonious trees, in which case you can either make a consensus tree (a combination of all the equally parsimoniously trees), or pick one tree that is illustrative of the point being discussed. If you choose the second, make sure you mention the existence of the other, equally parsimonious trees!</p>
+<p>Parsimony is technically not a phylogenetic method because it does not apply a substitution model to the sequence data. A proper parsimony tree does not scale the branches to the number of changes between taxa. Instead, all the taxa are lined up and the branches are however long they need to be in order for the taxa to line up.</p>
+<p><img src="resources/images/07-cladograms.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>We will be scaling the branches in our parsimony trees to reflect the number of changes along each branch, so we will not be working with the parsimony method in its purest form.</p>
+<p>The parsimony method is the backbone of the field known as “cladistics.” It’s largely fallen out of favor as phylogenetics is much more suited to analyzing genetic data. Parsimony still survives as a method of choice for researchers at the American Museum of Natural History and among paleontologists (or anyone who is inferring trees based on non-genetic data). The battle between cladistics proponents and phylogenetics proponents was so intense during the 1980s and 1990s my undergraduate advisor jokingly referred to it as the Clade Wars.</p>
 </div>
-<div id="models-of-molecular-evolution" class="section level2" number="12.1">
-<h2><span class="header-section-number">12.1</span> Models of molecular evolution</h2>
-<p>In the example above, we kind of glossed over the process of converting DNA sequence into genetic distances. In its simplest form, every mutation is given a value, and the total value of all mutations is then used to calculate a genetic distance.</p>
-<p>But wait, you might be thinking. How do researchers decide what value to assign each mutation? Are all mutations given the same value, or do some changes “cost” more than others? Aren’t some mutations considered more unlikely than others? These are all excellent questions that should be considered whenever dealing with phylogenetic analysis. Luckily, we don’t have to answer all these questions ourselves. Instead, we can look at published <em>models of molecular evolution</em> (also called substitution models) and decide which model fits our data the best.</p>
-<div id="jc69" class="section level3" number="12.1.1">
-<h3><span class="header-section-number">12.1.1</span> JC69</h3>
-<p>A model of molecular evolution is a set of rules that determines how much each mutation costs relative to all other mutations. One of the earliest published models is the JC69 model (sometimes written as JC), proposed by Jukes and Cantor in 1969. The JC69 model assumes equal base frequencies (that is, each nucleotide makes up 25% of the bases in the DNA sequence), as well as equal mutation rates. A mutation of an A to a T is the same as the mutation as a T to an A or an A to a C. As a result, the JC69 model has only 1 parameter - the mutation rate.</p>
+<div id="tree-searching-methods" class="section level2" number="14.2">
+<h2><span class="header-section-number">14.2</span> Tree searching methods</h2>
+<p>At the heart of the parsimony approach is the idea of tree searching. The parsimony algorithm starts with a random tree (sometimes even a neighbor joining tree, or a tree the researcher supplies). The starting tree is scored, then the tree topology is rearranged in some way to create a new tree. The new tree is scored; if its score is better than the previous tree, the new tree is kept. The process then continues until an optimum tree score is found or it reaches a set end point.</p>
+<p>When a tree has only a small number of taxa, an exhaustive search of all possible topologies is possible. However, the number of possible topologies grows exponentially as the number of taxa increases (in his <em>Phylogenetic Trees Made Easy</em> manual, Barry G. Hall estimates that for a tree with just 10 taxa, there are more than 34 million possible rooted topologies). It rapidly becomes impractical to perform an exhaustive topology search to find the best tree. Instead, researchers have developed tree-searching algorithms to more quickly sort through all the possibilities.</p>
+<div id="branch-and-bound" class="section level3" number="14.2.1">
+<h3><span class="header-section-number">14.2.1</span> Branch and bound</h3>
+<p>The branch and bound method, while not exhaustive, can still be time-consuming when dealing with more than ~10 taxa. In this approach, an initial random tree of all the taxa is created and scored.Then, the algorithm starts with a tree containing three taxa. Next, a branch containing a fourth taxon is inserted in all possible locations and each possible tree is scored. If none of the possible trees scores better than the initial random tree, this particular search is abandoned and a new starting tree of 3 taxa is created. If, however, any of these possible trees has a score smaller than the score of the initial random tree, the search continues and a fifth taxon is added. The process is repeated, with one change - if none of the trees with five taxa score low enough, then the search goes back to the four taxa tree and tries a different fifth taxon. This way, the initial work isn’t wasted.</p>
 </div>
-<div id="k2p" class="section level3" number="12.1.2">
-<h3><span class="header-section-number">12.1.2</span> K2P</h3>
-<p>Many other models of molecular evolution have been published since JC69. One of the more popular ones is the Kimura two-parameter model (also called K80, or K2P). This model still assumes equal base frequencies, but allows for a distinct mutation rate for transitions (mutations between purines or pyrimidines) and a different mutation rate for tranversions (mutations from purine to pyrimidine, or vice versa). As you might have guessed from the name, this particular model has two parameters.</p>
+<div id="nearest-neighbor-interchange-nni" class="section level3" number="14.2.2">
+<h3><span class="header-section-number">14.2.2</span> Nearest Neighbor Interchange (NNI)</h3>
+<p>Nearest neighbor interchange algorithms take advantage of the fact that there are only three possible ways to connect four groups. A random starting tree is divided into four parts (or subtrees). These four subtrees are connected in all three possible ways. The most parsimonious arrangement is kept, and the new tree is then randomly subdivided into four new subtrees so the process can start again.</p>
 </div>
-<div id="gtr" class="section level3" number="12.1.3">
-<h3><span class="header-section-number">12.1.3</span> GTR</h3>
-<p>One of the most complex models you might come across is the general time reversible model, or GTR. This model is extremely flexible but also parameter-heavy. There are no assumptions about base frequencies, and each possible mutation is given its own mutation rate. (A quick note: the mutation rate from A to G is the same as the mutation rate from G to A in this model.) As a result, this model has 9 parameters: 6 mutation rates + 3 base frequencies. (Because the sum of the 4 base frequencies must equal 1, we only have to describe 3 of them in order to calculate all 4. That’s why we only need 3 parameters to model the base frequencies for GTR.)</p>
+<div id="subtree-pruning-and-regrafting-spr" class="section level3" number="14.2.3">
+<h3><span class="header-section-number">14.2.3</span> Subtree Pruning and Regrafting (SPR)</h3>
+<p>Subtree pruning and regrafting has two major steps. First, a random subtree is removed from the original starting tree; then, the subtree is inserted elsewhere on the main tree to create a new node. This rearranged tree is scored. If if is more parsimonious than the starting tree, the new tree is kept, and another subtree is pruned and regrafted.</p>
 </div>
-<div id="other-parameters" class="section level3" number="12.1.4">
-<h3><span class="header-section-number">12.1.4</span> Other parameters</h3>
-<p>Sometimes you will run across a model that has “+ I” added to it (like GTR + I). The “I” refers to a invariant sites parameter. In these models, each base has a certain probability of being invariate, or unlikely to mutate.</p>
-<p>Another option you might see is using a gamma distribution to estimate how many times any given base in a sequence might mutate. We often think of mutation as a one-and-done process, where a nucleotide might mutate only once. This isn’t a bad assumption; in fact, given that mutation is so rare, it is extremely unlikely for a nucleotide to mutate multiple times, though it does happen (particularly as divergence times between taxa increase). A solution to this dilemma is to include a parameter that describes how many times a particular nucleotide has undergone mutation. A gamma distribution is used because the highest probability is found in the smallest values of x, with a low probability of larger values of x (which would be multiple mutation hits at the same nucleotide). A model using a gamma distribution with have a “+ G”.</p>
-<p>Finally, some models with have a “+ SS” added to it. The SS indicates a site-specific variation parameter. These models will estimate different mutation rates for each codon position. Site-specific models are much less common than models that include invariate sites parameters or a $ parameter.</p>
-</div>
-<div id="how-do-i-choose-a-model" class="section level3" number="12.1.5">
-<h3><span class="header-section-number">12.1.5</span> How do I choose a model?</h3>
-<p>There are enough substitution models out there that it can be a bit overwhelming to pick one for your phylogenetic analyses. (The models discussed above are in no way an exhaustive list.) Many researchers will have a favorite model they use, while others will rely model test programs to tell them which model of molecular evolution best fits their data. Although GTR + I + $ might be the most biologically realistic model, it is also parameter-heavy and may not be the best choice when dealing with a sequence alignment that includes only a small number of phylogenetically-informative sites.</p>
-<pre><code>## Determining distance matrix based on shared 10-mers:
-## ================================================================================
-## 
-## Time difference of 0.01 secs
-## 
-## Clustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0.01 secs
-## 
-## Aligning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.43 secs
-## 
-## Iteration 1 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.63 secs
-## 
-## Iteration 2 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.91 secs
-## 
-## Refining the alignment:
-## ================================================================================
-## 
-## Time difference of 0.72 secs</code></pre>
+<div id="star-decomposition" class="section level3" number="14.2.4">
+<h3><span class="header-section-number">14.2.4</span> Star decomposition</h3>
+<p>We actually saw the star decomposition method in the neighbor joining section. All taxa are connected together at a single node to form a star tree. Next, a pair of taxa are joined to form a new node and the tree is scored. This is repeated until all possible pairs have been evaluated. The best is kept and then another pair of taxa are joined, and the process continues.</p>
 </div>
 </div>
 </div>
@@ -378,8 +316,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="creating-a-multiple-sequence-alignment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="building-a-neighbor-joining-tree.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="building-a-neighbor-joining-tree.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="building-a-parsimony-tree.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
