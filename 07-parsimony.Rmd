@@ -182,6 +182,24 @@ Take a look at the topology of the trees created using the branch-and-bound (BAB
 
 We can compare parsimony trees directly by comparing their parsimony scores. As mentioned above, the parsimony score is just the minimum number of changes necessary to map a dataset onto a particular tree topology. A smaller number is better.
 
+```{r,  warning=FALSE, message = FALSE, echo==F}
+tree.SPR <- pratchet(g.align, maxit = 10000, minit = 100, k = 10,
+                           all = T, rearrangements = 'SPR', trace = 0)
+
+tree.NNI <- pratchet(g.align, maxit = 10000, minit = 100, k = 10,
+                           all = T, rearrangements = 'NNI', trace = 0)
+
+#We assign branch lengths to the tree equal to the number of changes
+
+tree.SPR <- acctran(tree.SPR, g.align)
+tree.NNI <- acctran(tree.NNI, g.align)
+
+SPR.root <- root(tree.SPR, 
+                      outgroup = c('barley_D-hordein','Siberian wild rye_D-hordein'))
+NNI.root <- root(tree.NNI, 
+                      outgroup = c('barley_D-hordein','Siberian wild rye_D-hordein'))
+```
+
 ```{r,  warning=FALSE, message = FALSE}
 #for each parsimony command, we need to provide a tree and a phyDat object
 parsimony(bab.root, g.align)
