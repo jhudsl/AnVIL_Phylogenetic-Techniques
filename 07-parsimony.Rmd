@@ -46,7 +46,7 @@ We actually saw the star decomposition method in the neighbor joining section. A
 
 # Building a parsimony tree
 
-```{r, echo = FALSE, warning=FALSE, message = FALSE}
+```{r, echo = FALSE, warning=FALSE, message = FALSE, eval=F}
 library(ape)
 grass <- read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
                         "FJ481575.1","EF204545.1","AJ314771.1","FJ481569.1",
