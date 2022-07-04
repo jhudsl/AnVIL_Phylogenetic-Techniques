@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 17 References | Molecular Phylogenetic Techniques</title>
+  <title>Chapter 16 More Phylogenetics Basics | Molecular Phylogenetic Techniques</title>
   <meta name="description" content="Description about Course/Book." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 17 References | Molecular Phylogenetic Techniques" />
+  <meta property="og:title" content="Chapter 16 More Phylogenetics Basics | Molecular Phylogenetic Techniques" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 17 References | Molecular Phylogenetic Techniques" />
+  <meta name="twitter:title" content="Chapter 16 More Phylogenetics Basics | Molecular Phylogenetic Techniques" />
   
   <meta name="twitter:description" content="Description about Course/Book." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
-<link rel="prev" href="about-the-authors.html"/>
-
+<link rel="prev" href="building-a-parsimony-tree.html"/>
+<link rel="next" href="about-the-authors.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -277,9 +277,118 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="hero-image-container"> 
   <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
 </div>
-<div id="references" class="section level1" number="17">
-<h1><span class="header-section-number">Chapter 17</span> References</h1>
+<div id="more-phylogenetics-basics" class="section level1" number="16">
+<h1><span class="header-section-number">Chapter 16</span> More Phylogenetics Basics</h1>
+<p>Now that you’ve had a chance to build several phylogenies, let’s spend some time examining what the trees are telling us.</p>
+<div id="tree-topology" class="section level2" number="16.1">
+<h2><span class="header-section-number">16.1</span> Tree topology</h2>
+<p>In an earlier chapter, we talked about nodes and clades. As a reminder, a node is the place where two branches connect. Each node represents a hypothesized most recent common ancestor of the taxa on the tips of the branches.</p>
+<p><img src="resources/images/08-phyly_mrca.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>In this tree (the grass neighbor joining tree), the node marked in purple connects all the ingroup samples. (The ingroup for this tree are all grass <em>Glu-1</em> samples.) We can assume the most recent common ancestor (MRCA) of the ingroup would have existed at this node. The ingroup here is a an example of <strong>monophyly</strong>; a monophyletic clade is a clade that contains all the descendants of a particular ancestor.</p>
+<p><img src="resources/images/08-phyly_clades.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>There are two other terms that describe clades you might run across. <strong>Paraphyly</strong> describes a group that contains some (but not all) of the descendants of a node; in the figure above, the highlighted clade is paraphyletic with respect to the node marked with a purple dot. <strong>Polyphyly</strong> describes a group that contains both descendants and non-descendants of a node. In the grass example, the paraphyletic group contains both the outgroup taxa and a subset of the ingroup.</p>
+</div>
+<div id="outgroups-1" class="section level2" number="16.2">
+<h2><span class="header-section-number">16.2</span> Outgroups</h2>
+<p>The choice of the two outgroup taxa (Siberian wild rye D-hordein and barley D-hordein) turned out to be a good decision for the grass tree. First, these two taxa are monophyletic compared to the other samples (that is, they share a recent common ancestor, and the ingroup is monophyletic compared to them). Second, the branch lengths for the two outgroup taxa is similar to the branch lengths of all the ingroup taxa. If the branch lengths for the outgroup taxa are too long, the relationships among all the grass <em>Glu-1</em> samples will be obscured.</p>
+<p>However, what if our first outgroup choice hadn’t been quite right? In that case, we could edit the fasta file to remove any samples that we needed.</p>
+<p>Let’s pretend the outgroup wasn’t monophyletic and that instead the Siberian wild rye D-hordein sample actually fell within the ingroup. In this case, we could simply remove that sample using the <code>phylotools</code> package.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="more-phylogenetics-basics.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phylotools)</span>
+<span id="cb93-2"><a href="more-phylogenetics-basics.html#cb93-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-3"><a href="more-phylogenetics-basics.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm.sequence.fasta</span>(<span class="at">infile =</span> <span class="st">&quot;grass_aligned-renamed.fasta&quot;</span>, <span class="at">outfile =</span> <span class="st">&quot;sequence.removed.fasta&quot;</span>, <span class="at">to.rm =</span> <span class="st">&quot;Siberian wild rye_D-hordein&quot;</span>)</span></code></pre></div>
+<pre><code>## sequence.removed.fasta has been saved to  /__w/phylogenetic-techniques/phylogenetic-techniques</code></pre>
+<p>We can then load the new fasta file and estimate a new neighbor joining tree (or any other type of tree) without the problematic sample.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="more-phylogenetics-basics.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phangorn)</span>
+<span id="cb95-2"><a href="more-phylogenetics-basics.html#cb95-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-3"><a href="more-phylogenetics-basics.html#cb95-3" aria-hidden="true" tabindex="-1"></a>grass.new <span class="ot">&lt;-</span> <span class="fu">read.dna</span>(<span class="st">&quot;sequence.removed.fasta&quot;</span>, <span class="at">format=</span><span class="st">&#39;fasta&#39;</span>)</span>
+<span id="cb95-4"><a href="more-phylogenetics-basics.html#cb95-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-5"><a href="more-phylogenetics-basics.html#cb95-5" aria-hidden="true" tabindex="-1"></a>dist.matrix <span class="ot">&lt;-</span> <span class="fu">dist.dna</span>(grass.new, <span class="at">model =</span> <span class="st">&quot;K80&quot;</span>)</span>
+<span id="cb95-6"><a href="more-phylogenetics-basics.html#cb95-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-7"><a href="more-phylogenetics-basics.html#cb95-7" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">NJ</span>(dist.matrix)</span>
+<span id="cb95-8"><a href="more-phylogenetics-basics.html#cb95-8" aria-hidden="true" tabindex="-1"></a>tree.root <span class="ot">&lt;-</span> <span class="fu">root</span>(tree, <span class="at">outgroup =</span> <span class="st">&#39;barley_D-hordein&#39;</span>)</span>
+<span id="cb95-9"><a href="more-phylogenetics-basics.html#cb95-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-10"><a href="more-phylogenetics-basics.html#cb95-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree.root, <span class="at">main =</span> <span class="st">&quot;edited Neighbor Joining&quot;</span>)</span></code></pre></div>
+<p><img src="resources/images/08-more-tree-thinking_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>You can use the same command to remove multiple outgroup taxa, or to remove an outgroup that is too distant (ie, the branch lengths are too long and including the outgroup is obscuring the relationships among the ingroup samples). If you need to remove all of your outgroup, you can instead try midpoint rooting.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="more-phylogenetics-basics.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm.sequence.fasta</span>(<span class="at">infile =</span> <span class="st">&quot;grass_aligned-renamed.fasta&quot;</span>, <span class="at">outfile =</span> <span class="st">&quot;no_outgroup.fasta&quot;</span>, <span class="at">to.rm =</span> <span class="fu">c</span>(<span class="st">&quot;barley_D-hordein&quot;</span>, <span class="st">&quot;Siberian wild rye_D-hordein&quot;</span>))</span></code></pre></div>
+<pre><code>## no_outgroup.fasta has been saved to  /__w/phylogenetic-techniques/phylogenetic-techniques</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="more-phylogenetics-basics.html#cb98-1" aria-hidden="true" tabindex="-1"></a>grass.no_out<span class="ot">&lt;-</span> <span class="fu">read.dna</span>(<span class="st">&quot;no_outgroup.fasta&quot;</span>, <span class="at">format=</span><span class="st">&#39;fasta&#39;</span>)</span>
+<span id="cb98-2"><a href="more-phylogenetics-basics.html#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-3"><a href="more-phylogenetics-basics.html#cb98-3" aria-hidden="true" tabindex="-1"></a>dist.matrix <span class="ot">&lt;-</span> <span class="fu">dist.dna</span>(grass.no_out, <span class="at">model =</span> <span class="st">&quot;K80&quot;</span>)</span>
+<span id="cb98-4"><a href="more-phylogenetics-basics.html#cb98-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-5"><a href="more-phylogenetics-basics.html#cb98-5" aria-hidden="true" tabindex="-1"></a>tree.no_out <span class="ot">&lt;-</span> <span class="fu">NJ</span>(dist.matrix)</span>
+<span id="cb98-6"><a href="more-phylogenetics-basics.html#cb98-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-7"><a href="more-phylogenetics-basics.html#cb98-7" aria-hidden="true" tabindex="-1"></a>tree.no_out <span class="ot">&lt;-</span> <span class="fu">midpoint</span>(tree.no_out)</span>
+<span id="cb98-8"><a href="more-phylogenetics-basics.html#cb98-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-9"><a href="more-phylogenetics-basics.html#cb98-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree.no_out, <span class="at">main =</span> <span class="st">&quot;Neighbor Joining, midpoint rooting&quot;</span>)</span></code></pre></div>
+<p><img src="resources/images/08-more-tree-thinking_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="comparing-trees" class="section level2" number="16.3">
+<h2><span class="header-section-number">16.3</span> Comparing trees</h2>
+<p>When we are trying to determine if two trees are telling us the same thing about the relationships among our samples (that is, the topologies of the two trees are identical), we might compare the descendants of each node. If the descendants of each node are the same, then we know the topologies are the same (even if the order of the clades are not identical - remember, branches can rotate around nodes). We’ll use the grass phylogenies as an example</p>
+<p><img src="resources/images/08-nodes_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>First, we can see that node 1 (the node that connects all the ingroup branches) exists in both trees.</p>
+<p><img src="resources/images/08-nodes_2.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>The same is true for the node that connects Asiatic grass to the crested wheatgrass/mosquito grass/medusahead rye clade, as well as the nodes resolving the relationships among that that clade.</p>
+<p><img src="resources/images/08-nodes_3.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>Moving to the bottom of the tree, we can also locate nodes 5, 6, and 7 in both trees. Each of these nodes connects all the same descendants in each tree.</p>
+<p><img src="resources/images/08-nodes_4.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>Finally, we can identify the presence of nodes 8, 9, and 10 in both trees. This is a little trickier to see, because the branches have rotated. But we can find a node that unites wheat, mammoth wild rye, and intermediate wheatgrass (node 8) as well as a node that unites only mammoth wild rye and intermediate wheatgrass (node 9). We also have a separate node that unites wheatgrass and tall wheatgrass (node 10).</p>
+<p>Since all of the ingroup nodes are the same, we know the topologies of the neighbor joining and parsimony trees are the same. However, it’s a bit tedious to go through and label each node. Luckily, we can use R to compare topologies more quickly. Open the <code>ape</code> library and load your saved trees into the console.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="more-phylogenetics-basics.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb99-2"><a href="more-phylogenetics-basics.html#cb99-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-3"><a href="more-phylogenetics-basics.html#cb99-3" aria-hidden="true" tabindex="-1"></a>nj.tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&quot;nj_grass.tre&quot;</span>)</span>
+<span id="cb99-4"><a href="more-phylogenetics-basics.html#cb99-4" aria-hidden="true" tabindex="-1"></a>spr.tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&quot;spr_grass.tre&quot;</span>)</span>
+<span id="cb99-5"><a href="more-phylogenetics-basics.html#cb99-5" aria-hidden="true" tabindex="-1"></a>nni.tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&quot;nni_grass.tre&quot;</span>)</span></code></pre></div>
+<p>The <code>ape</code> package has a very useful <code>all.equal</code> command (you can see more details about it <a href="https://rdrr.io/cran/ape/man/all.equal.phylo.html">here</a>). This command allows us to compare topologies.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="more-phylogenetics-basics.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(spr.tree, nj.tree, <span class="at">use.edge.length =</span> F)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>The first two arguments are the trees we’d like to compare. In order to compare just the topologies, we also include the argument <code>use.edge.length=F</code>, which tells the <code>all.equal</code> command to ignore branch lengths.</p>
+<p>If we want to tell whether trees are completely identical (that is, both the topologies and the branch lengths are the same), we can change the last argument to T. (Alternatively, we could leave the last argument off entirely, as the default setting is for <code>use.edge.length</code> is T.)</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="more-phylogenetics-basics.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(spr.tree, nj.tree, <span class="at">use.edge.length =</span> T)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Not surprisingly, the branch lengths differ between the neighbor joining and SPR parsimony tree. However, maybe the branch lengths are the same between the two trees we estimated using parsimony.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="more-phylogenetics-basics.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(spr.tree, nni.tree)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Well, now we know the two parsimony trees aren’t completely identical. However, what if this is because the topologies aren’t the same?</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="more-phylogenetics-basics.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(spr.tree, nni.tree, <span class="at">use.edge.length =</span> F)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>By running the <code>all.equal</code> command again, we can verify the topologies are the same, so these two trees must differ in just the branch length estimates.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="more-phylogenetics-basics.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.3 LTS
+## 
+## Matrix products: default
+## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] phangorn_2.5.5   phylotools_0.2.2 ape_5.4-1       
+## 
+## loaded via a namespace (and not attached):
+##  [1] igraph_1.2.6    Rcpp_1.0.8      knitr_1.33      magrittr_2.0.2 
+##  [5] hms_0.5.3       lattice_0.20-41 R6_2.4.1        quadprog_1.5-8 
+##  [9] rlang_0.4.10    fastmatch_1.1-0 highr_0.8       stringr_1.4.0  
+## [13] tools_4.0.2     parallel_4.0.2  grid_4.0.2      nlme_3.1-149   
+## [17] xfun_0.26       jquerylib_0.1.4 htmltools_0.5.0 ellipsis_0.3.1 
+## [21] ottrpal_0.1.2   yaml_2.2.1      digest_0.6.25   tibble_3.0.3   
+## [25] lifecycle_1.0.0 crayon_1.3.4    bookdown_0.24   Matrix_1.2-18  
+## [29] readr_1.4.0     vctrs_0.3.4     fs_1.5.0        evaluate_0.14  
+## [33] rmarkdown_2.10  stringi_1.5.3   compiler_4.0.2  pillar_1.4.6   
+## [37] pkgconfig_2.0.3</code></pre>
 
+</div>
 </div>
 <hr>
 <center> 
@@ -294,8 +403,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="about-the-authors.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="building-a-parsimony-tree.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="about-the-authors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

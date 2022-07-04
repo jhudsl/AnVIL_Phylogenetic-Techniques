@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-06-27" />
+<meta name="date" content="2022-07-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -234,8 +234,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.4" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#bootstrapping"><i class="fa fa-check"></i><b>15.4</b> Bootstrapping</a></li>
 <li class="chapter" data-level="15.5" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#saving-files"><i class="fa fa-check"></i><b>15.5</b> Saving files</a></li>
 </ul></li>
+<li class="part"><span><b>MORE TREE THINKING</b></span></li>
+<li class="chapter" data-level="16" data-path="more-phylogenetics-basics.html"><a href="more-phylogenetics-basics.html"><i class="fa fa-check"></i><b>16</b> More Phylogenetics Basics</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="more-phylogenetics-basics.html"><a href="more-phylogenetics-basics.html#tree-topology"><i class="fa fa-check"></i><b>16.1</b> Tree topology</a></li>
+<li class="chapter" data-level="16.2" data-path="more-phylogenetics-basics.html"><a href="more-phylogenetics-basics.html#outgroups-1"><i class="fa fa-check"></i><b>16.2</b> Outgroups</a></li>
+<li class="chapter" data-level="16.3" data-path="more-phylogenetics-basics.html"><a href="more-phylogenetics-basics.html#comparing-trees"><i class="fa fa-check"></i><b>16.3</b> Comparing trees</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
-<li class="chapter" data-level="16" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>16</b> References</a></li>
+<li class="chapter" data-level="17" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>17</b> References</a></li>
 <li class="divider"></li>
 <p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
@@ -323,7 +330,121 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.44 secs
+## Time difference of 0.46 secs
+## 
+## Iteration 1 of 2:
+## 
+## Determining distance matrix based on alignment:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Reclustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Realigning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.66 secs
+## 
+## Iteration 2 of 2:
+## 
+## Determining distance matrix based on alignment:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Reclustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Realigning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.94 secs
+## 
+## Refining the alignment:
+## ================================================================================
+## 
+## Time difference of 0.76 secs</code></pre>
+<p>We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-a-multiple-sequence-alignment.html#cb35-1" aria-hidden="true" tabindex="-1"></a>DNA.trans <span class="ot">&lt;-</span> <span class="fu">AlignTranslation</span>(dna)</span></code></pre></div>
+<pre><code>## Determining distance matrix based on shared 5-mers:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Clustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Aligning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.25 secs
+## 
+## Iteration 1 of 2:
+## 
+## Determining distance matrix based on alignment:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Reclustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Realigning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.25 secs
+## 
+## Iteration 2 of 2:
+## 
+## Determining distance matrix based on alignment:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Reclustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Realigning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.24 secs</code></pre>
+<p>Translating the nucleotide sequences sped up the alignment process, although both were fast enough it isn’t a big deal to directly align the nucleotides. Your choice of which alignment procedure to use will largely come down to whether you are using coding sequence and how divergent your samples are. If you aren’t using coding sequence, you will need to align using the nucleotides. If you have samples from deeply divergent species (especially if they come from different phyla), you will generally get a better alignment if you let the program translate your nucleotide sequence to amino acids first.</p>
+<p>Now that we’ve created alignments, it would be helpful to visually check them. (This is possible if your sequences aren’t too long, but can become really hard once you start dealing with very long stretches of DNA!) The <code>BrowseSeqs</code> command opens a browser window with the aligned sequences. Just remember which window belongs to each alignment!</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-a-multiple-sequence-alignment.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans)</span>
+<span id="cb37-2"><a href="creating-a-multiple-sequence-alignment.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.trans)</span></code></pre></div>
+<p><img src="resources/images/05-alignment_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>You can scroll through the browser windows to see the full alignment. DECIPHER automatically color-codes the nucleotides, which makes it easier to pick out when a sequence doesn’t match the others. At the very bottom, DECIPHER displays a consensus sequence, which we can also look at to identify which bases have mutations (or gaps).</p>
+<p>The first thing that jumps out it how the two alignment methods resulted in alignments of different lengths. The alignment from the <code>AlignTranslation</code> method is longer than the alignment from the <code>AlignSeqs</code> method. How the gaps are inserted also differ quite a bit.</p>
+<p>At this point, the alignment we choose to use is basically a judgment call. You have to decide which alignment seems “better” to you. With the grass sequences, sample AJ314771.1 doesn’t quite seem to fit well with the <code>AlignTranslation</code> alignment. There are long stretches of the sequence that aren’t aligned with anything else. This doesn’t seem to be the case for the <code>AlignSeqs</code> alignment.</p>
+<p>If we chose to go ahead with the <code>AlignTranslation</code> alignment, it would make sense to remove sample AJ314771.1 from our fasta file. You may come across a situation where one (or more) sequences don’t seem to fit very well with the others. The best option going forward is to remove those sequences, as keeping them will cause issues when it comes time to infer the phylogeny.</p>
+<p>The <code>alignSeqs</code> command allows us to change the gap opening and gap extension penalties. The default setting (which we used above, since we did not specify anything in the <code>alignSeqs</code> or <code>alignTranslation</code> commands) is to assign a minimum and maximum cost for each. For gap opening, the cost is -18 for nearly identical sequences and -14 for sequences that are more distantly related. For gap extension, those costs are -3 and -2. Let’s see what happens when we change the costs.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="creating-a-multiple-sequence-alignment.html#cb38-1" aria-hidden="true" tabindex="-1"></a>DNA.no_trans<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">AlignSeqs</span>(dna, <span class="at">gapOpening =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="sc">-</span><span class="dv">10</span>), <span class="at">gapExtension =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="dv">1</span>))</span></code></pre></div>
+<pre><code>## Determining distance matrix based on shared 10-mers:
+## ================================================================================
+## 
+## Time difference of 0.01 secs
+## 
+## Clustering into groups by similarity:
+## ================================================================================
+## 
+## Time difference of 0 secs
+## 
+## Aligning Sequences:
+## ================================================================================
+## 
+## Time difference of 0.45 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -357,126 +478,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.89 secs
+## Time difference of 1.01 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.71 secs</code></pre>
-<p>We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-a-multiple-sequence-alignment.html#cb35-1" aria-hidden="true" tabindex="-1"></a>DNA.trans <span class="ot">&lt;-</span> <span class="fu">AlignTranslation</span>(dna)</span></code></pre></div>
-<pre><code>## Determining distance matrix based on shared 5-mers:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Clustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Aligning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.23 secs
-## 
-## Iteration 1 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.24 secs
-## 
-## Iteration 2 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.23 secs</code></pre>
-<p>Translating the nucleotide sequences sped up the alignment process, although both were fast enough it isn’t a big deal to directly align the nucleotides. Your choice of which alignment procedure to use will largely come down to whether you are using coding sequence and how divergent your samples are. If you aren’t using coding sequence, you will need to align using the nucleotides. If you have samples from deeply divergent species (especially if they come from different phyla), you will generally get a better alignment if you let the program translate your nucleotide sequence to amino acids first.</p>
-<p>Now that we’ve created alignments, it would be helpful to visually check them. (This is possible if your sequences aren’t too long, but can become really hard once you start dealing with very long stretches of DNA!) The <code>BrowseSeqs</code> command opens a browser window with the aligned sequences. Just remember which window belongs to each alignment!</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-a-multiple-sequence-alignment.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans)</span>
-<span id="cb37-2"><a href="creating-a-multiple-sequence-alignment.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.trans)</span></code></pre></div>
-<p><img src="resources/images/05-alignment_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
-<p>You can scroll through the browser windows to see the full alignment. DECIPHER automatically color-codes the nucleotides, which makes it easier to pick out when a sequence doesn’t match the others. At the very bottom, DECIPHER displays a consensus sequence, which we can also look at to identify which bases have mutations (or gaps).</p>
-<p>The first thing that jumps out it how the two alignment methods resulted in alignments of different lengths. The alignment from the <code>AlignTranslation</code> method is longer than the alignment from the <code>AlignSeqs</code> method. How the gaps are inserted also differ quite a bit.</p>
-<p>At this point, the alignment we choose to use is basically a judgment call. You have to decide which alignment seems “better” to you. With the grass sequences, sample AJ314771.1 doesn’t quite seem to fit well with the <code>AlignTranslation</code> alignment. There are long stretches of the sequence that aren’t aligned with anything else. This doesn’t seem to be the case for the <code>AlignSeqs</code> alignment.</p>
-<p>If we chose to go ahead with the <code>AlignTranslation</code> alignment, it would make sense to remove sample AJ314771.1 from our fasta file. You may come across a situation where one (or more) sequences don’t seem to fit very well with the others. The best option going forward is to remove those sequences, as keeping them will cause issues when it comes time to infer the phylogeny.</p>
-<p>The <code>alignSeqs</code> command allows us to change the gap opening and gap extension penalties. The default setting (which we used above, since we did not specify anything in the <code>alignSeqs</code> or <code>alignTranslation</code> commands) is to assign a minimum and maximum cost for each. For gap opening, the cost is -18 for nearly identical sequences and -14 for sequences that are more distantly related. For gap extension, those costs are -3 and -2. Let’s see what happens when we change the costs.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="creating-a-multiple-sequence-alignment.html#cb38-1" aria-hidden="true" tabindex="-1"></a>DNA.no_trans<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">AlignSeqs</span>(dna, <span class="at">gapOpening =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="sc">-</span><span class="dv">10</span>), <span class="at">gapExtension =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="dv">1</span>))</span></code></pre></div>
-<pre><code>## Determining distance matrix based on shared 10-mers:
-## ================================================================================
-## 
-## Time difference of 0.01 secs
-## 
-## Clustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Aligning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.44 secs
-## 
-## Iteration 1 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.58 secs
-## 
-## Iteration 2 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.93 secs
-## 
-## Refining the alignment:
-## ================================================================================
-## 
-## Time difference of 0.77 secs</code></pre>
+## Time difference of 0.83 secs</code></pre>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="creating-a-multiple-sequence-alignment.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans<span class="fl">.1</span>)</span></code></pre></div>
 <p>Changing the gap opening and gap extension costs may or may not make a difference. In many cases, the default parameters will work just fine. However, it is always wise to check additional values!</p>
 <p>For the grass samples, it would be reasonable to use the alignment generated by the <code>AlignSeqs</code> method. This is a judgment call more than anything else - there are large sections of the alignment that include all the sequences with minimal changes. We’ll want to trim it to remove the ends with very little sequence coverage. We will keep everything between base 140 and 3373. To trim the sequences, we will write a new fasta file, then use it to create a new <code>DNAbin</code> object. If you haven’t already loaded the <code>ape</code> library in your R session, you should do so now using the <code>library(ape)</code> command.</p>
