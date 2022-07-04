@@ -1,0 +1,153 @@
+# (PART\*) MORE TREE THINKING {-}
+
+```{r, include = FALSE}
+ottrpal::set_knitr_image_path()
+```
+
+# Phylogenetics basics
+
+Now that you've had a chance to build several phylogenies, let's spend some time examining what the trees are telling us.
+
+## Tree topology
+
+In an earlier chapter, we talked about nodes and clades. As a reminder, a node is the place where two branches connect. Each node represents a hypothesized most recent common ancestor of the taxa on the tips of the branches. 
+
+
+<img src="resources/images/08-phyly_mrca.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+
+In this tree (the grass neighbor joining tree), the node marked in purple connects all the ingroup samples. (The ingroup for this tree are all grass _Glu-1_ samples.) We can assume the most recent common ancestor (MRCA) of the ingroup would have existed at this node. The ingroup here is a an example of **monophyly**; a monophyletic clade is a clade that contains all the descendants of a particular ancestor.
+
+
+<img src="resources/images/08-phyly_clades.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+
+There are two other terms that describe clades you might run across. **Paraphyly** describes a group that contains some (but not all) of the descendants of a node; in the figure above, the highlighted clade is paraphyletic with respect to the node marked with a purple dot. **Polyphyly** describes a group that contains both descendants and non-descendants of a node. In the grass example, the paraphyletic group contains both the outgroup taxa and a subset of the ingroup.
+
+## Outgroups
+
+The choice of the two outgroup taxa (Siberian wild rye D-hordein and barley D-hordein) turned out to be a good decision for the grass tree. First, these two taxa are monophyletic compared to the other samples (that is, they share a recent common ancestor, and the ingroup is monophyletic compared to them). Second, the branch lengths for the two outgroup taxa is similar to the branch lengths of all the ingroup taxa.  If the branch lengths for the outgroup taxa are too long, the relationships among all the grass _Glu-1_ samples will be obscured.
+
+However, what if our first outgroup choice hadn't been quite right? In that case, we could edit the fasta file to remove any samples that we needed. 
+
+Let's pretend the outgroup wasn't monophyletic and that instead the Siberian wild rye D-hordein sample actually fell within the ingroup. In this case, we could simply remove that sample using the `phylotools` package.
+
+
+```{r, warning=FALSE, message = FALSE}
+library(phylotools)
+
+rm.sequence.fasta(infile = "grass_aligned-renamed.fasta", outfile = "sequence.removed.fasta", to.rm = "Siberian wild rye_D-hordein")
+```
+
+We can then load the new fasta file and estimate a new neighbor joining tree (or any other type of tree) without the problematic sample.
+
+
+```{r, warning=FALSE, message = FALSE}
+library(phangorn)
+
+grass.new <- read.dna("sequence.removed.fasta", format='fasta')
+
+dist.matrix <- dist.dna(grass.new, model = "K80")
+
+tree <- NJ(dist.matrix)
+tree.root <- root(tree, outgroup = 'barley_D-hordein')
+
+plot(tree.root, main = "edited Neighbor Joining")
+```
+
+You can use the same command to remove multiple outgroup taxa, or to remove an outgroup that is too distant (ie, the branch lengths are too long and including the outgroup is obscuring the relationships among the ingroup samples). If you need to remove all of your outgroup, you can instead try midpoint rooting. 
+
+```{r, warning=FALSE, message = FALSE}
+rm.sequence.fasta(infile = "grass_aligned-renamed.fasta", outfile = "no_outgroup.fasta", to.rm = c("barley_D-hordein", "Siberian wild rye_D-hordein"))
+
+grass.no_out<- read.dna("no_outgroup.fasta", format='fasta')
+
+dist.matrix <- dist.dna(grass.no_out, model = "K80")
+
+tree.no_out <- NJ(dist.matrix)
+
+tree.no_out <- midpoint(tree.no_out)
+
+plot(tree.no_out, main = "Neighbor Joining, midpoint rooting")
+```
+
+## Comparing trees
+
+When we are trying to determine if two trees are telling us the same thing about the relationships among our samples (that is, the topologies of the two trees are identical), we might compare the descendants of each node. If the descendants of each node are the same, then we know the topologies are the same (even if the order of the clades are not identical - remember, branches can rotate around nodes). We'll use the grass phylogenies as an example
+
+
+
+<img src="resources/images/08-nodes_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+)
+
+
+First, we can see that node 1 (the node that connects all the ingroup branches) exists in both trees.
+
+
+
+<img src="resources/images/08-nodes_2.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+)
+
+
+The same is true for the node that connects Asiatic grass to the crested wheatgrass/mosquito grass/medusahead rye clade, as well as the nodes resolving the relationships among that that clade.
+
+
+
+<img src="resources/images/08-nodes_3.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+)
+
+
+Moving to the bottom of the tree, we can also locate nodes 5, 6, and 7 in both trees. Each of these nodes connects all the same descendants in each tree.
+
+
+
+<img src="resources/images/08-nodes_4.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+)
+
+
+Finally, we can identify the presence of nodes 8, 9, and 10 in both trees. This is a little trickier to see, because the branches have rotated. But we can find a node that unites wheat, mammoth wild rye, and intermediate wheatgrass (node 8) as well as a node that unites only mammoth wild rye and intermediate wheatgrass (node 9). We also have a separate node that unites wheatgrass and tall wheatgrass (node 10). 
+
+Since all of the ingroup nodes are the same, we know the topologies of the neighbor joining and parsimony trees are the same. However, it's a bit tedious to go through and label each node. Luckily, we can use R to compare topologies more quickly. Open the `ape` library and load your saved trees into the console.
+
+```{r, warning=FALSE, message = FALSE}
+library(ape)
+
+nj.tree <- read.tree("nj_grass.tre")
+spr.tree <- read.tree("spr_grass.tre")
+nni.tree <- read.tree("nni_grass.tre")
+```
+
+The `ape` package has a very useful `all.equal` command (you can see more details about it [here](https://rdrr.io/cran/ape/man/all.equal.phylo.html)). This command allows us to compare topologies.
+
+```{r, warning=FALSE, message = FALSE}
+all.equal(spr.tree, nj.tree, use.edge.length = F)
+```
+
+The first two arguments are the trees we'd like to compare. In order to compare just the topologies, we also include the argument `use.edge.length=F`, which tells the `all.equal` command to ignore branch lengths.
+
+If we want to tell whether trees are completely identical (that is, both the topologies and the branch lengths are the same), we can change the last argument to T. (Alternatively, we could leave the last argument off entirely, as the default setting is for `use.edge.length` is T.)
+
+```{r, warning=FALSE, message = FALSE}
+all.equal(spr.tree, nj.tree, use.edge.length = T)
+```
+
+Not surprisingly, the branch lengths differ between the neighbor joining and SPR parsimony tree. However, maybe the branch lengths are the same between the two trees we estimated using parsimony.
+
+```{r, warning=FALSE, message = FALSE}
+all.equal(spr.tree, nni.tree)
+```
+
+Well, now we know the two parsimony trees aren't completely identical. However, what if this is because the topologies aren't the same?
+
+```{r, warning=FALSE, message = FALSE}
+all.equal(spr.tree, nni.tree, use.edge.length = F)
+```
+
+By running the `all.equal` command again, we can verify the topologies are the same, so these two trees must differ in just the branch length estimates.
+
+```{r}
+sessionInfo()
+```
+
