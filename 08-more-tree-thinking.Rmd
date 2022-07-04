@@ -4,7 +4,7 @@
 ottrpal::set_knitr_image_path()
 ```
 
-# Phylogenetics basics
+# More Phylogenetics Basics
 
 Now that you've had a chance to build several phylogenies, let's spend some time examining what the trees are telling us.
 
@@ -80,7 +80,7 @@ When we are trying to determine if two trees are telling us the same thing about
 
 
 <img src="resources/images/08-nodes_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
-)
+
 
 
 First, we can see that node 1 (the node that connects all the ingroup branches) exists in both trees.
@@ -88,7 +88,7 @@ First, we can see that node 1 (the node that connects all the ingroup branches) 
 
 
 <img src="resources/images/08-nodes_2.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
-)
+
 
 
 The same is true for the node that connects Asiatic grass to the crested wheatgrass/mosquito grass/medusahead rye clade, as well as the nodes resolving the relationships among that that clade.
@@ -96,7 +96,6 @@ The same is true for the node that connects Asiatic grass to the crested wheatgr
 
 
 <img src="resources/images/08-nodes_3.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
-)
 
 
 Moving to the bottom of the tree, we can also locate nodes 5, 6, and 7 in both trees. Each of these nodes connects all the same descendants in each tree.
@@ -104,7 +103,7 @@ Moving to the bottom of the tree, we can also locate nodes 5, 6, and 7 in both t
 
 
 <img src="resources/images/08-nodes_4.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
-)
+
 
 
 Finally, we can identify the presence of nodes 8, 9, and 10 in both trees. This is a little trickier to see, because the branches have rotated. But we can find a node that unites wheat, mammoth wild rye, and intermediate wheatgrass (node 8) as well as a node that unites only mammoth wild rye and intermediate wheatgrass (node 9). We also have a separate node that unites wheatgrass and tall wheatgrass (node 10). 
