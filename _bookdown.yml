@@ -11,6 +11,7 @@ rmd_files: ["index.Rmd",
             "06-neighbor-joining.Rmd",
             "07-parsimony.Rmd",
             "08-more-tree-thinking.Rmd",
+            "09-maximum-likelihood.Rmd",
             "About.Rmd",
             "References.Rmd"]
 new_session: yes
