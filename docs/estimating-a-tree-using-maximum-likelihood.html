@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 18 Estimating a tree using Maximum Likelihood | Molecular Phylogenetic Techniques</title>
+  <meta name="description" content="Description about Course/Book." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 18 Estimating a tree using Maximum Likelihood | Molecular Phylogenetic Techniques" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Description about Course/Book." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 18 Estimating a tree using Maximum Likelihood | Molecular Phylogenetic Techniques" />
+  
+  <meta name="twitter:description" content="Description about Course/Book." />
+  
+
+
+
+<meta name="date" content="2022-07-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
+<link rel="prev" href="what-is-maximum-likelihood.html"/>
+<link rel="next" href="about-the-authors.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="assets/AnVIL_style/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://anvilproject.org/" target="_blank"><img src="assets/AnVIL_style/logo-anvil.png" style="width: 80%; padding-left: 15px; padding-top: 8px;"</a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Book</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#anvil-collection"><i class="fa fa-check"></i>AnVIL Collection</a></li>
+</ul></li>
+<li class="part"><span><b>BOOK OVERVIEW</b></span></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#motivation"><i class="fa fa-check"></i><b>1.1</b> Motivation</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#target-audience"><i class="fa fa-check"></i><b>1.2</b> Target Audience</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#curriculum"><i class="fa fa-check"></i><b>1.3</b> Curriculum</a></li>
+</ul></li>
+<li class="part"><span><b>BEFORE YOU START</b></span></li>
+<li class="chapter" data-level="2" data-path="sign-in.html"><a href="sign-in.html"><i class="fa fa-check"></i><b>2</b> Sign in</a></li>
+<li class="chapter" data-level="3" data-path="create-a-workspace.html"><a href="create-a-workspace.html"><i class="fa fa-check"></i><b>3</b> Create a workspace</a></li>
+<li class="part"><span><b>RUNNING RSTUDIO</b></span></li>
+<li class="chapter" data-level="4" data-path="rstudio.html"><a href="rstudio.html"><i class="fa fa-check"></i><b>4</b> Working in RStudio</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="rstudio.html"><a href="rstudio.html#launch-rstudio-cloud-environment"><i class="fa fa-check"></i><b>4.1</b> Launch RStudio Cloud Environment</a></li>
+<li class="chapter" data-level="4.2" data-path="rstudio.html"><a href="rstudio.html#tour-rstudio"><i class="fa fa-check"></i><b>4.2</b> Tour RStudio</a></li>
+<li class="chapter" data-level="4.3" data-path="rstudio.html"><a href="rstudio.html#stopping"><i class="fa fa-check"></i><b>4.3</b> Pause RStudio</a></li>
+<li class="chapter" data-level="4.4" data-path="rstudio.html"><a href="rstudio.html#delete-rstudio-cloud-environment"><i class="fa fa-check"></i><b>4.4</b> Delete RStudio Cloud Environment</a></li>
+<li class="chapter" data-level="4.5" data-path="rstudio.html"><a href="rstudio.html#video-guide"><i class="fa fa-check"></i><b>4.5</b> Video Guide</a></li>
+</ul></li>
+<li class="part"><span><b>TREE THINKING</b></span></li>
+<li class="chapter" data-level="5" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html"><i class="fa fa-check"></i><b>5</b> Phylogenetics basics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#how-to-read-a-phylogenetic-tree"><i class="fa fa-check"></i><b>5.1</b> How to read a phylogenetic tree</a></li>
+<li class="chapter" data-level="5.2" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#outgroups"><i class="fa fa-check"></i><b>5.2</b> Outgroups</a></li>
+<li class="chapter" data-level="5.3" data-path="phylogenetics-basics.html"><a href="phylogenetics-basics.html#branch-lengths"><i class="fa fa-check"></i><b>5.3</b> Branch lengths</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html"><i class="fa fa-check"></i><b>6</b> Visualizing trees in R</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#creating-a-newick-object"><i class="fa fa-check"></i><b>6.1</b> Creating a Newick object</a></li>
+<li class="chapter" data-level="6.2" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#drawing-trees"><i class="fa fa-check"></i><b>6.2</b> Drawing trees</a></li>
+<li class="chapter" data-level="6.3" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#adding-outgroups"><i class="fa fa-check"></i><b>6.3</b> Adding outgroups</a></li>
+<li class="chapter" data-level="6.4" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#drawing-trees-multiple-ways"><i class="fa fa-check"></i><b>6.4</b> Drawing trees multiple ways</a></li>
+<li class="chapter" data-level="6.5" data-path="visualizing-trees-in-r.html"><a href="visualizing-trees-in-r.html#the-phylo-class"><i class="fa fa-check"></i><b>6.5</b> The <code>phylo</code> class</a></li>
+</ul></li>
+<li class="part"><span><b>GETTING SEQUENCES</b></span></li>
+<li class="chapter" data-level="7" data-path="what-sequences-should-i-choose.html"><a href="what-sequences-should-i-choose.html"><i class="fa fa-check"></i><b>7</b> What sequences should I choose?</a></li>
+<li class="chapter" data-level="8" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html"><i class="fa fa-check"></i><b>8</b> Finding sequences in GenBank</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html#identifying-a-query-sequence-on-genbank"><i class="fa fa-check"></i><b>8.1</b> Identifying a query sequence on GenBank</a></li>
+<li class="chapter" data-level="8.2" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html#blastn"><i class="fa fa-check"></i><b>8.2</b> blastn</a></li>
+<li class="chapter" data-level="8.3" data-path="finding-sequences-in-genbank.html"><a href="finding-sequences-in-genbank.html#identifying-an-outgroup"><i class="fa fa-check"></i><b>8.3</b> Identifying an outgroup</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html"><i class="fa fa-check"></i><b>9</b> Downloading the sequences from GenBank</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html#the-dna.bin-object"><i class="fa fa-check"></i><b>9.1</b> The DNA.bin object</a></li>
+<li class="chapter" data-level="9.2" data-path="downloading-the-sequences-from-genbank.html"><a href="downloading-the-sequences-from-genbank.html#the-fasta-format"><i class="fa fa-check"></i><b>9.2</b> The fasta format</a></li>
+</ul></li>
+<li class="part"><span><b>ALIGNMENT</b></span></li>
+<li class="chapter" data-level="10" data-path="why-do-we-align-sequences.html"><a href="why-do-we-align-sequences.html"><i class="fa fa-check"></i><b>10</b> Why do we align sequences?</a></li>
+<li class="chapter" data-level="11" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html"><i class="fa fa-check"></i><b>11</b> Creating a multiple sequence alignment</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html#installing-the-decipher-package"><i class="fa fa-check"></i><b>11.1</b> Installing the <code>DECIPHER</code> package</a></li>
+<li class="chapter" data-level="11.2" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html#loading-the-fasta-file"><i class="fa fa-check"></i><b>11.2</b> Loading the fasta file</a></li>
+<li class="chapter" data-level="11.3" data-path="creating-a-multiple-sequence-alignment.html"><a href="creating-a-multiple-sequence-alignment.html#creating-an-alignment"><i class="fa fa-check"></i><b>11.3</b> Creating an alignment</a></li>
+</ul></li>
+<li class="part"><span><b>NEIGHBOR JOINING</b></span></li>
+<li class="chapter" data-level="12" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html"><i class="fa fa-check"></i><b>12</b> The neighbor joining method of tree estimation</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#models-of-molecular-evolution"><i class="fa fa-check"></i><b>12.1</b> Models of molecular evolution</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#jc69"><i class="fa fa-check"></i><b>12.1.1</b> JC69</a></li>
+<li class="chapter" data-level="12.1.2" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#k2p"><i class="fa fa-check"></i><b>12.1.2</b> K2P</a></li>
+<li class="chapter" data-level="12.1.3" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#gtr"><i class="fa fa-check"></i><b>12.1.3</b> GTR</a></li>
+<li class="chapter" data-level="12.1.4" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#other-parameters"><i class="fa fa-check"></i><b>12.1.4</b> Other parameters</a></li>
+<li class="chapter" data-level="12.1.5" data-path="the-neighbor-joining-method-of-tree-estimation.html"><a href="the-neighbor-joining-method-of-tree-estimation.html#how-do-i-choose-a-model"><i class="fa fa-check"></i><b>12.1.5</b> How do I choose a model?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html"><i class="fa fa-check"></i><b>13</b> Building a neighbor joining tree</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#the-phydat-object"><i class="fa fa-check"></i><b>13.1</b> The phyDat object</a></li>
+<li class="chapter" data-level="13.2" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#choosing-a-substitution-model"><i class="fa fa-check"></i><b>13.2</b> Choosing a substitution model</a></li>
+<li class="chapter" data-level="13.3" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#building-the-neighbor-joining-tree"><i class="fa fa-check"></i><b>13.3</b> Building the neighbor joining tree</a></li>
+<li class="chapter" data-level="13.4" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#visualizing-the-neighbor-joining-tree"><i class="fa fa-check"></i><b>13.4</b> Visualizing the neighbor joining tree</a></li>
+<li class="chapter" data-level="13.5" data-path="building-a-neighbor-joining-tree.html"><a href="building-a-neighbor-joining-tree.html#saving-your-trees"><i class="fa fa-check"></i><b>13.5</b> Saving your trees</a></li>
+</ul></li>
+<li class="part"><span><b>PARSIMONY</b></span></li>
+<li class="chapter" data-level="14" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html"><i class="fa fa-check"></i><b>14</b> The parsimony method of tree estimation</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#parsimony"><i class="fa fa-check"></i><b>14.1</b> Parsimony</a></li>
+<li class="chapter" data-level="14.2" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#tree-searching-methods"><i class="fa fa-check"></i><b>14.2</b> Tree searching methods</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#branch-and-bound"><i class="fa fa-check"></i><b>14.2.1</b> Branch and bound</a></li>
+<li class="chapter" data-level="14.2.2" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#nearest-neighbor-interchange-nni"><i class="fa fa-check"></i><b>14.2.2</b> Nearest Neighbor Interchange (NNI)</a></li>
+<li class="chapter" data-level="14.2.3" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#subtree-pruning-and-regrafting-spr"><i class="fa fa-check"></i><b>14.2.3</b> Subtree Pruning and Regrafting (SPR)</a></li>
+<li class="chapter" data-level="14.2.4" data-path="the-parsimony-method-of-tree-estimation.html"><a href="the-parsimony-method-of-tree-estimation.html#star-decomposition"><i class="fa fa-check"></i><b>14.2.4</b> Star decomposition</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html"><i class="fa fa-check"></i><b>15</b> Building a parsimony tree</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#editing-the-fasta-file"><i class="fa fa-check"></i><b>15.1</b> Editing the fasta file</a></li>
+<li class="chapter" data-level="15.2" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#inferring-a-parsimony-tree"><i class="fa fa-check"></i><b>15.2</b> Inferring a parsimony tree</a></li>
+<li class="chapter" data-level="15.3" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#parsimony-scores"><i class="fa fa-check"></i><b>15.3</b> Parsimony scores</a></li>
+<li class="chapter" data-level="15.4" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#bootstrapping"><i class="fa fa-check"></i><b>15.4</b> Bootstrapping</a></li>
+<li class="chapter" data-level="15.5" data-path="building-a-parsimony-tree.html"><a href="building-a-parsimony-tree.html#saving-files"><i class="fa fa-check"></i><b>15.5</b> Saving files</a></li>
+</ul></li>
+<li class="part"><span><b>MORE TREE THINKING</b></span></li>
+<li class="chapter" data-level="16" data-path="more-phylogenetics-basics.html"><a href="more-phylogenetics-basics.html"><i class="fa fa-check"></i><b>16</b> More Phylogenetics Basics</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="more-phylogenetics-basics.html"><a href="more-phylogenetics-basics.html#tree-topology"><i class="fa fa-check"></i><b>16.1</b> Tree topology</a></li>
+<li class="chapter" data-level="16.2" data-path="more-phylogenetics-basics.html"><a href="more-phylogenetics-basics.html#outgroups-1"><i class="fa fa-check"></i><b>16.2</b> Outgroups</a></li>
+<li class="chapter" data-level="16.3" data-path="more-phylogenetics-basics.html"><a href="more-phylogenetics-basics.html#comparing-trees"><i class="fa fa-check"></i><b>16.3</b> Comparing trees</a></li>
+</ul></li>
+<li class="part"><span><b>MAXIMUM LIKELIHOOD</b></span></li>
+<li class="chapter" data-level="17" data-path="what-is-maximum-likelihood.html"><a href="what-is-maximum-likelihood.html"><i class="fa fa-check"></i><b>17</b> What is Maximum Likelihood?</a></li>
+<li class="chapter" data-level="18" data-path="estimating-a-tree-using-maximum-likelihood.html"><a href="estimating-a-tree-using-maximum-likelihood.html"><i class="fa fa-check"></i><b>18</b> Estimating a tree using Maximum Likelihood</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="estimating-a-tree-using-maximum-likelihood.html"><a href="estimating-a-tree-using-maximum-likelihood.html#creating-a-starting-tree"><i class="fa fa-check"></i><b>18.1</b> Creating a starting tree</a></li>
+<li class="chapter" data-level="18.2" data-path="estimating-a-tree-using-maximum-likelihood.html"><a href="estimating-a-tree-using-maximum-likelihood.html#calculating-likelihood-score"><i class="fa fa-check"></i><b>18.2</b> Calculating likelihood score</a></li>
+<li class="chapter" data-level="18.3" data-path="estimating-a-tree-using-maximum-likelihood.html"><a href="estimating-a-tree-using-maximum-likelihood.html#optimizing-the-maximum-likelihood-parameters"><i class="fa fa-check"></i><b>18.3</b> Optimizing the maximum likelihood parameters</a></li>
+<li class="chapter" data-level="18.4" data-path="estimating-a-tree-using-maximum-likelihood.html"><a href="estimating-a-tree-using-maximum-likelihood.html#changing-the-model-for-your-ml-search"><i class="fa fa-check"></i><b>18.4</b> Changing the model for your ML search</a></li>
+<li class="chapter" data-level="18.5" data-path="estimating-a-tree-using-maximum-likelihood.html"><a href="estimating-a-tree-using-maximum-likelihood.html#bootstrapping-the-ml-tree"><i class="fa fa-check"></i><b>18.5</b> Bootstrapping the ML tree</a></li>
+<li class="chapter" data-level="18.6" data-path="estimating-a-tree-using-maximum-likelihood.html"><a href="estimating-a-tree-using-maximum-likelihood.html#saving-your-bootstrap-tree"><i class="fa fa-check"></i><b>18.6</b> Saving your bootstrap tree</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
+<li class="chapter" data-level="19" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>19</b> References</a></li>
+<li class="divider"></li>
+<p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
+<p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
+<a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
+<p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Molecular Phylogenetic Techniques</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<head>
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=10.0,initial-scale=1.0">
+  <!--script src="https://kit.fontawesome.com/6a26f47516.js"></script-->
+  <!--<script src="assets/hideOutput.js"></script>-->
+  <link href="assets/AnvIL_style/style.css" rel="stylesheet">
+</head>
+        
+
+
+<div class="hero-image-container"> 
+  <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
+</div>
+<div id="estimating-a-tree-using-maximum-likelihood" class="section level1" number="18">
+<h1><span class="header-section-number">Chapter 18</span> Estimating a tree using Maximum Likelihood</h1>
+<p>We will be using the <code>phangorn</code> package in R to estimate maximum likelihood methods.</p>
+<p><code>phangorn</code> has three possible tree permutation methods available in its maximum likelihood commands. The first is the nearest neighbor interchange (NNI) method, which we used in our parsimony estimation. However, the NNI algorithm can sometimes get stuck on a local optimum in tree space (especially as the tree gets larger). The other two (the stochastic approach and the likelihood ratchet) will make random NNI rearrangements to the tree, which can allow the tree to escape local optima and instead find a global optimum of our tree-searching space.</p>
+<div id="creating-a-starting-tree" class="section level2" number="18.1">
+<h2><span class="header-section-number">18.1</span> Creating a starting tree</h2>
+<p><code>phangorn</code> requires a starting tree for maximum likelihood searches. The tree itself doesn’t matter much, but generally people supply a neighbor joining tree because they can be generated quickly.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phangorn)</span>
+<span id="cb110-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-3"><a href="estimating-a-tree-using-maximum-likelihood.html#cb110-3" aria-hidden="true" tabindex="-1"></a>grass.align <span class="ot">&lt;-</span> <span class="fu">read.phyDat</span>(<span class="st">&quot;grass_aligned-renamed.fasta&quot;</span>, <span class="at">format =</span> <span class="st">&quot;fasta&quot;</span>)</span>
+<span id="cb110-4"><a href="estimating-a-tree-using-maximum-likelihood.html#cb110-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-5"><a href="estimating-a-tree-using-maximum-likelihood.html#cb110-5" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">dist.ml</span>(grass.align)</span>
+<span id="cb110-6"><a href="estimating-a-tree-using-maximum-likelihood.html#cb110-6" aria-hidden="true" tabindex="-1"></a>nj.tree <span class="ot">&lt;-</span> <span class="fu">nj</span>(dist)</span></code></pre></div>
+<p>You can also upload your previously-generated neighbor joining tree and use that instead of creating a new one (just make sure that you used the same sample names in both your renamed fasta file and your neighbor joining tree).</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb111-1" aria-hidden="true" tabindex="-1"></a>nj.tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&quot;nj.tre&quot;</span>)</span></code></pre></div>
+</div>
+<div id="calculating-likelihood-score" class="section level2" number="18.2">
+<h2><span class="header-section-number">18.2</span> Calculating likelihood score</h2>
+<p>Once you have both a tree and your fasta file loaded, you can calculated a likelihood score using the <code>pml</code> command.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb112-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">pml</span>(nj.tree, <span class="at">data =</span> grass.align)</span>
+<span id="cb112-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb112-2" aria-hidden="true" tabindex="-1"></a>fit</span></code></pre></div>
+<pre><code>## 
+##  loglikelihood: -12912.73 
+## 
+## unconstrained loglikelihood: -20560.86 
+## 
+## Rate matrix:
+##   a c g t
+## a 0 1 1 1
+## c 1 0 1 1
+## g 1 1 0 1
+## t 1 1 1 0
+## 
+## Base frequencies:  
+## 0.25 0.25 0.25 0.25</code></pre>
+<p>One of the nice things about the <code>pml</code> output is that it includes the details of the substitution model used in the likelihood calculation. In this case, because we did not specify any model, the Jukes-Cantor (JC, or JC69) was used by default. We can tell this because the base frequencies are all 0.25 and there is only one substitution rate used in the rate matrix.</p>
+<p>This output also reports both a log likelihood and an unconstrained log likelihood. The difference between the two values has to do with the size of the parameter space being searched. In my experience, the log likelihood (not the unconstrained log likelihood) is usually reported, though either is fine as long as you are consistent when testing multiple models.</p>
+</div>
+<div id="optimizing-the-maximum-likelihood-parameters" class="section level2" number="18.3">
+<h2><span class="header-section-number">18.3</span> Optimizing the maximum likelihood parameters</h2>
+<p>The <code>pml</code> command simply calculates the likelihood of the data, given a tree. If we want to find the optimum tree (and we do), we need to optimize the tree topology (as well as branch length estimates) for our data. We can do this using the <code>optim.pml</code> command. For this particular model (JC), we simply need to supply a <code>pml</code> object (which we created above) and decide what type of tree arrangement we want to do.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb114-1" aria-hidden="true" tabindex="-1"></a>fitJC <span class="ot">&lt;-</span> <span class="fu">optim.pml</span>(fit, <span class="at">rearrangement =</span> <span class="st">&quot;NNI&quot;</span>)</span></code></pre></div>
+<pre><code>## optimize edge weights:  -12912.73 --&gt; -12865.23 
+## optimize edge weights:  -12865.23 --&gt; -12865.23 
+## optimize topology:  -12865.23 --&gt; -12851.07 
+## optimize topology:  -12851.07 --&gt; -12849.71 
+## optimize topology:  -12849.71 --&gt; -12849.71 
+## 2 
+## optimize edge weights:  -12849.71 --&gt; -12849.71 
+## optimize topology:  -12849.71 --&gt; -12849.71 
+## 0 
+## optimize edge weights:  -12849.71 --&gt; -12849.71</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitJC<span class="sc">$</span>tree, <span class="at">main =</span> <span class="st">&quot;JC, NNI rearrangement&quot;</span>)</span></code></pre></div>
+<p><img src="resources/images/09-maximum-likelihood_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>With the choice of NNI rearrangement, you can see that only a few moves were necessary in order to find the ML tree. We can also choose a “stochastic” or “ratchet” (likelihood ratchet) tree rearrangement algorithm. I like to use the stochastic rearrangement.</p>
+<p>Using either the stochastic or ratchet tree rearrangement takes more time than NNI. Here I’ve also added a command to hide the output while the algorithm is running, but feel free to leave it off so you can see what the algorithm is doing!</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb117-1" aria-hidden="true" tabindex="-1"></a>fitJC <span class="ot">&lt;-</span> <span class="fu">optim.pml</span>(fit, <span class="at">rearrangement =</span> <span class="st">&quot;stochastic&quot;</span>, <span class="at">control =</span> <span class="fu">pml.control</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span>
+<span id="cb117-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitJC<span class="sc">$</span>tree, <span class="at">main =</span> <span class="st">&quot;JC, stochastic rearrangement&quot;</span>)</span></code></pre></div>
+<p><img src="resources/images/09-maximum-likelihood_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="changing-the-model-for-your-ml-search" class="section level2" number="18.4">
+<h2><span class="header-section-number">18.4</span> Changing the model for your ML search</h2>
+<p>All the work above is for the Jukes-Cantor model. However, there is a whole world of other substition models out there, and it would be nice to use them as well. We can update the <code>pml</code> object “fit” with other models.</p>
+<p>According to the model test we ran on the grass data in the Neighbor Joining section, the best model for this dataset is the GTR + G model. The gamma distribution has two parameters, a shape parameter and a scale parameter. In phylogenetics, we commonly think of these as the number of rate categories and a shape parameter. When adding a gamma distribution, we can just specify the number of rate categories to start. The standard is 4.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb118-1" aria-hidden="true" tabindex="-1"></a>fitGTR.G <span class="ot">&lt;-</span> <span class="fu">update</span>(fit, <span class="at">model =</span> <span class="st">&quot;GTR&quot;</span>, <span class="at">k =</span> <span class="dv">4</span>)</span>
+<span id="cb118-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb118-2" aria-hidden="true" tabindex="-1"></a>fitGTR.G</span></code></pre></div>
+<pre><code>## 
+##  loglikelihood: -12888.65 
+## 
+## unconstrained loglikelihood: -20560.86 
+## Discrete gamma model
+## Number of rate categories: 4 
+## Shape parameter: 1 
+## 
+## Rate matrix:
+##   a c g t
+## a 0 1 1 1
+## c 1 0 1 1
+## g 1 1 0 1
+## t 1 1 1 0
+## 
+## Base frequencies:  
+## 0.25 0.25 0.25 0.25</code></pre>
+<p>After we update the model and add the gamma distribution, we can see that fitGTR now 4 rate categories and a shape parameter = 1. However, the rate matrix and base frequencies are still the same as the JC model, because we did not update those. We could if we wanted to, but it’s easier to let the <code>optim.pml</code> algorithm do it.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb120-1" aria-hidden="true" tabindex="-1"></a>fitGTR.G <span class="ot">&lt;-</span> <span class="fu">optim.pml</span>(fitGTR.G, <span class="at">model =</span> <span class="st">&quot;GTR&quot;</span>, <span class="at">optGamma =</span> T, <span class="at">rearrangement =</span> <span class="st">&quot;stochastic&quot;</span>, <span class="at">control =</span> <span class="fu">pml.control</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span>
+<span id="cb120-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb120-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-3"><a href="estimating-a-tree-using-maximum-likelihood.html#cb120-3" aria-hidden="true" tabindex="-1"></a>fitGTR.G</span></code></pre></div>
+<pre><code>## 
+##  loglikelihood: -12364.36 
+## 
+## unconstrained loglikelihood: -20560.86 
+## Discrete gamma model
+## Number of rate categories: 4 
+## Shape parameter: 1.373378 
+## 
+## Rate matrix:
+##           a         c         g         t
+## a 0.0000000 0.3822938 1.4796348 0.6982441
+## c 0.3822938 0.0000000 0.4572516 2.2254113
+## g 1.4796348 0.4572516 0.0000000 1.0000000
+## t 0.6982441 2.2254113 1.0000000 0.0000000
+## 
+## Base frequencies:  
+## 0.3183583 0.2986886 0.2541144 0.1288387</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitGTR.G<span class="sc">$</span>tree, <span class="at">main =</span> <span class="st">&quot;GTR + G&quot;</span>)</span></code></pre></div>
+<p><img src="resources/images/09-maximum-likelihood_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>We can also update the model to include an invariant sites parameter (inv = 0.2).</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb123-1" aria-hidden="true" tabindex="-1"></a>fitGTR.G.I <span class="ot">&lt;-</span> <span class="fu">update</span>(fitGTR.G, <span class="at">inv =</span> <span class="fl">0.2</span>)</span>
+<span id="cb123-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb123-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-3"><a href="estimating-a-tree-using-maximum-likelihood.html#cb123-3" aria-hidden="true" tabindex="-1"></a>fitGTR.G.I <span class="ot">&lt;-</span> <span class="fu">optim.pml</span>(fitGTR.G.I, <span class="at">model =</span> <span class="st">&quot;GTR&quot;</span>, <span class="at">optGamma =</span> T, <span class="at">optInv =</span> T,  <span class="at">rearrangement =</span> <span class="st">&quot;stochastic&quot;</span>, <span class="at">control =</span> <span class="fu">pml.control</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span>
+<span id="cb123-4"><a href="estimating-a-tree-using-maximum-likelihood.html#cb123-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-5"><a href="estimating-a-tree-using-maximum-likelihood.html#cb123-5" aria-hidden="true" tabindex="-1"></a>fitGTR.G.I</span></code></pre></div>
+<pre><code>## 
+##  loglikelihood: -12364.36 
+## 
+## unconstrained loglikelihood: -20560.86 
+## Proportion of invariant sites: 4.478466e-05 
+## Discrete gamma model
+## Number of rate categories: 4 
+## Shape parameter: 1.372057 
+## 
+## Rate matrix:
+##           a         c        g         t
+## a 0.0000000 0.3814509 1.476381 0.6968425
+## c 0.3814509 0.0000000 0.456283 2.2228878
+## g 1.4763808 0.4562830 0.000000 1.0000000
+## t 0.6968425 2.2228878 1.000000 0.0000000
+## 
+## Base frequencies:  
+## 0.3185034 0.2985722 0.2541684 0.1287559</code></pre>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitGTR.G.I<span class="sc">$</span>tree, <span class="at">main =</span> <span class="st">&quot;GTR + I + G&quot;</span>)</span></code></pre></div>
+<p><img src="resources/images/09-maximum-likelihood_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Keep in mind that we never want to overwrite our original “fit” object. By updating the “fit” object (and saving the update by a new name), we can easily go back and change the model for our ML estimation. Let’s try a K80 (Kimura 2-parameter) model with an invariant sites parameter. In the <code>optim.pml</code> command, we can leave out the <code>optGamma = T</code> argument because we no longer have a gamma distribution included in the model.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb126-1" aria-hidden="true" tabindex="-1"></a>fitK80.I <span class="ot">&lt;-</span> <span class="fu">update</span>(fit, <span class="at">model =</span> <span class="st">&quot;K80&quot;</span>, <span class="at">inv =</span> <span class="fl">0.2</span>)</span>
+<span id="cb126-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb126-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-3"><a href="estimating-a-tree-using-maximum-likelihood.html#cb126-3" aria-hidden="true" tabindex="-1"></a>fitK80.I <span class="ot">&lt;-</span> <span class="fu">optim.pml</span>(fitK80.I, <span class="at">model =</span> <span class="st">&quot;K80&quot;</span>, <span class="at">optInv =</span> T,  <span class="at">rearrangement =</span> <span class="st">&quot;stochastic&quot;</span>, <span class="at">control =</span> <span class="fu">pml.control</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span>
+<span id="cb126-4"><a href="estimating-a-tree-using-maximum-likelihood.html#cb126-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-5"><a href="estimating-a-tree-using-maximum-likelihood.html#cb126-5" aria-hidden="true" tabindex="-1"></a>fitK80.I</span></code></pre></div>
+<pre><code>## 
+##  loglikelihood: -12592.47 
+## 
+## unconstrained loglikelihood: -20560.86 
+## Proportion of invariant sites: 0.2469051 
+## 
+## Rate matrix:
+##         a       c       g       t
+## a 0.00000 1.00000 3.02753 1.00000
+## c 1.00000 0.00000 1.00000 3.02753
+## g 3.02753 1.00000 0.00000 1.00000
+## t 1.00000 3.02753 1.00000 0.00000
+## 
+## Base frequencies:  
+## 0.25 0.25 0.25 0.25</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitK80.I<span class="sc">$</span>tree, <span class="at">main =</span> <span class="st">&quot;K80 + I&quot;</span>)</span></code></pre></div>
+<p><img src="resources/images/09-maximum-likelihood_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="bootstrapping-the-ml-tree" class="section level2" number="18.5">
+<h2><span class="header-section-number">18.5</span> Bootstrapping the ML tree</h2>
+<p>Once we have decided which ML tree fits the data best (we can do so by choosing the one with the biggest log likelihood value), we can estimate the support for each branch in the tree with bootstrapping. Bootstrapping for ML trees can be <em>very, very</em> slow, so be patient!</p>
+<p>Ideally we want to do at least 1000 bootstrap replicates. Many guides will set the number of bootstrap replicates to 100, but this is often chosen for speed. We really need at least 1000 replicates to have any sort of trust in the values.</p>
+<p>We will use the <code>bootstrap.pml</code> command, which does have an option to estimate trees in parallel, which can help speed up the bootstrapping process. This option doesn’t appear to work on Windows machines, but it works fine on AnVIL. Using AnVIL itself will also help speed up the estimation.</p>
+<p>Let’s try bootstrapping the GTR + G tree, which was the model chosen for us using the <code>modelTest</code> command.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb129-1" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">bootstrap.pml</span>(fitGTR.G, <span class="at">bs=</span><span class="dv">1000</span>, <span class="at">multicore =</span> T, <span class="at">optNni=</span><span class="cn">TRUE</span>,</span>
+<span id="cb129-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                     <span class="at">control =</span> <span class="fu">pml.control</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb130-1" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">bootstrap.pml</span>(fitGTR.G, <span class="at">bs=</span><span class="dv">100</span>, <span class="at">optNni=</span><span class="cn">TRUE</span>, <span class="at">control =</span> <span class="fu">pml.control</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
+<pre><code>## Final p-score 1854 after  4 nni operations 
+## Final p-score 1761 after  1 nni operations 
+## Final p-score 1805 after  0 nni operations 
+## Final p-score 1824 after  3 nni operations 
+## Final p-score 1791 after  1 nni operations 
+## Final p-score 1822 after  3 nni operations 
+## Final p-score 1826 after  2 nni operations 
+## Final p-score 1763 after  1 nni operations 
+## Final p-score 1703 after  0 nni operations 
+## Final p-score 1833 after  1 nni operations 
+## Final p-score 1825 after  1 nni operations 
+## Final p-score 1873 after  0 nni operations 
+## Final p-score 1785 after  0 nni operations 
+## Final p-score 1761 after  3 nni operations 
+## Final p-score 1821 after  0 nni operations 
+## Final p-score 1764 after  0 nni operations 
+## Final p-score 1833 after  0 nni operations 
+## Final p-score 1739 after  1 nni operations 
+## Final p-score 1825 after  2 nni operations 
+## Final p-score 1854 after  1 nni operations 
+## Final p-score 1859 after  1 nni operations 
+## Final p-score 1825 after  0 nni operations 
+## Final p-score 1729 after  0 nni operations 
+## Final p-score 1817 after  1 nni operations 
+## Final p-score 1744 after  1 nni operations 
+## Final p-score 1852 after  0 nni operations 
+## Final p-score 1815 after  2 nni operations 
+## Final p-score 1815 after  4 nni operations 
+## Final p-score 1798 after  1 nni operations 
+## Final p-score 1785 after  2 nni operations 
+## Final p-score 1674 after  0 nni operations 
+## Final p-score 1827 after  1 nni operations 
+## Final p-score 1798 after  0 nni operations 
+## Final p-score 1802 after  1 nni operations 
+## Final p-score 1872 after  1 nni operations 
+## Final p-score 1814 after  0 nni operations 
+## Final p-score 1769 after  2 nni operations 
+## Final p-score 1776 after  2 nni operations 
+## Final p-score 1802 after  0 nni operations 
+## Final p-score 1859 after  0 nni operations 
+## Final p-score 1695 after  1 nni operations 
+## Final p-score 1754 after  0 nni operations 
+## Final p-score 1785 after  0 nni operations 
+## Final p-score 1753 after  0 nni operations 
+## Final p-score 1840 after  3 nni operations 
+## Final p-score 1758 after  0 nni operations 
+## Final p-score 1885 after  5 nni operations 
+## Final p-score 1777 after  2 nni operations 
+## Final p-score 1782 after  0 nni operations 
+## Final p-score 1801 after  0 nni operations 
+## Final p-score 1735 after  2 nni operations 
+## Final p-score 1770 after  2 nni operations 
+## Final p-score 1814 after  0 nni operations 
+## Final p-score 1780 after  0 nni operations 
+## Final p-score 1777 after  1 nni operations 
+## Final p-score 1729 after  3 nni operations 
+## Final p-score 1877 after  1 nni operations 
+## Final p-score 1844 after  0 nni operations 
+## Final p-score 1710 after  2 nni operations 
+## Final p-score 1729 after  3 nni operations 
+## Final p-score 1820 after  1 nni operations 
+## Final p-score 1794 after  4 nni operations 
+## Final p-score 1799 after  0 nni operations 
+## Final p-score 1794 after  0 nni operations 
+## Final p-score 1829 after  0 nni operations 
+## Final p-score 1839 after  0 nni operations 
+## Final p-score 1778 after  0 nni operations 
+## Final p-score 1787 after  0 nni operations 
+## Final p-score 1826 after  0 nni operations 
+## Final p-score 1743 after  3 nni operations 
+## Final p-score 1777 after  1 nni operations 
+## Final p-score 1860 after  0 nni operations 
+## Final p-score 1801 after  0 nni operations 
+## Final p-score 1924 after  2 nni operations 
+## Final p-score 1751 after  1 nni operations 
+## Final p-score 1799 after  4 nni operations 
+## Final p-score 1828 after  1 nni operations 
+## Final p-score 1813 after  3 nni operations 
+## Final p-score 1825 after  1 nni operations 
+## Final p-score 1839 after  2 nni operations 
+## Final p-score 1711 after  4 nni operations 
+## Final p-score 1759 after  0 nni operations 
+## Final p-score 1832 after  0 nni operations 
+## Final p-score 1786 after  0 nni operations 
+## Final p-score 1770 after  1 nni operations 
+## Final p-score 1913 after  2 nni operations 
+## Final p-score 1868 after  1 nni operations 
+## Final p-score 1757 after  1 nni operations 
+## Final p-score 1804 after  0 nni operations 
+## Final p-score 1835 after  0 nni operations 
+## Final p-score 1702 after  3 nni operations 
+## Final p-score 1813 after  1 nni operations 
+## Final p-score 1859 after  4 nni operations 
+## Final p-score 1821 after  1 nni operations 
+## Final p-score 1820 after  1 nni operations 
+## Final p-score 1797 after  1 nni operations 
+## Final p-score 1873 after  3 nni operations 
+## Final p-score 1876 after  2 nni operations 
+## Final p-score 1792 after  0 nni operations 
+## Final p-score 1796 after  1 nni operations</code></pre>
+<p>To plot the bootstrap values, we can use a special plot function called <code>plotBS</code>. First, however, we need to root the tree. Then we can plot the rooted tree with our bootstrap values (saved in a list called “bs”), We are also going to format the bootstrap values so that only those values greater than 0.5 (50% bootstrap support) are shown using the <code>p</code> argument. We can also decide what color to make the bootstrap values and how many decimal places we want to see. (For a semi-complete list of colors in R, look <a href="https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/">here</a>.)</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb132-1" aria-hidden="true" tabindex="-1"></a>tree.root <span class="ot">&lt;-</span> <span class="fu">root</span>(fitGTR.G<span class="sc">$</span>tree, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>,<span class="st">&#39;Siberian wild rye_D-hordein&#39;</span>))</span>
+<span id="cb132-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb132-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-3"><a href="estimating-a-tree-using-maximum-likelihood.html#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotBS</span>(tree.root, bs, <span class="at">main =</span> <span class="st">&quot;GTR + G bootstrap&quot;</span>, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>,</span>
+<span id="cb132-4"><a href="estimating-a-tree-using-maximum-likelihood.html#cb132-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">bs.col=</span><span class="st">&quot;orange&quot;</span>, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="resources/images/09-bs_ml_tree.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+</div>
+<div id="saving-your-bootstrap-tree" class="section level2" number="18.6">
+<h2><span class="header-section-number">18.6</span> Saving your bootstrap tree</h2>
+<p>Before you end your session, make sure to save your trees to your persistent disk.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.tree</span>(fitGTR.G<span class="sc">$</span>tree, <span class="at">file=</span><span class="st">&quot;grass_ml.tre&quot;</span>)</span>
+<span id="cb133-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb133-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-3"><a href="estimating-a-tree-using-maximum-likelihood.html#cb133-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.tree</span>(bs, <span class="at">file=</span><span class="st">&quot;grass_ml_bootstrap.tre&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.3 LTS
+## 
+## Matrix products: default
+## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] phangorn_2.5.5 ape_5.4-1     
+## 
+## loaded via a namespace (and not attached):
+##  [1] igraph_1.2.6    Rcpp_1.0.8      knitr_1.33      magrittr_2.0.2 
+##  [5] hms_0.5.3       lattice_0.20-41 R6_2.4.1        quadprog_1.5-8 
+##  [9] rlang_0.4.10    fastmatch_1.1-0 highr_0.8       stringr_1.4.0  
+## [13] tools_4.0.2     parallel_4.0.2  grid_4.0.2      nlme_3.1-149   
+## [17] xfun_0.26       jquerylib_0.1.4 htmltools_0.5.0 ellipsis_0.3.1 
+## [21] ottrpal_0.1.2   yaml_2.2.1      digest_0.6.25   tibble_3.0.3   
+## [25] lifecycle_1.0.0 crayon_1.3.4    bookdown_0.24   Matrix_1.2-18  
+## [29] readr_1.4.0     vctrs_0.3.4     fs_1.5.0        evaluate_0.14  
+## [33] rmarkdown_2.10  stringi_1.5.3   compiler_4.0.2  pillar_1.4.6   
+## [37] pkgconfig_2.0.3</code></pre>
+
+</div>
+</div>
+<hr>
+<center> 
+  <div class="footer">
+      All illustrations <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY. </a>
+      <br>
+      All other materials <a href= "https://creativecommons.org/licenses/by/4.0/"> CC-BY </a> unless noted otherwise.
+  </div>
+</center>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="what-is-maximum-likelihood.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="about-the-authors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

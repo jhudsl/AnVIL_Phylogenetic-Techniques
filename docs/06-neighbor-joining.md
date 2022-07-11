@@ -93,7 +93,7 @@ There are enough substitution models out there that it can be a bit overwhelming
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.65 secs
+## Time difference of 0.64 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -110,7 +110,7 @@ There are enough substitution models out there that it can be a bit overwhelming
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.95 secs
+## Time difference of 0.94 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
