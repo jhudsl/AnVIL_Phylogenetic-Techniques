@@ -142,18 +142,24 @@ bs <- bootstrap.pml(fitGTR.G, bs=100, optNni=TRUE, control = pml.control(trace =
 
 To plot the bootstrap values, we can use a special plot function called `plotBS`. First, however, we need to root the tree. Then we can plot the rooted tree with our bootstrap values (saved in a list called "bs"), We are also going to format the bootstrap values so that only those values greater than 0.5 (50% bootstrap support) are shown using the `p` argument. We can also decide what color to make the bootstrap values and how many decimal places we want to see. (For a semi-complete list of colors in R, look [here](https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/).)
 
-```{r, warning=FALSE, message = FALSE}
+```{r, warning=FALSE, message = FALSE, eval=FALSE}
 tree.root <- root(fitGTR.G$tree, outgroup = c('barley_D-hordein','Siberian wild rye_D-hordein'))
 
 plotBS(tree.root, bs, main = "GTR + G bootstrap", type = "p",
        bs.col="orange", p = 0.5, digits = 2)
 ```
 
+
+
+<img src="resources/images/09-bs_ml_tree.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+
 ## Saving your bootstrap tree
 
 Before you end your session, make sure to save your trees to your persistent disk.
 
-```{r, warning=FALSE, message = FALSE}
+```{r, warning=FALSE, message = FALSE, eval=FALSE}
 write.tree(fitGTR.G$tree, file="grass_ml.tre")
 
 write.tree(bs, file="grass_ml_bootstrap.tre")
