@@ -70,7 +70,9 @@ fitGTR.G <- update(fit, model = "GTR", k = 4)
 fitGTR.G <- optim.pml(fitGTR.G, model = "GTR", optGamma = T, rearrangement = "stochastic", control = pml.control(trace = 0))
 
 tree.root <- root(fitGTR.G$tree, outgroup = c('barley_D-hordein','Siberian wild rye_D-hordein'))
+```
 
+```{r, warning=FALSE, message = FALSE, eval=F}
 plot(tree.root)
 nodelabels()
 ```
@@ -118,7 +120,7 @@ plot(time.tree_dated)
 edgelabels(time.tree_dated$edge.length, bg="black", col="white", font=2)
 ```
 
-Behold, you have a time tree. The branch lengths are now scaled to million of years, so you can estimate the age of MRCA between any two taxa on the tree. For example, our tree suggests the MRCA between mosquito grass and medusahead rye lived 10.98 MYA (the length of the branch between mosquito grass and the node that denotes the common ancestor with medusahead rye).
+Behold, you have a time tree. The branch lengths are now scaled to million of years, so you can estimate the age of MRCA between any two taxa on the tree. For example, based on the discrete clock model, our tree suggests the MRCA between mosquito grass and medusahead rye lived ~11 MYA (the length of the branch between mosquito grass and the node that denotes the common ancestor with medusahead rye).
 
 Before you end your session, make sure you save your tree (and then download the .tre file to your desktop).
 
