@@ -59,6 +59,7 @@ If we trace the branches until we find the node where they connect, we can see i
 
 ```{r, warning=FALSE, message = FALSE}
 library(ape)
+library(phangorn)
 
 grass.align <- read.phyDat("grass_aligned-renamed.fasta", format = "fasta")
 dist <- dist.ml(grass.align)
