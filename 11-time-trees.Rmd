@@ -87,7 +87,7 @@ The `chronos` command takes several arguments. The first is a lambda starting es
 The remaining arguments is the calibration data frame (which includes the actual calibration points). We use the command `makeChronosCalib` command to create the calibration data frame. This command takes the ML tree as the first argument.
 
 ```{r, warning=FALSE, message = FALSE}
-calib <- makeChronosCalib(time.tree, node = 21, age.min = 2.6, age.max = 16.5)
+calib <- makeChronosCalib(tree.root, node = 21, age.min = 2.6, age.max = 16.5)
 
 calib
 ```
