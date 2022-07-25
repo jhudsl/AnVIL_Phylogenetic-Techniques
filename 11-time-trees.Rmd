@@ -57,7 +57,7 @@ When we look at the grass tree, we see the node that indicates the MRCA between 
 
 If we trace the branches until we find the node where they connect, we can see it is the basal node of the tree (the node which connects the ingroup to the outgroup). In order to add a calibration date to our ML tree in R, we need to know how R has identified (or labeled) that particular node. You can either load your saved ML tree or create it again. 
 
-```{r, warning=FALSE, message = FALSE, eval = FALSE}
+```{r, warning=FALSE, message = FALSE}
 library(ape)
 
 grass.align <- read.phyDat("grass_aligned-renamed.fasta", format = "fasta")
