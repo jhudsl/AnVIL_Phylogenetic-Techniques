@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 What sequences should I choose? | Molecular Phylogenetic Techniques</title>
+  <title>Chapter 20 Adding calibration points to your phylogenies | Molecular Phylogenetic Techniques</title>
   <meta name="description" content="Description about Course/Book." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 What sequences should I choose? | Molecular Phylogenetic Techniques" />
+  <meta property="og:title" content="Chapter 20 Adding calibration points to your phylogenies | Molecular Phylogenetic Techniques" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 What sequences should I choose? | Molecular Phylogenetic Techniques" />
+  <meta name="twitter:title" content="Chapter 20 Adding calibration points to your phylogenies | Molecular Phylogenetic Techniques" />
   
   <meta name="twitter:description" content="Description about Course/Book." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
-<link rel="prev" href="visualizing-trees-in-r.html"/>
-<link rel="next" href="finding-sequences-in-genbank.html"/>
+<link rel="prev" href="what-is-a-time-tree.html"/>
+<link rel="next" href="about-the-authors.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -301,16 +301,123 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="hero-image-container"> 
   <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
 </div>
-<div id="what-sequences-should-i-choose" class="section level1" number="7">
-<h1><span class="header-section-number">Chapter 7</span> What sequences should I choose?</h1>
-<p>Phylogenies are only as good as the data used to infer them, so it’s worth it to the spend some time carefully choosing the genomic regions and samples you will use. Good planning from the beginning will save you headaches further downstream.</p>
-<p>First, you should ask yourself: <strong>what information are you hoping to gain from the tree?</strong> Are you hoping to reconstruct the history of organisms, or the history of a region of DNA, or the history of a protein? The answer will guide your choice of sequence and samples.</p>
-<p><em>For closely related species in which you might hope to figure out some sort of information about the divergence between the species</em> (including the timing of the divergence), you would use areas of the genome known to accumulate changes rapidly (non-coding regions that also do not have functionality, or whose functionality is not easily changed by changes in the DNA base sequence). Some examples of rapidly changing genetic regions include the mitochondrial control region, the wobble base on mitochondrial coding regions, and nuclear introns. It is also important to use “dense taxon sampling” among closely related species because any small change can seem disproportionately important in a recent divergence. Having multiple individuals sampled from each phylogenetic unit of interest (could be species, subspecies, or populations) helps to compensate by showing the genetic divergence within a group. This within-group divergence can then be accurately compared to the genetic divergence between two groups.</p>
-<p><em>For more divergent species and comparisons</em>, you use areas of the genome that do not change as rapidly. For example, if you wanted to do a survey of the placental mammals, you could choose a gene region that is under enough selection pressure that it mutates more slowly than the regions you would choose for closely related species.</p>
-<p><em>If you are examining the relationships among deeply divergent species, or when the base-pair signal is completely swamped out over time</em>, you might search for amino acid sequence similarities instead of DNA sequence similarities. Because of wobble, amino acid sequence can remain the same even when bases change. Sometimes amino acids of similar size/charge/shape can be substituted for others, which would result in a complete change in base pair sequence (and loss of ability to find similar sequences), but allows for finding similarities through amino acid sequence. Even when using protein sequence, it is often helpful to extract the coding sequence (once similar protein sequences have been found), because that adds extra information to fine tune the phylogenetic analysis. This technique can also be used when the primary goal is to trace the history of a particular gene (when the changes in the gene itself are of interest.)</p>
-<div class="fyi">
-<p>To attempt a reconstruction of the evolutionary history of organisms, you really should use multiple lines of evidence and not rely solely on genomic data. For example to reconstruct primate evolution, one looks at the fossil record, molecular divergence, and also phylogeographic evidence (how these things map onto our understanding of the geography of the earth at various crucial time points along primate evolution). Examples of phylogeographic evidence include understanding when terrestrial (land-based) organisms might have been cut off from each other due to the formation of a river or lake, the eradication of a land bridge by melting glaciers and a rise in the earth’s temperature (which raises the sea level).</p>
-<p>Alas, for this book, we are limited to only using genomic data.</p>
+<div id="adding-calibration-points-to-your-phylogenies" class="section level1" number="20">
+<h1><span class="header-section-number">Chapter 20</span> Adding calibration points to your phylogenies</h1>
+<p>This week we will be working with both RStudio and BEAST. Within RStudio, we will be using the <code>ape</code> package again.</p>
+<div id="choosing-calibration-points" class="section level2" number="20.1">
+<h2><span class="header-section-number">20.1</span> Choosing calibration points</h2>
+<p>This week, you should choose at least one calibration point to add to your tree. You can pick any two taxa from a tree and figure out the estimated age of the divergence between them (or the estimated age of the most recent common ancestor between them). The website <a href="http://timetree.org/">TimeTree</a> has divergence estimates for many different taxa pairs.</p>
+<p>When two taxa (usually species, but it could be taxa from higher taxonomic levels) are entered into TimeTree, the website first checks whether these taxa are in the TimeTree of Life database. If they are, the divergence estimate between the two (the age of the MRCA between them) is retrieved. If one or both of the taxa are <em>not</em> in the database, the website scans NCBI taxonomy to find the closest relative of the species and uses that as a proxy to find the MRCA for two taxa.</p>
+<p>If your taxa are not on TimeTree, you will have to be creative in finding a calibration point. You might be able to find information in the literature. If you are working with viral samples, you can use the date the sample was collected as a tip calibration point. If nothing works and you are stuck, email me and I will send you the grass dataset to work with.</p>
+<p>For the grass dataset, let’s use the divergence between bread wheat (<em>Triticum aestivum</em>) and crested wheatgrass (<em>Agropyron cristatum</em>). When we search TimeTree, we see several estimated divergence times.</p>
+<p><img src="resources/images/11-divergence.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>TimeTree gives us two divergence estimates: a median estimate (with 95% confidence interval), and an adjusted time, which is quite a bit older than the median estimate. This is what TimeTree says about their adjusted time estimate: “Answer: Due to conflicting time estimates between studies, ancestral nodes can be assigned younger ages than their descendants. A smoothing technique is used to adjust these times so the resulting tree is ultrametric.” (An ultrametric tree is one where all the a rooted tree with edge lengths where all leaves are equidistant from the root. When trees have been scaled using calibration points, they often become ultrametric.)</p>
+<p>In this case, the very youngest divergence estimate from TimeTree is 2.6 million years ago (MYA), while the oldest is 16.5 MYA. We will use these estimates going forward. We could have easily chosen the other estimates as well. There isn’t necessarily a right or wrong choice here. You just need to be upfront about the estimates you chose.</p>
+</div>
+<div id="adding-calibration-points-to-internal-nodes-for-ml-trees" class="section level2" number="20.2">
+<h2><span class="header-section-number">20.2</span> Adding calibration points to internal nodes for ML trees</h2>
+<p>When we look at the grass tree, we see the node that indicates the MRCA between crested wheatgrass and bread wheat (labeled wheat on the tree) is pretty deep within the tree.</p>
+<p><img src="resources/images/11-grass_tree_mapped.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>If we trace the branches until we find the node where they connect, we can see it is the basal node of the tree (the node which connects the ingroup to the outgroup). In order to add a calibration date to our ML tree in R, we need to know how R has identified (or labeled) that particular node. You can either load your saved ML tree or create it again.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb136-2"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phangorn)</span>
+<span id="cb136-3"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-4"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-4" aria-hidden="true" tabindex="-1"></a>grass.align <span class="ot">&lt;-</span> <span class="fu">read.phyDat</span>(<span class="st">&quot;grass_aligned-renamed.fasta&quot;</span>, <span class="at">format =</span> <span class="st">&quot;fasta&quot;</span>)</span>
+<span id="cb136-5"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-5" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">dist.ml</span>(grass.align)</span>
+<span id="cb136-6"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-6" aria-hidden="true" tabindex="-1"></a>nj.tree <span class="ot">&lt;-</span> <span class="fu">nj</span>(dist)</span>
+<span id="cb136-7"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-8"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-8" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">pml</span>(nj.tree, <span class="at">data =</span> grass.align)</span>
+<span id="cb136-9"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-9" aria-hidden="true" tabindex="-1"></a>fitGTR.G <span class="ot">&lt;-</span> <span class="fu">update</span>(fit, <span class="at">model =</span> <span class="st">&quot;GTR&quot;</span>, <span class="at">k =</span> <span class="dv">4</span>)</span>
+<span id="cb136-10"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-10" aria-hidden="true" tabindex="-1"></a>fitGTR.G <span class="ot">&lt;-</span> <span class="fu">optim.pml</span>(fitGTR.G, <span class="at">model =</span> <span class="st">&quot;GTR&quot;</span>, <span class="at">optGamma =</span> T, <span class="at">rearrangement =</span> <span class="st">&quot;stochastic&quot;</span>, <span class="at">control =</span> <span class="fu">pml.control</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span>
+<span id="cb136-11"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-12"><a href="adding-calibration-points-to-your-phylogenies.html#cb136-12" aria-hidden="true" tabindex="-1"></a>tree.root <span class="ot">&lt;-</span> <span class="fu">root</span>(fitGTR.G<span class="sc">$</span>tree, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>,<span class="st">&#39;Siberian wild rye_D-hordein&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="adding-calibration-points-to-your-phylogenies.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree.root)</span>
+<span id="cb137-2"><a href="adding-calibration-points-to-your-phylogenies.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>()</span></code></pre></div>
+<p><img src="resources/images/11-grass_tree_nodes.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>The node that connects crested wheatgrass and wheat (and indicates the MRCA between the two) is node 21. We will use that information, as well as the estimated divergence times from TimeTree, to apply a timescale to the ML tree using the <code>chronos</code> command from the <code>ape</code> package. If you’d like to read more about it, the <code>ape</code> manual is <a href="https://cran.r-project.org/web/packages/ape/ape.pdf">here</a>.</p>
+<p>The <code>chronos</code> command takes several arguments. The first is a lambda starting estimate (the smoothing parameter). The next argument is the model of rate substitution variation (how much should the mutation rate vary among the branches of the tree?). <code>chronos</code> can implement a strict clock (no variation, called “clock”), a correlated clock (where the variation is correlated between branches, but does exist, called “correlated”), a discrete clock (where estimates are discrete for each branch and requires multiple estimated parameters, called “discrete”), or a relaxed clock. The relaxed clock (called “relaxed”) allows for discrete mutation rates on the branches, but doesn’t involve estimating a different parameter for each branch. We’ll implement the discrete clock in this example. (The estimation is fairly quick, so you can easily implement all four and see how the resulting trees differ.)</p>
+<p>The remaining arguments is the calibration data frame (which includes the actual calibration points). We use the command <code>makeChronosCalib</code> command to create the calibration data frame. This command takes the ML tree as the first argument.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="adding-calibration-points-to-your-phylogenies.html#cb138-1" aria-hidden="true" tabindex="-1"></a>calib <span class="ot">&lt;-</span> <span class="fu">makeChronosCalib</span>(tree.root, <span class="at">node =</span> <span class="dv">21</span>, <span class="at">age.min =</span> <span class="fl">2.6</span>, <span class="at">age.max =</span> <span class="fl">16.5</span>)</span>
+<span id="cb138-2"><a href="adding-calibration-points-to-your-phylogenies.html#cb138-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-3"><a href="adding-calibration-points-to-your-phylogenies.html#cb138-3" aria-hidden="true" tabindex="-1"></a>calib</span></code></pre></div>
+<pre><code>##   node age.min age.max soft.bounds
+## 1   21     2.6    16.5       FALSE</code></pre>
+<p>If we want to add more calibration points, we can use the <code>c</code> (concatenate) command. This tells R that a string of multiple entries are being entered at once.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="adding-calibration-points-to-your-phylogenies.html#cb140-1" aria-hidden="true" tabindex="-1"></a>calib2 <span class="ot">&lt;-</span> <span class="fu">makeChronosCalib</span>(tree.root, <span class="at">node =</span> <span class="fu">c</span>(<span class="st">&quot;21&quot;</span>, <span class="st">&quot;19&quot;</span>), <span class="at">age.min =</span> <span class="fu">c</span>(<span class="fl">2.6</span>,<span class="fl">3.0</span>), <span class="at">age.max =</span> <span class="fu">c</span>(<span class="fl">16.5</span>, <span class="fl">16.5</span>))</span>
+<span id="cb140-2"><a href="adding-calibration-points-to-your-phylogenies.html#cb140-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-3"><a href="adding-calibration-points-to-your-phylogenies.html#cb140-3" aria-hidden="true" tabindex="-1"></a>calib2</span></code></pre></div>
+<pre><code>##   node age.min age.max soft.bounds
+## 1   21     2.6    16.5       FALSE
+## 2   19     3.0    16.5       FALSE</code></pre>
+<p>Creating the time tree, we simply combine the <code>chronos</code> and <code>makeChronosCalib</code> commands.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="adding-calibration-points-to-your-phylogenies.html#cb142-1" aria-hidden="true" tabindex="-1"></a>time.tree <span class="ot">&lt;-</span> <span class="fu">as.phylo</span>(tree.root)</span>
+<span id="cb142-2"><a href="adding-calibration-points-to-your-phylogenies.html#cb142-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-3"><a href="adding-calibration-points-to-your-phylogenies.html#cb142-3" aria-hidden="true" tabindex="-1"></a>time.tree_dated <span class="ot">&lt;-</span> <span class="fu">chronos</span>(time.tree, <span class="at">lambda =</span> <span class="dv">1</span>, <span class="at">model =</span> <span class="st">&quot;discrete&quot;</span>, <span class="at">quiet =</span> <span class="cn">FALSE</span>, <span class="at">calibration =</span> calib, <span class="at">control =</span> <span class="fu">chronos.control</span>())</span></code></pre></div>
+<pre><code>## 
+## Setting initial dates...
+## Fitting in progress... get a first set of estimates
+##          (Penalised) log-lik = -4.110631 
+## Optimising rates... frequencies... dates... -4.110631 
+## Optimising rates... frequencies... dates... -3.795125 
+## 
+## log-Lik = -3.795125 
+## PHIIC = 67.59</code></pre>
+<p>Before we plot the tree, we need to do a bit of formatting of the branch lengths (called edge.length). R will be default save these values to 10 decimal places, which can make visualization a little tricky. We’re going to format them so they only have two decimal places, then plot them on top of the time tree.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="adding-calibration-points-to-your-phylogenies.html#cb144-1" aria-hidden="true" tabindex="-1"></a>time.tree_dated<span class="sc">$</span>edge.length <span class="ot">&lt;-</span> <span class="fu">round</span>(time.tree_dated<span class="sc">$</span>edge.length, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb144-2"><a href="adding-calibration-points-to-your-phylogenies.html#cb144-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-3"><a href="adding-calibration-points-to-your-phylogenies.html#cb144-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(time.tree_dated)</span>
+<span id="cb144-4"><a href="adding-calibration-points-to-your-phylogenies.html#cb144-4" aria-hidden="true" tabindex="-1"></a><span class="fu">edgelabels</span>(time.tree_dated<span class="sc">$</span>edge.length, <span class="at">bg=</span><span class="st">&quot;black&quot;</span>, <span class="at">col=</span><span class="st">&quot;white&quot;</span>, <span class="at">font=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="resources/images/11-time-trees_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Behold, you have a time tree. The branch lengths are now scaled to million of years, so you can estimate the age of MRCA between any two taxa on the tree. For example, based on the discrete clock model, our tree suggests the MRCA between mosquito grass and medusahead rye lived ~11 MYA (the length of the branch between mosquito grass and the node that denotes the common ancestor with medusahead rye).</p>
+<p>Before you end your session, make sure you save your tree (and then download the .tre file to your desktop).</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="adding-calibration-points-to-your-phylogenies.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.tree</span>(time.tree_dated, <span class="st">&quot;ml_grass_timetree.tre&quot;</span>)</span></code></pre></div>
+</div>
+<div id="adding-calibration-points-for-bayesian-trees" class="section level2" number="20.3">
+<h2><span class="header-section-number">20.3</span> Adding calibration points for Bayesian trees</h2>
+<p>We can add calibration points using the BEAUTi gui you worked with last week. In this case, we open BEAUTi and load our dataset. We have two choices at this point: we can choose the “Tip Dates” tab and specify the date each sample was taken (useful for viral trees, especially during an outbreak), or we can choose the “Clock Model” tab (if you do this, use a strict clock model unless you are certain your data are not clock-like).</p>
+<p>If you’ve chosen to not use Tip Dates, we will add additional calibration points in the “Priors” tab. These instructions are taken from the tutorial you worked with last week.</p>
+<p><img src="resources/images/11-beast_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p><img src="resources/images/11-beast_2.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>The rest of your parameters (including your substitution model and priors) can be set to the same values you used last week. Follow the instructions from last week to get your final Bayesian tree.</p>
+</div>
+<div id="visualizing-the-time-trees-in-figtree" class="section level2" number="20.4">
+<h2><span class="header-section-number">20.4</span> Visualizing the time trees in FigTree</h2>
+<p>After you finish creating your trees, you can visualize both the ML and Bayesian tree using FigTree. Play around with the options to make the tree look nice - I recommend making the tip labels larger. Be sure to include your branch lengths! Those are now scaled to be the divergence times for both the ML and Bayesian trees.</p>
+<p><img src="resources/images/11-grass_ml_figtree.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="adding-calibration-points-to-your-phylogenies.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.3 LTS
+## 
+## Matrix products: default
+## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] phangorn_2.5.5 ape_5.4-1     
+## 
+## loaded via a namespace (and not attached):
+##  [1] igraph_1.2.6    Rcpp_1.0.8      knitr_1.33      magrittr_2.0.2 
+##  [5] hms_0.5.3       lattice_0.20-41 R6_2.4.1        quadprog_1.5-8 
+##  [9] rlang_0.4.10    fastmatch_1.1-0 highr_0.8       stringr_1.4.0  
+## [13] tools_4.0.2     parallel_4.0.2  grid_4.0.2      nlme_3.1-149   
+## [17] xfun_0.26       jquerylib_0.1.4 htmltools_0.5.0 ellipsis_0.3.1 
+## [21] ottrpal_0.1.2   yaml_2.2.1      digest_0.6.25   tibble_3.0.3   
+## [25] lifecycle_1.0.0 crayon_1.3.4    bookdown_0.24   Matrix_1.2-18  
+## [29] readr_1.4.0     vctrs_0.3.4     fs_1.5.0        evaluate_0.14  
+## [33] rmarkdown_2.10  stringi_1.5.3   compiler_4.0.2  pillar_1.4.6   
+## [37] pkgconfig_2.0.3</code></pre>
+
 </div>
 </div>
 <hr>
@@ -326,8 +433,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="visualizing-trees-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="finding-sequences-in-genbank.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="what-is-a-time-tree.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="about-the-authors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

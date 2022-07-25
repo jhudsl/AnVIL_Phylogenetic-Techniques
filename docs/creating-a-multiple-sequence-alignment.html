@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-07-11" />
+<meta name="date" content="2022-07-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -252,8 +252,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.5" data-path="estimating-a-tree-using-maximum-likelihood.html"><a href="estimating-a-tree-using-maximum-likelihood.html#bootstrapping-the-ml-tree"><i class="fa fa-check"></i><b>18.5</b> Bootstrapping the ML tree</a></li>
 <li class="chapter" data-level="18.6" data-path="estimating-a-tree-using-maximum-likelihood.html"><a href="estimating-a-tree-using-maximum-likelihood.html#saving-your-bootstrap-tree"><i class="fa fa-check"></i><b>18.6</b> Saving your bootstrap tree</a></li>
 </ul></li>
+<li class="part"><span><b>TIME TREES</b></span></li>
+<li class="chapter" data-level="19" data-path="what-is-a-time-tree.html"><a href="what-is-a-time-tree.html"><i class="fa fa-check"></i><b>19</b> What is a time tree?</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="what-is-a-time-tree.html"><a href="what-is-a-time-tree.html#molecular-clocks"><i class="fa fa-check"></i><b>19.1</b> Molecular clocks</a></li>
+<li class="chapter" data-level="19.2" data-path="what-is-a-time-tree.html"><a href="what-is-a-time-tree.html#calibration-points"><i class="fa fa-check"></i><b>19.2</b> Calibration points</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="adding-calibration-points-to-your-phylogenies.html"><a href="adding-calibration-points-to-your-phylogenies.html"><i class="fa fa-check"></i><b>20</b> Adding calibration points to your phylogenies</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="adding-calibration-points-to-your-phylogenies.html"><a href="adding-calibration-points-to-your-phylogenies.html#choosing-calibration-points"><i class="fa fa-check"></i><b>20.1</b> Choosing calibration points</a></li>
+<li class="chapter" data-level="20.2" data-path="adding-calibration-points-to-your-phylogenies.html"><a href="adding-calibration-points-to-your-phylogenies.html#adding-calibration-points-to-internal-nodes-for-ml-trees"><i class="fa fa-check"></i><b>20.2</b> Adding calibration points to internal nodes for ML trees</a></li>
+<li class="chapter" data-level="20.3" data-path="adding-calibration-points-to-your-phylogenies.html"><a href="adding-calibration-points-to-your-phylogenies.html#adding-calibration-points-for-bayesian-trees"><i class="fa fa-check"></i><b>20.3</b> Adding calibration points for Bayesian trees</a></li>
+<li class="chapter" data-level="20.4" data-path="adding-calibration-points-to-your-phylogenies.html"><a href="adding-calibration-points-to-your-phylogenies.html#visualizing-the-time-trees-in-figtree"><i class="fa fa-check"></i><b>20.4</b> Visualizing the time trees in FigTree</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
-<li class="chapter" data-level="19" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>19</b> References</a></li>
+<li class="chapter" data-level="21" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>21</b> References</a></li>
 <li class="divider"></li>
 <p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
@@ -341,7 +354,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.4 secs
+## Time difference of 0.55 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -358,7 +371,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.58 secs
+## Time difference of 0.85 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -370,17 +383,17 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Reclustering into groups by similarity:
 ## ================================================================================
 ## 
-## Time difference of 0 secs
+## Time difference of 0.01 secs
 ## 
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.83 secs
+## Time difference of 1.26 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.67 secs</code></pre>
+## Time difference of 1.03 secs</code></pre>
 <p>We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-a-multiple-sequence-alignment.html#cb35-1" aria-hidden="true" tabindex="-1"></a>DNA.trans <span class="ot">&lt;-</span> <span class="fu">AlignTranslation</span>(dna)</span></code></pre></div>
 <pre><code>## Determining distance matrix based on shared 5-mers:
@@ -396,7 +409,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.22 secs
+## Time difference of 0.35 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -413,7 +426,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.23 secs
+## Time difference of 0.35 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -430,7 +443,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.21 secs</code></pre>
+## Time difference of 0.37 secs</code></pre>
 <p>Translating the nucleotide sequences sped up the alignment process, although both were fast enough it isn’t a big deal to directly align the nucleotides. Your choice of which alignment procedure to use will largely come down to whether you are using coding sequence and how divergent your samples are. If you aren’t using coding sequence, you will need to align using the nucleotides. If you have samples from deeply divergent species (especially if they come from different phyla), you will generally get a better alignment if you let the program translate your nucleotide sequence to amino acids first.</p>
 <p>Now that we’ve created alignments, it would be helpful to visually check them. (This is possible if your sequences aren’t too long, but can become really hard once you start dealing with very long stretches of DNA!) The <code>BrowseSeqs</code> command opens a browser window with the aligned sequences. Just remember which window belongs to each alignment!</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-a-multiple-sequence-alignment.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans)</span>
@@ -455,7 +468,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.4 secs
+## Time difference of 0.56 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -467,12 +480,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Reclustering into groups by similarity:
 ## ================================================================================
 ## 
-## Time difference of 0 secs
+## Time difference of 0.01 secs
 ## 
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.54 secs
+## Time difference of 0.84 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -489,12 +502,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.88 secs
+## Time difference of 1.37 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.95 secs</code></pre>
+## Time difference of 1.11 secs</code></pre>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="creating-a-multiple-sequence-alignment.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans<span class="fl">.1</span>)</span></code></pre></div>
 <p>Changing the gap opening and gap extension costs may or may not make a difference. In many cases, the default parameters will work just fine. However, it is always wise to check additional values!</p>
 <p>For the grass samples, it would be reasonable to use the alignment generated by the <code>AlignSeqs</code> method. This is a judgment call more than anything else - there are large sections of the alignment that include all the sequences with minimal changes. We’ll want to trim it to remove the ends with very little sequence coverage. We will keep everything between base 140 and 3373. To trim the sequences, we will write a new fasta file, then use it to create a new <code>DNAbin</code> object. If you haven’t already loaded the <code>ape</code> library in your R session, you should do so now using the <code>library(ape)</code> command.</p>
