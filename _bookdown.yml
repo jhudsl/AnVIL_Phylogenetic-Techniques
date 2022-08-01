@@ -13,6 +13,7 @@ rmd_files: ["index.Rmd",
             "08-more-tree-thinking.Rmd",
             "09-maximum-likelihood.Rmd",
             "11-time-trees.Rmd",
+            "12-networks.Rmd",
             "About.Rmd",
             "References.Rmd"]
 new_session: yes
