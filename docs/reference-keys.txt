@@ -79,4 +79,9 @@ choosing-calibration-points
 adding-calibration-points-to-internal-nodes-for-ml-trees
 adding-calibration-points-for-bayesian-trees
 visualizing-the-time-trees-in-figtree
+what-is-a-network
+why-do-we-see-competing-phylogenetic-relationships
+visualizing-phylogenetic-networks
+using-densitree
+networks-in-r
 references

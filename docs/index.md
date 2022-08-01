@@ -1,6 +1,6 @@
 ---
 title: "Molecular Phylogenetic Techniques"
-date: "July 25, 2022"
+date: "August 01, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: book.bib
