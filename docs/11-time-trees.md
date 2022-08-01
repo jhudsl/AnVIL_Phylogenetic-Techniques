@@ -1,8 +1,6 @@
 # (PART\*) TIME TREES {-}
 
-```{r, include = FALSE}
-ottrpal::set_knitr_image_path()
-```
+
 # What is a time tree?
 
 We're tackling the topic of time trees, which are basically phylogenetic trees where the branches have been scaled to show time since divergence. Short branches mean very little time has passed since the most recent common ancestor, while longer branches mean a long time has passed. Without realizing it, you have probably looked at trees you've built earlier in the class and assumed the branches indicate time as well as the number of mutations or changes seen in your alignment. This is really only true when the branches have been scaled.
@@ -57,7 +55,8 @@ When we look at the grass tree, we see the node that indicates the MRCA between 
 
 If we trace the branches until we find the node where they connect, we can see it is the basal node of the tree (the node which connects the ingroup to the outgroup). In order to add a calibration date to our ML tree in R, we need to know how R has identified (or labeled) that particular node. You can either load your saved ML tree or create it again. 
 
-```{r, warning=FALSE, message = FALSE}
+
+```r
 library(ape)
 library(phangorn)
 
@@ -72,7 +71,8 @@ fitGTR.G <- optim.pml(fitGTR.G, model = "GTR", optGamma = T, rearrangement = "st
 tree.root <- root(fitGTR.G$tree, outgroup = c('barley_D-hordein','Siberian wild rye_D-hordein'))
 ```
 
-```{r, warning=FALSE, message = FALSE, eval=F}
+
+```r
 plot(tree.root)
 nodelabels()
 ```
@@ -88,43 +88,73 @@ The `chronos` command takes several arguments. The first is a lambda starting es
 
 The remaining arguments is the calibration data frame (which includes the actual calibration points). We use the command `makeChronosCalib` command to create the calibration data frame. This command takes the ML tree as the first argument.
 
-```{r, warning=FALSE, message = FALSE}
+
+```r
 calib <- makeChronosCalib(tree.root, node = 21, age.min = 2.6, age.max = 16.5)
 
 calib
 ```
 
+```
+##   node age.min age.max soft.bounds
+## 1   21     2.6    16.5       FALSE
+```
+
 
 If we want to add more calibration points, we can use the `c` (concatenate) command. This tells R that a string of multiple entries are being entered at once.
 
-```{r, warning=FALSE, message = FALSE}
+
+```r
 calib2 <- makeChronosCalib(tree.root, node = c("21", "19"), age.min = c(2.6,3.0), age.max = c(16.5, 16.5))
 
 calib2
 ```
 
+```
+##   node age.min age.max soft.bounds
+## 1   21     2.6    16.5       FALSE
+## 2   19     3.0    16.5       FALSE
+```
+
 Creating the time tree, we simply combine the `chronos` and `makeChronosCalib` commands.
 
-```{r, warning=FALSE, message = FALSE}
+
+```r
 time.tree <- as.phylo(tree.root)
 
 time.tree_dated <- chronos(time.tree, lambda = 1, model = "discrete", quiet = FALSE, calibration = calib, control = chronos.control())
 ```
 
+```
+## 
+## Setting initial dates...
+## Fitting in progress... get a first set of estimates
+##          (Penalised) log-lik = -4.110631 
+## Optimising rates... frequencies... dates... -4.110631 
+## Optimising rates... frequencies... dates... -3.795125 
+## 
+## log-Lik = -3.795125 
+## PHIIC = 67.59
+```
+
 Before we plot the tree, we need to do a bit of formatting of the branch lengths (called edge.length). R will be default save these values to 10 decimal places, which can make visualization a little tricky. We're going to format them so they only have two decimal places, then plot them on top of the time tree.
 
-```{r, warning=FALSE, message = FALSE}
+
+```r
 time.tree_dated$edge.length <- round(time.tree_dated$edge.length, digits = 2)
 
 plot(time.tree_dated)
 edgelabels(time.tree_dated$edge.length, bg="black", col="white", font=2)
 ```
 
+<img src="resources/images/11-time-trees_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+
 Behold, you have a time tree. The branch lengths are now scaled to million of years, so you can estimate the age of MRCA between any two taxa on the tree. For example, based on the discrete clock model, our tree suggests the MRCA between mosquito grass and medusahead rye lived ~11 MYA (the length of the branch between mosquito grass and the node that denotes the common ancestor with medusahead rye).
 
 Before you end your session, make sure you save your tree (and then download the .tre file to your desktop).
 
-```{r, warning=FALSE, message = FALSE}
+
+```r
 write.tree(time.tree_dated, "ml_grass_timetree.tre")
 ```
 
@@ -157,7 +187,43 @@ After you finish creating your trees, you can visualize both the ML and Bayesian
 
 
 
-```{r}
+
+```r
 sessionInfo()
+```
+
+```
+## R version 4.0.2 (2020-06-22)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 20.04.3 LTS
+## 
+## Matrix products: default
+## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] phangorn_2.5.5 ape_5.4-1     
+## 
+## loaded via a namespace (and not attached):
+##  [1] igraph_1.2.6    Rcpp_1.0.8      knitr_1.33      magrittr_2.0.2 
+##  [5] hms_0.5.3       lattice_0.20-41 R6_2.4.1        quadprog_1.5-8 
+##  [9] rlang_0.4.10    fastmatch_1.1-0 highr_0.8       stringr_1.4.0  
+## [13] tools_4.0.2     parallel_4.0.2  grid_4.0.2      nlme_3.1-149   
+## [17] xfun_0.26       jquerylib_0.1.4 htmltools_0.5.0 ellipsis_0.3.1 
+## [21] ottrpal_0.1.2   yaml_2.2.1      digest_0.6.25   tibble_3.0.3   
+## [25] lifecycle_1.0.0 crayon_1.3.4    bookdown_0.24   Matrix_1.2-18  
+## [29] readr_1.4.0     vctrs_0.3.4     fs_1.5.0        evaluate_0.14  
+## [33] rmarkdown_2.10  stringi_1.5.3   compiler_4.0.2  pillar_1.4.6   
+## [37] pkgconfig_2.0.3
 ```
 

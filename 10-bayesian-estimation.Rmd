@@ -1,9 +1,42 @@
-# (PART\*) GETTING SEQUENCES {-}
+# (PART\*) BAYESIAN ESTIMATION {-}
 
 ```{r, include = FALSE}
 ottrpal::set_knitr_image_path()
 ```
 
+# The Bayesian approach
+
+## Bayes' theorem
+
+
+
+# Bayesian tree estimation using babette
+
+## Installing beast2 (using mauricier)
+
+Before we can start using `babette`, we need to also install the beast2 program. We can do this directly from the R command line (the RStudio console), although it involves installing from a remote source instead of installing from CRAN (`install.packages`) or installing from AnVIL (`AnVIL::install`). The authors of `babette` have created a secondary program called `beastierinstall` that will do all the work of installing beast2 for us. 
+
+When prompted about updating packages, you can just hit enter. Nothing needs to be updated.
+
+```{r, warning=FALSE, message = FALSE}
+remotes::install_github("richelbilderbeek/beastierinstall")
+
+library(beastierinstall)
+install_beast2()
+```
+
+
+## Formatting the input file (beautier/BEAUTi)
+
+Unfortunately, beast2 requires input files to be in xml format (as opposed to fasta or nexus format, like many other phylogenetic programs). When you use the beast2 package directly, you can convert your data into xml format using the accessory program BEAUTi. 
+
+## Running the analysis (beastier/beast2)
+
+
+## Visualizing posterior parameter estimates (tracerer/tracer)
+
+
+## Visualizing posterior phylogenies (babette/DensiTree)
 
 
 ```{r, echo = FALSE, warning=FALSE, message = FALSE}

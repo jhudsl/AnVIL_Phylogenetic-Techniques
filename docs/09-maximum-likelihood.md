@@ -163,14 +163,14 @@ fitGTR.G
 ## unconstrained loglikelihood: -20560.86 
 ## Discrete gamma model
 ## Number of rate categories: 4 
-## Shape parameter: 1.373378 
+## Shape parameter: 1.373376 
 ## 
 ## Rate matrix:
-##           a         c         g         t
-## a 0.0000000 0.3822938 1.4796348 0.6982441
-## c 0.3822938 0.0000000 0.4572516 2.2254113
-## g 1.4796348 0.4572516 0.0000000 1.0000000
-## t 0.6982441 2.2254113 1.0000000 0.0000000
+##           a         c         g        t
+## a 0.0000000 0.3822941 1.4796329 0.698245
+## c 0.3822941 0.0000000 0.4572515 2.225412
+## g 1.4796329 0.4572515 0.0000000 1.000000
+## t 0.6982450 2.2254116 1.0000000 0.000000
 ## 
 ## Base frequencies:  
 ## 0.3183583 0.2986886 0.2541144 0.1288387
@@ -198,17 +198,17 @@ fitGTR.G.I
 ##  loglikelihood: -12364.36 
 ## 
 ## unconstrained loglikelihood: -20560.86 
-## Proportion of invariant sites: 4.478466e-05 
+## Proportion of invariant sites: 4.473902e-05 
 ## Discrete gamma model
 ## Number of rate categories: 4 
-## Shape parameter: 1.372057 
+## Shape parameter: 1.372046 
 ## 
 ## Rate matrix:
-##           a         c        g         t
-## a 0.0000000 0.3814509 1.476381 0.6968425
-## c 0.3814509 0.0000000 0.456283 2.2228878
-## g 1.4763808 0.4562830 0.000000 1.0000000
-## t 0.6968425 2.2228878 1.000000 0.0000000
+##           a         c         g         t
+## a 0.0000000 0.3814506 1.4763826 0.6968408
+## c 0.3814506 0.0000000 0.4562831 2.2228881
+## g 1.4763826 0.4562831 0.0000000 1.0000000
+## t 0.6968408 2.2228881 1.0000000 0.0000000
 ## 
 ## Base frequencies:  
 ## 0.3185034 0.2985722 0.2541684 0.1287559
@@ -236,7 +236,7 @@ fitK80.I
 ##  loglikelihood: -12592.47 
 ## 
 ## unconstrained loglikelihood: -20560.86 
-## Proportion of invariant sites: 0.2469051 
+## Proportion of invariant sites: 0.246905 
 ## 
 ## Rate matrix:
 ##         a       c       g       t
@@ -277,106 +277,106 @@ bs <- bootstrap.pml(fitGTR.G, bs=100, optNni=TRUE, control = pml.control(trace =
 ```
 
 ```
-## Final p-score 1854 after  4 nni operations 
-## Final p-score 1761 after  1 nni operations 
-## Final p-score 1805 after  0 nni operations 
-## Final p-score 1824 after  3 nni operations 
-## Final p-score 1791 after  1 nni operations 
-## Final p-score 1822 after  3 nni operations 
-## Final p-score 1826 after  2 nni operations 
-## Final p-score 1763 after  1 nni operations 
-## Final p-score 1703 after  0 nni operations 
-## Final p-score 1833 after  1 nni operations 
-## Final p-score 1825 after  1 nni operations 
-## Final p-score 1873 after  0 nni operations 
-## Final p-score 1785 after  0 nni operations 
-## Final p-score 1761 after  3 nni operations 
-## Final p-score 1821 after  0 nni operations 
-## Final p-score 1764 after  0 nni operations 
-## Final p-score 1833 after  0 nni operations 
-## Final p-score 1739 after  1 nni operations 
-## Final p-score 1825 after  2 nni operations 
-## Final p-score 1854 after  1 nni operations 
-## Final p-score 1859 after  1 nni operations 
 ## Final p-score 1825 after  0 nni operations 
-## Final p-score 1729 after  0 nni operations 
-## Final p-score 1817 after  1 nni operations 
-## Final p-score 1744 after  1 nni operations 
-## Final p-score 1852 after  0 nni operations 
-## Final p-score 1815 after  2 nni operations 
-## Final p-score 1815 after  4 nni operations 
-## Final p-score 1798 after  1 nni operations 
-## Final p-score 1785 after  2 nni operations 
-## Final p-score 1674 after  0 nni operations 
-## Final p-score 1827 after  1 nni operations 
-## Final p-score 1798 after  0 nni operations 
 ## Final p-score 1802 after  1 nni operations 
-## Final p-score 1872 after  1 nni operations 
-## Final p-score 1814 after  0 nni operations 
-## Final p-score 1769 after  2 nni operations 
-## Final p-score 1776 after  2 nni operations 
-## Final p-score 1802 after  0 nni operations 
-## Final p-score 1859 after  0 nni operations 
-## Final p-score 1695 after  1 nni operations 
-## Final p-score 1754 after  0 nni operations 
-## Final p-score 1785 after  0 nni operations 
-## Final p-score 1753 after  0 nni operations 
-## Final p-score 1840 after  3 nni operations 
-## Final p-score 1758 after  0 nni operations 
-## Final p-score 1885 after  5 nni operations 
-## Final p-score 1777 after  2 nni operations 
-## Final p-score 1782 after  0 nni operations 
-## Final p-score 1801 after  0 nni operations 
-## Final p-score 1735 after  2 nni operations 
-## Final p-score 1770 after  2 nni operations 
-## Final p-score 1814 after  0 nni operations 
-## Final p-score 1780 after  0 nni operations 
-## Final p-score 1777 after  1 nni operations 
-## Final p-score 1729 after  3 nni operations 
-## Final p-score 1877 after  1 nni operations 
-## Final p-score 1844 after  0 nni operations 
-## Final p-score 1710 after  2 nni operations 
-## Final p-score 1729 after  3 nni operations 
-## Final p-score 1820 after  1 nni operations 
-## Final p-score 1794 after  4 nni operations 
-## Final p-score 1799 after  0 nni operations 
-## Final p-score 1794 after  0 nni operations 
-## Final p-score 1829 after  0 nni operations 
-## Final p-score 1839 after  0 nni operations 
-## Final p-score 1778 after  0 nni operations 
-## Final p-score 1787 after  0 nni operations 
-## Final p-score 1826 after  0 nni operations 
-## Final p-score 1743 after  3 nni operations 
-## Final p-score 1777 after  1 nni operations 
-## Final p-score 1860 after  0 nni operations 
-## Final p-score 1801 after  0 nni operations 
-## Final p-score 1924 after  2 nni operations 
-## Final p-score 1751 after  1 nni operations 
-## Final p-score 1799 after  4 nni operations 
-## Final p-score 1828 after  1 nni operations 
-## Final p-score 1813 after  3 nni operations 
-## Final p-score 1825 after  1 nni operations 
-## Final p-score 1839 after  2 nni operations 
-## Final p-score 1711 after  4 nni operations 
-## Final p-score 1759 after  0 nni operations 
-## Final p-score 1832 after  0 nni operations 
-## Final p-score 1786 after  0 nni operations 
 ## Final p-score 1770 after  1 nni operations 
-## Final p-score 1913 after  2 nni operations 
-## Final p-score 1868 after  1 nni operations 
-## Final p-score 1757 after  1 nni operations 
-## Final p-score 1804 after  0 nni operations 
+## Final p-score 1857 after  2 nni operations 
+## Final p-score 1774 after  3 nni operations 
+## Final p-score 1787 after  2 nni operations 
+## Final p-score 1732 after  1 nni operations 
+## Final p-score 1838 after  2 nni operations 
+## Final p-score 1831 after  0 nni operations 
+## Final p-score 1809 after  2 nni operations 
+## Final p-score 1793 after  1 nni operations 
+## Final p-score 1866 after  3 nni operations 
+## Final p-score 1887 after  1 nni operations 
+## Final p-score 1836 after  2 nni operations 
+## Final p-score 1780 after  1 nni operations 
+## Final p-score 1757 after  3 nni operations 
 ## Final p-score 1835 after  0 nni operations 
-## Final p-score 1702 after  3 nni operations 
-## Final p-score 1813 after  1 nni operations 
-## Final p-score 1859 after  4 nni operations 
-## Final p-score 1821 after  1 nni operations 
-## Final p-score 1820 after  1 nni operations 
-## Final p-score 1797 after  1 nni operations 
-## Final p-score 1873 after  3 nni operations 
-## Final p-score 1876 after  2 nni operations 
-## Final p-score 1792 after  0 nni operations 
-## Final p-score 1796 after  1 nni operations
+## Final p-score 1900 after  0 nni operations 
+## Final p-score 1761 after  2 nni operations 
+## Final p-score 1771 after  2 nni operations 
+## Final p-score 1786 after  0 nni operations 
+## Final p-score 1779 after  2 nni operations 
+## Final p-score 1934 after  2 nni operations 
+## Final p-score 1848 after  1 nni operations 
+## Final p-score 1874 after  0 nni operations 
+## Final p-score 1834 after  4 nni operations 
+## Final p-score 1782 after  2 nni operations 
+## Final p-score 1842 after  2 nni operations 
+## Final p-score 1820 after  2 nni operations 
+## Final p-score 1768 after  1 nni operations 
+## Final p-score 1746 after  0 nni operations 
+## Final p-score 1883 after  1 nni operations 
+## Final p-score 1799 after  0 nni operations 
+## Final p-score 1802 after  2 nni operations 
+## Final p-score 1859 after  2 nni operations 
+## Final p-score 1739 after  4 nni operations 
+## Final p-score 1803 after  0 nni operations 
+## Final p-score 1816 after  0 nni operations 
+## Final p-score 1804 after  0 nni operations 
+## Final p-score 1777 after  1 nni operations 
+## Final p-score 1765 after  0 nni operations 
+## Final p-score 1804 after  0 nni operations 
+## Final p-score 1794 after  4 nni operations 
+## Final p-score 1866 after  3 nni operations 
+## Final p-score 1883 after  1 nni operations 
+## Final p-score 1777 after  0 nni operations 
+## Final p-score 1869 after  2 nni operations 
+## Final p-score 1783 after  0 nni operations 
+## Final p-score 1782 after  0 nni operations 
+## Final p-score 1784 after  1 nni operations 
+## Final p-score 1757 after  1 nni operations 
+## Final p-score 1734 after  0 nni operations 
+## Final p-score 1728 after  2 nni operations 
+## Final p-score 1820 after  2 nni operations 
+## Final p-score 1806 after  1 nni operations 
+## Final p-score 1744 after  0 nni operations 
+## Final p-score 1822 after  1 nni operations 
+## Final p-score 1803 after  2 nni operations 
+## Final p-score 1822 after  1 nni operations 
+## Final p-score 1804 after  0 nni operations 
+## Final p-score 1773 after  1 nni operations 
+## Final p-score 1842 after  0 nni operations 
+## Final p-score 1773 after  0 nni operations 
+## Final p-score 1714 after  0 nni operations 
+## Final p-score 1776 after  3 nni operations 
+## Final p-score 1898 after  1 nni operations 
+## Final p-score 1798 after  0 nni operations 
+## Final p-score 1820 after  0 nni operations 
+## Final p-score 1779 after  2 nni operations 
+## Final p-score 1799 after  0 nni operations 
+## Final p-score 1846 after  1 nni operations 
+## Final p-score 1804 after  1 nni operations 
+## Final p-score 1774 after  1 nni operations 
+## Final p-score 1859 after  1 nni operations 
+## Final p-score 1884 after  1 nni operations 
+## Final p-score 1798 after  2 nni operations 
+## Final p-score 1717 after  1 nni operations 
+## Final p-score 1792 after  4 nni operations 
+## Final p-score 1768 after  3 nni operations 
+## Final p-score 1778 after  1 nni operations 
+## Final p-score 1843 after  1 nni operations 
+## Final p-score 1717 after  0 nni operations 
+## Final p-score 1730 after  1 nni operations 
+## Final p-score 1765 after  0 nni operations 
+## Final p-score 1783 after  1 nni operations 
+## Final p-score 1778 after  1 nni operations 
+## Final p-score 1803 after  3 nni operations 
+## Final p-score 1778 after  1 nni operations 
+## Final p-score 1756 after  2 nni operations 
+## Final p-score 1815 after  1 nni operations 
+## Final p-score 1748 after  0 nni operations 
+## Final p-score 1892 after  0 nni operations 
+## Final p-score 1800 after  2 nni operations 
+## Final p-score 1786 after  1 nni operations 
+## Final p-score 1783 after  2 nni operations 
+## Final p-score 1841 after  2 nni operations 
+## Final p-score 1793 after  1 nni operations 
+## Final p-score 1850 after  0 nni operations 
+## Final p-score 1817 after  0 nni operations 
+## Final p-score 1826 after  1 nni operations
 ```
 
 

@@ -105,7 +105,7 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.4 secs
+## Time difference of 0.55 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -122,7 +122,7 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.58 secs
+## Time difference of 0.85 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -134,17 +134,17 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Reclustering into groups by similarity:
 ## ================================================================================
 ## 
-## Time difference of 0 secs
+## Time difference of 0.01 secs
 ## 
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.83 secs
+## Time difference of 1.26 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.67 secs
+## Time difference of 1.03 secs
 ```
 
 We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.
@@ -168,7 +168,7 @@ DNA.trans <- AlignTranslation(dna)
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.22 secs
+## Time difference of 0.35 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -185,7 +185,7 @@ DNA.trans <- AlignTranslation(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.23 secs
+## Time difference of 0.35 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -202,7 +202,7 @@ DNA.trans <- AlignTranslation(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.21 secs
+## Time difference of 0.37 secs
 ```
 
 Translating the nucleotide sequences sped up the alignment process, although both were fast enough it isn't a big deal to directly align the nucleotides. Your choice of which alignment procedure to use will largely come down to whether you are using coding sequence and how divergent your samples are. If you aren't using coding sequence, you will need to align using the nucleotides. If you have samples from deeply divergent species (especially if they come from different phyla), you will generally get a better alignment if you let the program translate your nucleotide sequence to amino acids first.
@@ -247,7 +247,7 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.4 secs
+## Time difference of 0.56 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -259,12 +259,12 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Reclustering into groups by similarity:
 ## ================================================================================
 ## 
-## Time difference of 0 secs
+## Time difference of 0.01 secs
 ## 
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.54 secs
+## Time difference of 0.84 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -281,12 +281,12 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.88 secs
+## Time difference of 1.37 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.95 secs
+## Time difference of 1.11 secs
 ```
 
 ```r

@@ -71,4 +71,12 @@ optimizing-the-maximum-likelihood-parameters
 changing-the-model-for-your-ml-search
 bootstrapping-the-ml-tree
 saving-your-bootstrap-tree
+what-is-a-time-tree
+molecular-clocks
+calibration-points
+adding-calibration-points-to-your-phylogenies
+choosing-calibration-points
+adding-calibration-points-to-internal-nodes-for-ml-trees
+adding-calibration-points-for-bayesian-trees
+visualizing-the-time-trees-in-figtree
 references
