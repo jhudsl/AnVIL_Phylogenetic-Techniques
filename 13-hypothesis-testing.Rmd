@@ -89,10 +89,16 @@ height <- as.numeric(c(24, 36, 20, 30, 48, 18, 78, 60, 48, 48))
 
 Now that we have both our tree and our continuous phenotype, we calculate the ancestral phenotype estimates with the `fastAnc` command. This is an ML method. I have not found a Bayesian approach for ancestral state reconstruction of continuous traits. The arguments for this command are the tree, the vector of the phenotypes, and either "TRUE" or "FALSE" value for calculating the confidence intervals around the likelihood estimate for each node.
 
-```{r, warning=FALSE, message = FALSE}
+```{r, eval=FALSE, warning=FALSE, message = FALSE}
 anc.height <- fastAnc(new, height, CI = TRUE)
 anc.height
 ```
+
+
+<img src="resources/images/13-cont_output.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+
 
 Although there's some variation in the maximum height of the various grass samples in this tree, most of the putative common ancestors are estimated to have been between 35 and 40 inches tall. However, when we look at the CIs for these estimates, we find they are quite wide, suggesting a lot of uncertainty about these ancestral height estimates. Perhaps this isn't the best method for reconstructing this particular trait!
 
@@ -138,7 +144,7 @@ Well, it appears that whether the common ancestors at each node were annuals or 
 
 Visualizing this output requires a couple of steps. First, we plot the phylogenetic tree. Then, we define the colors that will correspond to each character state. (The commands are flexible so that you can copy and paste for discrete traits with more than two possible states. I've included an alternate way to set the colors, marked with a #.) Finally, we add piecharts at each node and each tip label, then plot the legend.
 
-```{r, warning=FALSE, message = FALSE}
+```{r,eval=FALSE, warning=FALSE, message = FALSE}
 plot(new)
 
 cols <- c('blue', 'orange')
@@ -149,6 +155,13 @@ tiplabels(pie=to.matrix(pheno,sort(unique(pheno))),piecol=cols,cex=0.3)
 
 add.simmap.legend(colors=cols,prompt=FALSE,x=0.9*par()$usr[1], y=-max(nodeHeights(new)),fsize=0.8)
 ```
+
+
+<img src="resources/images/13-discrete_tree.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+
+
 
 Similarly to what we saw above when we looked at ancestral reconstruction of sequences, each pie chart indicates the posterior probability of each possible character state. In this case, it appears we can't really tell whether the perennial or annual trait is ancestral. What's clear is that the derived trait (the one that isn't ancestral) has popped up multiple times in multiple clades.
 
