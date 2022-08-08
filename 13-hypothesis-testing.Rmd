@@ -130,16 +130,29 @@ Now we are ready to do the ancestral state reconstruction using the `ace` comman
 
 This particular estimation uses a Bayesian approach. The `ace` command technically can do ML estimation according to the manual, but I have not gotten it to work successfully. 
 
-```{r, warning=FALSE, message = FALSE}
+```{r,eval=FALSE, warning=FALSE, message = FALSE}
 fit.discrete<-ace(pheno, new, model="ER",type="discrete")
 fit.discrete
 ```
 
+
+<img src="resources/images/13-discrete_output.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+
+
 The output for this estimation gives us scaled likelihoods for the ancestral state at the most basal node. We have to specifically request the scaled likelihood estimates for all the nodes. 
 
-```{r, warning=FALSE, message = FALSE}
+```{r,eval=FALSE, warning=FALSE, message = FALSE}
 fit.discrete$lik.anc
 ```
+
+
+<img src="resources/images/13-discrete_lik_anc.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+
+
 Well, it appears that whether the common ancestors at each node were annuals or perennials is a toss-up. Maybe we can get more insight if we look at the output on a tree.
 
 Visualizing this output requires a couple of steps. First, we plot the phylogenetic tree. Then, we define the colors that will correspond to each character state. (The commands are flexible so that you can copy and paste for discrete traits with more than two possible states. I've included an alternate way to set the colors, marked with a #.) Finally, we add piecharts at each node and each tip label, then plot the legend.
