@@ -1,0 +1,10 @@
+crested_wheatgrass	perennial
+mosquito_grass	perennial
+medusahead_rye	annual
+Tauschs_goatgrass	annual
+rye	annual
+wheatgrass	annual
+tall_wheatgrass	perennial
+wheat	annual
+mammoth_wild_rye	perennial
+intermediate_wheatgrass	perennial
