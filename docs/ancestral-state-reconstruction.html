@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 11 Creating a multiple sequence alignment | Molecular Phylogenetic Techniques</title>
+  <title>Chapter 23 Ancestral state reconstruction | Molecular Phylogenetic Techniques</title>
   <meta name="description" content="Description about Course/Book." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 11 Creating a multiple sequence alignment | Molecular Phylogenetic Techniques" />
+  <meta property="og:title" content="Chapter 23 Ancestral state reconstruction | Molecular Phylogenetic Techniques" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 Creating a multiple sequence alignment | Molecular Phylogenetic Techniques" />
+  <meta name="twitter:title" content="Chapter 23 Ancestral state reconstruction | Molecular Phylogenetic Techniques" />
   
   <meta name="twitter:description" content="Description about Course/Book." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
-<link rel="prev" href="why-do-we-align-sequences.html"/>
-<link rel="next" href="the-neighbor-joining-method-of-tree-estimation.html"/>
+<link rel="prev" href="visualizing-phylogenetic-networks.html"/>
+<link rel="next" href="about-the-authors.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -318,270 +318,169 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="hero-image-container"> 
   <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
 </div>
-<div id="creating-a-multiple-sequence-alignment" class="section level1" number="11">
-<h1><span class="header-section-number">Chapter 11</span> Creating a multiple sequence alignment</h1>
-<p>There are several packages available now for performing alignments in R, include <code>ape</code> (which we have used before), <code>Biostrings</code>, and <code>mas</code>. Each of these have their own strengths, and all of them will produce a good alignment. There are also many non-R-based alignment programs. For this class, we will focus on how to use the <code>DECIPHER</code> package, which will allow us to create an alignment, as well as look at it.</p>
-<p>If you would like to learn more about <code>DECIPHER</code>, you can find the manuals and specific examples (vignettes) <a href="http://bioconductor.org/packages/release/bioc/html/DECIPHER.html">here</a>, the the Documentation section.</p>
-<div id="installing-the-decipher-package" class="section level2" number="11.1">
-<h2><span class="header-section-number">11.1</span> Installing the <code>DECIPHER</code> package</h2>
-<p><code>DECIPHER</code> is available via Bioconductor, which means we can install it using the AnVIL::install command. After we install the package, we can then open it via the <code>library()</code> command. (If you are prompted to update dependent packages, choose “all”.)</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="creating-a-multiple-sequence-alignment.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#AnVIL::install(&#39;DECIPHER&#39;) #use this command to install the DECIPHER package</span></span>
-<span id="cb29-2"><a href="creating-a-multiple-sequence-alignment.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="creating-a-multiple-sequence-alignment.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DECIPHER)</span></code></pre></div>
+<div id="ancestral-state-reconstruction" class="section level1" number="23">
+<h1><span class="header-section-number">Chapter 23</span> Ancestral state reconstruction</h1>
+<p>For some studies, building a phylogenetic tree is just the beginning. The researchers are more interested in using their phylogenetic tree to test other hypotheses about evolution. One of the most common of these is ancestral state reconstruction, or identifying the state of a trait in a common ancestor of a clade. Researchers might be interested in the ancestral nucleotide at a particular part of as sequence (especially a coding sequence), or they might be curious about the ancestral phenotype or behavior.</p>
+<p>Ancestral state reconstruction analyses can be done using tools in the <code>phangorn</code> and <code>phytools</code> libraries in R.</p>
+<div id="reconstructing-ancestral-sequences" class="section level2" number="23.1">
+<h2><span class="header-section-number">23.1</span> Reconstructing ancestral sequences</h2>
+<p>Let’s start by reconstructing putative ancestral sequences at the nodes within our grass tree. We will use both the <code>phangorn</code> and <code>phylotools</code> packages. We need both the fasta file and an ML tree. I’ve chosen to recreate the ML tree instead of loading my saved tree directly becausee R has reformatted the taxa names slightly in the grass tree. If this has not happened to you, you can load your ML tree directly using the <code>read.tree</code> command instead of rerunning the analysis.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="ancestral-state-reconstruction.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&#39;phytools&#39;)</span></span>
+<span id="cb153-2"><a href="ancestral-state-reconstruction.html#cb153-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phangorn)</span>
+<span id="cb153-3"><a href="ancestral-state-reconstruction.html#cb153-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phylotools)</span>
+<span id="cb153-4"><a href="ancestral-state-reconstruction.html#cb153-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb153-5"><a href="ancestral-state-reconstruction.html#cb153-5" aria-hidden="true" tabindex="-1"></a>grass.align <span class="ot">&lt;-</span> <span class="fu">read.phyDat</span>(<span class="st">&quot;grass_aligned-renamed.fasta&quot;</span>, <span class="at">format =</span> <span class="st">&quot;fasta&quot;</span>)</span>
+<span id="cb153-6"><a href="ancestral-state-reconstruction.html#cb153-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb153-7"><a href="ancestral-state-reconstruction.html#cb153-7" aria-hidden="true" tabindex="-1"></a>dist <span class="ot">&lt;-</span> <span class="fu">dist.ml</span>(grass.align)</span>
+<span id="cb153-8"><a href="ancestral-state-reconstruction.html#cb153-8" aria-hidden="true" tabindex="-1"></a>nj.tree <span class="ot">&lt;-</span> <span class="fu">nj</span>(dist)</span>
+<span id="cb153-9"><a href="ancestral-state-reconstruction.html#cb153-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb153-10"><a href="ancestral-state-reconstruction.html#cb153-10" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">pml</span>(nj.tree, <span class="at">data =</span> grass.align)</span>
+<span id="cb153-11"><a href="ancestral-state-reconstruction.html#cb153-11" aria-hidden="true" tabindex="-1"></a>fitGTR.G <span class="ot">&lt;-</span> <span class="fu">update</span>(fit, <span class="at">model =</span> <span class="st">&quot;GTR&quot;</span>, <span class="at">k =</span> <span class="dv">4</span>)</span>
+<span id="cb153-12"><a href="ancestral-state-reconstruction.html#cb153-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb153-13"><a href="ancestral-state-reconstruction.html#cb153-13" aria-hidden="true" tabindex="-1"></a>fitGTR.G <span class="ot">&lt;-</span> <span class="fu">optim.pml</span>(fitGTR.G, <span class="at">model =</span> <span class="st">&quot;GTR&quot;</span>, <span class="at">optGamma =</span> T, <span class="at">rearrangement =</span> <span class="st">&quot;stochastic&quot;</span>, <span class="at">control =</span> <span class="fu">pml.control</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span>
+<span id="cb153-14"><a href="ancestral-state-reconstruction.html#cb153-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb153-15"><a href="ancestral-state-reconstruction.html#cb153-15" aria-hidden="true" tabindex="-1"></a>fitGTR.G<span class="sc">$</span>tree <span class="ot">&lt;-</span> <span class="fu">root</span>(fit<span class="sc">$</span>tree, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>,<span class="st">&#39;Siberian wild rye_D-hordein&#39;</span>))</span>
+<span id="cb153-16"><a href="ancestral-state-reconstruction.html#cb153-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitGTR.G)</span></code></pre></div>
+<p><img src="resources/images/13-hypothesis-testing_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>After we look at the grass tree to make sure it is rooted the way we want, we use the <code>ancestral.pml</code> command to estimate the ancestral sequence for each node. <code>ancestral.pml</code> can run either an ML or Bayesian analysis. This command takes two arguments: the full output of your ML analysis and a choice of either “ml” or “bayes”. We will use ML, but you could just as easily use the Bayesian method.</p>
+<p>After running the ancestral state reconstruction, we plot the nucleotide at base 209 for each node and tip. (I randomly chose base 209. In practice, researchers likely would have already identified locations of interest.)</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="ancestral-state-reconstruction.html#cb154-1" aria-hidden="true" tabindex="-1"></a>anc.ml <span class="ot">&lt;-</span> <span class="fu">ancestral.pml</span>(fitGTR.G, <span class="st">&quot;ml&quot;</span>)</span>
+<span id="cb154-2"><a href="ancestral-state-reconstruction.html#cb154-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb154-3"><a href="ancestral-state-reconstruction.html#cb154-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotAnc</span>(fitGTR.G<span class="sc">$</span>tree, anc.ml, <span class="dv">209</span>)</span></code></pre></div>
+<p><img src="resources/images/13-base_209.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>At base 209, most of the samples and putative most recent common ancestors have a G, although at some point a mutation occurred in the ancestors of the rye/wheatgrass/tall wheatgrass/wheat/mammoth wild rye/intermediate wheatgrass clade, which is why those taxa mostly have an A at base 209. (Rye is clearly the weirdo with a T.) The pie chart for the barley D-hordein sequence shows all four possible bases, which just means this particular base is likely missing in the barley D-hordein sequence (either because it was not sequenced or because there was a deletion event and the base does not exist).</p>
+<p>Additionally, the pie charts for some ancestral nodes have multiple colors. When estimating ancestral sequences, <code>ancestral.pml</code> is calculating the likelihood of each possible nucleotide. At the nodes with pies containing both green and purple wedges, either an A or a G is possible in the ancestral sequence. The bigger wedge indicates the nucleotide with the greatest likelihood.</p>
+<p>We could do this for any base, like base 1023 (another one I picked at random).</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="ancestral-state-reconstruction.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotAnc</span>(fitGTR.G<span class="sc">$</span>tree, anc.ml, <span class="dv">1023</span>)</span></code></pre></div>
+<p><img src="resources/images/13-base_1023.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>We see a very different pattern of inheritance for base 1023. The vast majority of the samples have an A, so nearly all the reconstructed ancestral sequences also have an A. The exception are the nodes in the crested wheatgrass/mosquito grass/medusahead rye clade. All three of the samples have a different nucleotide (or are missing that base), so the reconstructed sequence for the most recent common ancestors is less certain than in the rest of the tree.</p>
 </div>
-<div id="loading-the-fasta-file" class="section level2" number="11.2">
-<h2><span class="header-section-number">11.2</span> Loading the fasta file</h2>
-<p>DECIPHER’s commands use a fasta file as their input. We could load the fasta file directly into one of the commands, or we could load the fasta file into an object that we then pass to the commands. The second option gives us more flexibility and ultimately ends up saving time - we can load the file once and use it for multiple calculations.</p>
-<p>We are loading the fasta object we created and saved in our working directory last time. If the fasta file isn’t in your working directory, that’s okay - you can replace “grass.fasta” with the path to the directory in which it’s saved, followed by the file name.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="creating-a-multiple-sequence-alignment.html#cb30-1" aria-hidden="true" tabindex="-1"></a>fas <span class="ot">&lt;-</span> <span class="st">&quot;grass.fasta&quot;</span></span></code></pre></div>
+<div id="reconstructing-ancestral-continuous-phenotypes" class="section level2" number="23.2">
+<h2><span class="header-section-number">23.2</span> Reconstructing ancestral continuous phenotypes</h2>
+<p>We can use the <code>phytools</code> package to estimate and visualize the reconstruction of continuous traits. I’ve collected the maximum plant height for most of grass taxa used in the tree, so we can estimate how tall the common ancestors of each clade might have been.</p>
+<p>First, we install and load the <code>phytools</code> package, then we load our ML tree.</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="ancestral-state-reconstruction.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&#39;phytools&#39;)</span></span>
+<span id="cb156-2"><a href="ancestral-state-reconstruction.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phytools)</span>
+<span id="cb156-3"><a href="ancestral-state-reconstruction.html#cb156-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-4"><a href="ancestral-state-reconstruction.html#cb156-4" aria-hidden="true" tabindex="-1"></a>g.tree <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&#39;grass_ml.tre&#39;</span>)</span>
+<span id="cb156-5"><a href="ancestral-state-reconstruction.html#cb156-5" aria-hidden="true" tabindex="-1"></a>tree.root <span class="ot">&lt;-</span> <span class="fu">root</span>(g.tree, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>,<span class="st">&#39;Siberian_wild_rye_D-hordein&#39;</span>))</span>
+<span id="cb156-6"><a href="ancestral-state-reconstruction.html#cb156-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-7"><a href="ancestral-state-reconstruction.html#cb156-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree.root)</span></code></pre></div>
+<p><img src="resources/images/13-hypothesis-testing_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>This tree has 13 samples, but we aren’t going to use all of them for the grass analysis. First, we want to remove the outgroups (the two D-hordein samples) because in this case their position doesn’t represent the phylogenetic relationships between barley and the ingroup or Siberian wild rye and the ingroup. (They represent the phylogenetic relationship of D-hordein and the <em>Glu</em> sequences instead. If you used the same genetic region/gene for your outgroup, you can leave them in. If I had used Siberian wild rye <em>Glu</em> sequence, it would be fine to leave the outgroup.) I also was unable to find information on the maximum height of Asiatic grass. We can remove these taxa from the tree directly using the <code>drop.tip</code> command.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="ancestral-state-reconstruction.html#cb157-1" aria-hidden="true" tabindex="-1"></a>new <span class="ot">&lt;-</span> <span class="fu">drop.tip</span>(tree.root, <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>, <span class="st">&#39;Siberian_wild_rye_D-hordein&#39;</span>, <span class="st">&#39;Asiatic_grass&#39;</span>), <span class="at">trim.internal =</span> <span class="cn">TRUE</span>, <span class="at">subtree =</span> <span class="cn">FALSE</span>, <span class="at">root.edge =</span> <span class="dv">0</span>, <span class="at">rooted =</span> <span class="fu">is.rooted</span>(tree.root), <span class="at">collapse.singles =</span> <span class="cn">TRUE</span>, <span class="at">interactive =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb157-2"><a href="ancestral-state-reconstruction.html#cb157-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-3"><a href="ancestral-state-reconstruction.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(new)</span>
+<span id="cb157-4"><a href="ancestral-state-reconstruction.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>()</span></code></pre></div>
+<p><img src="resources/images/13-hypothesis-testing_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Great! We have a tree with only the taxa we want, and we can also see the label R has assigned to each node. Now we will create a vector containing all the maximum heights (in inches) for each taxa, in the same order as the tree. We can find the proper taxa order by querying the <code>tip.label</code>.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="ancestral-state-reconstruction.html#cb158-1" aria-hidden="true" tabindex="-1"></a>new<span class="sc">$</span>tip.label</span></code></pre></div>
+<pre><code>##  [1] &quot;intermediate_wheatgrass&quot; &quot;mammoth_wild_rye&quot;       
+##  [3] &quot;medusahead_rye&quot;          &quot;mosquito_grass&quot;         
+##  [5] &quot;crested_wheatgrass&quot;      &quot;Tauschs_goatgrass&quot;      
+##  [7] &quot;rye&quot;                     &quot;tall_wheatgrass&quot;        
+##  [9] &quot;wheatgrass&quot;              &quot;wheat&quot;</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="ancestral-state-reconstruction.html#cb160-1" aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">36</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">48</span>, <span class="dv">18</span>, <span class="dv">78</span>, <span class="dv">60</span>, <span class="dv">48</span>, <span class="dv">48</span>))</span></code></pre></div>
+<p>Now that we have both our tree and our continuous phenotype, we calculate the ancestral phenotype estimates with the <code>fastAnc</code> command. This is an ML method. I have not found a Bayesian approach for ancestral state reconstruction of continuous traits. The arguments for this command are the tree, the vector of the phenotypes, and either “TRUE” or “FALSE” value for calculating the confidence intervals around the likelihood estimate for each node.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="ancestral-state-reconstruction.html#cb161-1" aria-hidden="true" tabindex="-1"></a>anc.height <span class="ot">&lt;-</span> <span class="fu">fastAnc</span>(new, height, <span class="at">CI =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb161-2"><a href="ancestral-state-reconstruction.html#cb161-2" aria-hidden="true" tabindex="-1"></a>anc.height</span></code></pre></div>
+<pre><code>## Ancestral character estimates using fastAnc:
+##       11       12       13       14       15       16       17       18 
+## 38.86652 39.48086 45.55305 44.79273 36.62223 30.30063 51.11004 37.32842 
+##       19 
+## 33.42004 
+## 
+## Lower &amp; upper 95% CIs:
+##        lower    upper
+## 11  8.611576 69.12146
+## 12 13.092046 65.86967
+## 13 25.436181 65.66992
+## 14 26.220219 63.36524
+## 15 25.882117 47.36233
+## 16 23.346769 37.25449
+## 17 31.765750 70.45434
+## 18  8.662230 65.99461
+## 19  4.092481 62.74760</code></pre>
+<p>Although there’s some variation in the maximum height of the various grass samples in this tree, most of the putative common ancestors are estimated to have been between 35 and 40 inches tall. However, when we look at the CIs for these estimates, we find they are quite wide, suggesting a lot of uncertainty about these ancestral height estimates. Perhaps this isn’t the best method for reconstructing this particular trait!</p>
+<p>The author of <code>phytools</code> has also created a command that allows you to visualize the continuous trait estimates on the tree. Unfortunately, it appears this command doesn’t always work for every tree, possibly due to package updates. If you’re interested, you can learn more about the <a href="https://www.rdocumentation.org/packages/phytools/versions/1.0-3/topics/contMap">contMap</a> function.</p>
 </div>
-<div id="creating-an-alignment" class="section level2" number="11.3">
-<h2><span class="header-section-number">11.3</span> Creating an alignment</h2>
-<p>DECIPHER lets us create alignments in a couple of ways, since we downloaded sequence from a protein-coding gene (<em>Glu-1</em>). We can align the sequences directly, or we can have the program translate the DNA sequences into amino acid sequences, then align the amino acid sequences. If the sequences you want to align are not protein-coding, then you can only align the sequences directly.</p>
-<p>This part has a couple of steps. First, pass the fasta file into an object formatted as a DNAStringSet object using the command <code>readDNAStringSet</code>.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="creating-a-multiple-sequence-alignment.html#cb31-1" aria-hidden="true" tabindex="-1"></a>dna <span class="ot">&lt;-</span> <span class="fu">readDNAStringSet</span>(fas)</span>
-<span id="cb31-2"><a href="creating-a-multiple-sequence-alignment.html#cb31-2" aria-hidden="true" tabindex="-1"></a>dna</span></code></pre></div>
-<pre><code>## DNAStringSet object of length 13:
-##      width seq                                              names               
-##  [1]  1521 ATGGCTAAGCGGCTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG JX915632
-##  [2]  1506 ATGGCTAAGCGGTTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG EF105403.1
-##  [3]  1506 ATGGCTAAGCGGCTGGTCCTCTT...ATTGTCGGCTAGCCAGTGATAG DQ073553.1
-##  [4]  1749 ATGGCTAAGCGGTTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG FJ481575.1
-##  [5]  2100 ATGGCTAAGCGGTTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG EF204545.1
-##  ...   ... ...
-##  [9]  2052 ATGGCTAAGCGACTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG AY804128.1
-## [10]  1650 ATGGCTAAGCGGTTGGTCCTCTT...ATTGTCGGCCAGCCAGTGATAG AY303125.2
-## [11]  1665 TCATCACCCACAACACCGAGCAC...CGCATTGTCGGCCAGCCAGTGA KF887414.1
-## [12]  2296 CAAAACTAGAGATCAATTCATTG...AAAACGGAAAGCTTCTCCATCC D82941.1
-## [13]  2046 ATGGCTAAGCAGCTGGTCCTCTT...CTCCCTGTCGGCCAGCCAGTAG JX276655.1</code></pre>
-<p>(You might have noticed a warning message about an invalid character type. Sometimes this happens when you download data from GenBank, because people may have made a mistake in the nucleotide sequence when they submitted their samples. Since it is only one base (and the sequences themselves are at least 1500 bp long), so excluding it is unlikely to bias our results.)</p>
-<p>Although it might look like the sequences are aligned in the DNAStringSet object, they really aren’t. To do so requires another command.</p>
-<p>First, let’s align our sequences using just the nucleotides.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="creating-a-multiple-sequence-alignment.html#cb33-1" aria-hidden="true" tabindex="-1"></a>DNA.no_trans <span class="ot">&lt;-</span> <span class="fu">AlignSeqs</span>(dna)</span></code></pre></div>
-<pre><code>## Determining distance matrix based on shared 10-mers:
-## ================================================================================
-## 
-## Time difference of 0.01 secs
-## 
-## Clustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0.01 secs
-## 
-## Aligning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.44 secs
-## 
-## Iteration 1 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.63 secs
-## 
-## Iteration 2 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.9 secs
-## 
-## Refining the alignment:
-## ================================================================================
-## 
-## Time difference of 0.72 secs</code></pre>
-<p>We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-a-multiple-sequence-alignment.html#cb35-1" aria-hidden="true" tabindex="-1"></a>DNA.trans <span class="ot">&lt;-</span> <span class="fu">AlignTranslation</span>(dna)</span></code></pre></div>
-<pre><code>## Determining distance matrix based on shared 5-mers:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Clustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Aligning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.24 secs
-## 
-## Iteration 1 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.24 secs
-## 
-## Iteration 2 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.24 secs</code></pre>
-<p>Translating the nucleotide sequences sped up the alignment process, although both were fast enough it isn’t a big deal to directly align the nucleotides. Your choice of which alignment procedure to use will largely come down to whether you are using coding sequence and how divergent your samples are. If you aren’t using coding sequence, you will need to align using the nucleotides. If you have samples from deeply divergent species (especially if they come from different phyla), you will generally get a better alignment if you let the program translate your nucleotide sequence to amino acids first.</p>
-<p>Now that we’ve created alignments, it would be helpful to visually check them. (This is possible if your sequences aren’t too long, but can become really hard once you start dealing with very long stretches of DNA!) The <code>BrowseSeqs</code> command opens a browser window with the aligned sequences. Just remember which window belongs to each alignment!</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-a-multiple-sequence-alignment.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans)</span>
-<span id="cb37-2"><a href="creating-a-multiple-sequence-alignment.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.trans)</span></code></pre></div>
-<p><img src="resources/images/05-alignment_1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
-<p>You can scroll through the browser windows to see the full alignment. DECIPHER automatically color-codes the nucleotides, which makes it easier to pick out when a sequence doesn’t match the others. At the very bottom, DECIPHER displays a consensus sequence, which we can also look at to identify which bases have mutations (or gaps).</p>
-<p>The first thing that jumps out it how the two alignment methods resulted in alignments of different lengths. The alignment from the <code>AlignTranslation</code> method is longer than the alignment from the <code>AlignSeqs</code> method. How the gaps are inserted also differ quite a bit.</p>
-<p>At this point, the alignment we choose to use is basically a judgment call. You have to decide which alignment seems “better” to you. With the grass sequences, sample AJ314771.1 doesn’t quite seem to fit well with the <code>AlignTranslation</code> alignment. There are long stretches of the sequence that aren’t aligned with anything else. This doesn’t seem to be the case for the <code>AlignSeqs</code> alignment.</p>
-<p>If we chose to go ahead with the <code>AlignTranslation</code> alignment, it would make sense to remove sample AJ314771.1 from our fasta file. You may come across a situation where one (or more) sequences don’t seem to fit very well with the others. The best option going forward is to remove those sequences, as keeping them will cause issues when it comes time to infer the phylogeny.</p>
-<p>The <code>alignSeqs</code> command allows us to change the gap opening and gap extension penalties. The default setting (which we used above, since we did not specify anything in the <code>alignSeqs</code> or <code>alignTranslation</code> commands) is to assign a minimum and maximum cost for each. For gap opening, the cost is -18 for nearly identical sequences and -14 for sequences that are more distantly related. For gap extension, those costs are -3 and -2. Let’s see what happens when we change the costs.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="creating-a-multiple-sequence-alignment.html#cb38-1" aria-hidden="true" tabindex="-1"></a>DNA.no_trans<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">AlignSeqs</span>(dna, <span class="at">gapOpening =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="sc">-</span><span class="dv">10</span>), <span class="at">gapExtension =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="dv">1</span>))</span></code></pre></div>
-<pre><code>## Determining distance matrix based on shared 10-mers:
-## ================================================================================
-## 
-## Time difference of 0.01 secs
-## 
-## Clustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Aligning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.44 secs
-## 
-## Iteration 1 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.59 secs
-## 
-## Iteration 2 of 2:
-## 
-## Determining distance matrix based on alignment:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Reclustering into groups by similarity:
-## ================================================================================
-## 
-## Time difference of 0 secs
-## 
-## Realigning Sequences:
-## ================================================================================
-## 
-## Time difference of 0.94 secs
-## 
-## Refining the alignment:
-## ================================================================================
-## 
-## Time difference of 0.78 secs</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="creating-a-multiple-sequence-alignment.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans<span class="fl">.1</span>)</span></code></pre></div>
-<p>Changing the gap opening and gap extension costs may or may not make a difference. In many cases, the default parameters will work just fine. However, it is always wise to check additional values!</p>
-<p>For the grass samples, it would be reasonable to use the alignment generated by the <code>AlignSeqs</code> method. This is a judgment call more than anything else - there are large sections of the alignment that include all the sequences with minimal changes. We’ll want to trim it to remove the ends with very little sequence coverage. We will keep everything between base 140 and 3373. To trim the sequences, we will write a new fasta file, then use it to create a new <code>DNAbin</code> object. If you haven’t already loaded the <code>ape</code> library in your R session, you should do so now using the <code>library(ape)</code> command.</p>
-<p><img src="resources/images/05-alignment_2.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
-<p><img src="resources/images/05-alignment_3.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="creating-a-multiple-sequence-alignment.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">writeXStringSet</span>(DNA.no_trans, <span class="at">file=</span><span class="st">&quot;grass_aligned.fasta&quot;</span>)</span>
-<span id="cb41-2"><a href="creating-a-multiple-sequence-alignment.html#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="creating-a-multiple-sequence-alignment.html#cb41-3" aria-hidden="true" tabindex="-1"></a>grass.align <span class="ot">&lt;-</span> <span class="fu">read.dna</span>(<span class="st">&quot;grass_aligned.fasta&quot;</span>, <span class="at">format=</span><span class="st">&quot;fasta&quot;</span>, <span class="at">as.matrix=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<p>The trick for this step is that we specified the <code>grass.align</code> object be loaded as a matrix, not as a list. We can subset our sequences using brackets since <code>grass.align</code> is in matrix format.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="creating-a-multiple-sequence-alignment.html#cb42-1" aria-hidden="true" tabindex="-1"></a>grass.trimmed <span class="ot">&lt;-</span> grass.align[,<span class="dv">140</span><span class="sc">:</span><span class="dv">3373</span>]</span>
-<span id="cb42-2"><a href="creating-a-multiple-sequence-alignment.html#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="creating-a-multiple-sequence-alignment.html#cb42-3" aria-hidden="true" tabindex="-1"></a>grass.trimmed</span></code></pre></div>
-<pre><code>## 13 DNA sequences in binary format stored in a matrix.
-## 
-## All sequences of same length: 3234 
-## 
-## Labels:
-## JX915632
-## EF105403.1
-## DQ073553.1
-## FJ481575.1
-## EF204545.1
-## AJ314771.1
-## ...
-## 
-## Base composition:
-##     a     c     g     t 
-## 0.310 0.303 0.273 0.115 
-## (Total: 42.04 kb)</code></pre>
-<p>Congratulations! You now have a trimmed alignment, ready for inferring trees. To be on the safe side, we will save it as a fasta file.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="creating-a-multiple-sequence-alignment.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.dna</span>( grass.align, <span class="at">file =</span> <span class="st">&#39;grass_aligned.fasta&#39;</span>, <span class="at">format =</span> <span class="st">&#39;fasta&#39;</span> )</span></code></pre></div>
-<div class="fyi">
-<p><strong>R BASICS</strong></p>
-<p>R has both data types and data structures. Data types (like character (for letters) or numeric (for real or decimal numbers)) can be combined to form data structures. Some of the data structures include:</p>
-<ul>
-<li>vector</li>
-<li>list</li>
-<li>matrix</li>
-<li>data frame</li>
-</ul>
-<p>The data structures differ based on their size and what data types they can accept. A vector is a single dimension collection of one data type. You can have vectors made up of many character data types or many numerical data types, but you can’t have a vector of both character and numerical data types together.</p>
-<p>For example, a vector of numeric data might look like this:</p>
-<p>1 1 2 3 5</p>
-<p><code>DNAbin</code> objects are normally formatted as lists, which can be thought of as a multidimensional collection of vectors where each vector can be of a different type. (Within a vector everything is still a single character type.) In the code above, we specified the <code>DNAbin</code> object be formatted as a matrix. The matrix data structure is basically vectors in more than one dimensional, which means all the elements within a matrix must be the same data type (in this case, everything was a character).</p>
-<p>A matrix of numeric data like the vector example above might look like this:</p>
-<pre><code>  [,1]    [,2]    [,3]    [,4]    [,5]</code></pre>
-<p>[1,] 1 1 2 3 5
-[2,] 2 3 5 7 11</p>
-<p>In a matrix (as well as in a data frame, which we haven’t discussed), the position of an entry can be specificed using brackets. The first coordinate in the bracket indicates the row, while the second coordinate indicates the column. For the matrix above, [2,5] points to the number 11, which is the entry in the second row and fifth column. If we want to point to an entire row, we can leave off the second coordinate. [1,] points to the entire first row. If we want to point to an entire column, we have two choices. We could use either [,1] or just [1]. R will interpret both of those commands as pointing to column 1.</p>
-<p>By making the <code>DNAbin</code> object a matrix, we could subset it like a matrix. That’s what we did with the brackets.</p>
-<p>grass.align[,140:3373]</p>
-<p>The comma at the beginning of the bracket told R that we wanted to keep all the rows in the matrix <code>grass.align</code>. The 140:3373 told R to keep all the columns between column 140 and column 3372 (as well as those two columns).</p>
-<p>If we had chosen to remove one of our samples (let’s say, the third sample), we could use the brackets to do so as well. The command for that would look like:</p>
-<p>kept.sequences &lt;- grass.align[c(1:2,4:13),]</p>
-<p>The <code>c(1:2,4:13)</code> is telling R that we want to keep all the sequences between the 1st and 2nd rows, as well as all the sequences between the 4th and 13th row. We have to use the c() syntax because we have two sets of rows to keep.</p>
-</div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="creating-a-multiple-sequence-alignment.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div id="reconstructing-ancestral-discrete-phenotypes" class="section level2" number="23.3">
+<h2><span class="header-section-number">23.3</span> Reconstructing ancestral discrete phenotypes</h2>
+<p>We might also be interested in reconstructing ancestral phenotypes for discrete traits. We can also do this in <code>phytools</code>. For this section, I’ve collected information as to whether each grass species in the tree is an annual or a perennial plant.</p>
+<p>Before we can do the analysis, we need to convert the edited tree from the earlier section to a <code>phylo</code> object, as well as load the phenotypes. The phenotypes can be typed in directly and assigned to a vector as in the previous section, or we can load them from a text file. Here, we load the phenotypes from a textfile that has two columns. The first column is the sample name and the second column is the annual/perennial assignment. This file is tab-delimited.</p>
+<p><img src="resources/images/13-discrete_pheno.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>When we load the file into R, we use the <code>row.names</code> command to specify that the first column (the sample names) are set as the row names of our object. We then reformat the first column as a matrix and assign it to the object <code>pheno</code>, which turns <code>pheno</code> into a vector. (Make sure your phenotype file is in the same order as your tip labels!)</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="ancestral-state-reconstruction.html#cb163-1" aria-hidden="true" tabindex="-1"></a>new <span class="ot">&lt;-</span> <span class="fu">as.phylo</span>(new)</span>
+<span id="cb163-2"><a href="ancestral-state-reconstruction.html#cb163-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-3"><a href="ancestral-state-reconstruction.html#cb163-3" aria-hidden="true" tabindex="-1"></a>pheno <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&#39;grass_discrete.txt&#39;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb163-4"><a href="ancestral-state-reconstruction.html#cb163-4" aria-hidden="true" tabindex="-1"></a>pheno <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(pheno)[,<span class="dv">1</span>]</span>
+<span id="cb163-5"><a href="ancestral-state-reconstruction.html#cb163-5" aria-hidden="true" tabindex="-1"></a>pheno</span></code></pre></div>
+<pre><code>##      crested_wheatgrass          mosquito_grass          medusahead_rye 
+##             &quot;perennial&quot;             &quot;perennial&quot;                &quot;annual&quot; 
+##       Tauschs_goatgrass                     rye              wheatgrass 
+##                &quot;annual&quot;                &quot;annual&quot;                &quot;annual&quot; 
+##         tall_wheatgrass                   wheat        mammoth_wild_rye 
+##             &quot;perennial&quot;                &quot;annual&quot;             &quot;perennial&quot; 
+## intermediate_wheatgrass 
+##             &quot;perennial&quot;</code></pre>
+<p>Now we are ready to do the ancestral state reconstruction using the <code>ace</code> command. (<code>ace</code> stands for “ancestral character estimation.”) This command takes four arguments: the phenotype vector, the tree (formatted as a <code>phylo</code> object), the model (which is always set to “ER” for discrete characters), and the character type.</p>
+<p>This particular estimation uses a Bayesian approach. The <code>ace</code> command technically can do ML estimation according to the manual, but I have not gotten it to work successfully.</p>
+<pre><code>## 
+##     Ancestral Character Estimation
+## 
+## Call: ace(x = pheno, phy = new, type = &quot;discrete&quot;, model = &quot;ER&quot;)
+## 
+##     Log-likelihood: -6.052494 
+## 
+## Rate index matrix:
+##           annual perennial
+## annual         .         1
+## perennial      1         .
+## 
+## Parameter estimates:
+##  rate index estimate std-err
+##           1  67.1331 67.9721
+## 
+## Scaled likelihoods at the root (type &#39;...$lik.anc&#39; to get them for all nodes):
+##    annual perennial 
+## 0.4999752 0.5000248</code></pre>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="ancestral-state-reconstruction.html#cb166-1" aria-hidden="true" tabindex="-1"></a>fit.discrete<span class="ot">&lt;-</span><span class="fu">ace</span>(pheno, new, <span class="at">model=</span><span class="st">&quot;ER&quot;</span>,<span class="at">type=</span><span class="st">&quot;discrete&quot;</span>)</span>
+<span id="cb166-2"><a href="ancestral-state-reconstruction.html#cb166-2" aria-hidden="true" tabindex="-1"></a>fit.discrete</span></code></pre></div>
+<pre><code>## 
+##     Ancestral Character Estimation
+## 
+## Call: ace(x = pheno, phy = new, type = &quot;discrete&quot;, model = &quot;ER&quot;)
+## 
+##     Log-likelihood: -6.052494 
+## 
+## Rate index matrix:
+##           annual perennial
+## annual         .         1
+## perennial      1         .
+## 
+## Parameter estimates:
+##  rate index estimate std-err
+##           1  67.1331 67.9721
+## 
+## Scaled likelihoods at the root (type &#39;...$lik.anc&#39; to get them for all nodes):
+##    annual perennial 
+## 0.4999752 0.5000248</code></pre>
+<p>The output for this estimation gives us scaled likelihoods for the ancestral state at the most basal node. We have to specifically request the scaled likelihood estimates for all the nodes.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="ancestral-state-reconstruction.html#cb168-1" aria-hidden="true" tabindex="-1"></a>fit.discrete<span class="sc">$</span>lik.anc</span></code></pre></div>
+<p>Well, it appears that whether the common ancestors at each node were annuals or perennials is a toss-up. Maybe we can get more insight if we look at the output on a tree.</p>
+<p>Visualizing this output requires a couple of steps. First, we plot the phylogenetic tree. Then, we define the colors that will correspond to each character state. (The commands are flexible so that you can copy and paste for discrete traits with more than two possible states. I’ve included an alternate way to set the colors, marked with a #.) Finally, we add piecharts at each node and each tip label, then plot the legend.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="ancestral-state-reconstruction.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(new)</span>
+<span id="cb169-2"><a href="ancestral-state-reconstruction.html#cb169-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-3"><a href="ancestral-state-reconstruction.html#cb169-3" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;orange&#39;</span>)</span>
+<span id="cb169-4"><a href="ancestral-state-reconstruction.html#cb169-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-5"><a href="ancestral-state-reconstruction.html#cb169-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nodelabels</span>(<span class="at">node=</span><span class="dv">1</span><span class="sc">:</span>new<span class="sc">$</span>Nnode<span class="sc">+</span><span class="fu">Ntip</span>(new),<span class="at">pie=</span>fit.discrete<span class="sc">$</span>lik.anc,<span class="at">piecol=</span>cols,<span class="at">cex=</span><span class="fl">0.7</span>)</span>
+<span id="cb169-6"><a href="ancestral-state-reconstruction.html#cb169-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-7"><a href="ancestral-state-reconstruction.html#cb169-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tiplabels</span>(<span class="at">pie=</span><span class="fu">to.matrix</span>(pheno,<span class="fu">sort</span>(<span class="fu">unique</span>(pheno))),<span class="at">piecol=</span>cols,<span class="at">cex=</span><span class="fl">0.3</span>)</span>
+<span id="cb169-8"><a href="ancestral-state-reconstruction.html#cb169-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-9"><a href="ancestral-state-reconstruction.html#cb169-9" aria-hidden="true" tabindex="-1"></a><span class="fu">add.simmap.legend</span>(<span class="at">colors=</span>cols,<span class="at">prompt=</span><span class="cn">FALSE</span>,<span class="at">x=</span><span class="fl">0.9</span><span class="sc">*</span><span class="fu">par</span>()<span class="sc">$</span>usr[<span class="dv">1</span>], <span class="at">y=</span><span class="sc">-</span><span class="fu">max</span>(<span class="fu">nodeHeights</span>(new)),<span class="at">fsize=</span><span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="resources/images/13-discrete_tree.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
+<p>Similarly to what we saw above when we looked at ancestral reconstruction of sequences, each pie chart indicates the posterior probability of each possible character state. In this case, it appears we can’t really tell whether the perennial or annual trait is ancestral. What’s clear is that the derived trait (the one that isn’t ancestral) has popped up multiple times in multiple clades.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="ancestral-state-reconstruction.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.0.2 (2020-06-22)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.3 LTS
@@ -598,31 +497,32 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
-## [1] stats4    parallel  stats     graphics  grDevices utils     datasets 
-## [8] methods   base     
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] DECIPHER_2.18.1     RSQLite_2.2.1       Biostrings_2.58.0  
-## [4] XVector_0.30.0      IRanges_2.24.1      S4Vectors_0.28.1   
-## [7] BiocGenerics_0.36.1 BiocManager_1.30.10 ape_5.4-1          
+## [1] phytools_0.7-70  maps_3.3.0       phylotools_0.2.2 phangorn_2.5.5  
+## [5] ape_5.4-1       
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.8      pillar_1.4.6    compiler_4.0.2  jquerylib_0.1.4
-##  [5] tools_4.0.2     zlibbioc_1.36.0 bit_4.0.4       digest_0.6.25  
-##  [9] memoise_1.1.0   evaluate_0.14   lifecycle_1.0.0 tibble_3.0.3   
-## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_0.4.10   
-## [17] DBI_1.1.0       yaml_2.2.1      xfun_0.26       stringr_1.4.0  
-## [21] knitr_1.33      fs_1.5.0        vctrs_0.3.4     hms_0.5.3      
-## [25] bit64_4.0.5     grid_4.0.2      R6_2.4.1        ottrpal_0.1.2  
-## [29] rmarkdown_2.10  bookdown_0.24   blob_1.2.1      readr_1.4.0    
-## [33] magrittr_2.0.2  ellipsis_0.3.1  htmltools_0.5.0 stringi_1.5.3  
-## [37] crayon_1.3.4</code></pre>
+##  [1] Rcpp_1.0.8              pillar_1.4.6            compiler_4.0.2         
+##  [4] jquerylib_0.1.4         highr_0.8               tools_4.0.2            
+##  [7] digest_0.6.25           evaluate_0.14           lifecycle_1.0.0        
+## [10] tibble_3.0.3            nlme_3.1-149            lattice_0.20-41        
+## [13] pkgconfig_2.0.3         rlang_0.4.10            Matrix_1.2-18          
+## [16] fastmatch_1.1-0         igraph_1.2.6            yaml_2.2.1             
+## [19] parallel_4.0.2          expm_0.999-5            xfun_0.26              
+## [22] coda_0.19-4             stringr_1.4.0           knitr_1.33             
+## [25] gtools_3.8.2            fs_1.5.0                vctrs_0.3.4            
+## [28] hms_0.5.3               scatterplot3d_0.3-41    combinat_0.0-8         
+## [31] grid_4.0.2              R6_2.4.1                plotrix_3.7-8          
+## [34] ottrpal_0.1.2           rmarkdown_2.10          bookdown_0.24          
+## [37] readr_1.4.0             magrittr_2.0.2          MASS_7.3-51.6          
+## [40] ellipsis_0.3.1          htmltools_0.5.0         mnormt_2.0.2           
+## [43] numDeriv_2016.8-1.1     quadprog_1.5-8          stringi_1.5.3          
+## [46] tmvnsim_1.0-2           clusterGeneration_1.3.5 crayon_1.3.4</code></pre>
 
 </div>
 </div>
-
-
-
 <hr>
 <center> 
   <div class="footer">
@@ -636,8 +536,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="why-do-we-align-sequences.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="the-neighbor-joining-method-of-tree-estimation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="visualizing-phylogenetic-networks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="about-the-authors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

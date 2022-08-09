@@ -84,4 +84,8 @@ why-do-we-see-competing-phylogenetic-relationships
 visualizing-phylogenetic-networks
 using-densitree
 networks-in-r
+ancestral-state-reconstruction
+reconstructing-ancestral-sequences
+reconstructing-ancestral-continuous-phenotypes
+reconstructing-ancestral-discrete-phenotypes
 references
