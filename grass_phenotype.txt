@@ -1,0 +1,11 @@
+taxon	longevity	max_height_in
+wheat	annual	60
+intermediate_wheatgrass	perennial	48
+mammoth_wild_rye	perennial	48
+wheatgrass	annual	18
+tall_wheatgrass	perennial	78
+rye	annual	48
+crested_wheatgrass	perennial	24
+Tauschs_goatgrass	annual	30
+medusahead_rye	annual	20
+mosquito_grass	perennial	36
