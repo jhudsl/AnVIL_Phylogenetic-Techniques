@@ -29,18 +29,25 @@ fitGTR.G <- update(fit, model = "GTR", k = 4)
 fitGTR.G <- optim.pml(fitGTR.G, model = "GTR", optGamma = T, rearrangement = "stochastic", control = pml.control(trace = 0))
 
 fitGTR.G$tree <- root(fit$tree, outgroup = c('barley_D-hordein','Siberian wild rye_D-hordein'))
-plot(fit)
+plot(fitGTR.G)
 ```
 
 After we look at the grass tree to make sure it is rooted the way we want, we use the `ancestral.pml` command to estimate the ancestral sequence for each node. `ancestral.pml` can run either an ML or Bayesian analysis. This command takes two arguments: the full output of your ML analysis and a choice of either "ml" or "bayes". We will use ML, but you could just as easily use the Bayesian method. 
 
 After running the ancestral state reconstruction, we plot the nucleotide at base 209 for each node and tip. (I randomly chose base 209. In practice, researchers likely would have already identified locations of interest.)
 
-```{r, warning=FALSE, message = FALSE}
+```{r,eval=FALSE, warning=FALSE, message = FALSE}
 anc.ml <- ancestral.pml(fitGTR.G, "ml")
 
 plotAnc(fitGTR.G$tree, anc.ml, 209)
 ```
+
+
+<img src="resources/images/13-base_209.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+
+
 
 At base 209, most of the samples and putative most recent common ancestors have a G, although at some point a mutation occurred in the ancestors of the rye/wheatgrass/tall wheatgrass/wheat/mammoth wild rye/intermediate wheatgrass clade, which is why those taxa mostly have an A at base 209. (Rye is clearly the weirdo with a T.) The pie chart for the barley D-hordein sequence shows all four possible bases, which just means this particular base is likely missing in the barley D-hordein sequence (either because it was not sequenced or because there was a deletion event and the base does not exist).
 
@@ -48,9 +55,16 @@ Additionally, the pie charts for some ancestral nodes have multiple colors. When
 
 We could do this for any base, like base 1023 (another one I picked at random).
 
-```{r, warning=FALSE, message = FALSE}
+```{r,eval=FALSE, warning=FALSE, message = FALSE}
 plotAnc(fitGTR.G$tree, anc.ml, 1023)
 ```
+
+
+<img src="resources/images/13-base_1023.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
+
+
+
+
 
 We see a very different pattern of inheritance for base 1023. The vast majority of the samples have an A, so nearly all the reconstructed ancestral sequences also have an A. The exception are the nodes in the crested wheatgrass/mosquito grass/medusahead rye clade. All three of the samples have a different nucleotide (or are missing that base), so the reconstructed sequence for the most recent common ancestors is less certain than in the rest of the tree.
 
@@ -61,7 +75,7 @@ We can use the `phytools` package to estimate and visualize the reconstruction o
 First, we install and load the `phytools` package, then we load our ML tree.
 
 ```{r, warning=FALSE, message = FALSE}
-install.packages('phytools')
+#install.packages('phytools')
 library(phytools)
 
 g.tree <- read.tree('grass_ml.tre')
@@ -73,7 +87,7 @@ plot(tree.root)
 This tree has 13 samples, but we aren't going to use all of them for the grass analysis. First, we want to remove the outgroups (the two D-hordein samples) because in this case their position doesn't represent the phylogenetic relationships between barley and the ingroup or Siberian wild rye and the ingroup. (They represent the phylogenetic relationship of D-hordein and the _Glu_ sequences instead. If you used the same genetic region/gene for your outgroup, you can leave them in. If I had used Siberian wild rye _Glu_ sequence, it would be fine to leave the outgroup.) I also was unable to find information on the maximum height of Asiatic grass. We can remove these taxa from the tree directly using the `drop.tip` command.
 
 ```{r, warning=FALSE, message = FALSE}
-new <- drop.tip(tree.root, c('barley_D-hordein', 'Siberian wild rye_D-hordein', 'Asiatic grass'), trim.internal = TRUE, subtree = FALSE, root.edge = 0, rooted = is.rooted(tree.root), collapse.singles = TRUE, interactive = FALSE)
+new <- drop.tip(tree.root, c('barley_D-hordein', 'Siberian_wild_rye_D-hordein', 'Asiatic_grass'), trim.internal = TRUE, subtree = FALSE, root.edge = 0, rooted = is.rooted(tree.root), collapse.singles = TRUE, interactive = FALSE)
 
 plot(new)
 nodelabels()
@@ -89,15 +103,10 @@ height <- as.numeric(c(24, 36, 20, 30, 48, 18, 78, 60, 48, 48))
 
 Now that we have both our tree and our continuous phenotype, we calculate the ancestral phenotype estimates with the `fastAnc` command. This is an ML method. I have not found a Bayesian approach for ancestral state reconstruction of continuous traits. The arguments for this command are the tree, the vector of the phenotypes, and either "TRUE" or "FALSE" value for calculating the confidence intervals around the likelihood estimate for each node.
 
-```{r, eval=FALSE, warning=FALSE, message = FALSE}
+```{r, warning=FALSE, message = FALSE}
 anc.height <- fastAnc(new, height, CI = TRUE)
 anc.height
 ```
-
-
-<img src="resources/images/13-cont_output.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
-
-
 
 
 Although there's some variation in the maximum height of the various grass samples in this tree, most of the putative common ancestors are estimated to have been between 35 and 40 inches tall. However, when we look at the CIs for these estimates, we find they are quite wide, suggesting a lot of uncertainty about these ancestral height estimates. Perhaps this isn't the best method for reconstructing this particular trait!
@@ -130,15 +139,15 @@ Now we are ready to do the ancestral state reconstruction using the `ace` comman
 
 This particular estimation uses a Bayesian approach. The `ace` command technically can do ML estimation according to the manual, but I have not gotten it to work successfully. 
 
-```{r,eval=FALSE, warning=FALSE, message = FALSE}
+```{r,echo=FALSE, warning=FALSE, message = FALSE}
 fit.discrete<-ace(pheno, new, model="ER",type="discrete")
 fit.discrete
 ```
 
-
-<img src="resources/images/13-discrete_output.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
-
-
+```{r, warning=FALSE, message = FALSE}
+fit.discrete<-ace(pheno, new, model="ER",type="discrete")
+fit.discrete
+```
 
 
 The output for this estimation gives us scaled likelihoods for the ancestral state at the most basal node. We have to specifically request the scaled likelihood estimates for all the nodes. 
@@ -146,11 +155,6 @@ The output for this estimation gives us scaled likelihoods for the ancestral sta
 ```{r,eval=FALSE, warning=FALSE, message = FALSE}
 fit.discrete$lik.anc
 ```
-
-
-<img src="resources/images/13-discrete_lik_anc.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" />
-
-
 
 
 Well, it appears that whether the common ancestors at each node were annuals or perennials is a toss-up. Maybe we can get more insight if we look at the output on a tree.
