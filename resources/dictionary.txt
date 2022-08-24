@@ -10,7 +10,6 @@ impactful
 ITCR
 itcrtraining
 ITN
-fyi
 Leanpub
 Markua
 mentorship

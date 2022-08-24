@@ -39,7 +39,7 @@ Branch lengths (the distance between two nodes, or between a node and a tip), ma
 Regardless of how the trees are constructed, they are estimates of what we think happened historically.  Each estimate contains within it implicit assumptions about rates of mutation accumulating, likelihood of different types of changes being more common (transitions vs. transversions, for example), and so on.  The tree is our best hypothesis as to the history of the organisms on it, but it is only a hypothesis.
 
 
-::: {.fyi}
+::: {.dictionary}
 At one time, only morphological data could be used to make these trees.  Thus, phylogenetic trees might have been based on similarities of bone structures, or fur types, or other gross physiological features.  Even though the trees were called “phylogenetic” trees, they were not based on genetic data.
 
 Now, phylogenetic trees are generally based on DNA sequence (for closely related species) or amino acid sequences (for more distantly related species).  Furthermore, the trees are generally based on several genetic loci, rather than on the whole genome.  This is changing, with next generation sequencing and advances in computing power.  Nevertheless, at present most phylogenetic trees are “gene trees” rather than “species trees,” and it is important to remember that selection or drift on a particular locus can influence a tree so that it reflects the history of the gene, but NOT the history of the species
@@ -80,7 +80,7 @@ mammal.1
 
 We now have a phylogenetic tree loaded into R. 
 
-::: {.fyi}
+::: {.dictionary}
 Why is it called Newick format?
 
 This is what Joe Felsenstein, one of the giants of the phylogenetic field, says: 
@@ -183,7 +183,7 @@ plot(mammal.3.root, type="p")
 plot(mammal.4.root, type="c")#c is short for "cladogram"
 ```
 
-::: {.fyi}
+::: {.reflection}
 QUESTIONS
 
 1. What is the total branch length between "bear" and "raccoon"? (You will need to look at the tree in Newick format.)

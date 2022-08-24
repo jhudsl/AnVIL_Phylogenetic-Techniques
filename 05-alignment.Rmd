@@ -147,7 +147,7 @@ Congratulations! You now have a trimmed alignment, ready for inferring trees. To
 write.dna( grass.align, file = 'grass_aligned.fasta', format = 'fasta' )
 ```
 
-::: {.fyi}
+::: {.notice}
 **R BASICS**
 
 R has both data types and data structures. Data types (like character (for letters) or numeric (for real or decimal numbers)) can be combined to form data structures. Some of the data structures include:
