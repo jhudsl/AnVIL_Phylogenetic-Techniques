@@ -26,7 +26,7 @@ If the two daughter populations have been separated long enough for genomic sort
 
 Finally, it may not be possible to reconstruct the phylogenetic relationships among groups if speciation happened over a very short time period (similar to what you expect in an adaptive radiation). In this case, the relationships among species might look like a polytomy instead of a series of bifurcating nodes.
 
-::: {.fyi}
+::: {.dictionary}
 **Gene trees and species trees**
 
 One of the most important things to remember in phylogenetics is that we estimate gene trees. We often use these as proxies for species trees, but they are not the same thing. Due to the process of sorting and introgression, the phylogenetic relationships supported by a certain percentage of genes or genomic regions will actually _differ_ from the species tree. When you are looking at trees built with data from only one gene, you can't guarantee that your gene tree is reflective of the species tree!
@@ -66,7 +66,7 @@ The orange and green colors are very light because those alternate branching pat
 
 There's not much disagreement among the trees in the posterior distribution for our grass example. The main disagreement is with the placement of the Asiatic grass sample; 85% of the trees place Asiatic grass with the crested wheatgrass/medusahead rye/mosquito grass clade, which 15% place it in a different position. 
 
-::: {.fyi}
+::: {.dictionary}
 
 I have been using the words "probability" and "percentage" interchangeably when talking about the Bayesian posterior tree distribution. Although probability and percentage aren't usually the same thing, in this case they are. We are estimating the probability of topologies by calculating the percentage of the tree distribution with the desired topology.
 
