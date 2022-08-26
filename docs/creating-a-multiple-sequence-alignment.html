@@ -23,13 +23,13 @@
 
 
 
-<meta name="date" content="2022-08-09" />
+<meta name="date" content="2022-08-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="assets/AnVIL_style/anvil_favicon.ico" type="image/x-icon" />
 <link rel="prev" href="why-do-we-align-sequences.html"/>
 <link rel="next" href="the-neighbor-joining-method-of-tree-estimation.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
@@ -285,7 +285,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="24" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>24</b> References</a></li>
 <li class="divider"></li>
-<p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
+<p style="text-align:center;"> <a href="https://github.com/jhudsl/OTTR_Template" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
 <a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
 <p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
@@ -371,7 +371,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.44 secs
+## Time difference of 0.6 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -388,7 +388,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.63 secs
+## Time difference of 0.84 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -405,12 +405,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.9 secs
+## Time difference of 1.19 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.72 secs</code></pre>
+## Time difference of 0.97 secs</code></pre>
 <p>We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-a-multiple-sequence-alignment.html#cb35-1" aria-hidden="true" tabindex="-1"></a>DNA.trans <span class="ot">&lt;-</span> <span class="fu">AlignTranslation</span>(dna)</span></code></pre></div>
 <pre><code>## Determining distance matrix based on shared 5-mers:
@@ -426,7 +426,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.24 secs
+## Time difference of 0.28 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -443,7 +443,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.24 secs
+## Time difference of 0.29 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -460,7 +460,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.24 secs</code></pre>
+## Time difference of 0.28 secs</code></pre>
 <p>Translating the nucleotide sequences sped up the alignment process, although both were fast enough it isn’t a big deal to directly align the nucleotides. Your choice of which alignment procedure to use will largely come down to whether you are using coding sequence and how divergent your samples are. If you aren’t using coding sequence, you will need to align using the nucleotides. If you have samples from deeply divergent species (especially if they come from different phyla), you will generally get a better alignment if you let the program translate your nucleotide sequence to amino acids first.</p>
 <p>Now that we’ve created alignments, it would be helpful to visually check them. (This is possible if your sequences aren’t too long, but can become really hard once you start dealing with very long stretches of DNA!) The <code>BrowseSeqs</code> command opens a browser window with the aligned sequences. Just remember which window belongs to each alignment!</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="creating-a-multiple-sequence-alignment.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans)</span>
@@ -485,7 +485,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.44 secs
+## Time difference of 0.53 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -502,7 +502,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.59 secs
+## Time difference of 0.72 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -519,12 +519,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.94 secs
+## Time difference of 1.17 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.78 secs</code></pre>
+## Time difference of 0.97 secs</code></pre>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="creating-a-multiple-sequence-alignment.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BrowseSeqs</span>(DNA.no_trans<span class="fl">.1</span>)</span></code></pre></div>
 <p>Changing the gap opening and gap extension costs may or may not make a difference. In many cases, the default parameters will work just fine. However, it is always wise to check additional values!</p>
 <p>For the grass samples, it would be reasonable to use the alignment generated by the <code>AlignSeqs</code> method. This is a judgment call more than anything else - there are large sections of the alignment that include all the sequences with minimal changes. We’ll want to trim it to remove the ends with very little sequence coverage. We will keep everything between base 140 and 3373. To trim the sequences, we will write a new fasta file, then use it to create a new <code>DNAbin</code> object. If you haven’t already loaded the <code>ape</code> library in your R session, you should do so now using the <code>library(ape)</code> command.</p>
@@ -556,7 +556,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## (Total: 42.04 kb)</code></pre>
 <p>Congratulations! You now have a trimmed alignment, ready for inferring trees. To be on the safe side, we will save it as a fasta file.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="creating-a-multiple-sequence-alignment.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.dna</span>( grass.align, <span class="at">file =</span> <span class="st">&#39;grass_aligned.fasta&#39;</span>, <span class="at">format =</span> <span class="st">&#39;fasta&#39;</span> )</span></code></pre></div>
-<div class="fyi">
+<div class="notice">
 <p><strong>R BASICS</strong></p>
 <p>R has both data types and data structures. Data types (like character (for letters) or numeric (for real or decimal numbers)) can be combined to form data structures. Some of the data structures include:</p>
 <ul>

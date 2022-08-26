@@ -129,12 +129,11 @@ time.tree_dated <- chronos(time.tree, lambda = 1, model = "discrete", quiet = FA
 ## 
 ## Setting initial dates...
 ## Fitting in progress... get a first set of estimates
-##          (Penalised) log-lik = -4.110916 
-## Optimising rates... frequencies... dates... -4.110916 
-## Optimising rates... frequencies... dates... -3.795125 
+##          (Penalised) log-lik = -4.190223 
+## Optimising rates... frequencies... dates... -4.190223 
 ## 
-## log-Lik = -3.795125 
-## PHIIC = 67.59
+## log-Lik = -4.190223 
+## PHIIC = 68.38
 ```
 
 Before we plot the tree, we need to do a bit of formatting of the branch lengths (called edge.length). R will be default save these values to 10 decimal places, which can make visualization a little tricky. We're going to format them so they only have two decimal places, then plot them on top of the time tree.

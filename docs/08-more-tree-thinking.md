@@ -41,7 +41,7 @@ rm.sequence.fasta(infile = "grass_aligned-renamed.fasta", outfile = "sequence.re
 ```
 
 ```
-## sequence.removed.fasta has been saved to  /__w/phylogenetic-techniques/phylogenetic-techniques
+## sequence.removed.fasta has been saved to  /__w/AnVIL_Phylogenetic-Techniques/AnVIL_Phylogenetic-Techniques
 ```
 
 We can then load the new fasta file and estimate a new neighbor joining tree (or any other type of tree) without the problematic sample.
@@ -71,7 +71,7 @@ rm.sequence.fasta(infile = "grass_aligned-renamed.fasta", outfile = "no_outgroup
 ```
 
 ```
-## no_outgroup.fasta has been saved to  /__w/phylogenetic-techniques/phylogenetic-techniques
+## no_outgroup.fasta has been saved to  /__w/AnVIL_Phylogenetic-Techniques/AnVIL_Phylogenetic-Techniques
 ```
 
 ```r
