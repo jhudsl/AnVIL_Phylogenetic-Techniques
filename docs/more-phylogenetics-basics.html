@@ -23,13 +23,13 @@
 
 
 
-<meta name="date" content="2022-08-09" />
+<meta name="date" content="2022-08-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="assets/AnVIL_style/anvil_favicon.ico" type="image/x-icon" />
 <link rel="prev" href="building-a-parsimony-tree.html"/>
 <link rel="next" href="what-is-maximum-likelihood.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
@@ -285,7 +285,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="24" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>24</b> References</a></li>
 <li class="divider"></li>
-<p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
+<p style="text-align:center;"> <a href="https://github.com/jhudsl/OTTR_Template" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
 <a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
 <p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
@@ -337,7 +337,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="more-phylogenetics-basics.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phylotools)</span>
 <span id="cb93-2"><a href="more-phylogenetics-basics.html#cb93-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb93-3"><a href="more-phylogenetics-basics.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm.sequence.fasta</span>(<span class="at">infile =</span> <span class="st">&quot;grass_aligned-renamed.fasta&quot;</span>, <span class="at">outfile =</span> <span class="st">&quot;sequence.removed.fasta&quot;</span>, <span class="at">to.rm =</span> <span class="st">&quot;Siberian wild rye_D-hordein&quot;</span>)</span></code></pre></div>
-<pre><code>## sequence.removed.fasta has been saved to  /__w/phylogenetic-techniques/phylogenetic-techniques</code></pre>
+<pre><code>## sequence.removed.fasta has been saved to  /__w/AnVIL_Phylogenetic-Techniques/AnVIL_Phylogenetic-Techniques</code></pre>
 <p>We can then load the new fasta file and estimate a new neighbor joining tree (or any other type of tree) without the problematic sample.</p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="more-phylogenetics-basics.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phangorn)</span>
 <span id="cb95-2"><a href="more-phylogenetics-basics.html#cb95-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -352,7 +352,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="resources/images/08-more-tree-thinking_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>You can use the same command to remove multiple outgroup taxa, or to remove an outgroup that is too distant (ie, the branch lengths are too long and including the outgroup is obscuring the relationships among the ingroup samples). If you need to remove all of your outgroup, you can instead try midpoint rooting.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="more-phylogenetics-basics.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm.sequence.fasta</span>(<span class="at">infile =</span> <span class="st">&quot;grass_aligned-renamed.fasta&quot;</span>, <span class="at">outfile =</span> <span class="st">&quot;no_outgroup.fasta&quot;</span>, <span class="at">to.rm =</span> <span class="fu">c</span>(<span class="st">&quot;barley_D-hordein&quot;</span>, <span class="st">&quot;Siberian wild rye_D-hordein&quot;</span>))</span></code></pre></div>
-<pre><code>## no_outgroup.fasta has been saved to  /__w/phylogenetic-techniques/phylogenetic-techniques</code></pre>
+<pre><code>## no_outgroup.fasta has been saved to  /__w/AnVIL_Phylogenetic-Techniques/AnVIL_Phylogenetic-Techniques</code></pre>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="more-phylogenetics-basics.html#cb98-1" aria-hidden="true" tabindex="-1"></a>grass.no_out<span class="ot">&lt;-</span> <span class="fu">read.dna</span>(<span class="st">&quot;no_outgroup.fasta&quot;</span>, <span class="at">format=</span><span class="st">&#39;fasta&#39;</span>)</span>
 <span id="cb98-2"><a href="more-phylogenetics-basics.html#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-3"><a href="more-phylogenetics-basics.html#cb98-3" aria-hidden="true" tabindex="-1"></a>dist.matrix <span class="ot">&lt;-</span> <span class="fu">dist.dna</span>(grass.no_out, <span class="at">model =</span> <span class="st">&quot;K80&quot;</span>)</span>

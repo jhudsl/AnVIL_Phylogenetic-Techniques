@@ -24,7 +24,7 @@ We keep grouping taxa until the entire star has been resolved into bifurcating b
 
 The neighbor joining method is very fast, requires very few computational resources, and is statistically consistent. It will also always result in only a single tree topology. Unfortunately, many people will become overly confident that the single neighbor joining tree is the true tree, which is not necessarily true. Nowadays, most researchers might start their analysis with a neighbor joining tree, but they generally go on to infer trees using one of the other methods. 
 
-::: {.fyi}
+::: {.dictionary}
 
 There is another type of distance method you might hear about called UPGMA (unweighted pair group method with arithmetic mean). This is a hierarchical clustering method. However, the tree built using UPGMA depends greatly on the order in which the taxa are added, unlike the neighbor joining method (which will result in the same tree no matter what order the samples are added). As a result, the UPGMA method is almost never used in phylogenetics today.
 
@@ -76,7 +76,7 @@ There are enough substitution models out there that it can be a bit overwhelming
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.43 secs
+## Time difference of 0.44 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -93,7 +93,7 @@ There are enough substitution models out there that it can be a bit overwhelming
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.63 secs
+## Time difference of 0.64 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -110,12 +110,12 @@ There are enough substitution models out there that it can be a bit overwhelming
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.91 secs
+## Time difference of 0.92 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.72 secs
+## Time difference of 0.73 secs
 ```
 
 
@@ -161,7 +161,7 @@ grass.phy
 
 The phyDat object is remarkably similar to the DNAbin object - this isn't too surprising, since the same team wrote both `ape` and `phangorn`.
 
-::: {.fyi}
+::: {.notice}
 **R BASICS**
 
 If you are pausing your R environment on AnVIL (or have not closed an R session), you may still have all the objects you created previously still available. To check this, you can use the `list` command.

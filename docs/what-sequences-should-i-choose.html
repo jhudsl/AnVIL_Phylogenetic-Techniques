@@ -23,13 +23,13 @@
 
 
 
-<meta name="date" content="2022-08-09" />
+<meta name="date" content="2022-08-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="assets/AnVIL_style/anvil_favicon.ico" type="image/x-icon" />
 <link rel="prev" href="visualizing-trees-in-r.html"/>
 <link rel="next" href="finding-sequences-in-genbank.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
@@ -285,7 +285,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="24" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>24</b> References</a></li>
 <li class="divider"></li>
-<p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
+<p style="text-align:center;"> <a href="https://github.com/jhudsl/OTTR_Template" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
 <a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
 <p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
@@ -325,7 +325,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><em>For closely related species in which you might hope to figure out some sort of information about the divergence between the species</em> (including the timing of the divergence), you would use areas of the genome known to accumulate changes rapidly (non-coding regions that also do not have functionality, or whose functionality is not easily changed by changes in the DNA base sequence). Some examples of rapidly changing genetic regions include the mitochondrial control region, the wobble base on mitochondrial coding regions, and nuclear introns. It is also important to use “dense taxon sampling” among closely related species because any small change can seem disproportionately important in a recent divergence. Having multiple individuals sampled from each phylogenetic unit of interest (could be species, subspecies, or populations) helps to compensate by showing the genetic divergence within a group. This within-group divergence can then be accurately compared to the genetic divergence between two groups.</p>
 <p><em>For more divergent species and comparisons</em>, you use areas of the genome that do not change as rapidly. For example, if you wanted to do a survey of the placental mammals, you could choose a gene region that is under enough selection pressure that it mutates more slowly than the regions you would choose for closely related species.</p>
 <p><em>If you are examining the relationships among deeply divergent species, or when the base-pair signal is completely swamped out over time</em>, you might search for amino acid sequence similarities instead of DNA sequence similarities. Because of wobble, amino acid sequence can remain the same even when bases change. Sometimes amino acids of similar size/charge/shape can be substituted for others, which would result in a complete change in base pair sequence (and loss of ability to find similar sequences), but allows for finding similarities through amino acid sequence. Even when using protein sequence, it is often helpful to extract the coding sequence (once similar protein sequences have been found), because that adds extra information to fine tune the phylogenetic analysis. This technique can also be used when the primary goal is to trace the history of a particular gene (when the changes in the gene itself are of interest.)</p>
-<div class="fyi">
+<div class="dictionary">
 <p>To attempt a reconstruction of the evolutionary history of organisms, you really should use multiple lines of evidence and not rely solely on genomic data. For example to reconstruct primate evolution, one looks at the fossil record, molecular divergence, and also phylogeographic evidence (how these things map onto our understanding of the geography of the earth at various crucial time points along primate evolution). Examples of phylogeographic evidence include understanding when terrestrial (land-based) organisms might have been cut off from each other due to the formation of a river or lake, the eradication of a land bridge by melting glaciers and a rise in the earth’s temperature (which raises the sea level).</p>
 <p>Alas, for this book, we are limited to only using genomic data.</p>
 </div>

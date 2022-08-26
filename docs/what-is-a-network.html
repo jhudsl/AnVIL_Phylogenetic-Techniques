@@ -23,13 +23,13 @@
 
 
 
-<meta name="date" content="2022-08-09" />
+<meta name="date" content="2022-08-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="assets/AnVIL_style/anvil_favicon.ico" type="image/x-icon" />
 <link rel="prev" href="adding-calibration-points-to-your-phylogenies.html"/>
 <link rel="next" href="visualizing-phylogenetic-networks.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
@@ -285,7 +285,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="24" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>24</b> References</a></li>
 <li class="divider"></li>
-<p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
+<p style="text-align:center;"> <a href="https://github.com/jhudsl/OTTR_Template" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
 <a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
 <p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
@@ -330,7 +330,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>The process of speciation is slow. While it sounds straightforward (a population splits into two reproductively isolated daughter populations, which then become two new species), in reality it is a very slow and messy process. Sometimes we are examining taxa that have only recently become separate. In this situation, we might be seeing the result of <em><em>incomplete lineage sorting</em></em>. When populations first split, there will be individuals within each daughter population who have the same allele for particular genes or genomic regions. Usually these shared alleles will sort, or become extinct in one population but not the other. However, this process takes time, and the bigger the daughter population, the longer this process takes.</p>
 <p>If the two daughter populations have been separated long enough for genomic sorting to have occurred, the conflicting phylogenetic relationships could be the result of <em><em>introgression</em></em>. Among sexually reproductive species, members of two separate species might interbreed or hybridize (this is very common in some orders, especially ducks!). In bacteria, genes can be transferred between bacteria of different species via horizontal gene transfer. Viruses will also swap entire genes in a similar process.</p>
 <p>Finally, it may not be possible to reconstruct the phylogenetic relationships among groups if speciation happened over a very short time period (similar to what you expect in an adaptive radiation). In this case, the relationships among species might look like a polytomy instead of a series of bifurcating nodes.</p>
-<div class="fyi">
+<div class="dictionary">
 <p><strong>Gene trees and species trees</strong></p>
 <p>One of the most important things to remember in phylogenetics is that we estimate gene trees. We often use these as proxies for species trees, but they are not the same thing. Due to the process of sorting and introgression, the phylogenetic relationships supported by a certain percentage of genes or genomic regions will actually <em>differ</em> from the species tree. When you are looking at trees built with data from only one gene, you can’t guarantee that your gene tree is reflective of the species tree!</p>
 <p>This is problematic now that we’re using whole genomes to infer phylogenies. The methods we use for inferring phylogenies were designed based on the idea that all the sequences evolved following a single model of evolution, with no complicating factors like lateral gene transfer, duplication events, or recombination. Unfortunately, the genome is a wild hodgepodge of coding regions, noncoding regions, introns, exons, regulatory regions, pseudogenes, and a bunch of other things we probably don’t know about yet. Each of these regions may have their own evolutionary history that is best modeled by a variety of molecular models.</p>

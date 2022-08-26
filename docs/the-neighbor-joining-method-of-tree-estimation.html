@@ -23,13 +23,13 @@
 
 
 
-<meta name="date" content="2022-08-09" />
+<meta name="date" content="2022-08-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="assets/AnVIL_style/anvil_favicon.ico" type="image/x-icon" />
 <link rel="prev" href="creating-a-multiple-sequence-alignment.html"/>
 <link rel="next" href="building-a-neighbor-joining-tree.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
@@ -285,7 +285,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="24" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>24</b> References</a></li>
 <li class="divider"></li>
-<p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
+<p style="text-align:center;"> <a href="https://github.com/jhudsl/OTTR_Template" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
 <a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
 <p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
@@ -329,7 +329,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>We keep grouping taxa until the entire star has been resolved into bifurcating branches (nodes that connect two, and only two, branches). For our example tree, we eventually end up with this tree:</p>
 <p><img src="resources/images/06-nj_2.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
 <p>The neighbor joining method is very fast, requires very few computational resources, and is statistically consistent. It will also always result in only a single tree topology. Unfortunately, many people will become overly confident that the single neighbor joining tree is the true tree, which is not necessarily true. Nowadays, most researchers might start their analysis with a neighbor joining tree, but they generally go on to infer trees using one of the other methods.</p>
-<div class="fyi">
+<div class="dictionary">
 <p>There is another type of distance method you might hear about called UPGMA (unweighted pair group method with arithmetic mean). This is a hierarchical clustering method. However, the tree built using UPGMA depends greatly on the order in which the taxa are added, unlike the neighbor joining method (which will result in the same tree no matter what order the samples are added). As a result, the UPGMA method is almost never used in phylogenetics today.</p>
 </div>
 <div id="models-of-molecular-evolution" class="section level2" number="12.1">
@@ -370,7 +370,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.43 secs
+## Time difference of 0.44 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -387,7 +387,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.63 secs
+## Time difference of 0.64 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -404,12 +404,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.91 secs
+## Time difference of 0.92 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.72 secs</code></pre>
+## Time difference of 0.73 secs</code></pre>
 </div>
 </div>
 </div>

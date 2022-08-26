@@ -105,7 +105,7 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.44 secs
+## Time difference of 0.45 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -139,12 +139,12 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.9 secs
+## Time difference of 0.91 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.72 secs
+## Time difference of 0.73 secs
 ```
 
 We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.
@@ -247,7 +247,7 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.44 secs
+## Time difference of 0.45 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -281,12 +281,12 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.94 secs
+## Time difference of 0.95 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.78 secs
+## Time difference of 0.79 secs
 ```
 
 ```r
@@ -345,7 +345,7 @@ Congratulations! You now have a trimmed alignment, ready for inferring trees. To
 write.dna( grass.align, file = 'grass_aligned.fasta', format = 'fasta' )
 ```
 
-::: {.fyi}
+::: {.notice}
 **R BASICS**
 
 R has both data types and data structures. Data types (like character (for letters) or numeric (for real or decimal numbers)) can be combined to form data structures. Some of the data structures include:

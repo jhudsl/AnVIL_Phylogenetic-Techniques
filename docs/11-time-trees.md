@@ -129,8 +129,8 @@ time.tree_dated <- chronos(time.tree, lambda = 1, model = "discrete", quiet = FA
 ## 
 ## Setting initial dates...
 ## Fitting in progress... get a first set of estimates
-##          (Penalised) log-lik = -4.110916 
-## Optimising rates... frequencies... dates... -4.110916 
+##          (Penalised) log-lik = -4.039911 
+## Optimising rates... frequencies... dates... -4.039911 
 ## Optimising rates... frequencies... dates... -3.795125 
 ## 
 ## log-Lik = -3.795125 

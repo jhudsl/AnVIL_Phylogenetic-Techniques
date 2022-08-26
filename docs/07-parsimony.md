@@ -112,7 +112,7 @@ rename.fasta('grass_aligned.fasta', sample.df, 'grass_aligned-renamed.fasta')
 ```
 
 ```
-## grass_aligned-renamed.fasta has been saved to  /__w/phylogenetic-techniques/phylogenetic-techniques
+## grass_aligned-renamed.fasta has been saved to  /__w/AnVIL_Phylogenetic-Techniques/AnVIL_Phylogenetic-Techniques
 ```
 
 ## Inferring a parsimony tree
@@ -276,7 +276,7 @@ plotBS(NNI.root, type = "p", main = 'Parsimony, NNI')
 You may need to resize the Plots window in order to more easily read the bootstrap values for each branch.
 
 
-::: {.fyi}
+::: {.reflection}
 can we bootstrap our neighbor joining tree?
 
 In short, yes, although we have to do a bit of R trickery, because neither `ape` nor `phangorn` have the option to bootstrap neighbor joining trees built in. We can get around this by writing our own function.

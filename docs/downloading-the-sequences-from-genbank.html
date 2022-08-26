@@ -23,13 +23,13 @@
 
 
 
-<meta name="date" content="2022-08-09" />
+<meta name="date" content="2022-08-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="assets/anvil_favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="assets/AnVIL_style/anvil_favicon.ico" type="image/x-icon" />
 <link rel="prev" href="finding-sequences-in-genbank.html"/>
 <link rel="next" href="why-do-we-align-sequences.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
@@ -285,7 +285,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
 <li class="chapter" data-level="24" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>24</b> References</a></li>
 <li class="divider"></li>
-<p style="text-align:center;"> <a href="https://github.com/jhudsl/DaSL_Course_Template_Bookdown" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
+<p style="text-align:center;"> <a href="https://github.com/jhudsl/OTTR_Template" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by: </a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
 <a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
 <p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
@@ -356,7 +356,7 @@ save it as an object, and also specify that we want the sequences in ATGC form. 
 <span id="cb25-2"><a href="downloading-the-sequences-from-genbank.html#cb25-2" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;FJ481575.1&quot;</span>,<span class="st">&quot;EF204545.1&quot;</span>,<span class="st">&quot;AJ314771.1&quot;</span>,<span class="st">&quot;FJ481569.1&quot;</span>,</span>
 <span id="cb25-3"><a href="downloading-the-sequences-from-genbank.html#cb25-3" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;DQ073533.1&quot;</span>,<span class="st">&quot;AY804128.1&quot;</span>,<span class="st">&quot;AY303125.2&quot;</span>,<span class="st">&quot;KF887414.1&quot;</span>,</span>
 <span id="cb25-4"><a href="downloading-the-sequences-from-genbank.html#cb25-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;D82941.1&quot;</span>,<span class="st">&quot;JX276655.1&quot;</span>))</span></code></pre></div>
-<div class="fyi">
+<div class="notice">
 <p>R BASICS</p>
 <p>In R, you can do two things with the output of a command. First, you can have the output displayed immediately. This is what you did in the first block of R code above. This can be really helpful if you want to immediately see what your command did, but it’s less helpful if you want to do something with the output. In the first block of code, we managed to download sequences from GenBank and print them to the screen, but we don’t have a way to build trees from the printed screen. (Print in this case refers to the display you see on the R console.)</p>
 <p>Second, you can tell R to save the output as an object. This is what we did second block of code with <code>grass &lt;- read.GenBank</code>. The <code>&lt;-</code> operator tells R to redirect the output from <code>read.GenBank</code> to an object (or data structure) named <code>grass</code>. Everything you saw printed on the screen from the first block of code is now saved to <code>grass</code>.</p>
@@ -380,7 +380,7 @@ atggctaagcggctggtcctctttgcagcagtagccgtcgccctcgtggctctcaccgcc</p>
 <p>If you check your RStudio files (on the lower left side of the screen, you’ll see a tab named Files), you should see a newly-created file called “grass.fasta”. If you open it up, the file will look something like this:</p>
 <p><img src="resources/images/04-fasta.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
 <p>Going forward, we will use both the <code>DNA.bin</code> object and the fasta file.</p>
-<div class="fyi">
+<div class="notice">
 <p>R BASICS</p>
 <p>You might have noticed that we didn’t save the output of <code>write.dna</code> to an object. That’s because any of the <code>write</code> commands are automatically saving the output to a file on your computer (or, on AnVIL, to your persistent disk). The output is saved in what as known as your working directory. You can check what your current working directory is during any R session with the command</p>
 <p><code>getwd()</code></p>
