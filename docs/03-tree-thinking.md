@@ -270,15 +270,16 @@ sessionInfo()
 ```
 ## R version 4.0.2 (2020-06-22)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.3 LTS
+## Running under: Ubuntu 20.04.5 LTS
 ## 
 ## Matrix products: default
-## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
 ##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
-##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
 ##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
@@ -290,13 +291,15 @@ sessionInfo()
 ## [1] nlme_3.1-149 ape_5.4-1   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.8      knitr_1.33      magrittr_2.0.2  hms_0.5.3      
-##  [5] lattice_0.20-41 R6_2.4.1        rlang_0.4.10    highr_0.8      
-##  [9] stringr_1.4.0   tools_4.0.2     parallel_4.0.2  grid_4.0.2     
-## [13] xfun_0.26       jquerylib_0.1.4 htmltools_0.5.0 ellipsis_0.3.1 
-## [17] ottrpal_0.1.2   yaml_2.2.1      digest_0.6.25   tibble_3.0.3   
-## [21] lifecycle_1.0.0 crayon_1.3.4    bookdown_0.24   readr_1.4.0    
-## [25] vctrs_0.3.4     fs_1.5.0        evaluate_0.14   rmarkdown_2.10 
-## [29] stringi_1.5.3   compiler_4.0.2  pillar_1.4.6    pkgconfig_2.0.3
+##  [1] Rcpp_1.0.10     knitr_1.33      magrittr_2.0.3  hms_0.5.3      
+##  [5] lattice_0.20-41 R6_2.4.1        rlang_1.0.6     fastmap_1.1.1  
+##  [9] highr_0.8       stringr_1.4.0   tools_4.0.2     parallel_4.0.2 
+## [13] grid_4.0.2      xfun_0.26       cli_3.6.0       jquerylib_0.1.4
+## [17] ellipsis_0.3.1  htmltools_0.5.4 ottrpal_1.0.1   yaml_2.2.1     
+## [21] digest_0.6.25   tibble_3.0.3    lifecycle_1.0.3 crayon_1.3.4   
+## [25] bookdown_0.24   readr_1.4.0     sass_0.4.5      vctrs_0.5.2    
+## [29] fs_1.5.0        cachem_1.0.7    evaluate_0.20   rmarkdown_2.10 
+## [33] stringi_1.5.3   pillar_1.4.6    compiler_4.0.2  bslib_0.4.2    
+## [37] jsonlite_1.7.1  pkgconfig_2.0.3
 ```
 

@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-08-26" />
+<meta name="date" content="2023-03-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,7 +119,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<link rel="stylesheet" href="assets/AnVIL_style/style.css" type="text/css" />
+<link rel="stylesheet" href="assets/style.css" type="text/css" />
+<link rel="stylesheet" href="assets/AnVIL_style/anvil.css" type="text/css" />
 </head>
 
 <body>
@@ -137,6 +138,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Book</a>
 <ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#skills-level"><i class="fa fa-check"></i>Skills Level</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#anvil-collection"><i class="fa fa-check"></i>AnVIL Collection</a></li>
 </ul></li>
 <li class="part"><span><b>BOOK OVERVIEW</b></span></li>
@@ -289,6 +291,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
 <a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
 <p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
+<p style="padding-left: 40px;"><div class="trapezoid" style = "padding-left: 40px;"><span>  <a href="https://forms.gle/AK12iVXTjsB7yCUUA"> Click here to provide feedback</a> <img src="assets/itcr_arrow.png" style=" width: 10%" ></span></div></p>
+
 </ul>
 
       </nav>
@@ -310,7 +314,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=10.0,initial-scale=1.0">
   <!--script src="https://kit.fontawesome.com/6a26f47516.js"></script-->
   <!--<script src="assets/hideOutput.js"></script>-->
-  <link href="assets/AnvIL_style/style.css" rel="stylesheet">
 </head>
         
 
@@ -411,14 +414,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## unconstrained loglikelihood: -20560.86 
 ## Discrete gamma model
 ## Number of rate categories: 4 
-## Shape parameter: 1.373379 
+## Shape parameter: 1.373378 
 ## 
 ## Rate matrix:
 ##           a         c         g         t
-## a 0.0000000 0.3822943 1.4796304 0.6982455
-## c 0.3822943 0.0000000 0.4572517 2.2254138
-## g 1.4796304 0.4572517 0.0000000 1.0000000
-## t 0.6982455 2.2254138 1.0000000 0.0000000
+## a 0.0000000 0.3822934 1.4796371 0.6982442
+## c 0.3822934 0.0000000 0.4572513 2.2254122
+## g 1.4796371 0.4572513 0.0000000 1.0000000
+## t 0.6982442 2.2254122 1.0000000 0.0000000
 ## 
 ## Base frequencies:  
 ## 0.3183583 0.2986886 0.2541144 0.1288387</code></pre>
@@ -434,20 +437,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  loglikelihood: -12364.36 
 ## 
 ## unconstrained loglikelihood: -20560.86 
-## Proportion of invariant sites: 5.230147e-05 
+## Proportion of invariant sites: 4.468647e-05 
 ## Discrete gamma model
 ## Number of rate categories: 4 
-## Shape parameter: 1.372048 
+## Shape parameter: 1.372054 
 ## 
 ## Rate matrix:
 ##           a         c         g         t
-## a 0.0000000 0.3812995 1.4762871 0.6968314
-## c 0.3812995 0.0000000 0.4559112 2.2210939
-## g 1.4762871 0.4559112 0.0000000 1.0000000
-## t 0.6968314 2.2210939 1.0000000 0.0000000
+## a 0.0000000 0.3814509 1.4763787 0.6968428
+## c 0.3814509 0.0000000 0.4562827 2.2228886
+## g 1.4763787 0.4562827 0.0000000 1.0000000
+## t 0.6968428 2.2228886 1.0000000 0.0000000
 ## 
 ## Base frequencies:  
-## 0.3183545 0.2986869 0.2541574 0.1288011</code></pre>
+## 0.3185034 0.2985722 0.2541684 0.1287559</code></pre>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitGTR.G.I<span class="sc">$</span>tree, <span class="at">main =</span> <span class="st">&quot;GTR + I + G&quot;</span>)</span></code></pre></div>
 <p><img src="resources/images/09-maximum-likelihood_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Keep in mind that we never want to overwrite our original “fit” object. By updating the “fit” object (and saving the update by a new name), we can easily go back and change the model for our ML estimation. Let’s try a K80 (Kimura 2-parameter) model with an invariant sites parameter. In the <code>optim.pml</code> command, we can leave out the <code>optGamma = T</code> argument because we no longer have a gamma distribution included in the model.</p>
@@ -460,7 +463,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  loglikelihood: -12592.47 
 ## 
 ## unconstrained loglikelihood: -20560.86 
-## Proportion of invariant sites: 0.2469051 
+## Proportion of invariant sites: 0.2469052 
 ## 
 ## Rate matrix:
 ##         a       c       g       t
@@ -483,106 +486,106 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb129-1" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">bootstrap.pml</span>(fitGTR.G, <span class="at">bs=</span><span class="dv">1000</span>, <span class="at">multicore =</span> T, <span class="at">optNni=</span><span class="cn">TRUE</span>,</span>
 <span id="cb129-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>                     <span class="at">control =</span> <span class="fu">pml.control</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb130-1" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">bootstrap.pml</span>(fitGTR.G, <span class="at">bs=</span><span class="dv">100</span>, <span class="at">optNni=</span><span class="cn">TRUE</span>, <span class="at">control =</span> <span class="fu">pml.control</span>(<span class="at">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
-<pre><code>## Final p-score 1795 after  2 nni operations 
-## Final p-score 1809 after  0 nni operations 
-## Final p-score 1757 after  1 nni operations 
-## Final p-score 1714 after  0 nni operations 
-## Final p-score 1776 after  1 nni operations 
-## Final p-score 1810 after  0 nni operations 
-## Final p-score 1750 after  0 nni operations 
-## Final p-score 1791 after  0 nni operations 
-## Final p-score 1778 after  1 nni operations 
-## Final p-score 1785 after  1 nni operations 
-## Final p-score 1861 after  3 nni operations 
-## Final p-score 1782 after  1 nni operations 
-## Final p-score 1840 after  0 nni operations 
-## Final p-score 1790 after  2 nni operations 
-## Final p-score 1851 after  0 nni operations 
-## Final p-score 1841 after  1 nni operations 
-## Final p-score 1801 after  2 nni operations 
-## Final p-score 1902 after  0 nni operations 
-## Final p-score 1775 after  1 nni operations 
-## Final p-score 1786 after  1 nni operations 
-## Final p-score 1860 after  2 nni operations 
-## Final p-score 1823 after  2 nni operations 
-## Final p-score 1674 after  3 nni operations 
-## Final p-score 1841 after  5 nni operations 
-## Final p-score 1807 after  0 nni operations 
-## Final p-score 1774 after  0 nni operations 
-## Final p-score 1779 after  2 nni operations 
-## Final p-score 1727 after  2 nni operations 
-## Final p-score 1844 after  0 nni operations 
-## Final p-score 1782 after  2 nni operations 
-## Final p-score 1727 after  1 nni operations 
-## Final p-score 1763 after  0 nni operations 
-## Final p-score 1825 after  2 nni operations 
-## Final p-score 1840 after  3 nni operations 
-## Final p-score 1807 after  0 nni operations 
-## Final p-score 1754 after  1 nni operations 
-## Final p-score 1877 after  2 nni operations 
-## Final p-score 1765 after  1 nni operations 
-## Final p-score 1834 after  3 nni operations 
-## Final p-score 1828 after  0 nni operations 
-## Final p-score 1845 after  2 nni operations 
-## Final p-score 1759 after  1 nni operations 
-## Final p-score 1769 after  1 nni operations 
-## Final p-score 1738 after  1 nni operations 
-## Final p-score 1747 after  2 nni operations 
-## Final p-score 1798 after  0 nni operations 
-## Final p-score 1873 after  1 nni operations 
-## Final p-score 1721 after  3 nni operations 
-## Final p-score 1844 after  4 nni operations 
-## Final p-score 1781 after  1 nni operations 
-## Final p-score 1827 after  2 nni operations 
-## Final p-score 1831 after  5 nni operations 
-## Final p-score 1808 after  1 nni operations 
-## Final p-score 1860 after  1 nni operations 
-## Final p-score 1862 after  0 nni operations 
-## Final p-score 1858 after  1 nni operations 
-## Final p-score 1884 after  0 nni operations 
-## Final p-score 1803 after  0 nni operations 
-## Final p-score 1870 after  3 nni operations 
-## Final p-score 1838 after  4 nni operations 
-## Final p-score 1838 after  2 nni operations 
-## Final p-score 1813 after  1 nni operations 
-## Final p-score 1743 after  0 nni operations 
-## Final p-score 1761 after  2 nni operations 
-## Final p-score 1826 after  0 nni operations 
-## Final p-score 1764 after  2 nni operations 
-## Final p-score 1870 after  1 nni operations 
-## Final p-score 1795 after  1 nni operations 
-## Final p-score 1726 after  0 nni operations 
-## Final p-score 1758 after  2 nni operations 
-## Final p-score 1880 after  1 nni operations 
-## Final p-score 1823 after  2 nni operations 
-## Final p-score 1843 after  0 nni operations 
-## Final p-score 1853 after  3 nni operations 
-## Final p-score 1770 after  4 nni operations 
-## Final p-score 1837 after  0 nni operations 
-## Final p-score 1739 after  1 nni operations 
-## Final p-score 1764 after  3 nni operations 
-## Final p-score 1754 after  1 nni operations 
-## Final p-score 1841 after  3 nni operations 
-## Final p-score 1796 after  1 nni operations 
-## Final p-score 1829 after  3 nni operations 
+<pre><code>## Final p-score 1777 after  1 nni operations 
+## Final p-score 1825 after  3 nni operations 
+## Final p-score 1768 after  1 nni operations 
+## Final p-score 1892 after  0 nni operations 
+## Final p-score 1735 after  3 nni operations 
+## Final p-score 1835 after  0 nni operations 
+## Final p-score 1799 after  2 nni operations 
+## Final p-score 1872 after  2 nni operations 
+## Final p-score 1747 after  0 nni operations 
 ## Final p-score 1859 after  1 nni operations 
-## Final p-score 1856 after  1 nni operations 
-## Final p-score 1791 after  1 nni operations 
-## Final p-score 1829 after  1 nni operations 
-## Final p-score 1769 after  1 nni operations 
-## Final p-score 1767 after  1 nni operations 
-## Final p-score 1782 after  0 nni operations 
-## Final p-score 1820 after  1 nni operations 
-## Final p-score 1850 after  1 nni operations 
+## Final p-score 1790 after  0 nni operations 
+## Final p-score 1731 after  1 nni operations 
+## Final p-score 1826 after  0 nni operations 
+## Final p-score 1815 after  5 nni operations 
+## Final p-score 1835 after  2 nni operations 
+## Final p-score 1794 after  0 nni operations 
+## Final p-score 1748 after  0 nni operations 
+## Final p-score 1789 after  6 nni operations 
+## Final p-score 1758 after  0 nni operations 
+## Final p-score 1854 after  2 nni operations 
+## Final p-score 1843 after  1 nni operations 
+## Final p-score 1794 after  2 nni operations 
+## Final p-score 1830 after  1 nni operations 
+## Final p-score 1790 after  0 nni operations 
+## Final p-score 1758 after  0 nni operations 
+## Final p-score 1878 after  1 nni operations 
+## Final p-score 1758 after  3 nni operations 
+## Final p-score 1839 after  2 nni operations 
+## Final p-score 1788 after  4 nni operations 
+## Final p-score 1792 after  4 nni operations 
+## Final p-score 1778 after  1 nni operations 
 ## Final p-score 1798 after  2 nni operations 
-## Final p-score 1799 after  0 nni operations 
-## Final p-score 1735 after  1 nni operations 
-## Final p-score 1834 after  3 nni operations 
-## Final p-score 1735 after  2 nni operations 
+## Final p-score 1843 after  2 nni operations 
+## Final p-score 1852 after  1 nni operations 
+## Final p-score 1903 after  2 nni operations 
+## Final p-score 1789 after  4 nni operations 
+## Final p-score 1734 after  1 nni operations 
+## Final p-score 1716 after  1 nni operations 
+## Final p-score 1865 after  2 nni operations 
+## Final p-score 1744 after  5 nni operations 
+## Final p-score 1770 after  0 nni operations 
+## Final p-score 1805 after  0 nni operations 
+## Final p-score 1788 after  1 nni operations 
+## Final p-score 1807 after  0 nni operations 
+## Final p-score 1813 after  5 nni operations 
+## Final p-score 1854 after  1 nni operations 
+## Final p-score 1777 after  0 nni operations 
+## Final p-score 1762 after  0 nni operations 
+## Final p-score 1780 after  0 nni operations 
+## Final p-score 1852 after  1 nni operations 
+## Final p-score 1839 after  0 nni operations 
+## Final p-score 1748 after  5 nni operations 
+## Final p-score 1823 after  0 nni operations 
+## Final p-score 1819 after  1 nni operations 
+## Final p-score 1833 after  4 nni operations 
+## Final p-score 1782 after  3 nni operations 
+## Final p-score 1778 after  0 nni operations 
+## Final p-score 1783 after  0 nni operations 
+## Final p-score 1784 after  1 nni operations 
+## Final p-score 1819 after  1 nni operations 
+## Final p-score 1862 after  2 nni operations 
+## Final p-score 1777 after  0 nni operations 
+## Final p-score 1775 after  1 nni operations 
+## Final p-score 1773 after  2 nni operations 
+## Final p-score 1773 after  2 nni operations 
+## Final p-score 1768 after  0 nni operations 
+## Final p-score 1716 after  1 nni operations 
+## Final p-score 1732 after  2 nni operations 
+## Final p-score 1848 after  2 nni operations 
+## Final p-score 1757 after  2 nni operations 
+## Final p-score 1893 after  0 nni operations 
+## Final p-score 1870 after  0 nni operations 
+## Final p-score 1815 after  2 nni operations 
+## Final p-score 1932 after  0 nni operations 
+## Final p-score 1795 after  0 nni operations 
+## Final p-score 1838 after  0 nni operations 
+## Final p-score 1808 after  0 nni operations 
+## Final p-score 1806 after  0 nni operations 
+## Final p-score 1831 after  2 nni operations 
+## Final p-score 1719 after  2 nni operations 
+## Final p-score 1851 after  3 nni operations 
+## Final p-score 1855 after  1 nni operations 
+## Final p-score 1832 after  0 nni operations 
+## Final p-score 1831 after  0 nni operations 
+## Final p-score 1736 after  0 nni operations 
+## Final p-score 1784 after  2 nni operations 
+## Final p-score 1795 after  4 nni operations 
+## Final p-score 1784 after  1 nni operations 
+## Final p-score 1782 after  0 nni operations 
+## Final p-score 1837 after  1 nni operations 
+## Final p-score 1741 after  1 nni operations 
+## Final p-score 1796 after  2 nni operations 
 ## Final p-score 1822 after  0 nni operations 
-## Final p-score 1818 after  1 nni operations 
-## Final p-score 1832 after  1 nni operations 
-## Final p-score 1815 after  0 nni operations</code></pre>
+## Final p-score 1811 after  2 nni operations 
+## Final p-score 1807 after  1 nni operations 
+## Final p-score 1851 after  1 nni operations 
+## Final p-score 1795 after  1 nni operations 
+## Final p-score 1738 after  2 nni operations 
+## Final p-score 1788 after  3 nni operations 
+## Final p-score 1796 after  1 nni operations</code></pre>
 <p>To plot the bootstrap values, we can use a special plot function called <code>plotBS</code>. First, however, we need to root the tree. Then we can plot the rooted tree with our bootstrap values (saved in a list called “bs”), We are also going to format the bootstrap values so that only those values greater than 0.5 (50% bootstrap support) are shown using the <code>p</code> argument. We can also decide what color to make the bootstrap values and how many decimal places we want to see. (For a semi-complete list of colors in R, look <a href="https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/">here</a>.)</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb132-1" aria-hidden="true" tabindex="-1"></a>tree.root <span class="ot">&lt;-</span> <span class="fu">root</span>(fitGTR.G<span class="sc">$</span>tree, <span class="at">outgroup =</span> <span class="fu">c</span>(<span class="st">&#39;barley_D-hordein&#39;</span>,<span class="st">&#39;Siberian wild rye_D-hordein&#39;</span>))</span>
 <span id="cb132-2"><a href="estimating-a-tree-using-maximum-likelihood.html#cb132-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -599,15 +602,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="estimating-a-tree-using-maximum-likelihood.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.0.2 (2020-06-22)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.3 LTS
+## Running under: Ubuntu 20.04.5 LTS
 ## 
 ## Matrix products: default
-## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
 ##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
-##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
 ##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
@@ -619,16 +623,17 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## [1] phangorn_2.5.5 ape_5.4-1     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] igraph_1.2.6    Rcpp_1.0.8      knitr_1.33      magrittr_2.0.2 
-##  [5] hms_0.5.3       lattice_0.20-41 R6_2.4.1        quadprog_1.5-8 
-##  [9] rlang_0.4.10    fastmatch_1.1-0 highr_0.8       stringr_1.4.0  
-## [13] tools_4.0.2     parallel_4.0.2  grid_4.0.2      nlme_3.1-149   
-## [17] xfun_0.26       jquerylib_0.1.4 htmltools_0.5.0 ellipsis_0.3.1 
-## [21] ottrpal_0.1.2   yaml_2.2.1      digest_0.6.25   tibble_3.0.3   
-## [25] lifecycle_1.0.0 crayon_1.3.4    bookdown_0.24   Matrix_1.2-18  
-## [29] readr_1.4.0     vctrs_0.3.4     fs_1.5.0        evaluate_0.14  
-## [33] rmarkdown_2.10  stringi_1.5.3   compiler_4.0.2  pillar_1.4.6   
-## [37] pkgconfig_2.0.3</code></pre>
+##  [1] Rcpp_1.0.10     highr_0.8       bslib_0.4.2     compiler_4.0.2 
+##  [5] pillar_1.4.6    jquerylib_0.1.4 tools_4.0.2     digest_0.6.25  
+##  [9] jsonlite_1.7.1  evaluate_0.20   lifecycle_1.0.3 tibble_3.0.3   
+## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_1.0.6    
+## [17] igraph_1.2.6    fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.0      
+## [21] yaml_2.2.1      parallel_4.0.2  xfun_0.26       fastmap_1.1.1  
+## [25] stringr_1.4.0   knitr_1.33      fs_1.5.0        vctrs_0.5.2    
+## [29] sass_0.4.5      hms_0.5.3       grid_4.0.2      R6_2.4.1       
+## [33] ottrpal_1.0.1   rmarkdown_2.10  bookdown_0.24   readr_1.4.0    
+## [37] magrittr_2.0.3  htmltools_0.5.4 ellipsis_0.3.1  quadprog_1.5-8 
+## [41] stringi_1.5.3   cachem_1.0.7    crayon_1.3.4</code></pre>
 
 </div>
 </div>

@@ -105,7 +105,7 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.6 secs
+## Time difference of 0.43 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -122,7 +122,7 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.84 secs
+## Time difference of 0.63 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -139,12 +139,12 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 1.19 secs
+## Time difference of 0.9 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.97 secs
+## Time difference of 0.72 secs
 ```
 
 We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.
@@ -168,7 +168,7 @@ DNA.trans <- AlignTranslation(dna)
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.28 secs
+## Time difference of 0.25 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -185,7 +185,7 @@ DNA.trans <- AlignTranslation(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.29 secs
+## Time difference of 0.24 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -202,7 +202,7 @@ DNA.trans <- AlignTranslation(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.28 secs
+## Time difference of 0.23 secs
 ```
 
 Translating the nucleotide sequences sped up the alignment process, although both were fast enough it isn't a big deal to directly align the nucleotides. Your choice of which alignment procedure to use will largely come down to whether you are using coding sequence and how divergent your samples are. If you aren't using coding sequence, you will need to align using the nucleotides. If you have samples from deeply divergent species (especially if they come from different phyla), you will generally get a better alignment if you let the program translate your nucleotide sequence to amino acids first.
@@ -247,7 +247,7 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.53 secs
+## Time difference of 0.44 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -264,7 +264,7 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.72 secs
+## Time difference of 0.58 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -281,12 +281,12 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 1.17 secs
+## Time difference of 0.93 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.97 secs
+## Time difference of 0.77 secs
 ```
 
 ```r
@@ -394,15 +394,16 @@ sessionInfo()
 ```
 ## R version 4.0.2 (2020-06-22)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.3 LTS
+## Running under: Ubuntu 20.04.5 LTS
 ## 
 ## Matrix products: default
-## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
 ##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
-##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=C             
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
 ##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
@@ -417,15 +418,16 @@ sessionInfo()
 ## [7] BiocGenerics_0.36.1 BiocManager_1.30.10 ape_5.4-1          
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.8      pillar_1.4.6    compiler_4.0.2  jquerylib_0.1.4
-##  [5] tools_4.0.2     zlibbioc_1.36.0 bit_4.0.4       digest_0.6.25  
-##  [9] memoise_1.1.0   evaluate_0.14   lifecycle_1.0.0 tibble_3.0.3   
-## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_0.4.10   
-## [17] DBI_1.1.0       yaml_2.2.1      xfun_0.26       stringr_1.4.0  
-## [21] knitr_1.33      fs_1.5.0        vctrs_0.3.4     hms_0.5.3      
-## [25] bit64_4.0.5     grid_4.0.2      R6_2.4.1        ottrpal_0.1.2  
-## [29] rmarkdown_2.10  bookdown_0.24   blob_1.2.1      readr_1.4.0    
-## [33] magrittr_2.0.2  ellipsis_0.3.1  htmltools_0.5.0 stringi_1.5.3  
-## [37] crayon_1.3.4
+##  [1] Rcpp_1.0.10     bslib_0.4.2     compiler_4.0.2  pillar_1.4.6   
+##  [5] jquerylib_0.1.4 zlibbioc_1.36.0 tools_4.0.2     bit_4.0.4      
+##  [9] digest_0.6.25   memoise_2.0.1   jsonlite_1.7.1  evaluate_0.20  
+## [13] lifecycle_1.0.3 tibble_3.0.3    nlme_3.1-149    lattice_0.20-41
+## [17] pkgconfig_2.0.3 rlang_1.0.6     DBI_1.1.0       cli_3.6.0      
+## [21] yaml_2.2.1      xfun_0.26       fastmap_1.1.1   stringr_1.4.0  
+## [25] knitr_1.33      fs_1.5.0        vctrs_0.5.2     sass_0.4.5     
+## [29] hms_0.5.3       bit64_4.0.5     grid_4.0.2      R6_2.4.1       
+## [33] ottrpal_1.0.1   rmarkdown_2.10  bookdown_0.24   blob_1.2.1     
+## [37] readr_1.4.0     magrittr_2.0.3  htmltools_0.5.4 ellipsis_0.3.1 
+## [41] stringi_1.5.3   cachem_1.0.7    crayon_1.3.4
 ```
 
