@@ -349,15 +349,15 @@ sessionInfo()
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_1.0.10     highr_0.8       bslib_0.4.2     compiler_4.0.2 
-##  [5] pillar_1.4.6    jquerylib_0.1.4 tools_4.0.2     digest_0.6.25  
-##  [9] jsonlite_1.7.1  evaluate_0.20   lifecycle_1.0.3 tibble_3.0.3   
-## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_1.0.6    
-## [17] igraph_1.2.6    fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.0      
+##  [5] pillar_1.9.0    jquerylib_0.1.4 tools_4.0.2     digest_0.6.25  
+##  [9] jsonlite_1.7.1  evaluate_0.20   lifecycle_1.0.3 tibble_3.2.1   
+## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_1.1.0    
+## [17] igraph_1.2.6    fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.1      
 ## [21] yaml_2.2.1      parallel_4.0.2  xfun_0.26       fastmap_1.1.1  
-## [25] stringr_1.4.0   knitr_1.33      fs_1.5.0        vctrs_0.5.2    
-## [29] sass_0.4.5      hms_0.5.3       grid_4.0.2      R6_2.4.1       
-## [33] ottrpal_1.0.1   rmarkdown_2.10  bookdown_0.24   readr_1.4.0    
-## [37] magrittr_2.0.3  htmltools_0.5.4 ellipsis_0.3.1  quadprog_1.5-8 
-## [41] stringi_1.5.3   cachem_1.0.7    crayon_1.3.4
+## [25] stringr_1.4.0   knitr_1.33      fs_1.5.0        vctrs_0.6.1    
+## [29] sass_0.4.5      hms_0.5.3       grid_4.0.2      glue_1.4.2     
+## [33] R6_2.4.1        fansi_0.4.1     ottrpal_1.0.1   rmarkdown_2.10 
+## [37] bookdown_0.24   readr_1.4.0     magrittr_2.0.3  htmltools_0.5.5
+## [41] quadprog_1.5-8  utf8_1.1.4      stringi_1.5.3   cachem_1.0.7
 ```
 

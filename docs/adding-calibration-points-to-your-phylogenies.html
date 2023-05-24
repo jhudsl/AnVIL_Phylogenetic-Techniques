@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2023-03-22" />
+<meta name="date" content="2023-05-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,16 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5QVCXY02EY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5QVCXY02EY');
+</script>
 
 
 <style type="text/css">
@@ -376,11 +386,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## 
 ## Setting initial dates...
 ## Fitting in progress... get a first set of estimates
-##          (Penalised) log-lik = -4.1146 
-## Optimising rates... frequencies... dates... -4.1146 
-## Optimising rates... frequencies... dates... -3.795124 
+##          (Penalised) log-lik = -4.102921 
+## Optimising rates... frequencies... dates... -4.102921 
+## Optimising rates... frequencies... dates... -3.795125 
 ## 
-## log-Lik = -3.795124 
+## log-Lik = -3.795125 
 ## PHIIC = 67.59</code></pre>
 <p>Before we plot the tree, we need to do a bit of formatting of the branch lengths (called edge.length). R will be default save these values to 10 decimal places, which can make visualization a little tricky. We’re going to format them so they only have two decimal places, then plot them on top of the time tree.</p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="adding-calibration-points-to-your-phylogenies.html#cb144-1" aria-hidden="true" tabindex="-1"></a>time.tree_dated<span class="sc">$</span>edge.length <span class="ot">&lt;-</span> <span class="fu">round</span>(time.tree_dated<span class="sc">$</span>edge.length, <span class="at">digits =</span> <span class="dv">2</span>)</span>
@@ -429,16 +439,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_1.0.10     highr_0.8       bslib_0.4.2     compiler_4.0.2 
-##  [5] pillar_1.4.6    jquerylib_0.1.4 tools_4.0.2     digest_0.6.25  
-##  [9] jsonlite_1.7.1  evaluate_0.20   lifecycle_1.0.3 tibble_3.0.3   
-## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_1.0.6    
-## [17] igraph_1.2.6    fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.0      
+##  [5] pillar_1.9.0    jquerylib_0.1.4 tools_4.0.2     digest_0.6.25  
+##  [9] jsonlite_1.7.1  evaluate_0.20   lifecycle_1.0.3 tibble_3.2.1   
+## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_1.1.0    
+## [17] igraph_1.2.6    fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.1      
 ## [21] yaml_2.2.1      parallel_4.0.2  xfun_0.26       fastmap_1.1.1  
-## [25] stringr_1.4.0   knitr_1.33      fs_1.5.0        vctrs_0.5.2    
-## [29] sass_0.4.5      hms_0.5.3       grid_4.0.2      R6_2.4.1       
-## [33] ottrpal_1.0.1   rmarkdown_2.10  bookdown_0.24   readr_1.4.0    
-## [37] magrittr_2.0.3  htmltools_0.5.4 ellipsis_0.3.1  quadprog_1.5-8 
-## [41] stringi_1.5.3   cachem_1.0.7    crayon_1.3.4</code></pre>
+## [25] stringr_1.4.0   knitr_1.33      fs_1.5.0        vctrs_0.6.1    
+## [29] sass_0.4.5      hms_0.5.3       grid_4.0.2      glue_1.4.2     
+## [33] R6_2.4.1        fansi_0.4.1     ottrpal_1.0.1   rmarkdown_2.10 
+## [37] bookdown_0.24   readr_1.4.0     magrittr_2.0.3  htmltools_0.5.5
+## [41] quadprog_1.5-8  utf8_1.1.4      stringi_1.5.3   cachem_1.0.7</code></pre>
 
 </div>
 </div>

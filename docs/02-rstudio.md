@@ -182,13 +182,13 @@ sessionInfo()
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] knitr_1.33      magrittr_2.0.3  hms_0.5.3       R6_2.4.1       
-##  [5] rlang_1.0.6     fastmap_1.1.1   highr_0.8       httr_1.4.2     
-##  [9] stringr_1.4.0   tools_4.0.2     xfun_0.26       png_0.1-8      
-## [13] cli_3.6.0       jquerylib_0.1.4 ellipsis_0.3.1  htmltools_0.5.4
-## [17] ottrpal_1.0.1   yaml_2.2.1      digest_0.6.25   tibble_3.0.3   
-## [21] lifecycle_1.0.3 crayon_1.3.4    bookdown_0.24   readr_1.4.0    
-## [25] sass_0.4.5      vctrs_0.5.2     fs_1.5.0        curl_4.3       
-## [29] cachem_1.0.7    evaluate_0.20   rmarkdown_2.10  stringi_1.5.3  
-## [33] pillar_1.4.6    compiler_4.0.2  bslib_0.4.2     jsonlite_1.7.1 
-## [37] pkgconfig_2.0.3
+##  [5] rlang_1.1.0     fastmap_1.1.1   fansi_0.4.1     highr_0.8      
+##  [9] httr_1.4.2      stringr_1.4.0   tools_4.0.2     xfun_0.26      
+## [13] png_0.1-8       utf8_1.1.4      cli_3.6.1       jquerylib_0.1.4
+## [17] htmltools_0.5.5 ottrpal_1.0.1   yaml_2.2.1      digest_0.6.25  
+## [21] tibble_3.2.1    lifecycle_1.0.3 bookdown_0.24   readr_1.4.0    
+## [25] sass_0.4.5      vctrs_0.6.1     fs_1.5.0        curl_4.3       
+## [29] glue_1.4.2      cachem_1.0.7    evaluate_0.20   rmarkdown_2.10 
+## [33] stringi_1.5.3   pillar_1.9.0    compiler_4.0.2  bslib_0.4.2    
+## [37] jsonlite_1.7.1  pkgconfig_2.0.3
 ```

@@ -163,14 +163,14 @@ fitGTR.G
 ## unconstrained loglikelihood: -20560.86 
 ## Discrete gamma model
 ## Number of rate categories: 4 
-## Shape parameter: 1.373378 
+## Shape parameter: 1.373376 
 ## 
 ## Rate matrix:
-##           a         c         g         t
-## a 0.0000000 0.3822934 1.4796371 0.6982442
-## c 0.3822934 0.0000000 0.4572513 2.2254122
-## g 1.4796371 0.4572513 0.0000000 1.0000000
-## t 0.6982442 2.2254122 1.0000000 0.0000000
+##           a         c         g        t
+## a 0.0000000 0.3822941 1.4796329 0.698245
+## c 0.3822941 0.0000000 0.4572515 2.225412
+## g 1.4796329 0.4572515 0.0000000 1.000000
+## t 0.6982450 2.2254116 1.0000000 0.000000
 ## 
 ## Base frequencies:  
 ## 0.3183583 0.2986886 0.2541144 0.1288387
@@ -198,17 +198,17 @@ fitGTR.G.I
 ##  loglikelihood: -12364.36 
 ## 
 ## unconstrained loglikelihood: -20560.86 
-## Proportion of invariant sites: 4.468647e-05 
+## Proportion of invariant sites: 4.471015e-05 
 ## Discrete gamma model
 ## Number of rate categories: 4 
-## Shape parameter: 1.372054 
+## Shape parameter: 1.372046 
 ## 
 ## Rate matrix:
 ##           a         c         g         t
-## a 0.0000000 0.3814509 1.4763787 0.6968428
-## c 0.3814509 0.0000000 0.4562827 2.2228886
-## g 1.4763787 0.4562827 0.0000000 1.0000000
-## t 0.6968428 2.2228886 1.0000000 0.0000000
+## a 0.0000000 0.3814506 1.4763827 0.6968407
+## c 0.3814506 0.0000000 0.4562831 2.2228880
+## g 1.4763827 0.4562831 0.0000000 1.0000000
+## t 0.6968407 2.2228880 1.0000000 0.0000000
 ## 
 ## Base frequencies:  
 ## 0.3185034 0.2985722 0.2541684 0.1287559
@@ -236,7 +236,7 @@ fitK80.I
 ##  loglikelihood: -12592.47 
 ## 
 ## unconstrained loglikelihood: -20560.86 
-## Proportion of invariant sites: 0.2469052 
+## Proportion of invariant sites: 0.246905 
 ## 
 ## Rate matrix:
 ##         a       c       g       t
@@ -277,106 +277,106 @@ bs <- bootstrap.pml(fitGTR.G, bs=100, optNni=TRUE, control = pml.control(trace =
 ```
 
 ```
-## Final p-score 1777 after  1 nni operations 
-## Final p-score 1825 after  3 nni operations 
-## Final p-score 1768 after  1 nni operations 
-## Final p-score 1892 after  0 nni operations 
-## Final p-score 1735 after  3 nni operations 
-## Final p-score 1835 after  0 nni operations 
-## Final p-score 1799 after  2 nni operations 
-## Final p-score 1872 after  2 nni operations 
-## Final p-score 1747 after  0 nni operations 
-## Final p-score 1859 after  1 nni operations 
-## Final p-score 1790 after  0 nni operations 
-## Final p-score 1731 after  1 nni operations 
-## Final p-score 1826 after  0 nni operations 
-## Final p-score 1815 after  5 nni operations 
-## Final p-score 1835 after  2 nni operations 
-## Final p-score 1794 after  0 nni operations 
-## Final p-score 1748 after  0 nni operations 
-## Final p-score 1789 after  6 nni operations 
-## Final p-score 1758 after  0 nni operations 
-## Final p-score 1854 after  2 nni operations 
-## Final p-score 1843 after  1 nni operations 
-## Final p-score 1794 after  2 nni operations 
-## Final p-score 1830 after  1 nni operations 
-## Final p-score 1790 after  0 nni operations 
-## Final p-score 1758 after  0 nni operations 
-## Final p-score 1878 after  1 nni operations 
-## Final p-score 1758 after  3 nni operations 
-## Final p-score 1839 after  2 nni operations 
-## Final p-score 1788 after  4 nni operations 
-## Final p-score 1792 after  4 nni operations 
-## Final p-score 1778 after  1 nni operations 
-## Final p-score 1798 after  2 nni operations 
-## Final p-score 1843 after  2 nni operations 
-## Final p-score 1852 after  1 nni operations 
-## Final p-score 1903 after  2 nni operations 
-## Final p-score 1789 after  4 nni operations 
-## Final p-score 1734 after  1 nni operations 
-## Final p-score 1716 after  1 nni operations 
-## Final p-score 1865 after  2 nni operations 
-## Final p-score 1744 after  5 nni operations 
-## Final p-score 1770 after  0 nni operations 
-## Final p-score 1805 after  0 nni operations 
-## Final p-score 1788 after  1 nni operations 
-## Final p-score 1807 after  0 nni operations 
-## Final p-score 1813 after  5 nni operations 
-## Final p-score 1854 after  1 nni operations 
-## Final p-score 1777 after  0 nni operations 
-## Final p-score 1762 after  0 nni operations 
-## Final p-score 1780 after  0 nni operations 
-## Final p-score 1852 after  1 nni operations 
-## Final p-score 1839 after  0 nni operations 
-## Final p-score 1748 after  5 nni operations 
-## Final p-score 1823 after  0 nni operations 
-## Final p-score 1819 after  1 nni operations 
-## Final p-score 1833 after  4 nni operations 
-## Final p-score 1782 after  3 nni operations 
-## Final p-score 1778 after  0 nni operations 
+## Final p-score 1828 after  0 nni operations 
 ## Final p-score 1783 after  0 nni operations 
-## Final p-score 1784 after  1 nni operations 
-## Final p-score 1819 after  1 nni operations 
-## Final p-score 1862 after  2 nni operations 
-## Final p-score 1777 after  0 nni operations 
-## Final p-score 1775 after  1 nni operations 
-## Final p-score 1773 after  2 nni operations 
-## Final p-score 1773 after  2 nni operations 
-## Final p-score 1768 after  0 nni operations 
-## Final p-score 1716 after  1 nni operations 
-## Final p-score 1732 after  2 nni operations 
-## Final p-score 1848 after  2 nni operations 
-## Final p-score 1757 after  2 nni operations 
-## Final p-score 1893 after  0 nni operations 
-## Final p-score 1870 after  0 nni operations 
-## Final p-score 1815 after  2 nni operations 
-## Final p-score 1932 after  0 nni operations 
-## Final p-score 1795 after  0 nni operations 
-## Final p-score 1838 after  0 nni operations 
-## Final p-score 1808 after  0 nni operations 
-## Final p-score 1806 after  0 nni operations 
-## Final p-score 1831 after  2 nni operations 
-## Final p-score 1719 after  2 nni operations 
-## Final p-score 1851 after  3 nni operations 
-## Final p-score 1855 after  1 nni operations 
-## Final p-score 1832 after  0 nni operations 
-## Final p-score 1831 after  0 nni operations 
-## Final p-score 1736 after  0 nni operations 
-## Final p-score 1784 after  2 nni operations 
-## Final p-score 1795 after  4 nni operations 
-## Final p-score 1784 after  1 nni operations 
-## Final p-score 1782 after  0 nni operations 
-## Final p-score 1837 after  1 nni operations 
-## Final p-score 1741 after  1 nni operations 
-## Final p-score 1796 after  2 nni operations 
-## Final p-score 1822 after  0 nni operations 
-## Final p-score 1811 after  2 nni operations 
+## Final p-score 1881 after  1 nni operations 
+## Final p-score 1844 after  0 nni operations 
+## Final p-score 1868 after  2 nni operations 
+## Final p-score 1809 after  0 nni operations 
+## Final p-score 1785 after  2 nni operations 
+## Final p-score 1752 after  5 nni operations 
+## Final p-score 1828 after  2 nni operations 
+## Final p-score 1829 after  1 nni operations 
+## Final p-score 1796 after  1 nni operations 
+## Final p-score 1764 after  0 nni operations 
+## Final p-score 1781 after  2 nni operations 
+## Final p-score 1777 after  1 nni operations 
+## Final p-score 1786 after  0 nni operations 
 ## Final p-score 1807 after  1 nni operations 
-## Final p-score 1851 after  1 nni operations 
-## Final p-score 1795 after  1 nni operations 
-## Final p-score 1738 after  2 nni operations 
-## Final p-score 1788 after  3 nni operations 
-## Final p-score 1796 after  1 nni operations
+## Final p-score 1891 after  1 nni operations 
+## Final p-score 1828 after  2 nni operations 
+## Final p-score 1826 after  1 nni operations 
+## Final p-score 1793 after  0 nni operations 
+## Final p-score 1759 after  1 nni operations 
+## Final p-score 1840 after  1 nni operations 
+## Final p-score 1797 after  1 nni operations 
+## Final p-score 1733 after  0 nni operations 
+## Final p-score 1752 after  3 nni operations 
+## Final p-score 1737 after  1 nni operations 
+## Final p-score 1861 after  2 nni operations 
+## Final p-score 1947 after  1 nni operations 
+## Final p-score 1769 after  0 nni operations 
+## Final p-score 1767 after  0 nni operations 
+## Final p-score 1834 after  0 nni operations 
+## Final p-score 1836 after  2 nni operations 
+## Final p-score 1815 after  0 nni operations 
+## Final p-score 1744 after  2 nni operations 
+## Final p-score 1875 after  0 nni operations 
+## Final p-score 1791 after  0 nni operations 
+## Final p-score 1810 after  1 nni operations 
+## Final p-score 1862 after  0 nni operations 
+## Final p-score 1859 after  2 nni operations 
+## Final p-score 1823 after  1 nni operations 
+## Final p-score 1768 after  2 nni operations 
+## Final p-score 1770 after  2 nni operations 
+## Final p-score 1790 after  1 nni operations 
+## Final p-score 1852 after  1 nni operations 
+## Final p-score 1788 after  1 nni operations 
+## Final p-score 1861 after  3 nni operations 
+## Final p-score 1713 after  3 nni operations 
+## Final p-score 1640 after  0 nni operations 
+## Final p-score 1853 after  2 nni operations 
+## Final p-score 1789 after  1 nni operations 
+## Final p-score 1769 after  1 nni operations 
+## Final p-score 1752 after  1 nni operations 
+## Final p-score 1778 after  0 nni operations 
+## Final p-score 1741 after  3 nni operations 
+## Final p-score 1838 after  2 nni operations 
+## Final p-score 1853 after  3 nni operations 
+## Final p-score 1867 after  4 nni operations 
+## Final p-score 1857 after  1 nni operations 
+## Final p-score 1854 after  2 nni operations 
+## Final p-score 1746 after  0 nni operations 
+## Final p-score 1790 after  2 nni operations 
+## Final p-score 1874 after  0 nni operations 
+## Final p-score 1810 after  0 nni operations 
+## Final p-score 1804 after  1 nni operations 
+## Final p-score 1729 after  2 nni operations 
+## Final p-score 1814 after  2 nni operations 
+## Final p-score 1774 after  0 nni operations 
+## Final p-score 1775 after  3 nni operations 
+## Final p-score 1770 after  1 nni operations 
+## Final p-score 1849 after  2 nni operations 
+## Final p-score 1740 after  0 nni operations 
+## Final p-score 1688 after  2 nni operations 
+## Final p-score 1812 after  1 nni operations 
+## Final p-score 1697 after  1 nni operations 
+## Final p-score 1780 after  0 nni operations 
+## Final p-score 1878 after  3 nni operations 
+## Final p-score 1805 after  2 nni operations 
+## Final p-score 1893 after  0 nni operations 
+## Final p-score 1829 after  0 nni operations 
+## Final p-score 1817 after  1 nni operations 
+## Final p-score 1801 after  0 nni operations 
+## Final p-score 1786 after  1 nni operations 
+## Final p-score 1836 after  2 nni operations 
+## Final p-score 1776 after  1 nni operations 
+## Final p-score 1806 after  0 nni operations 
+## Final p-score 1804 after  0 nni operations 
+## Final p-score 1820 after  3 nni operations 
+## Final p-score 1806 after  3 nni operations 
+## Final p-score 1797 after  1 nni operations 
+## Final p-score 1802 after  2 nni operations 
+## Final p-score 1826 after  1 nni operations 
+## Final p-score 1758 after  0 nni operations 
+## Final p-score 1771 after  2 nni operations 
+## Final p-score 1806 after  1 nni operations 
+## Final p-score 1822 after  0 nni operations 
+## Final p-score 1744 after  0 nni operations 
+## Final p-score 1822 after  0 nni operations 
+## Final p-score 1735 after  1 nni operations 
+## Final p-score 1831 after  0 nni operations 
+## Final p-score 1765 after  2 nni operations
 ```
 
 
@@ -437,15 +437,15 @@ sessionInfo()
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_1.0.10     highr_0.8       bslib_0.4.2     compiler_4.0.2 
-##  [5] pillar_1.4.6    jquerylib_0.1.4 tools_4.0.2     digest_0.6.25  
-##  [9] jsonlite_1.7.1  evaluate_0.20   lifecycle_1.0.3 tibble_3.0.3   
-## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_1.0.6    
-## [17] igraph_1.2.6    fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.0      
+##  [5] pillar_1.9.0    jquerylib_0.1.4 tools_4.0.2     digest_0.6.25  
+##  [9] jsonlite_1.7.1  evaluate_0.20   lifecycle_1.0.3 tibble_3.2.1   
+## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_1.1.0    
+## [17] igraph_1.2.6    fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.1      
 ## [21] yaml_2.2.1      parallel_4.0.2  xfun_0.26       fastmap_1.1.1  
-## [25] stringr_1.4.0   knitr_1.33      fs_1.5.0        vctrs_0.5.2    
-## [29] sass_0.4.5      hms_0.5.3       grid_4.0.2      R6_2.4.1       
-## [33] ottrpal_1.0.1   rmarkdown_2.10  bookdown_0.24   readr_1.4.0    
-## [37] magrittr_2.0.3  htmltools_0.5.4 ellipsis_0.3.1  quadprog_1.5-8 
-## [41] stringi_1.5.3   cachem_1.0.7    crayon_1.3.4
+## [25] stringr_1.4.0   knitr_1.33      fs_1.5.0        vctrs_0.6.1    
+## [29] sass_0.4.5      hms_0.5.3       grid_4.0.2      glue_1.4.2     
+## [33] R6_2.4.1        fansi_0.4.1     ottrpal_1.0.1   rmarkdown_2.10 
+## [37] bookdown_0.24   readr_1.4.0     magrittr_2.0.3  htmltools_0.5.5
+## [41] quadprog_1.5-8  utf8_1.1.4      stringi_1.5.3   cachem_1.0.7
 ```
 

@@ -105,7 +105,7 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.43 secs
+## Time difference of 0.44 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -168,7 +168,7 @@ DNA.trans <- AlignTranslation(dna)
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.25 secs
+## Time difference of 0.24 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -185,7 +185,7 @@ DNA.trans <- AlignTranslation(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.24 secs
+## Time difference of 0.25 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -286,7 +286,7 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.77 secs
+## Time difference of 0.76 secs
 ```
 
 ```r
@@ -418,16 +418,17 @@ sessionInfo()
 ## [7] BiocGenerics_0.36.1 BiocManager_1.30.10 ape_5.4-1          
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.10     bslib_0.4.2     compiler_4.0.2  pillar_1.4.6   
+##  [1] Rcpp_1.0.10     bslib_0.4.2     compiler_4.0.2  pillar_1.9.0   
 ##  [5] jquerylib_0.1.4 zlibbioc_1.36.0 tools_4.0.2     bit_4.0.4      
 ##  [9] digest_0.6.25   memoise_2.0.1   jsonlite_1.7.1  evaluate_0.20  
-## [13] lifecycle_1.0.3 tibble_3.0.3    nlme_3.1-149    lattice_0.20-41
-## [17] pkgconfig_2.0.3 rlang_1.0.6     DBI_1.1.0       cli_3.6.0      
+## [13] lifecycle_1.0.3 tibble_3.2.1    nlme_3.1-149    lattice_0.20-41
+## [17] pkgconfig_2.0.3 rlang_1.1.0     DBI_1.1.0       cli_3.6.1      
 ## [21] yaml_2.2.1      xfun_0.26       fastmap_1.1.1   stringr_1.4.0  
-## [25] knitr_1.33      fs_1.5.0        vctrs_0.5.2     sass_0.4.5     
-## [29] hms_0.5.3       bit64_4.0.5     grid_4.0.2      R6_2.4.1       
-## [33] ottrpal_1.0.1   rmarkdown_2.10  bookdown_0.24   blob_1.2.1     
-## [37] readr_1.4.0     magrittr_2.0.3  htmltools_0.5.4 ellipsis_0.3.1 
-## [41] stringi_1.5.3   cachem_1.0.7    crayon_1.3.4
+## [25] knitr_1.33      fs_1.5.0        vctrs_0.6.1     sass_0.4.5     
+## [29] hms_0.5.3       bit64_4.0.5     grid_4.0.2      glue_1.4.2     
+## [33] R6_2.4.1        fansi_0.4.1     ottrpal_1.0.1   rmarkdown_2.10 
+## [37] bookdown_0.24   blob_1.2.1      readr_1.4.0     magrittr_2.0.3 
+## [41] htmltools_0.5.5 utf8_1.1.4      stringi_1.5.3   cachem_1.0.7   
+## [45] crayon_1.3.4
 ```
 

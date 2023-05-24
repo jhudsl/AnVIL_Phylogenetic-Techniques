@@ -309,22 +309,23 @@ sessionInfo()
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] gtools_3.8.2            xfun_0.26               bslib_0.4.2            
-##  [4] lattice_0.20-41         vctrs_0.5.2             expm_0.999-5           
-##  [7] htmltools_0.5.4         yaml_2.2.1              rlang_1.0.6            
-## [10] jquerylib_0.1.4         pillar_1.4.6            lifecycle_1.0.3        
-## [13] stringr_1.4.0           combinat_0.0-8          coda_0.19-4            
-## [16] evaluate_0.20           knitr_1.33              fastmap_1.1.1          
-## [19] parallel_4.0.2          highr_0.8               Rcpp_1.0.10            
-## [22] readr_1.4.0             cachem_1.0.7            plotrix_3.7-8          
-## [25] clusterGeneration_1.3.5 scatterplot3d_0.3-41    jsonlite_1.7.1         
-## [28] tmvnsim_1.0-2           fs_1.5.0                fastmatch_1.1-0        
-## [31] mnormt_2.0.2            ottrpal_1.0.1           hms_0.5.3              
-## [34] digest_0.6.25           stringi_1.5.3           bookdown_0.24          
-## [37] numDeriv_2016.8-1.1     grid_4.0.2              quadprog_1.5-8         
-## [40] cli_3.6.0               tools_4.0.2             magrittr_2.0.3         
-## [43] sass_0.4.5              tibble_3.0.3            crayon_1.3.4           
-## [46] pkgconfig_2.0.3         ellipsis_0.3.1          MASS_7.3-51.6          
-## [49] Matrix_1.2-18           rmarkdown_2.10          R6_2.4.1               
-## [52] igraph_1.2.6            nlme_3.1-149            compiler_4.0.2
+##  [4] lattice_0.20-41         vctrs_0.6.1             expm_0.999-5           
+##  [7] htmltools_0.5.5         yaml_2.2.1              utf8_1.1.4             
+## [10] rlang_1.1.0             jquerylib_0.1.4         pillar_1.9.0           
+## [13] glue_1.4.2              lifecycle_1.0.3         stringr_1.4.0          
+## [16] combinat_0.0-8          coda_0.19-4             evaluate_0.20          
+## [19] knitr_1.33              fastmap_1.1.1           parallel_4.0.2         
+## [22] fansi_0.4.1             highr_0.8               Rcpp_1.0.10            
+## [25] readr_1.4.0             plotrix_3.7-8           cachem_1.0.7           
+## [28] clusterGeneration_1.3.5 scatterplot3d_0.3-41    jsonlite_1.7.1         
+## [31] tmvnsim_1.0-2           fs_1.5.0                fastmatch_1.1-0        
+## [34] mnormt_2.0.2            ottrpal_1.0.1           hms_0.5.3              
+## [37] digest_0.6.25           stringi_1.5.3           bookdown_0.24          
+## [40] numDeriv_2016.8-1.1     grid_4.0.2              quadprog_1.5-8         
+## [43] cli_3.6.1               tools_4.0.2             magrittr_2.0.3         
+## [46] sass_0.4.5              tibble_3.2.1            pkgconfig_2.0.3        
+## [49] MASS_7.3-51.6           Matrix_1.2-18           rmarkdown_2.10         
+## [52] R6_2.4.1                igraph_1.2.6            nlme_3.1-149           
+## [55] compiler_4.0.2
 ```
 
