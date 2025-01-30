@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 21 What is a network? | Molecular Phylogenetic Techniques</title>
   <meta name="description" content="Description about Course/Book." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 21 What is a network? | Molecular Phylogenetic Techniques" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Description about Course/Book." />
   
@@ -23,7 +22,7 @@
 
 
 
-<meta name="date" content="2023-05-24" />
+<meta name="date" content="2025-01-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +31,6 @@
   <link rel="shortcut icon" href="assets/AnVIL_style/anvil_favicon.ico" type="image/x-icon" />
 <link rel="prev" href="adding-calibration-points-to-your-phylogenies.html"/>
 <link rel="next" href="visualizing-phylogenetic-networks.html"/>
-<script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5QVCXY02EY"></script>
@@ -100,11 +99,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
+code span.at { color: #204a87; } /* Attribute */
 code span.bn { color: #0000cf; } /* BaseN */
 code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
+code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #8f5902; font-style: italic; } /* Comment */
 code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
 code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
@@ -113,14 +112,14 @@ code span.dv { color: #0000cf; } /* DecVal */
 code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
 code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
 code span.ot { color: #8f5902; } /* Other */
 code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
 code span.ss { color: #4e9a06; } /* SpecialString */
 code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
@@ -128,6 +127,10 @@ code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
 <link rel="stylesheet" href="assets/AnVIL_style/anvil.css" type="text/css" />
@@ -301,7 +304,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
 <a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
 <p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
-<p style="padding-left: 40px;"><div class="trapezoid" style = "padding-left: 40px;"><span>  <a href="https://forms.gle/AK12iVXTjsB7yCUUA"> Click here to provide feedback</a> <img src="assets/itcr_arrow.png" style=" width: 10%" ></span></div></p>
+<p style="padding-left: 40px;"><div class="trapezoid" style = "padding-left: 40px;"><span><a href="https://docs.google.com/forms/d/e/1FAIpQLScrDVb_utm55pmb_SHx-RgELTEbCCWdLea0T3IzS0Oj00GE4w/viewform?usp=pp_url&entry.1565230805=Molecular+Phylogenetic+Techniques"> Click here to provide feedback</a> <img src="assets/itcr_arrow.png" style=" width: 10%" ></span></div></p>
 
 </ul>
 
@@ -331,15 +334,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="hero-image-container"> 
   <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
 </div>
-<div id="what-is-a-network" class="section level1" number="21">
-<h1><span class="header-section-number">Chapter 21</span> What is a network?</h1>
+<div id="what-is-a-network" class="section level1 hasAnchor" number="21">
+<h1><span class="header-section-number">Chapter 21</span> What is a network?<a href="what-is-a-network.html#what-is-a-network" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Phylogenetic networks (sometimes called the splits network) are a way to examine conflicting phylogenetic relationships in your data. Like a tree, networks visually represent evolutionary relationships among taxa. Unlike a tree, a network can show conflicting signals in the data, when multiple relationship patterns are supported. (A tree will simply show the relationship with the most data support.)</p>
 <p>These types of analyses started gaining in popularity with the advent of big data in the mid 2000s, because researchers were discovering that not all genes within an organism had the same evolutionary history. Phenomena such as incomplete lineage sorting, gene loss or duplication, hybridization, or horizontal gene transfer mean that genes in an organism’s genome can come from a variety of sources. Our simple understanding of speciation (a population splits in two, and the resulting daughter populations become genetically isolated from each other and develop into two new, different species) was no longer sufficient to describe what actually happens in nature. This is the essential idea behind the difference between gene trees and species trees.</p>
 <p>Take a look at this figure (Daniel Huson, ISMB-Tutorial 2007: Introduction to Phylogenetic Networks)</p>
 <p><img src="resources/images/12-networks_huson.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
 <p>Figure T1 and T2 represent possible phylogenetic relationships among taxa. Let’s say 60% the data support the relationship in T1, while the other 40% of the data support the relationship in T2. If we were to use all the data together to infer a single consensus tree, we would only see the relationships in T1; the information in T2 would be completely obscured. A phylogenetic network, on the other hand, will show us both possible relationships (the diamond shape you see in the third figure). It’s as if figure T1 was overlaid on figure T2 (with some extra branches drawn). In a network, the diamond shapes represent all the different possible phylogenetic relationships.</p>
-<div id="why-do-we-see-competing-phylogenetic-relationships" class="section level2" number="21.1">
-<h2><span class="header-section-number">21.1</span> Why do we see competing phylogenetic relationships?</h2>
+<div id="why-do-we-see-competing-phylogenetic-relationships" class="section level2 hasAnchor" number="21.1">
+<h2><span class="header-section-number">21.1</span> Why do we see competing phylogenetic relationships?<a href="what-is-a-network.html#why-do-we-see-competing-phylogenetic-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The process of speciation is slow. While it sounds straightforward (a population splits into two reproductively isolated daughter populations, which then become two new species), in reality it is a very slow and messy process. Sometimes we are examining taxa that have only recently become separate. In this situation, we might be seeing the result of <em><em>incomplete lineage sorting</em></em>. When populations first split, there will be individuals within each daughter population who have the same allele for particular genes or genomic regions. Usually these shared alleles will sort, or become extinct in one population but not the other. However, this process takes time, and the bigger the daughter population, the longer this process takes.</p>
 <p>If the two daughter populations have been separated long enough for genomic sorting to have occurred, the conflicting phylogenetic relationships could be the result of <em><em>introgression</em></em>. Among sexually reproductive species, members of two separate species might interbreed or hybridize (this is very common in some orders, especially ducks!). In bacteria, genes can be transferred between bacteria of different species via horizontal gene transfer. Viruses will also swap entire genes in a similar process.</p>
 <p>Finally, it may not be possible to reconstruct the phylogenetic relationships among groups if speciation happened over a very short time period (similar to what you expect in an adaptive radiation). In this case, the relationships among species might look like a polytomy instead of a series of bifurcating nodes.</p>

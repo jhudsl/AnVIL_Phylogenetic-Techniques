@@ -12,7 +12,7 @@ Ancestral state reconstruction analyses can be done using tools in the `phangorn
 Let's start by reconstructing putative ancestral sequences at the nodes within our grass tree. We will use both the `phangorn` and `phylotools` packages. We need both the fasta file and an ML tree. I've chosen to recreate the ML tree instead of loading my saved tree directly becausee R has reformatted the taxa names slightly in the grass tree. If this has not happened to you, you can load your ML tree directly using the `read.tree` command instead of rerunning the analysis.
 
 
-```r
+``` r
 #install.packages('phytools')
 library(phangorn)
 library(phylotools)
@@ -38,7 +38,7 @@ After we look at the grass tree to make sure it is rooted the way we want, we us
 After running the ancestral state reconstruction, we plot the nucleotide at base 209 for each node and tip. (I randomly chose base 209. In practice, researchers likely would have already identified locations of interest.)
 
 
-```r
+``` r
 anc.ml <- ancestral.pml(fitGTR.G, "ml")
 
 plotAnc(fitGTR.G$tree, anc.ml, 209)
@@ -58,7 +58,7 @@ Additionally, the pie charts for some ancestral nodes have multiple colors. When
 We could do this for any base, like base 1023 (another one I picked at random).
 
 
-```r
+``` r
 plotAnc(fitGTR.G$tree, anc.ml, 1023)
 ```
 
@@ -78,7 +78,7 @@ We can use the `phytools` package to estimate and visualize the reconstruction o
 First, we install and load the `phytools` package, then we load our ML tree.
 
 
-```r
+``` r
 #install.packages('phytools')
 library(phytools)
 
@@ -93,7 +93,7 @@ plot(tree.root)
 This tree has 13 samples, but we aren't going to use all of them for the grass analysis. First, we want to remove the outgroups (the two D-hordein samples) because in this case their position doesn't represent the phylogenetic relationships between barley and the ingroup or Siberian wild rye and the ingroup. (They represent the phylogenetic relationship of D-hordein and the _Glu_ sequences instead. If you used the same genetic region/gene for your outgroup, you can leave them in. If I had used Siberian wild rye _Glu_ sequence, it would be fine to leave the outgroup.) I also was unable to find information on the maximum height of Asiatic grass. We can remove these taxa from the tree directly using the `drop.tip` command.
 
 
-```r
+``` r
 new <- drop.tip(tree.root, c('barley_D-hordein', 'Siberian_wild_rye_D-hordein', 'Asiatic_grass'), trim.internal = TRUE, subtree = FALSE, root.edge = 0, rooted = is.rooted(tree.root), collapse.singles = TRUE, interactive = FALSE)
 
 plot(new)
@@ -105,7 +105,7 @@ nodelabels()
 Great! We have a tree with only the taxa we want, and we can also see the label R has assigned to each node. Now we will create a vector containing all the maximum heights (in inches) for each taxa, in the same order as the tree. We can find the proper taxa order by querying the `tip.label`. 
 
 
-```r
+``` r
 new$tip.label
 ```
 
@@ -117,14 +117,14 @@ new$tip.label
 ##  [9] "wheatgrass"              "wheat"
 ```
 
-```r
+``` r
 height <- as.numeric(c(24, 36, 20, 30, 48, 18, 78, 60, 48, 48))
 ```
 
 Now that we have both our tree and our continuous phenotype, we calculate the ancestral phenotype estimates with the `fastAnc` command. This is an ML method. I have not found a Bayesian approach for ancestral state reconstruction of continuous traits. The arguments for this command are the tree, the vector of the phenotypes, and either "TRUE" or "FALSE" value for calculating the confidence intervals around the likelihood estimate for each node.
 
 
-```r
+``` r
 anc.height <- fastAnc(new, height, CI = TRUE)
 anc.height
 ```
@@ -168,7 +168,7 @@ Before we can do the analysis, we need to convert the edited tree from the earli
 When we load the file into R, we use the `row.names` command to specify that the first column (the sample names) are set as the row names of our object. We then reformat the first column as a matrix and assign it to the object `pheno`, which turns `pheno` into a vector. (Make sure your phenotype file is in the same order as your tip labels!)
 
 
-```r
+``` r
 new <- as.phylo(new)
 
 pheno <- read.table('grass_discrete.txt', row.names = 1)
@@ -216,7 +216,7 @@ This particular estimation uses a Bayesian approach. The `ace` command technical
 ```
 
 
-```r
+``` r
 fit.discrete<-ace(pheno, new, model="ER",type="discrete")
 fit.discrete
 ```
@@ -247,7 +247,7 @@ fit.discrete
 The output for this estimation gives us scaled likelihoods for the ancestral state at the most basal node. We have to specifically request the scaled likelihood estimates for all the nodes. 
 
 
-```r
+``` r
 fit.discrete$lik.anc
 ```
 
@@ -257,7 +257,7 @@ Well, it appears that whether the common ancestors at each node were annuals or 
 Visualizing this output requires a couple of steps. First, we plot the phylogenetic tree. Then, we define the colors that will correspond to each character state. (The commands are flexible so that you can copy and paste for discrete traits with more than two possible states. I've included an alternate way to set the colors, marked with a #.) Finally, we add piecharts at each node and each tip label, then plot the legend.
 
 
-```r
+``` r
 plot(new)
 
 cols <- c('blue', 'orange')
@@ -279,18 +279,18 @@ add.simmap.legend(colors=cols,prompt=FALSE,x=0.9*par()$usr[1], y=-max(nodeHeight
 Similarly to what we saw above when we looked at ancestral reconstruction of sequences, each pie chart indicates the posterior probability of each possible character state. In this case, it appears we can't really tell whether the perennial or annual trait is ancestral. What's clear is that the derived trait (the one that isn't ancestral) has popped up multiple times in multiple clades.
 
 
-```r
+``` r
 sessionInfo()
 ```
 
 ```
-## R version 4.0.2 (2020-06-22)
+## R version 4.3.2 (2023-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.5 LTS
+## Running under: Ubuntu 22.04.4 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -300,32 +300,42 @@ sessionInfo()
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
+## time zone: Etc/UTC
+## tzcode source: system (glibc)
+## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] phytools_0.7-70  maps_3.3.0       phylotools_0.2.2 phangorn_2.5.5  
-## [5] ape_5.4-1       
+## [1] phytools_2.1-1   maps_3.4.2       phylotools_0.2.2 phangorn_2.11.1 
+## [5] ape_5.7-1       
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] gtools_3.8.2            xfun_0.26               bslib_0.4.2            
-##  [4] lattice_0.20-41         vctrs_0.6.1             expm_0.999-5           
-##  [7] htmltools_0.5.5         yaml_2.2.1              utf8_1.1.4             
-## [10] rlang_1.1.0             jquerylib_0.1.4         pillar_1.9.0           
-## [13] glue_1.4.2              lifecycle_1.0.3         stringr_1.4.0          
-## [16] combinat_0.0-8          coda_0.19-4             evaluate_0.20          
-## [19] knitr_1.33              fastmap_1.1.1           parallel_4.0.2         
-## [22] fansi_0.4.1             highr_0.8               Rcpp_1.0.10            
-## [25] readr_1.4.0             plotrix_3.7-8           cachem_1.0.7           
-## [28] clusterGeneration_1.3.5 scatterplot3d_0.3-41    jsonlite_1.7.1         
-## [31] tmvnsim_1.0-2           fs_1.5.0                fastmatch_1.1-0        
-## [34] mnormt_2.0.2            ottrpal_1.0.1           hms_0.5.3              
-## [37] digest_0.6.25           stringi_1.5.3           bookdown_0.24          
-## [40] numDeriv_2016.8-1.1     grid_4.0.2              quadprog_1.5-8         
-## [43] cli_3.6.1               tools_4.0.2             magrittr_2.0.3         
-## [46] sass_0.4.5              tibble_3.2.1            pkgconfig_2.0.3        
-## [49] MASS_7.3-51.6           Matrix_1.2-18           rmarkdown_2.10         
-## [52] R6_2.4.1                igraph_1.2.6            nlme_3.1-149           
-## [55] compiler_4.0.2
+##  [1] fastmatch_1.1-4         xfun_0.48               bslib_0.6.1            
+##  [4] websocket_1.4.2         processx_3.8.3          lattice_0.21-9         
+##  [7] numDeriv_2016.8-1.1     tzdb_0.4.0              quadprog_1.5-8         
+## [10] vctrs_0.6.5             tools_4.3.2             ps_1.7.6               
+## [13] generics_0.1.3          parallel_4.3.2          tibble_3.2.1           
+## [16] fansi_1.0.6             highr_0.11              pkgconfig_2.0.3        
+## [19] Matrix_1.6-1.1          scatterplot3d_0.3-44    lifecycle_1.0.4        
+## [22] compiler_4.3.2          stringr_1.5.1           mnormt_2.1.1           
+## [25] combinat_0.0-8          chromote_0.3.1          janitor_2.2.0          
+## [28] codetools_0.2-19        snakecase_0.11.1        htmltools_0.5.7        
+## [31] sass_0.4.8              yaml_2.3.8              later_1.3.2            
+## [34] pillar_1.9.0            jquerylib_0.1.4         MASS_7.3-60            
+## [37] openssl_2.1.1           cachem_1.0.8            clusterGeneration_1.3.8
+## [40] iterators_1.0.14        foreach_1.5.2           nlme_3.1-164           
+## [43] webshot2_0.1.1          tidyselect_1.2.0        ottrpal_1.3.0          
+## [46] digest_0.6.34           stringi_1.8.3           dplyr_1.1.4            
+## [49] bookdown_0.41           rprojroot_2.0.4         fastmap_1.1.1          
+## [52] grid_4.3.2              expm_0.999-9            cli_3.6.2              
+## [55] magrittr_2.0.3          optimParallel_1.0-2     utf8_1.2.4             
+## [58] readr_2.1.5             promises_1.2.1          lubridate_1.9.3        
+## [61] timechange_0.3.0        rmarkdown_2.25          httr_1.4.7             
+## [64] igraph_2.0.2            askpass_1.2.0           hms_1.1.3              
+## [67] coda_0.19-4.1           evaluate_0.23           knitr_1.48             
+## [70] doParallel_1.0.17       rlang_1.1.4             Rcpp_1.0.12            
+## [73] glue_1.7.0              xml2_1.3.6              jsonlite_1.8.8         
+## [76] R6_2.5.1
 ```
 

@@ -26,7 +26,7 @@ We will be using the `phangorn` package in R to estimate maximum likelihood meth
 `phangorn` requires a starting tree for maximum likelihood searches. The tree itself doesn't matter much, but generally people supply a neighbor joining tree because they can be generated quickly. 
 
 
-```r
+``` r
 library(phangorn)
 
 grass.align <- read.phyDat("grass_aligned-renamed.fasta", format = "fasta")
@@ -38,7 +38,7 @@ nj.tree <- nj(dist)
 You can also upload your previously-generated neighbor joining tree and use that instead of creating a new one (just make sure that you used the same sample names in both your renamed fasta file and your neighbor joining tree).
 
 
-```r
+``` r
 nj.tree <- read.tree("nj.tre")
 ```
 
@@ -48,16 +48,15 @@ nj.tree <- read.tree("nj.tre")
 Once you have both a tree and your fasta file loaded, you can calculated a likelihood score using the `pml` command.
 
 
-```r
+``` r
 fit <- pml(nj.tree, data = grass.align)
 fit
 ```
 
 ```
-## 
-##  loglikelihood: -12912.73 
-## 
-## unconstrained loglikelihood: -20560.86 
+## model: JC 
+## loglikelihood: -12533.76 
+## unconstrained loglikelihood: -20944.97 
 ## 
 ## Rate matrix:
 ##   a c g t
@@ -67,6 +66,7 @@ fit
 ## t 1 1 1 0
 ## 
 ## Base frequencies:  
+##    a    c    g    t 
 ## 0.25 0.25 0.25 0.25
 ```
 
@@ -79,24 +79,19 @@ This output also reports both a log likelihood and an unconstrained log likeliho
 The `pml` command simply calculates the likelihood of the data, given a tree. If we want to find the optimum tree (and we do), we need to optimize the tree topology (as well as branch length estimates) for our data. We can do this using the `optim.pml` command. For this particular model (JC), we simply need to supply a `pml` object (which we created above) and decide what type of tree arrangement we want to do.
 
 
-```r
+``` r
 fitJC <- optim.pml(fit, rearrangement = "NNI")
 ```
 
 ```
-## optimize edge weights:  -12912.73 --> -12865.23 
-## optimize edge weights:  -12865.23 --> -12865.23 
-## optimize topology:  -12865.23 --> -12851.07 
-## optimize topology:  -12851.07 --> -12849.71 
-## optimize topology:  -12849.71 --> -12849.71 
-## 2 
-## optimize edge weights:  -12849.71 --> -12849.71 
-## optimize topology:  -12849.71 --> -12849.71 
-## 0 
-## optimize edge weights:  -12849.71 --> -12849.71
+## optimize edge weights:  -12533.76 --> -12487.58 
+## optimize edge weights:  -12487.58 --> -12487.58 
+## optimize topology:  -12487.58 --> -12466.62  NNI moves:  2 
+## optimize edge weights:  -12466.62 --> -12466.62 
+## optimize topology:  -12466.62 --> -12466.62  NNI moves:  0
 ```
 
-```r
+``` r
 plot(fitJC$tree, main = "JC, NNI rearrangement")
 ```
 
@@ -107,7 +102,7 @@ With the choice of NNI rearrangement, you can see that only a few moves were nec
 Using either the stochastic or ratchet tree rearrangement takes more time than NNI. Here I've also added a command to hide the output while the algorithm is running, but feel free to leave it off so you can see what the algorithm is doing!
 
 
-```r
+``` r
 fitJC <- optim.pml(fit, rearrangement = "stochastic", control = pml.control(trace = 0))
 plot(fitJC$tree, main = "JC, stochastic rearrangement")
 ```
@@ -122,16 +117,15 @@ All the work above is for the Jukes-Cantor model. However, there is a whole worl
 According to the model test we ran on the grass data in the Neighbor Joining section, the best model for this dataset is the GTR + G model. The gamma distribution has two parameters, a shape parameter and a scale parameter. In phylogenetics, we commonly think of these as the number of rate categories and a shape parameter. When adding a gamma distribution, we can just specify the number of rate categories to start. The standard is 4.
 
 
-```r
+``` r
 fitGTR.G <- update(fit, model = "GTR", k = 4)
 fitGTR.G
 ```
 
 ```
-## 
-##  loglikelihood: -12888.65 
-## 
-## unconstrained loglikelihood: -20560.86 
+## model: GTR+G(4) 
+## loglikelihood: -12503.04 
+## unconstrained loglikelihood: -20944.97 
 ## Discrete gamma model
 ## Number of rate categories: 4 
 ## Shape parameter: 1 
@@ -144,39 +138,40 @@ fitGTR.G
 ## t 1 1 1 0
 ## 
 ## Base frequencies:  
+##    a    c    g    t 
 ## 0.25 0.25 0.25 0.25
 ```
 
 After we update the model and add the gamma distribution, we can see that fitGTR now 4 rate categories and a shape parameter = 1. However, the rate matrix and base frequencies are still the same as the JC model, because we did not update those. We could if we wanted to, but it's easier to let the `optim.pml` algorithm do it.
 
 
-```r
+``` r
 fitGTR.G <- optim.pml(fitGTR.G, model = "GTR", optGamma = T, rearrangement = "stochastic", control = pml.control(trace = 0))
 
 fitGTR.G
 ```
 
 ```
-## 
-##  loglikelihood: -12364.36 
-## 
-## unconstrained loglikelihood: -20560.86 
+## model: GTR+G(4) 
+## loglikelihood: -11945.78 
+## unconstrained loglikelihood: -20944.97 
 ## Discrete gamma model
 ## Number of rate categories: 4 
-## Shape parameter: 1.373376 
+## Shape parameter: 1.196882 
 ## 
 ## Rate matrix:
-##           a         c         g        t
-## a 0.0000000 0.3822941 1.4796329 0.698245
-## c 0.3822941 0.0000000 0.4572515 2.225412
-## g 1.4796329 0.4572515 0.0000000 1.000000
-## t 0.6982450 2.2254116 1.0000000 0.000000
+##           a         c         g         t
+## a 0.0000000 0.4378419 1.6826672 0.7665309
+## c 0.4378419 0.0000000 0.4612305 2.7050204
+## g 1.6826672 0.4612305 0.0000000 1.0000000
+## t 0.7665309 2.7050204 1.0000000 0.0000000
 ## 
 ## Base frequencies:  
-## 0.3183583 0.2986886 0.2541144 0.1288387
+##         a         c         g         t 
+## 0.3196529 0.2974113 0.2592177 0.1237181
 ```
 
-```r
+``` r
 plot(fitGTR.G$tree, main = "GTR + G")
 ```
 
@@ -185,7 +180,7 @@ plot(fitGTR.G$tree, main = "GTR + G")
 We can also update the model to include an invariant sites parameter (inv = 0.2).
 
 
-```r
+``` r
 fitGTR.G.I <- update(fitGTR.G, inv = 0.2)
 
 fitGTR.G.I <- optim.pml(fitGTR.G.I, model = "GTR", optGamma = T, optInv = T,  rearrangement = "stochastic", control = pml.control(trace = 0))
@@ -194,27 +189,27 @@ fitGTR.G.I
 ```
 
 ```
-## 
-##  loglikelihood: -12364.36 
-## 
-## unconstrained loglikelihood: -20560.86 
-## Proportion of invariant sites: 4.471015e-05 
+## model: GTR+G(4)+I 
+## loglikelihood: -11945.78 
+## unconstrained loglikelihood: -20944.97 
+## Proportion of invariant sites: 5.218685e-05 
 ## Discrete gamma model
 ## Number of rate categories: 4 
-## Shape parameter: 1.372046 
+## Shape parameter: 1.196526 
 ## 
 ## Rate matrix:
 ##           a         c         g         t
-## a 0.0000000 0.3814506 1.4763827 0.6968407
-## c 0.3814506 0.0000000 0.4562831 2.2228880
-## g 1.4763827 0.4562831 0.0000000 1.0000000
-## t 0.6968407 2.2228880 1.0000000 0.0000000
+## a 0.0000000 0.4369735 1.6803298 0.7652378
+## c 0.4369735 0.0000000 0.4602451 2.7015546
+## g 1.6803298 0.4602451 0.0000000 1.0000000
+## t 0.7652378 2.7015546 1.0000000 0.0000000
 ## 
 ## Base frequencies:  
-## 0.3185034 0.2985722 0.2541684 0.1287559
+##         a         c         g         t 
+## 0.3196556 0.2974835 0.2591984 0.1236624
 ```
 
-```r
+``` r
 plot(fitGTR.G.I$tree, main = "GTR + I + G")
 ```
 
@@ -223,7 +218,7 @@ plot(fitGTR.G.I$tree, main = "GTR + I + G")
 Keep in mind that we never want to overwrite our original "fit" object. By updating the "fit" object (and saving the update by a new name), we can easily go back and change the model for our ML estimation. Let's try a K80 (Kimura 2-parameter) model with an invariant sites parameter. In the `optim.pml` command, we can leave out the `optGamma = T` argument because we no longer have a gamma distribution included in the model.
 
 
-```r
+``` r
 fitK80.I <- update(fit, model = "K80", inv = 0.2)
 
 fitK80.I <- optim.pml(fitK80.I, model = "K80", optInv = T,  rearrangement = "stochastic", control = pml.control(trace = 0))
@@ -232,24 +227,24 @@ fitK80.I
 ```
 
 ```
-## 
-##  loglikelihood: -12592.47 
-## 
-## unconstrained loglikelihood: -20560.86 
-## Proportion of invariant sites: 0.246905 
+## model: K80+I 
+## loglikelihood: -12195.32 
+## unconstrained loglikelihood: -20944.97 
+## Proportion of invariant sites: 0.2632002 
 ## 
 ## Rate matrix:
-##         a       c       g       t
-## a 0.00000 1.00000 3.02753 1.00000
-## c 1.00000 0.00000 1.00000 3.02753
-## g 3.02753 1.00000 0.00000 1.00000
-## t 1.00000 3.02753 1.00000 0.00000
+##          a        c        g        t
+## a 0.000000 1.000000 3.275521 1.000000
+## c 1.000000 0.000000 1.000000 3.275521
+## g 3.275521 1.000000 0.000000 1.000000
+## t 1.000000 3.275521 1.000000 0.000000
 ## 
 ## Base frequencies:  
+##    a    c    g    t 
 ## 0.25 0.25 0.25 0.25
 ```
 
-```r
+``` r
 plot(fitK80.I$tree, main = "K80 + I")
 ```
 
@@ -266,124 +261,21 @@ We will use the `bootstrap.pml` command, which does have an option to estimate t
 Let's try bootstrapping the GTR + G tree, which was the model chosen for us using the `modelTest` command.
 
 
-```r
+``` r
 bs <- bootstrap.pml(fitGTR.G, bs=1000, multicore = T, optNni=TRUE,
 +                     control = pml.control(trace = 0))
 ```
 
 
-```r
+``` r
 bs <- bootstrap.pml(fitGTR.G, bs=100, optNni=TRUE, control = pml.control(trace = 0))
-```
-
-```
-## Final p-score 1828 after  0 nni operations 
-## Final p-score 1783 after  0 nni operations 
-## Final p-score 1881 after  1 nni operations 
-## Final p-score 1844 after  0 nni operations 
-## Final p-score 1868 after  2 nni operations 
-## Final p-score 1809 after  0 nni operations 
-## Final p-score 1785 after  2 nni operations 
-## Final p-score 1752 after  5 nni operations 
-## Final p-score 1828 after  2 nni operations 
-## Final p-score 1829 after  1 nni operations 
-## Final p-score 1796 after  1 nni operations 
-## Final p-score 1764 after  0 nni operations 
-## Final p-score 1781 after  2 nni operations 
-## Final p-score 1777 after  1 nni operations 
-## Final p-score 1786 after  0 nni operations 
-## Final p-score 1807 after  1 nni operations 
-## Final p-score 1891 after  1 nni operations 
-## Final p-score 1828 after  2 nni operations 
-## Final p-score 1826 after  1 nni operations 
-## Final p-score 1793 after  0 nni operations 
-## Final p-score 1759 after  1 nni operations 
-## Final p-score 1840 after  1 nni operations 
-## Final p-score 1797 after  1 nni operations 
-## Final p-score 1733 after  0 nni operations 
-## Final p-score 1752 after  3 nni operations 
-## Final p-score 1737 after  1 nni operations 
-## Final p-score 1861 after  2 nni operations 
-## Final p-score 1947 after  1 nni operations 
-## Final p-score 1769 after  0 nni operations 
-## Final p-score 1767 after  0 nni operations 
-## Final p-score 1834 after  0 nni operations 
-## Final p-score 1836 after  2 nni operations 
-## Final p-score 1815 after  0 nni operations 
-## Final p-score 1744 after  2 nni operations 
-## Final p-score 1875 after  0 nni operations 
-## Final p-score 1791 after  0 nni operations 
-## Final p-score 1810 after  1 nni operations 
-## Final p-score 1862 after  0 nni operations 
-## Final p-score 1859 after  2 nni operations 
-## Final p-score 1823 after  1 nni operations 
-## Final p-score 1768 after  2 nni operations 
-## Final p-score 1770 after  2 nni operations 
-## Final p-score 1790 after  1 nni operations 
-## Final p-score 1852 after  1 nni operations 
-## Final p-score 1788 after  1 nni operations 
-## Final p-score 1861 after  3 nni operations 
-## Final p-score 1713 after  3 nni operations 
-## Final p-score 1640 after  0 nni operations 
-## Final p-score 1853 after  2 nni operations 
-## Final p-score 1789 after  1 nni operations 
-## Final p-score 1769 after  1 nni operations 
-## Final p-score 1752 after  1 nni operations 
-## Final p-score 1778 after  0 nni operations 
-## Final p-score 1741 after  3 nni operations 
-## Final p-score 1838 after  2 nni operations 
-## Final p-score 1853 after  3 nni operations 
-## Final p-score 1867 after  4 nni operations 
-## Final p-score 1857 after  1 nni operations 
-## Final p-score 1854 after  2 nni operations 
-## Final p-score 1746 after  0 nni operations 
-## Final p-score 1790 after  2 nni operations 
-## Final p-score 1874 after  0 nni operations 
-## Final p-score 1810 after  0 nni operations 
-## Final p-score 1804 after  1 nni operations 
-## Final p-score 1729 after  2 nni operations 
-## Final p-score 1814 after  2 nni operations 
-## Final p-score 1774 after  0 nni operations 
-## Final p-score 1775 after  3 nni operations 
-## Final p-score 1770 after  1 nni operations 
-## Final p-score 1849 after  2 nni operations 
-## Final p-score 1740 after  0 nni operations 
-## Final p-score 1688 after  2 nni operations 
-## Final p-score 1812 after  1 nni operations 
-## Final p-score 1697 after  1 nni operations 
-## Final p-score 1780 after  0 nni operations 
-## Final p-score 1878 after  3 nni operations 
-## Final p-score 1805 after  2 nni operations 
-## Final p-score 1893 after  0 nni operations 
-## Final p-score 1829 after  0 nni operations 
-## Final p-score 1817 after  1 nni operations 
-## Final p-score 1801 after  0 nni operations 
-## Final p-score 1786 after  1 nni operations 
-## Final p-score 1836 after  2 nni operations 
-## Final p-score 1776 after  1 nni operations 
-## Final p-score 1806 after  0 nni operations 
-## Final p-score 1804 after  0 nni operations 
-## Final p-score 1820 after  3 nni operations 
-## Final p-score 1806 after  3 nni operations 
-## Final p-score 1797 after  1 nni operations 
-## Final p-score 1802 after  2 nni operations 
-## Final p-score 1826 after  1 nni operations 
-## Final p-score 1758 after  0 nni operations 
-## Final p-score 1771 after  2 nni operations 
-## Final p-score 1806 after  1 nni operations 
-## Final p-score 1822 after  0 nni operations 
-## Final p-score 1744 after  0 nni operations 
-## Final p-score 1822 after  0 nni operations 
-## Final p-score 1735 after  1 nni operations 
-## Final p-score 1831 after  0 nni operations 
-## Final p-score 1765 after  2 nni operations
 ```
 
 
 To plot the bootstrap values, we can use a special plot function called `plotBS`. First, however, we need to root the tree. Then we can plot the rooted tree with our bootstrap values (saved in a list called "bs"), We are also going to format the bootstrap values so that only those values greater than 0.5 (50% bootstrap support) are shown using the `p` argument. We can also decide what color to make the bootstrap values and how many decimal places we want to see. (For a semi-complete list of colors in R, look [here](https://www.datanovia.com/en/blog/awesome-list-of-657-r-color-names/).)
 
 
-```r
+``` r
 tree.root <- root(fitGTR.G$tree, outgroup = c('barley_D-hordein','Siberian wild rye_D-hordein'))
 
 plotBS(tree.root, bs, main = "GTR + G bootstrap", type = "p",
@@ -401,25 +293,25 @@ plotBS(tree.root, bs, main = "GTR + G bootstrap", type = "p",
 Before you end your session, make sure to save your trees to your persistent disk.
 
 
-```r
+``` r
 write.tree(fitGTR.G$tree, file="grass_ml.tre")
 
 write.tree(bs, file="grass_ml_bootstrap.tre")
 ```
 
 
-```r
+``` r
 sessionInfo()
 ```
 
 ```
-## R version 4.0.2 (2020-06-22)
+## R version 4.3.2 (2023-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.5 LTS
+## Running under: Ubuntu 22.04.4 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -429,23 +321,31 @@ sessionInfo()
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
+## time zone: Etc/UTC
+## tzcode source: system (glibc)
+## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] phangorn_2.5.5 ape_5.4-1     
+## [1] phangorn_2.11.1 ape_5.7-1      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.10     highr_0.8       bslib_0.4.2     compiler_4.0.2 
-##  [5] pillar_1.9.0    jquerylib_0.1.4 tools_4.0.2     digest_0.6.25  
-##  [9] jsonlite_1.7.1  evaluate_0.20   lifecycle_1.0.3 tibble_3.2.1   
-## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_1.1.0    
-## [17] igraph_1.2.6    fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.1      
-## [21] yaml_2.2.1      parallel_4.0.2  xfun_0.26       fastmap_1.1.1  
-## [25] stringr_1.4.0   knitr_1.33      fs_1.5.0        vctrs_0.6.1    
-## [29] sass_0.4.5      hms_0.5.3       grid_4.0.2      glue_1.4.2     
-## [33] R6_2.4.1        fansi_0.4.1     ottrpal_1.0.1   rmarkdown_2.10 
-## [37] bookdown_0.24   readr_1.4.0     magrittr_2.0.3  htmltools_0.5.5
-## [41] quadprog_1.5-8  utf8_1.1.4      stringi_1.5.3   cachem_1.0.7
+##  [1] sass_0.4.8       utf8_1.2.4       generics_0.1.3   xml2_1.3.6      
+##  [5] lattice_0.21-9   stringi_1.8.3    hms_1.1.3        digest_0.6.34   
+##  [9] magrittr_2.0.3   grid_4.3.2       evaluate_0.23    timechange_0.3.0
+## [13] bookdown_0.41    fastmap_1.1.1    Matrix_1.6-1.1   rprojroot_2.0.4 
+## [17] jsonlite_1.8.8   processx_3.8.3   chromote_0.3.1   ps_1.7.6        
+## [21] promises_1.2.1   httr_1.4.7       fansi_1.0.6      ottrpal_1.3.0   
+## [25] codetools_0.2-19 jquerylib_0.1.4  cli_3.6.2        rlang_1.1.4     
+## [29] cachem_1.0.8     yaml_2.3.8       parallel_4.3.2   tools_4.3.2     
+## [33] tzdb_0.4.0       dplyr_1.1.4      fastmatch_1.1-4  vctrs_0.6.5     
+## [37] R6_2.5.1         lifecycle_1.0.4  lubridate_1.9.3  snakecase_0.11.1
+## [41] stringr_1.5.1    janitor_2.2.0    pkgconfig_2.0.3  pillar_1.9.0    
+## [45] bslib_0.6.1      later_1.3.2      glue_1.7.0       Rcpp_1.0.12     
+## [49] highr_0.11       xfun_0.48        tibble_3.2.1     tidyselect_1.2.0
+## [53] knitr_1.48       igraph_2.0.2     nlme_3.1-164     htmltools_0.5.7 
+## [57] websocket_1.4.2  rmarkdown_2.25   webshot2_0.1.1   readr_2.1.5     
+## [61] compiler_4.3.2   quadprog_1.5-8   askpass_1.2.0    openssl_2.1.1
 ```
 

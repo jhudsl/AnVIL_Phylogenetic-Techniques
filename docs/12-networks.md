@@ -78,7 +78,7 @@ I have been using the words "probability" and "percentage" interchangeably when 
 We have two options for our input. `consensusNet` takes a list of trees as the input (which R sees an an object of class `multiPhylo`), so we can either load the bootstrap trees from the ML analysis or the posterior distribution of trees from the Bayesian analysis. Here we will do both with the grass dataset so we can compare the networks. (Notice that we need to use two different commands to load the trees into R - the two tree files are saved in two separate formats. The ML trees are saved in Newick format, while the Bayesian trees are saved in Nexus format.)
 
 
-```r
+``` r
 library(phangorn)
 
 grass.ml <- read.tree("grass_ml_bootstrap.tre")
@@ -88,7 +88,7 @@ grass.bayes <- read.nexus("grass_bayes.trees")
 After we load our trees, we run the `consensusNet` command. This command takes two arguments. The first is the tree file, while the second is the bootstrap value threshold. For this example, we'll set the threshold at 0.1, meaning we will see all the possible nodes with at least a bootstrap support or posterior density of 0.1.
 
 
-```r
+``` r
 cnet.ml <- consensusNet(grass.ml, .1)
 cnet.bayes <- consensusNet(grass.bayes, .1)
 
@@ -103,7 +103,7 @@ plot(cnet.ml, show.edge.label=TRUE)
 We can see there are very few alternate topologies in the bootstrap trees (which we already knew would be the case, given the high bootstrap support in the original ML tree!), but there are a couple of splits. The first suggests that crested wheatgrass is sometimes in a polytomy with medusahead rye and mosquito grass, instead of splitting from that clade earlier. The second split suggests that some trees has Asiatic grass splitting from the main tree as the basal node and sometimes clusters with the crested wheatgrass/medusahead rye/mosquito grass clade. Finally, the last split changes the position of rye.
 
 
-```r
+``` r
 plot(cnet.bayes, show.edge.label=TRUE)
 ```
 
@@ -118,18 +118,18 @@ We can also add the support values for each split (the bootstrap values for the 
 
 
 
-```r
+``` r
 sessionInfo()
 ```
 
 ```
-## R version 4.0.2 (2020-06-22)
+## R version 4.3.2 (2023-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.5 LTS
+## Running under: Ubuntu 22.04.4 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -139,23 +139,31 @@ sessionInfo()
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
+## time zone: Etc/UTC
+## tzcode source: system (glibc)
+## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] phangorn_2.5.5 ape_5.4-1     
+## [1] phangorn_2.11.1 ape_5.7-1      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.10     bslib_0.4.2     compiler_4.0.2  pillar_1.9.0   
-##  [5] jquerylib_0.1.4 tools_4.0.2     digest_0.6.25   jsonlite_1.7.1 
-##  [9] evaluate_0.20   lifecycle_1.0.3 tibble_3.2.1    nlme_3.1-149   
-## [13] lattice_0.20-41 pkgconfig_2.0.3 rlang_1.1.0     igraph_1.2.6   
-## [17] fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.1       yaml_2.2.1     
-## [21] parallel_4.0.2  xfun_0.26       fastmap_1.1.1   stringr_1.4.0  
-## [25] knitr_1.33      fs_1.5.0        vctrs_0.6.1     sass_0.4.5     
-## [29] hms_0.5.3       grid_4.0.2      glue_1.4.2      R6_2.4.1       
-## [33] fansi_0.4.1     ottrpal_1.0.1   rmarkdown_2.10  bookdown_0.24  
-## [37] readr_1.4.0     magrittr_2.0.3  htmltools_0.5.5 quadprog_1.5-8 
-## [41] utf8_1.1.4      stringi_1.5.3   cachem_1.0.7
+##  [1] sass_0.4.8       utf8_1.2.4       generics_0.1.3   xml2_1.3.6      
+##  [5] lattice_0.21-9   stringi_1.8.3    hms_1.1.3        digest_0.6.34   
+##  [9] magrittr_2.0.3   grid_4.3.2       evaluate_0.23    timechange_0.3.0
+## [13] bookdown_0.41    fastmap_1.1.1    Matrix_1.6-1.1   rprojroot_2.0.4 
+## [17] jsonlite_1.8.8   processx_3.8.3   chromote_0.3.1   ps_1.7.6        
+## [21] promises_1.2.1   httr_1.4.7       fansi_1.0.6      ottrpal_1.3.0   
+## [25] codetools_0.2-19 jquerylib_0.1.4  cli_3.6.2        rlang_1.1.4     
+## [29] cachem_1.0.8     yaml_2.3.8       parallel_4.3.2   tools_4.3.2     
+## [33] tzdb_0.4.0       dplyr_1.1.4      fastmatch_1.1-4  vctrs_0.6.5     
+## [37] R6_2.5.1         lifecycle_1.0.4  lubridate_1.9.3  snakecase_0.11.1
+## [41] stringr_1.5.1    janitor_2.2.0    pkgconfig_2.0.3  pillar_1.9.0    
+## [45] bslib_0.6.1      later_1.3.2      glue_1.7.0       Rcpp_1.0.12     
+## [49] xfun_0.48        tibble_3.2.1     tidyselect_1.2.0 knitr_1.48      
+## [53] igraph_2.0.2     nlme_3.1-164     htmltools_0.5.7  websocket_1.4.2 
+## [57] rmarkdown_2.25   webshot2_0.1.1   readr_2.1.5      compiler_4.3.2  
+## [61] quadprog_1.5-8   askpass_1.2.0    openssl_2.1.1
 ```
 

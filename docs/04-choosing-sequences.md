@@ -150,7 +150,7 @@ The command we're using is `read.GenBank`, which takes an argument of the access
 
 
 
-```r
+``` r
 library(ape) #if you haven't previously loaded ape
 
 read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
@@ -185,7 +185,7 @@ Now that you have seen what read.Genbank does, we will
 save it as an object, and also specify that we want the sequences in ATGC form. When `as.character=TRUE` is not included (like above), `read.GenBank` saves all the sequence data in a binary format. Binary is great for computers, but harder for humans to quickly interpret.
 
 
-```r
+``` r
 grass <- read.GenBank(c("JX915632","EF105403.1","DQ073553.1",
       "FJ481575.1","EF204545.1","AJ314771.1","FJ481569.1",
       "DQ073533.1","AY804128.1","AY303125.2","KF887414.1",
@@ -224,7 +224,7 @@ atggctaagcggctggtcctctttgcagcagtagccgtcgccctcgtggctctcaccgcc
 We can convert and save our `DNA.bin` object in fasta format using a tool from the `ape` package. The `write.dna` commands takes three arguments: the first argument tells R the DNA.bin file to use, the second argument says what to name the new file, and the third argument says what format to use for the new file.
 
 
-```r
+``` r
 write.dna( grass, file = 'grass.fasta', format = 'fasta' )
 ```
 
@@ -246,18 +246,18 @@ You might have noticed that we didn't save the output of `write.dna` to an objec
 :::
 
 
-```r
+``` r
 sessionInfo()
 ```
 
 ```
-## R version 4.0.2 (2020-06-22)
+## R version 4.3.2 (2023-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.5 LTS
+## Running under: Ubuntu 22.04.4 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -267,22 +267,30 @@ sessionInfo()
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
+## time zone: Etc/UTC
+## tzcode source: system (glibc)
+## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ape_5.4-1
+## [1] ape_5.7-1
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.10     knitr_1.33      magrittr_2.0.3  hms_0.5.3      
-##  [5] lattice_0.20-41 R6_2.4.1        rlang_1.1.0     fastmap_1.1.1  
-##  [9] fansi_0.4.1     stringr_1.4.0   tools_4.0.2     parallel_4.0.2 
-## [13] grid_4.0.2      nlme_3.1-149    xfun_0.26       utf8_1.1.4     
-## [17] cli_3.6.1       jquerylib_0.1.4 htmltools_0.5.5 ottrpal_1.0.1  
-## [21] yaml_2.2.1      digest_0.6.25   tibble_3.2.1    lifecycle_1.0.3
-## [25] bookdown_0.24   readr_1.4.0     sass_0.4.5      vctrs_0.6.1    
-## [29] fs_1.5.0        glue_1.4.2      cachem_1.0.7    evaluate_0.20  
-## [33] rmarkdown_2.10  stringi_1.5.3   pillar_1.9.0    compiler_4.0.2 
-## [37] bslib_0.4.2     jsonlite_1.7.1  pkgconfig_2.0.3
+##  [1] sass_0.4.8       utf8_1.2.4       generics_0.1.3   xml2_1.3.6      
+##  [5] lattice_0.21-9   stringi_1.8.3    hms_1.1.3        digest_0.6.34   
+##  [9] magrittr_2.0.3   grid_4.3.2       evaluate_0.23    timechange_0.3.0
+## [13] bookdown_0.41    fastmap_1.1.1    rprojroot_2.0.4  jsonlite_1.8.8  
+## [17] processx_3.8.3   chromote_0.3.1   ps_1.7.6         promises_1.2.1  
+## [21] httr_1.4.7       fansi_1.0.6      ottrpal_1.3.0    jquerylib_0.1.4 
+## [25] cli_3.6.2        rlang_1.1.4      cachem_1.0.8     yaml_2.3.8      
+## [29] parallel_4.3.2   tools_4.3.2      tzdb_0.4.0       dplyr_1.1.4     
+## [33] vctrs_0.6.5      R6_2.5.1         lifecycle_1.0.4  lubridate_1.9.3 
+## [37] snakecase_0.11.1 stringr_1.5.1    janitor_2.2.0    pkgconfig_2.0.3 
+## [41] pillar_1.9.0     bslib_0.6.1      later_1.3.2      glue_1.7.0      
+## [45] Rcpp_1.0.12      xfun_0.48        tibble_3.2.1     tidyselect_1.2.0
+## [49] knitr_1.48       nlme_3.1-164     htmltools_0.5.7  websocket_1.4.2 
+## [53] rmarkdown_2.25   webshot2_0.1.1   readr_2.1.5      compiler_4.3.2  
+## [57] askpass_1.2.0    openssl_2.1.1
 ```
 

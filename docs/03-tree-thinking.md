@@ -59,7 +59,7 @@ For this exercise, we are going to create an R object in Newick formula that ill
 
 
 
-```r
+``` r
 #install.packages('ape') #this installs the ape package
 #install.packages('nlme') #this installs the nlme package
 library(ape) #this opens the ape package
@@ -98,7 +98,7 @@ This is what Joe Felsenstein, one of the giants of the phylogenetic field, says:
 It is quite difficult for humans to quickly interpret the relationships and branch lengths in the Newick format. Luckily, R (and other phylogenetics programs) can convert Newick formats into a more understandable form.
 
 
-```r
+``` r
 #plot is the command we use to create trees with the ape package
 #one of the options is the type of tree the command draws
 
@@ -111,7 +111,7 @@ plot(mammal.1, type="unrooted")
 You've inferred an unrooted tree. It probably looks a bit different than trees you've seen before (including the one in the previous section); most trees are displayed in a rooted form. We can do that by specifying that we want to draw a phylogram. If you don't declare an outgroup first, R will choose to root the phylogram halfway between the two longest branches (this is called midpoint rooting).
 
 
-```r
+``` r
 #here we draw a phylogram
 
 #alternatively, you can use the command: 
@@ -125,7 +125,7 @@ Now the tree looks more like the Ursidae tree we examined earlier. The order of 
 
 
 
-```r
+``` r
 mammal.2 <- read.tree(text = "((((bear:6.80041,raccoon:19.19959):0.84600,
              weasel:18.87953):2.09460):3.87382,dog:25.46154);")
 
@@ -145,7 +145,7 @@ Clades can rotate freely around nodes without changing the relationships among t
 Let's add some more taxa to our tree!
 
 
-```r
+``` r
 mammal.3 <- read.tree(text = "((raccoon:19.19959,bear:6.80041):0.84600,((sea_lion:11.99700,
             seal:12.00300):7.52973,((monkey:100.85930,cat:47.14069):20.59201,
             weasel:18.87953):2.09460):3.87382,dog:25.46154);")
@@ -167,7 +167,7 @@ mammal.3
 We've now added an additional 5 taxa to our tree of mammalian species. Let's first take a look at the unrooted tree.
 
 
-```r
+``` r
 plot(mammal.3, type="u")#"u" is short for "unrooted"
 ```
 
@@ -176,7 +176,7 @@ plot(mammal.3, type="u")#"u" is short for "unrooted"
 Even with the unrooted tree, we can see that some species are definitely more closely related than others. In fact, it looks like both "cat" and "monkey" are pretty distantly related to the others, since the branches connecting these taxa are much longer than any other branch. Given this information, we will define these two taxa as our outgroup and redraw our tree, this time as a rooted phylogram.
 
 
-```r
+``` r
 #this command tells R that monkey and cat are outgroups
 mammal.3.root <- root(mammal.3, outgroup = c('monkey','cat'))
 
@@ -192,7 +192,7 @@ So far you've drawn trees in two ways - unrooted, and as a phylogram. For both o
 There are two other common ways of drawing trees. The radial tree (sometimes called the fan tree) arranges all the branches in a circle. This is a popular way to draw a phylogeny with many tips that would otherwise take up a lot of space.
 
 
-```r
+``` r
 #now we're looking at three different trees next to each other
 #basically, figures are in 1 row and 3 columns
 par(mfrow=c(1,3))
@@ -210,7 +210,7 @@ The last common way to draw trees is as a cladogram. Cladograms are a little dif
 To properly draw a cladogram, we will rewrite our tree in Newick formula so that it doesn't include branch lengths.
 
 
-```r
+``` r
 mammal.4 <- read.tree(text = "(dog,(raccoon,bear),((seal,sea_lion),
             ((monkey,cat), weasel)));")
 mammal.4.root <- root(mammal.4, outgroup = c('monkey','cat'))
@@ -237,7 +237,7 @@ QUESTIONS
 When we use the `ape` package, R converts a tree in Newick format to an object of the `phylo` class. This is basically a list of four dataframes.
 
 
-```r
+``` r
 str(mammal.3.root)
 ```
 
@@ -263,18 +263,18 @@ _tip.label_: the tip names (the taxa)
 
 
 
-```r
+``` r
 sessionInfo()
 ```
 
 ```
-## R version 4.0.2 (2020-06-22)
+## R version 4.3.2 (2023-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.5 LTS
+## Running under: Ubuntu 22.04.4 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -284,22 +284,30 @@ sessionInfo()
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
+## time zone: Etc/UTC
+## tzcode source: system (glibc)
+## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] nlme_3.1-149 ape_5.4-1   
+## [1] nlme_3.1-164 ape_5.7-1   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.10     bslib_0.4.2     compiler_4.0.2  pillar_1.9.0   
-##  [5] jquerylib_0.1.4 highr_0.8       tools_4.0.2     digest_0.6.25  
-##  [9] jsonlite_1.7.1  evaluate_0.20   lifecycle_1.0.3 tibble_3.2.1   
-## [13] lattice_0.20-41 pkgconfig_2.0.3 rlang_1.1.0     cli_3.6.1      
-## [17] yaml_2.2.1      parallel_4.0.2  xfun_0.26       fastmap_1.1.1  
-## [21] stringr_1.4.0   knitr_1.33      fs_1.5.0        vctrs_0.6.1    
-## [25] sass_0.4.5      hms_0.5.3       grid_4.0.2      glue_1.4.2     
-## [29] R6_2.4.1        fansi_0.4.1     ottrpal_1.0.1   rmarkdown_2.10 
-## [33] bookdown_0.24   readr_1.4.0     magrittr_2.0.3  htmltools_0.5.5
-## [37] utf8_1.1.4      stringi_1.5.3   cachem_1.0.7
+##  [1] sass_0.4.8       utf8_1.2.4       generics_0.1.3   xml2_1.3.6      
+##  [5] lattice_0.21-9   stringi_1.8.3    hms_1.1.3        digest_0.6.34   
+##  [9] magrittr_2.0.3   grid_4.3.2       evaluate_0.23    timechange_0.3.0
+## [13] bookdown_0.41    fastmap_1.1.1    rprojroot_2.0.4  jsonlite_1.8.8  
+## [17] processx_3.8.3   chromote_0.3.1   ps_1.7.6         promises_1.2.1  
+## [21] httr_1.4.7       fansi_1.0.6      ottrpal_1.3.0    jquerylib_0.1.4 
+## [25] cli_3.6.2        rlang_1.1.4      cachem_1.0.8     yaml_2.3.8      
+## [29] parallel_4.3.2   tools_4.3.2      tzdb_0.4.0       dplyr_1.1.4     
+## [33] vctrs_0.6.5      R6_2.5.1         lifecycle_1.0.4  lubridate_1.9.3 
+## [37] snakecase_0.11.1 stringr_1.5.1    janitor_2.2.0    pkgconfig_2.0.3 
+## [41] pillar_1.9.0     bslib_0.6.1      later_1.3.2      glue_1.7.0      
+## [45] Rcpp_1.0.12      highr_0.11       xfun_0.48        tibble_3.2.1    
+## [49] tidyselect_1.2.0 knitr_1.48       htmltools_0.5.7  websocket_1.4.2 
+## [53] rmarkdown_2.25   webshot2_0.1.1   readr_2.1.5      compiler_4.3.2  
+## [57] askpass_1.2.0    openssl_2.1.1
 ```
 

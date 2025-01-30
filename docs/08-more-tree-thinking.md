@@ -34,7 +34,7 @@ Let's pretend the outgroup wasn't monophyletic and that instead the Siberian wil
 
 
 
-```r
+``` r
 library(phylotools)
 
 rm.sequence.fasta(infile = "grass_aligned-renamed.fasta", outfile = "sequence.removed.fasta", to.rm = "Siberian wild rye_D-hordein")
@@ -48,7 +48,7 @@ We can then load the new fasta file and estimate a new neighbor joining tree (or
 
 
 
-```r
+``` r
 library(phangorn)
 
 grass.new <- read.dna("sequence.removed.fasta", format='fasta')
@@ -66,7 +66,7 @@ plot(tree.root, main = "edited Neighbor Joining")
 You can use the same command to remove multiple outgroup taxa, or to remove an outgroup that is too distant (ie, the branch lengths are too long and including the outgroup is obscuring the relationships among the ingroup samples). If you need to remove all of your outgroup, you can instead try midpoint rooting. 
 
 
-```r
+``` r
 rm.sequence.fasta(infile = "grass_aligned-renamed.fasta", outfile = "no_outgroup.fasta", to.rm = c("barley_D-hordein", "Siberian wild rye_D-hordein"))
 ```
 
@@ -74,7 +74,7 @@ rm.sequence.fasta(infile = "grass_aligned-renamed.fasta", outfile = "no_outgroup
 ## no_outgroup.fasta has been saved to  /__w/AnVIL_Phylogenetic-Techniques/AnVIL_Phylogenetic-Techniques
 ```
 
-```r
+``` r
 grass.no_out<- read.dna("no_outgroup.fasta", format='fasta')
 
 dist.matrix <- dist.dna(grass.no_out, model = "K80")
@@ -126,7 +126,7 @@ Finally, we can identify the presence of nodes 8, 9, and 10 in both trees. This 
 Since all of the ingroup nodes are the same, we know the topologies of the neighbor joining and parsimony trees are the same. However, it's a bit tedious to go through and label each node. Luckily, we can use R to compare topologies more quickly. Open the `ape` library and load your saved trees into the console.
 
 
-```r
+``` r
 library(ape)
 
 nj.tree <- read.tree("nj_grass.tre")
@@ -137,7 +137,7 @@ nni.tree <- read.tree("nni_grass.tre")
 The `ape` package has a very useful `all.equal` command (you can see more details about it [here](https://rdrr.io/cran/ape/man/all.equal.phylo.html)). This command allows us to compare topologies.
 
 
-```r
+``` r
 all.equal(spr.tree, nj.tree, use.edge.length = F)
 ```
 
@@ -150,7 +150,7 @@ The first two arguments are the trees we'd like to compare. In order to compare 
 If we want to tell whether trees are completely identical (that is, both the topologies and the branch lengths are the same), we can change the last argument to T. (Alternatively, we could leave the last argument off entirely, as the default setting is for `use.edge.length` is T.)
 
 
-```r
+``` r
 all.equal(spr.tree, nj.tree, use.edge.length = T)
 ```
 
@@ -161,7 +161,7 @@ all.equal(spr.tree, nj.tree, use.edge.length = T)
 Not surprisingly, the branch lengths differ between the neighbor joining and SPR parsimony tree. However, maybe the branch lengths are the same between the two trees we estimated using parsimony.
 
 
-```r
+``` r
 all.equal(spr.tree, nni.tree)
 ```
 
@@ -172,7 +172,7 @@ all.equal(spr.tree, nni.tree)
 Well, now we know the two parsimony trees aren't completely identical. However, what if this is because the topologies aren't the same?
 
 
-```r
+``` r
 all.equal(spr.tree, nni.tree, use.edge.length = F)
 ```
 
@@ -183,18 +183,18 @@ all.equal(spr.tree, nni.tree, use.edge.length = F)
 By running the `all.equal` command again, we can verify the topologies are the same, so these two trees must differ in just the branch length estimates.
 
 
-```r
+``` r
 sessionInfo()
 ```
 
 ```
-## R version 4.0.2 (2020-06-22)
+## R version 4.3.2 (2023-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.5 LTS
+## Running under: Ubuntu 22.04.4 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -204,23 +204,31 @@ sessionInfo()
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
+## time zone: Etc/UTC
+## tzcode source: system (glibc)
+## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] phangorn_2.5.5   phylotools_0.2.2 ape_5.4-1       
+## [1] phangorn_2.11.1  phylotools_0.2.2 ape_5.7-1       
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.10     highr_0.8       bslib_0.4.2     compiler_4.0.2 
-##  [5] pillar_1.9.0    jquerylib_0.1.4 tools_4.0.2     digest_0.6.25  
-##  [9] jsonlite_1.7.1  evaluate_0.20   lifecycle_1.0.3 tibble_3.2.1   
-## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_1.1.0    
-## [17] igraph_1.2.6    fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.1      
-## [21] yaml_2.2.1      parallel_4.0.2  xfun_0.26       fastmap_1.1.1  
-## [25] stringr_1.4.0   knitr_1.33      fs_1.5.0        vctrs_0.6.1    
-## [29] sass_0.4.5      hms_0.5.3       grid_4.0.2      glue_1.4.2     
-## [33] R6_2.4.1        fansi_0.4.1     ottrpal_1.0.1   rmarkdown_2.10 
-## [37] bookdown_0.24   readr_1.4.0     magrittr_2.0.3  htmltools_0.5.5
-## [41] quadprog_1.5-8  utf8_1.1.4      stringi_1.5.3   cachem_1.0.7
+##  [1] sass_0.4.8       utf8_1.2.4       generics_0.1.3   xml2_1.3.6      
+##  [5] lattice_0.21-9   stringi_1.8.3    hms_1.1.3        digest_0.6.34   
+##  [9] magrittr_2.0.3   grid_4.3.2       evaluate_0.23    timechange_0.3.0
+## [13] bookdown_0.41    fastmap_1.1.1    Matrix_1.6-1.1   rprojroot_2.0.4 
+## [17] jsonlite_1.8.8   processx_3.8.3   chromote_0.3.1   ps_1.7.6        
+## [21] promises_1.2.1   httr_1.4.7       fansi_1.0.6      ottrpal_1.3.0   
+## [25] codetools_0.2-19 jquerylib_0.1.4  cli_3.6.2        rlang_1.1.4     
+## [29] cachem_1.0.8     yaml_2.3.8       parallel_4.3.2   tools_4.3.2     
+## [33] tzdb_0.4.0       dplyr_1.1.4      fastmatch_1.1-4  vctrs_0.6.5     
+## [37] R6_2.5.1         lifecycle_1.0.4  lubridate_1.9.3  snakecase_0.11.1
+## [41] stringr_1.5.1    janitor_2.2.0    pkgconfig_2.0.3  pillar_1.9.0    
+## [45] bslib_0.6.1      later_1.3.2      glue_1.7.0       Rcpp_1.0.12     
+## [49] highr_0.11       xfun_0.48        tibble_3.2.1     tidyselect_1.2.0
+## [53] knitr_1.48       igraph_2.0.2     nlme_3.1-164     htmltools_0.5.7 
+## [57] websocket_1.4.2  rmarkdown_2.25   webshot2_0.1.1   readr_2.1.5     
+## [61] compiler_4.3.2   quadprog_1.5-8   askpass_1.2.0    openssl_2.1.1
 ```
 

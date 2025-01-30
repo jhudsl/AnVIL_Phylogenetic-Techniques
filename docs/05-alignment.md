@@ -34,7 +34,7 @@ If you would like to learn more about `DECIPHER`, you can find the manuals and s
 `DECIPHER` is available via Bioconductor, which means we can install it using the AnVIL::install command. After we install the package, we can then open it via the `library()` command. (If you are prompted to update dependent packages, choose "all".)
 
 
-```r
+``` r
 #AnVIL::install('DECIPHER') #use this command to install the DECIPHER package
 
 library(DECIPHER)
@@ -47,7 +47,7 @@ DECIPHER's commands use a fasta file as their input. We could load the fasta fil
 We are loading the fasta object we created and saved in our working directory last time. If the fasta file isn't in your working directory, that's okay - you can replace "grass.fasta" with the path to the directory in which it's saved, followed by the file name.
 
 
-```r
+``` r
 fas <- "grass.fasta"
 ```
 
@@ -59,7 +59,7 @@ DECIPHER lets us create alignments in a couple of ways, since we downloaded sequ
 This part has a couple of steps. First, pass the fasta file into an object formatted as a DNAStringSet object using the command `readDNAStringSet`. 
 
 
-```r
+``` r
 dna <- readDNAStringSet(fas)
 dna
 ```
@@ -87,7 +87,7 @@ Although it might look like the sequences are aligned in the DNAStringSet object
 First, let's align our sequences using just the nucleotides.
 
 
-```r
+``` r
 DNA.no_trans <- AlignSeqs(dna)
 ```
 
@@ -100,12 +100,12 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Clustering into groups by similarity:
 ## ================================================================================
 ## 
-## Time difference of 0.01 secs
+## Time difference of 0 secs
 ## 
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.44 secs
+## Time difference of 0.31 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -122,7 +122,7 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.63 secs
+## Time difference of 0.55 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -139,18 +139,18 @@ DNA.no_trans <- AlignSeqs(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.9 secs
+## Time difference of 0.74 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.72 secs
+## Time difference of 0.8 secs
 ```
 
 We can also align our sequences after they are first translated. The translated amino acids are aligned, and then the sequences is reverse-translated back to nucleotides.
 
 
-```r
+``` r
 DNA.trans <- AlignTranslation(dna)
 ```
 
@@ -168,7 +168,7 @@ DNA.trans <- AlignTranslation(dna)
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.24 secs
+## Time difference of 0.18 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -185,7 +185,7 @@ DNA.trans <- AlignTranslation(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.25 secs
+## Time difference of 0.16 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -202,7 +202,7 @@ DNA.trans <- AlignTranslation(dna)
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.23 secs
+## Time difference of 0.16 secs
 ```
 
 Translating the nucleotide sequences sped up the alignment process, although both were fast enough it isn't a big deal to directly align the nucleotides. Your choice of which alignment procedure to use will largely come down to whether you are using coding sequence and how divergent your samples are. If you aren't using coding sequence, you will need to align using the nucleotides. If you have samples from deeply divergent species (especially if they come from different phyla), you will generally get a better alignment if you let the program translate your nucleotide sequence to amino acids first.
@@ -210,7 +210,7 @@ Translating the nucleotide sequences sped up the alignment process, although bot
 Now that we've created alignments, it would be helpful to visually check them. (This is possible if your sequences aren't too long, but can become really hard once you start dealing with very long stretches of DNA!) The `BrowseSeqs` command opens a browser window with the aligned sequences. Just remember which window belongs to each alignment!
 
 
-```r
+``` r
 BrowseSeqs(DNA.no_trans)
 BrowseSeqs(DNA.trans)
 ```
@@ -229,7 +229,7 @@ The `alignSeqs` command allows us to change the gap opening and gap extension pe
 
 
 
-```r
+``` r
 DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, -1))
 ```
 
@@ -247,7 +247,7 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Aligning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.44 secs
+## Time difference of 0.3 secs
 ## 
 ## Iteration 1 of 2:
 ## 
@@ -264,7 +264,7 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.58 secs
+## Time difference of 0.62 secs
 ## 
 ## Iteration 2 of 2:
 ## 
@@ -281,15 +281,15 @@ DNA.no_trans.1 <- AlignSeqs(dna, gapOpening = c(-20, -10), gapExtension = c(-5, 
 ## Realigning Sequences:
 ## ================================================================================
 ## 
-## Time difference of 0.93 secs
+## Time difference of 0.55 secs
 ## 
 ## Refining the alignment:
 ## ================================================================================
 ## 
-## Time difference of 0.76 secs
+## Time difference of 0.45 secs
 ```
 
-```r
+``` r
 BrowseSeqs(DNA.no_trans.1)
 ```
 
@@ -303,7 +303,7 @@ For the grass samples, it would be reasonable to use the alignment generated by 
 
 
 
-```r
+``` r
 writeXStringSet(DNA.no_trans, file="grass_aligned.fasta")
 
 grass.align <- read.dna("grass_aligned.fasta", format="fasta", as.matrix=TRUE)
@@ -312,7 +312,7 @@ grass.align <- read.dna("grass_aligned.fasta", format="fasta", as.matrix=TRUE)
 The trick for this step is that we specified the `grass.align` object be loaded as a matrix, not as a list. We can subset our sequences using brackets since `grass.align` is in matrix format.
 
 
-```r
+``` r
 grass.trimmed <- grass.align[,140:3373]
 
 grass.trimmed
@@ -334,14 +334,14 @@ grass.trimmed
 ## 
 ## Base composition:
 ##     a     c     g     t 
-## 0.310 0.303 0.273 0.115 
+## 0.316 0.303 0.268 0.113 
 ## (Total: 42.04 kb)
 ```
 
 Congratulations! You now have a trimmed alignment, ready for inferring trees. To be on the safe side, we will save it as a fasta file.
 
 
-```r
+``` r
 write.dna( grass.align, file = 'grass_aligned.fasta', format = 'fasta' )
 ```
 
@@ -387,18 +387,18 @@ The `c(1:2,4:13)` is telling R that we want to keep all the sequences between th
 
 
 
-```r
+``` r
 sessionInfo()
 ```
 
 ```
-## R version 4.0.2 (2020-06-22)
+## R version 4.3.2 (2023-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.5 LTS
+## Running under: Ubuntu 22.04.4 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -408,27 +408,42 @@ sessionInfo()
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
+## time zone: Etc/UTC
+## tzcode source: system (glibc)
+## 
 ## attached base packages:
-## [1] stats4    parallel  stats     graphics  grDevices utils     datasets 
+## [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
 ## [8] methods   base     
 ## 
 ## other attached packages:
-## [1] DECIPHER_2.18.1     RSQLite_2.2.1       Biostrings_2.58.0  
-## [4] XVector_0.30.0      IRanges_2.24.1      S4Vectors_0.28.1   
-## [7] BiocGenerics_0.36.1 BiocManager_1.30.10 ape_5.4-1          
+##  [1] DECIPHER_2.30.0     RSQLite_2.3.5       Biostrings_2.70.3  
+##  [4] GenomeInfoDb_1.38.8 XVector_0.42.0      IRanges_2.36.0     
+##  [7] S4Vectors_0.40.2    BiocGenerics_0.48.1 BiocManager_1.30.22
+## [10] ape_5.7-1          
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.10     bslib_0.4.2     compiler_4.0.2  pillar_1.9.0   
-##  [5] jquerylib_0.1.4 zlibbioc_1.36.0 tools_4.0.2     bit_4.0.4      
-##  [9] digest_0.6.25   memoise_2.0.1   jsonlite_1.7.1  evaluate_0.20  
-## [13] lifecycle_1.0.3 tibble_3.2.1    nlme_3.1-149    lattice_0.20-41
-## [17] pkgconfig_2.0.3 rlang_1.1.0     DBI_1.1.0       cli_3.6.1      
-## [21] yaml_2.2.1      xfun_0.26       fastmap_1.1.1   stringr_1.4.0  
-## [25] knitr_1.33      fs_1.5.0        vctrs_0.6.1     sass_0.4.5     
-## [29] hms_0.5.3       bit64_4.0.5     grid_4.0.2      glue_1.4.2     
-## [33] R6_2.4.1        fansi_0.4.1     ottrpal_1.0.1   rmarkdown_2.10 
-## [37] bookdown_0.24   blob_1.2.1      readr_1.4.0     magrittr_2.0.3 
-## [41] htmltools_0.5.5 utf8_1.1.4      stringi_1.5.3   cachem_1.0.7   
-## [45] crayon_1.3.4
+##  [1] xfun_0.48               bslib_0.6.1             websocket_1.4.2        
+##  [4] processx_3.8.3          lattice_0.21-9          tzdb_0.4.0             
+##  [7] vctrs_0.6.5             tools_4.3.2             ps_1.7.6               
+## [10] bitops_1.0-9            generics_0.1.3          tibble_3.2.1           
+## [13] fansi_1.0.6             blob_1.2.4              pkgconfig_2.0.3        
+## [16] lifecycle_1.0.4         GenomeInfoDbData_1.2.11 compiler_4.3.2         
+## [19] stringr_1.5.1           chromote_0.3.1          janitor_2.2.0          
+## [22] snakecase_0.11.1        htmltools_0.5.7         sass_0.4.8             
+## [25] RCurl_1.98-1.14         yaml_2.3.8              crayon_1.5.2           
+## [28] later_1.3.2             pillar_1.9.0            jquerylib_0.1.4        
+## [31] openssl_2.1.1           cachem_1.0.8            nlme_3.1-164           
+## [34] webshot2_0.1.1          tidyselect_1.2.0        ottrpal_1.3.0          
+## [37] digest_0.6.34           stringi_1.8.3           dplyr_1.1.4            
+## [40] bookdown_0.41           rprojroot_2.0.4         fastmap_1.1.1          
+## [43] grid_4.3.2              cli_3.6.2               magrittr_2.0.3         
+## [46] utf8_1.2.4              readr_2.1.5             promises_1.2.1         
+## [49] bit64_4.0.5             lubridate_1.9.3         timechange_0.3.0       
+## [52] rmarkdown_2.25          httr_1.4.7              bit_4.0.5              
+## [55] askpass_1.2.0           hms_1.1.3               memoise_2.0.1          
+## [58] evaluate_0.23           knitr_1.48              rlang_1.1.4            
+## [61] Rcpp_1.0.12             DBI_1.2.2               glue_1.7.0             
+## [64] xml2_1.3.6              jsonlite_1.8.8          R6_2.5.1               
+## [67] zlibbioc_1.48.2
 ```
 

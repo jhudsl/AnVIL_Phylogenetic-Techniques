@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Phylogenetics basics | Molecular Phylogenetic Techniques</title>
   <meta name="description" content="Description about Course/Book." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Phylogenetics basics | Molecular Phylogenetic Techniques" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Description about Course/Book." />
   
@@ -23,7 +22,7 @@
 
 
 
-<meta name="date" content="2023-05-24" />
+<meta name="date" content="2025-01-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +31,6 @@
   <link rel="shortcut icon" href="assets/AnVIL_style/anvil_favicon.ico" type="image/x-icon" />
 <link rel="prev" href="rstudio.html"/>
 <link rel="next" href="visualizing-trees-in-r.html"/>
-<script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5QVCXY02EY"></script>
@@ -100,11 +99,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
+code span.at { color: #204a87; } /* Attribute */
 code span.bn { color: #0000cf; } /* BaseN */
 code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
+code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #8f5902; font-style: italic; } /* Comment */
 code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
 code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
@@ -113,14 +112,14 @@ code span.dv { color: #0000cf; } /* DecVal */
 code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
 code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
 code span.ot { color: #8f5902; } /* Other */
 code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
 code span.ss { color: #4e9a06; } /* SpecialString */
 code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
@@ -128,6 +127,10 @@ code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
 <link rel="stylesheet" href="assets/AnVIL_style/anvil.css" type="text/css" />
@@ -301,7 +304,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
 <a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
 <p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
-<p style="padding-left: 40px;"><div class="trapezoid" style = "padding-left: 40px;"><span>  <a href="https://forms.gle/AK12iVXTjsB7yCUUA"> Click here to provide feedback</a> <img src="assets/itcr_arrow.png" style=" width: 10%" ></span></div></p>
+<p style="padding-left: 40px;"><div class="trapezoid" style = "padding-left: 40px;"><span><a href="https://docs.google.com/forms/d/e/1FAIpQLScrDVb_utm55pmb_SHx-RgELTEbCCWdLea0T3IzS0Oj00GE4w/viewform?usp=pp_url&entry.1565230805=Molecular+Phylogenetic+Techniques"> Click here to provide feedback</a> <img src="assets/itcr_arrow.png" style=" width: 10%" ></span></div></p>
 
 </ul>
 
@@ -331,10 +334,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="hero-image-container"> 
   <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
 </div>
-<div id="phylogenetics-basics" class="section level1" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Phylogenetics basics</h1>
-<div id="how-to-read-a-phylogenetic-tree" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> How to read a phylogenetic tree</h2>
+<div id="phylogenetics-basics" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Phylogenetics basics<a href="phylogenetics-basics.html#phylogenetics-basics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="how-to-read-a-phylogenetic-tree" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> How to read a phylogenetic tree<a href="phylogenetics-basics.html#how-to-read-a-phylogenetic-tree" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A <strong>phylogeny</strong>, or <strong>phylogenetic tree</strong>, is a diagram that shows the evolutionary history and relationships among or within groups of organisms. Phylogenetics was traditionally a somewhat obscure field in which systematists (biologists concerned with arranging organisms into a tree that showed their ancestral relatedness) arranged related living organisms at the <strong>tips</strong> (or “leaves” of the tree), and made <strong>branches</strong> to connect different organisms back to putative ancestral organisms.</p>
 <p>Here’s a phylogeny of the family Ursidae (the bears).</p>
 <p><img src="resources/images/03-bear_phylogeny.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
@@ -344,12 +347,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="resources/images/03-bear_phylogeny_v1.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
 <p>These two trees are the same, even though we have changed the position of the labels of American black bear and Asian black bear. <strong>In phylogenetic trees, relatedness is expressed by the distance to a common node between two species, NOT by whether the labels are near each other.</strong> Branches can rotate freely around nodes without changing the tree.</p>
 </div>
-<div id="outgroups" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Outgroups</h2>
+<div id="outgroups" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Outgroups<a href="phylogenetics-basics.html#outgroups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Although this is a phylogeny of the Ursidae, you might have noticed there are two branches belonging to the gray wolf and the spotted seal, neither of which is a bear. These two species are included as outgroups. Outgroups are taxa that are only distantly related to the group of interest and serve as reference points for determining evolutionary changes.</p>
 </div>
-<div id="branch-lengths" class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> Branch lengths</h2>
+<div id="branch-lengths" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Branch lengths<a href="phylogenetics-basics.html#branch-lengths" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Branch lengths (the distance between two nodes, or between a node and a tip), may or may not be indicative of the passage of a particular amount of time. It depends on how the tree was inferred (we infer phylogenetic trees, we don’t make them). If the tree is created by parsimony or neighbor-joining methods, the branches simply indicate that there was one (or more) change from the ancestor to the descendant. If the tree was created using maximum likelihood methods, the branch lengths represent how many genetic changes occurred over time.</p>
 <p>Regardless of how the trees are constructed, they are estimates of what we think happened historically. Each estimate contains within it implicit assumptions about rates of mutation accumulating, likelihood of different types of changes being more common (transitions vs. transversions, for example), and so on. The tree is our best hypothesis as to the history of the organisms on it, but it is only a hypothesis.</p>
 <div class="dictionary">

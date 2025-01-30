@@ -51,7 +51,7 @@ We will continue using the `phangorn` package for our parsimony analyses. We are
 
 
 
-```r
+``` r
 install.packages('phylotools')
 
 library(phylotools)
@@ -66,7 +66,7 @@ A dataframe in R is a table or a two-dimensional array-like structure in which e
 
 
 
-```r
+``` r
 old.labels <- c("JX915632", "EF105403.1", "DQ073553.1",
                 "FJ481575.1", "EF204545.1","AJ314771.1",
                 "FJ481569.1", "DQ073533.1", "AY804128.1",
@@ -107,7 +107,7 @@ In the dataframe `sample.df`, you can see that each row is a sample, with the ac
 We can now use the `rename.fasta` command. This command requires three arguments. The first is the fasta file that is being edited, the second is the dataframe that contains both the old and new names, and the third is the name for the newly edited fasta file. The new fasta file will be saved in your working directory (on AnVIL, this is the persistent disk).
 
 
-```r
+``` r
 rename.fasta('grass_aligned.fasta', sample.df, 'grass_aligned-renamed.fasta')
 ```
 
@@ -120,17 +120,10 @@ rename.fasta('grass_aligned.fasta', sample.df, 'grass_aligned-renamed.fasta')
 There are several options for inferring parsimony trees using `phangorn`. We can use the branch and bound tree rearrangement method with the `bab` command, or we can apply the nearest neighbor interchange (NNI) or subtree prunning and regrafting (SPR) approaches with either the `optim.parsimony` or `pratchet` (parsimony ratchet) commands. The branch and bound method can be very, very slow if you have more ~10 samples. Let's take a look at the parsimony tree that results from a branch-and-bound search of the grass fasta file.
 
 
-```r
+``` r
 g.align <- read.phyDat("grass_aligned-renamed.fasta", format='fasta')
 bab.tree <- bab(g.align)
-```
 
-```
-## [1] "lower bound: 1581"
-## [1] "upper bound: 1803"
-```
-
-```r
 bab.root <- root(bab.tree, 
                  outgroup = c('barley_D-hordein','Siberian wild rye_D-hordein'))
 plot(bab.tree, main = 'Parsimony, BAB')
@@ -163,7 +156,7 @@ The parsimony ratchet is an approach that was developed by KC Nixon in 1999. Thi
 This process is repeated until either the algorithm reaches the max number of iterations or the _k_ number is reached.
 
 
-```r
+``` r
 tree.SPR <- pratchet(g.align, maxit = 10000, minit = 100, k = 10,
                            all = T, rearrangements = 'SPR', trace = 0)
 
@@ -184,7 +177,7 @@ plot(SPR.root, main = 'Parsimony, SPR')
 ```
 
 
-```r
+``` r
 plot(NNI.root, main = 'Parsimony, NNI')
 ```
 
@@ -199,7 +192,7 @@ Take a look at the topology of the trees created using the branch-and-bound (BAB
 We can compare parsimony trees directly by comparing their parsimony scores. As mentioned above, the parsimony score is just the minimum number of changes necessary to map a dataset onto a particular tree topology. A smaller number is better.
 
 
-```r
+``` r
 tree.SPR <- pratchet(g.align, maxit = 10000, minit = 100, k = 10,
                            all = T, rearrangements = 'SPR', trace = 0)
 
@@ -218,29 +211,29 @@ NNI.root <- root(tree.NNI,
 ```
 
 
-```r
+``` r
 #for each parsimony command, we need to provide a tree and a phyDat object
 parsimony(bab.root, g.align)
 ```
 
 ```
-## [1] 1803
+## [1] 1624
 ```
 
-```r
+``` r
 parsimony(SPR.root, g.align)
 ```
 
 ```
-## [1] 1803
+## [1] 1624
 ```
 
-```r
+``` r
 parsimony(NNI.root, g.align)
 ```
 
 ```
-## [1] 1803
+## [1] 1624
 ```
 
 In the case of our grass dataset, all the parsimony scores are the same, so all of the methods performed equally well. We got lucky - this is not always true!
@@ -260,12 +253,12 @@ After all the bootstrapping replicates have been analyzed, each branch of the ac
 Luckily, the `pratchet` command automatically does bootstrapping, so we already have the bootstrap information saved. We can see the bootstrap values on the trees using the `plotBS` command.
 
 
-```r
+``` r
 plotBS(SPR.root, type = "p", main = 'Parsimony, SPR')
 ```
 
 
-```r
+``` r
 plotBS(NNI.root, type = "p", main = 'Parsimony, NNI')
 ```
 
@@ -284,7 +277,7 @@ In short, yes, although we have to do a bit of R trickery, because neither `ape`
 Basically, we will write a function that creates a distance matrix using the `dist.ml` command. (This command is a more general form of the `dist.dna` command. As of this writing, using `dist.dna` in the function throws an error.) Then we can include both a phyDat object and our function in the `bootstrap.phyDat` command. R will take the phyDat object and pass it to our function, then use the distance matrix in a bootstrap analysis.
 
 
-```r
+``` r
 fun <- function(x) nj(dist.ml(x))
 
 bs_nj <- bootstrap.phyDat(g.align,  fun)
@@ -311,7 +304,7 @@ How does the bootstrap support for the neighbor joining tree compare to the boot
 Make sure to save at least one of the trees you built using the `pratchet` command to the persistent disk.
 
 
-```r
+``` r
 write.tree(SPR.root, file = 'spr_grass.tre')
 write.tree(NNI.root, file = 'nni_grass.tre')
 ```
@@ -320,18 +313,18 @@ write.tree(NNI.root, file = 'nni_grass.tre')
 
 
 
-```r
+``` r
 sessionInfo()
 ```
 
 ```
-## R version 4.0.2 (2020-06-22)
+## R version 4.3.2 (2023-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.5 LTS
+## Running under: Ubuntu 22.04.4 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -341,23 +334,31 @@ sessionInfo()
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
+## time zone: Etc/UTC
+## tzcode source: system (glibc)
+## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] phangorn_2.5.5   phylotools_0.2.2 ape_5.4-1       
+## [1] phangorn_2.11.1  phylotools_0.2.2 ape_5.7-1       
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.10     highr_0.8       bslib_0.4.2     compiler_4.0.2 
-##  [5] pillar_1.9.0    jquerylib_0.1.4 tools_4.0.2     digest_0.6.25  
-##  [9] jsonlite_1.7.1  evaluate_0.20   lifecycle_1.0.3 tibble_3.2.1   
-## [13] nlme_3.1-149    lattice_0.20-41 pkgconfig_2.0.3 rlang_1.1.0    
-## [17] igraph_1.2.6    fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.1      
-## [21] yaml_2.2.1      parallel_4.0.2  xfun_0.26       fastmap_1.1.1  
-## [25] stringr_1.4.0   knitr_1.33      fs_1.5.0        vctrs_0.6.1    
-## [29] sass_0.4.5      hms_0.5.3       grid_4.0.2      glue_1.4.2     
-## [33] R6_2.4.1        fansi_0.4.1     ottrpal_1.0.1   rmarkdown_2.10 
-## [37] bookdown_0.24   readr_1.4.0     magrittr_2.0.3  htmltools_0.5.5
-## [41] quadprog_1.5-8  utf8_1.1.4      stringi_1.5.3   cachem_1.0.7
+##  [1] sass_0.4.8       utf8_1.2.4       generics_0.1.3   xml2_1.3.6      
+##  [5] lattice_0.21-9   stringi_1.8.3    hms_1.1.3        digest_0.6.34   
+##  [9] magrittr_2.0.3   grid_4.3.2       evaluate_0.23    timechange_0.3.0
+## [13] bookdown_0.41    fastmap_1.1.1    Matrix_1.6-1.1   rprojroot_2.0.4 
+## [17] jsonlite_1.8.8   processx_3.8.3   chromote_0.3.1   ps_1.7.6        
+## [21] promises_1.2.1   httr_1.4.7       fansi_1.0.6      ottrpal_1.3.0   
+## [25] codetools_0.2-19 jquerylib_0.1.4  cli_3.6.2        rlang_1.1.4     
+## [29] cachem_1.0.8     yaml_2.3.8       parallel_4.3.2   tools_4.3.2     
+## [33] tzdb_0.4.0       dplyr_1.1.4      fastmatch_1.1-4  vctrs_0.6.5     
+## [37] R6_2.5.1         lifecycle_1.0.4  lubridate_1.9.3  snakecase_0.11.1
+## [41] stringr_1.5.1    janitor_2.2.0    pkgconfig_2.0.3  pillar_1.9.0    
+## [45] bslib_0.6.1      later_1.3.2      glue_1.7.0       Rcpp_1.0.12     
+## [49] highr_0.11       xfun_0.48        tibble_3.2.1     tidyselect_1.2.0
+## [53] knitr_1.48       igraph_2.0.2     nlme_3.1-164     htmltools_0.5.7 
+## [57] websocket_1.4.2  rmarkdown_2.25   webshot2_0.1.1   readr_2.1.5     
+## [61] compiler_4.3.2   quadprog_1.5-8   askpass_1.2.0    openssl_2.1.1
 ```
 

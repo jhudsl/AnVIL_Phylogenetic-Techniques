@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 22 Visualizing phylogenetic networks | Molecular Phylogenetic Techniques</title>
   <meta name="description" content="Description about Course/Book." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 22 Visualizing phylogenetic networks | Molecular Phylogenetic Techniques" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Description about Course/Book." />
   
@@ -23,7 +22,7 @@
 
 
 
-<meta name="date" content="2023-05-24" />
+<meta name="date" content="2025-01-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +31,6 @@
   <link rel="shortcut icon" href="assets/AnVIL_style/anvil_favicon.ico" type="image/x-icon" />
 <link rel="prev" href="what-is-a-network.html"/>
 <link rel="next" href="ancestral-state-reconstruction.html"/>
-<script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,8 +48,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5QVCXY02EY"></script>
@@ -100,11 +99,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #c4a000; } /* Attribute */
+code span.at { color: #204a87; } /* Attribute */
 code span.bn { color: #0000cf; } /* BaseN */
 code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #000000; } /* Constant */
+code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #8f5902; font-style: italic; } /* Comment */
 code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
 code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
@@ -113,14 +112,14 @@ code span.dv { color: #0000cf; } /* DecVal */
 code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #000000; } /* Function */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
 code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
 code span.ot { color: #8f5902; } /* Other */
 code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #000000; } /* SpecialChar */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
 code span.ss { color: #4e9a06; } /* SpecialString */
 code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
@@ -128,6 +127,10 @@ code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
 <link rel="stylesheet" href="assets/AnVIL_style/anvil.css" type="text/css" />
@@ -301,7 +304,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
 <a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
 <p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
-<p style="padding-left: 40px;"><div class="trapezoid" style = "padding-left: 40px;"><span>  <a href="https://forms.gle/AK12iVXTjsB7yCUUA"> Click here to provide feedback</a> <img src="assets/itcr_arrow.png" style=" width: 10%" ></span></div></p>
+<p style="padding-left: 40px;"><div class="trapezoid" style = "padding-left: 40px;"><span><a href="https://docs.google.com/forms/d/e/1FAIpQLScrDVb_utm55pmb_SHx-RgELTEbCCWdLea0T3IzS0Oj00GE4w/viewform?usp=pp_url&entry.1565230805=Molecular+Phylogenetic+Techniques"> Click here to provide feedback</a> <img src="assets/itcr_arrow.png" style=" width: 10%" ></span></div></p>
 
 </ul>
 
@@ -331,11 +334,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="hero-image-container"> 
   <img class= "hero-image" src="assets/AnVIL_style/dasl_thin_main_image.png">
 </div>
-<div id="visualizing-phylogenetic-networks" class="section level1" number="22">
-<h1><span class="header-section-number">Chapter 22</span> Visualizing phylogenetic networks</h1>
+<div id="visualizing-phylogenetic-networks" class="section level1 hasAnchor" number="22">
+<h1><span class="header-section-number">Chapter 22</span> Visualizing phylogenetic networks<a href="visualizing-phylogenetic-networks.html#visualizing-phylogenetic-networks" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>We will be working with both the DensiTree application from BEAST and the <code>phangorn</code> package in R.</p>
-<div id="using-densitree" class="section level2" number="22.1">
-<h2><span class="header-section-number">22.1</span> Using DensiTree</h2>
+<div id="using-densitree" class="section level2 hasAnchor" number="22.1">
+<h2><span class="header-section-number">22.1</span> Using DensiTree<a href="visualizing-phylogenetic-networks.html#using-densitree" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When you ran your Bayesian analysis, you created a distribution of trees. You summarized this distribution when you looked at the posterior estimates of support for the nodes and clades, but there is a lot more information we can get from this distribution.</p>
 <p>Open DensiTree on your personal computer. (DensiTree should have been installed when you downloaded BEAST.) Click on File, then Load and choose your .trees file that was created when you ran BEAST. All the trees in the distribution will be drawn in a fuzzy-looking tree. The darker the line, the more consensus there is among your tree distribution that the branch exists.</p>
 <p>In the grass example, we see branches in three separate colors - blue, orange, and green. (I changed the default colors by clicking on “Line Color” in the menu on the right side of the screen. If you open it and then open the “Line Colors” option, you can change your colors as well.) The blue branches are branches supported by the majority of the tree distribution, while the orange and green branches represent alternate branching patterns.</p>
@@ -347,33 +350,33 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>I have been using the words “probability” and “percentage” interchangeably when talking about the Bayesian posterior tree distribution. Although probability and percentage aren’t usually the same thing, in this case they are. We are estimating the probability of topologies by calculating the percentage of the tree distribution with the desired topology.</p>
 </div>
 </div>
-<div id="networks-in-r" class="section level2" number="22.2">
-<h2><span class="header-section-number">22.2</span> Networks in R</h2>
+<div id="networks-in-r" class="section level2 hasAnchor" number="22.2">
+<h2><span class="header-section-number">22.2</span> Networks in R<a href="visualizing-phylogenetic-networks.html#networks-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>phangorn</code> offers an algorithm called <code>consensusNet</code> to visualize conflicting topological relationships from our data. This algorithm builds networks similar to the Huson example above using previously-generated analyses files.</p>
 <p>We have two options for our input. <code>consensusNet</code> takes a list of trees as the input (which R sees an an object of class <code>multiPhylo</code>), so we can either load the bootstrap trees from the ML analysis or the posterior distribution of trees from the Bayesian analysis. Here we will do both with the grass dataset so we can compare the networks. (Notice that we need to use two different commands to load the trees into R - the two tree files are saved in two separate formats. The ML trees are saved in Newick format, while the Bayesian trees are saved in Nexus format.)</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="visualizing-phylogenetic-networks.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phangorn)</span>
-<span id="cb148-2"><a href="visualizing-phylogenetic-networks.html#cb148-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-3"><a href="visualizing-phylogenetic-networks.html#cb148-3" aria-hidden="true" tabindex="-1"></a>grass.ml <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&quot;grass_ml_bootstrap.tre&quot;</span>)</span>
-<span id="cb148-4"><a href="visualizing-phylogenetic-networks.html#cb148-4" aria-hidden="true" tabindex="-1"></a>grass.bayes <span class="ot">&lt;-</span> <span class="fu">read.nexus</span>(<span class="st">&quot;grass_bayes.trees&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="visualizing-phylogenetic-networks.html#cb145-1" tabindex="-1"></a><span class="fu">library</span>(phangorn)</span>
+<span id="cb145-2"><a href="visualizing-phylogenetic-networks.html#cb145-2" tabindex="-1"></a></span>
+<span id="cb145-3"><a href="visualizing-phylogenetic-networks.html#cb145-3" tabindex="-1"></a>grass.ml <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&quot;grass_ml_bootstrap.tre&quot;</span>)</span>
+<span id="cb145-4"><a href="visualizing-phylogenetic-networks.html#cb145-4" tabindex="-1"></a>grass.bayes <span class="ot">&lt;-</span> <span class="fu">read.nexus</span>(<span class="st">&quot;grass_bayes.trees&quot;</span>)</span></code></pre></div>
 <p>After we load our trees, we run the <code>consensusNet</code> command. This command takes two arguments. The first is the tree file, while the second is the bootstrap value threshold. For this example, we’ll set the threshold at 0.1, meaning we will see all the possible nodes with at least a bootstrap support or posterior density of 0.1.</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="visualizing-phylogenetic-networks.html#cb149-1" aria-hidden="true" tabindex="-1"></a>cnet.ml <span class="ot">&lt;-</span> <span class="fu">consensusNet</span>(grass.ml, .<span class="dv">1</span>)</span>
-<span id="cb149-2"><a href="visualizing-phylogenetic-networks.html#cb149-2" aria-hidden="true" tabindex="-1"></a>cnet.bayes <span class="ot">&lt;-</span> <span class="fu">consensusNet</span>(grass.bayes, .<span class="dv">1</span>)</span>
-<span id="cb149-3"><a href="visualizing-phylogenetic-networks.html#cb149-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb149-4"><a href="visualizing-phylogenetic-networks.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cnet.ml, <span class="at">show.edge.label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="visualizing-phylogenetic-networks.html#cb146-1" tabindex="-1"></a>cnet.ml <span class="ot">&lt;-</span> <span class="fu">consensusNet</span>(grass.ml, .<span class="dv">1</span>)</span>
+<span id="cb146-2"><a href="visualizing-phylogenetic-networks.html#cb146-2" tabindex="-1"></a>cnet.bayes <span class="ot">&lt;-</span> <span class="fu">consensusNet</span>(grass.bayes, .<span class="dv">1</span>)</span>
+<span id="cb146-3"><a href="visualizing-phylogenetic-networks.html#cb146-3" tabindex="-1"></a></span>
+<span id="cb146-4"><a href="visualizing-phylogenetic-networks.html#cb146-4" tabindex="-1"></a><span class="fu">plot</span>(cnet.ml, <span class="at">show.edge.label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="resources/images/12-cnet_ml.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
 <p>We can see there are very few alternate topologies in the bootstrap trees (which we already knew would be the case, given the high bootstrap support in the original ML tree!), but there are a couple of splits. The first suggests that crested wheatgrass is sometimes in a polytomy with medusahead rye and mosquito grass, instead of splitting from that clade earlier. The second split suggests that some trees has Asiatic grass splitting from the main tree as the basal node and sometimes clusters with the crested wheatgrass/medusahead rye/mosquito grass clade. Finally, the last split changes the position of rye.</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="visualizing-phylogenetic-networks.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cnet.bayes, <span class="at">show.edge.label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="visualizing-phylogenetic-networks.html#cb147-1" tabindex="-1"></a><span class="fu">plot</span>(cnet.bayes, <span class="at">show.edge.label=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="resources/images/12-cnet_bayes.png" title="Major point!! example image" alt="Major point!! example image" style="display: block; margin: auto;" /></p>
 <p>There is only one split in the Bayesian network - the placement of Asiatic grass taxon. We have seen this already in the DensiTree diagram, but it does look a bit different in network form. This particular split shows up in both the ML bootstrap network and the Bayesian posterior distribution network.</p>
 <p>We can also add the support values for each split (the bootstrap values for the ML network, or the posterior probabilities for the Bayesian network) by changing the <code>show.edge.label</code> command to equal TRUE. Be careful, though, as this can make the network very difficult to read.</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="visualizing-phylogenetic-networks.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
-<pre><code>## R version 4.0.2 (2020-06-22)
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="visualizing-phylogenetic-networks.html#cb148-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.3.2 (2023-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.5 LTS
+## Running under: Ubuntu 22.04.4 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -383,24 +386,32 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
+## time zone: Etc/UTC
+## tzcode source: system (glibc)
+## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] phangorn_2.5.5 ape_5.4-1     
+## [1] phangorn_2.11.1 ape_5.7-1      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.10     bslib_0.4.2     compiler_4.0.2  pillar_1.9.0   
-##  [5] jquerylib_0.1.4 tools_4.0.2     digest_0.6.25   jsonlite_1.7.1 
-##  [9] evaluate_0.20   lifecycle_1.0.3 tibble_3.2.1    nlme_3.1-149   
-## [13] lattice_0.20-41 pkgconfig_2.0.3 rlang_1.1.0     igraph_1.2.6   
-## [17] fastmatch_1.1-0 Matrix_1.2-18   cli_3.6.1       yaml_2.2.1     
-## [21] parallel_4.0.2  xfun_0.26       fastmap_1.1.1   stringr_1.4.0  
-## [25] knitr_1.33      fs_1.5.0        vctrs_0.6.1     sass_0.4.5     
-## [29] hms_0.5.3       grid_4.0.2      glue_1.4.2      R6_2.4.1       
-## [33] fansi_0.4.1     ottrpal_1.0.1   rmarkdown_2.10  bookdown_0.24  
-## [37] readr_1.4.0     magrittr_2.0.3  htmltools_0.5.5 quadprog_1.5-8 
-## [41] utf8_1.1.4      stringi_1.5.3   cachem_1.0.7</code></pre>
+##  [1] sass_0.4.8       utf8_1.2.4       generics_0.1.3   xml2_1.3.6      
+##  [5] lattice_0.21-9   stringi_1.8.3    hms_1.1.3        digest_0.6.34   
+##  [9] magrittr_2.0.3   grid_4.3.2       evaluate_0.23    timechange_0.3.0
+## [13] bookdown_0.41    fastmap_1.1.1    Matrix_1.6-1.1   rprojroot_2.0.4 
+## [17] jsonlite_1.8.8   processx_3.8.3   chromote_0.3.1   ps_1.7.6        
+## [21] promises_1.2.1   httr_1.4.7       fansi_1.0.6      ottrpal_1.3.0   
+## [25] codetools_0.2-19 jquerylib_0.1.4  cli_3.6.2        rlang_1.1.4     
+## [29] cachem_1.0.8     yaml_2.3.8       parallel_4.3.2   tools_4.3.2     
+## [33] tzdb_0.4.0       dplyr_1.1.4      fastmatch_1.1-4  vctrs_0.6.5     
+## [37] R6_2.5.1         lifecycle_1.0.4  lubridate_1.9.3  snakecase_0.11.1
+## [41] stringr_1.5.1    janitor_2.2.0    pkgconfig_2.0.3  pillar_1.9.0    
+## [45] bslib_0.6.1      later_1.3.2      glue_1.7.0       Rcpp_1.0.12     
+## [49] xfun_0.48        tibble_3.2.1     tidyselect_1.2.0 knitr_1.48      
+## [53] igraph_2.0.2     nlme_3.1-164     htmltools_0.5.7  websocket_1.4.2 
+## [57] rmarkdown_2.25   webshot2_0.1.1   readr_2.1.5      compiler_4.3.2  
+## [61] quadprog_1.5-8   askpass_1.2.0    openssl_2.1.1</code></pre>
 
 </div>
 </div>
