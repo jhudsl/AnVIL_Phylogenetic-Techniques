@@ -4,6 +4,7 @@ Bloomberg
 Datatrail
 DataTrail
 dropdown
+docx
 GDSCN
 Gmail
 impactful
@@ -18,6 +19,7 @@ NHGRI
 OTTR
 ottrpal
 preprint
+Rmd
 UE
 UE5
 reproducibility
