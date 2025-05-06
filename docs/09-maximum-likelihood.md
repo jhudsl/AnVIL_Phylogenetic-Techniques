@@ -157,14 +157,14 @@ fitGTR.G
 ## unconstrained loglikelihood: -20944.97 
 ## Discrete gamma model
 ## Number of rate categories: 4 
-## Shape parameter: 1.196882 
+## Shape parameter: 1.19688 
 ## 
 ## Rate matrix:
 ##           a         c         g         t
-## a 0.0000000 0.4378419 1.6826672 0.7665309
-## c 0.4378419 0.0000000 0.4612305 2.7050204
-## g 1.6826672 0.4612305 0.0000000 1.0000000
-## t 0.7665309 2.7050204 1.0000000 0.0000000
+## a 0.0000000 0.4378420 1.6826685 0.7665308
+## c 0.4378420 0.0000000 0.4612309 2.7050199
+## g 1.6826685 0.4612309 0.0000000 1.0000000
+## t 0.7665308 2.7050199 1.0000000 0.0000000
 ## 
 ## Base frequencies:  
 ##         a         c         g         t 
@@ -192,17 +192,17 @@ fitGTR.G.I
 ## model: GTR+G(4)+I 
 ## loglikelihood: -11945.78 
 ## unconstrained loglikelihood: -20944.97 
-## Proportion of invariant sites: 5.218685e-05 
+## Proportion of invariant sites: 5.218644e-05 
 ## Discrete gamma model
 ## Number of rate categories: 4 
 ## Shape parameter: 1.196526 
 ## 
 ## Rate matrix:
 ##           a         c         g         t
-## a 0.0000000 0.4369735 1.6803298 0.7652378
-## c 0.4369735 0.0000000 0.4602451 2.7015546
-## g 1.6803298 0.4602451 0.0000000 1.0000000
-## t 0.7652378 2.7015546 1.0000000 0.0000000
+## a 0.0000000 0.4369734 1.6803296 0.7652394
+## c 0.4369734 0.0000000 0.4602445 2.7015575
+## g 1.6803296 0.4602445 0.0000000 1.0000000
+## t 0.7652394 2.7015575 1.0000000 0.0000000
 ## 
 ## Base frequencies:  
 ##         a         c         g         t 
@@ -230,7 +230,7 @@ fitK80.I
 ## model: K80+I 
 ## loglikelihood: -12195.32 
 ## unconstrained loglikelihood: -20944.97 
-## Proportion of invariant sites: 0.2632002 
+## Proportion of invariant sites: 0.2632001 
 ## 
 ## Rate matrix:
 ##          a        c        g        t
